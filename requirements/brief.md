@@ -149,9 +149,6 @@ From the kick-off meeting with **Helen Marsh, Library Director**:
   day one."
 - "Emails go out through the city's mail gateway. Nobody at the library
   gets to send email from anywhere else."
-- "Data protection: we may not keep forever who borrowed what. Once a
-  loan is closed and nothing is owed, the link between a person and a
-  book has to go after a while. Legal is still working out how long."
 - "The staff need a simple screen at the desk. Readers need a simple
   page for their account. Nobody needs anything fancy."
 
@@ -182,8 +179,6 @@ Collected in a workshop with staff from all four branches:
 - Can a member with a blocked card collect a reservation made before the
   block?
 - Shorter loan periods for new releases: yes or no?
-- How long may the connection between a person and a returned book be
-  kept?
 
 *This list is certainly not complete.*
 
