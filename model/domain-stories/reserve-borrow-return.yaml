@@ -1,0 +1,82 @@
+apiVersion: schema.esdm.io/domain-storytelling/v1
+kind: domain-story
+name: reserve-borrow-return
+description: A reader reserves a book on the shelf, collects it at the desk, borrows it and brings it back in time. As-is, from the brief (sections 3.2 and 4).
+scope:
+  domain: millbrook-library-tutorial
+pointInTime: as-is
+granularity: fine-grained
+domainPurity: pure
+sentences:
+  - sequenceNumber: 1
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: reservation-of-a-book-on-the-shelf
+        label: asks for
+      - from:
+          workObject: reservation-of-a-book-on-the-shelf
+        to:
+          actor: branch-librarian
+        label: by phone or online to
+  - sequenceNumber: 2
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: puts aside
+      - from:
+          workObject: book
+        to:
+          workObject: place-behind-the-desk-with-the-reader-s-name
+        label: puts behind the desk with the reader's name
+  - sequenceNumber: 3
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: reserved-book
+        label: comes to collect
+      - from:
+          workObject: reserved-book
+        to:
+          actor: branch-librarian
+        label: asks at the desk
+  - sequenceNumber: 4
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: checks out
+      - from:
+          workObject: book
+        to:
+          actor: reader
+        label: hands over for up to 60 days to
+  - sequenceNumber: 5
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: book
+        label: brings back
+      - from:
+          workObject: book
+        to:
+          actor: branch-librarian
+        label: returns at the desk to
+  - sequenceNumber: 6
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: checks in
+      - from:
+          workObject: book
+        to:
+          workObject: shelf
+        label: puts back on the shelf
