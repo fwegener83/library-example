@@ -31,6 +31,12 @@ Two things are worth noticing already:
 - **Time is an actor.** *Reservation Expired* and *Loan Became Overdue* are not done by anybody. Today a librarian prints two lists each morning and works through them. On the board this is the actor **Clock (daily, per branch)**. Later it becomes a system actor and a daily sheet.
 - **The same event is felt in two places.** *Book Declared Lost* is a lending fact and also starts a fee. *Book Found Damaged* ends a loan and also concerns the collection. Cards like these are where boundaries will be argued about.
 
+### Reading the board
+
+The board is arranged as a timeline. Events run from left to right. Hotspots sit **above** the event they concern, and actors, external systems, policies and read models hang **below** it. The order of the events is our reading of the brief, not a fact from it, so a domain expert may well move a card. The arrangement is done with the Studio's `arrange` function and moves cards only. It never changes their content.
+
+A JSON snapshot of the board at the end of this chapter is in [`model/sketch/big-picture.json`](../model/sketch/big-picture.json). It holds cards, tags and connections, but not their positions.
+
 ### Actors and external systems
 
 Actors: Reader/Patron/Member, Researcher, Branch Librarian, Membership Officer, Head of Collection, Treasury Liaison, Clock.
