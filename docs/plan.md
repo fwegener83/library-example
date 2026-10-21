@@ -21,7 +21,7 @@ nichts, was ins Tutorial oder in den Code eingeht.
 
 | Gate | Wann | Was geklärt wird | Status |
 |---|---|---|---|
-| **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | offen |
+| **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
 | **G1 — SDD** | nach Kapitel 4a, **vor jeder Arbeit pro Bounded Context** | Zusammenspiel DDD Studio ↔ Spec Kit: Reihenfolge, Zuschnitt einer Spec, Rollen (§6) | offen |
 | **G2 — Technik** | vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, UI-Technik, Datenbank (§7) | offen |
 | **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | offen |
@@ -258,18 +258,20 @@ fehlschlagende Tests, CI-Prüfungen (jedes Szenario hat einen Test; Module
 ```
 library-example/
 ├── README.md
+├── CLAUDE.md                    # Regeln für Claude Code (Session-übergreifend)
+├── .claude/skills/              # Skills, z. B. close-chapter
 ├── requirements/brief.md        # Kapitel 0
+├── chapters/NN-*.md             # die Kapitel
 ├── model/                       # ESDM-Exporte, Stories, Sketch-Exporte
 ├── docs/
 │   ├── plan.md                  # dieses Dokument
 │   ├── decisions/               # Entscheidungsvorlagen der Gates
-│   ├── tutorial/NN-*.md         # die Kapitel
 │   └── adr/
 ├── .specify/ · specs/           # Spec Kit — Struktur nach G1
 └── src/…                        # nach G2
 ```
 
-Git-Tags pro Kapitel; Studio-Workspace mit gleichnamigen Versionen;
+Git-Tags pro Kapitel (werden nachträglich gesetzt, siehe §12); Studio-Workspace mit gleichnamigen Versionen;
 öffentlicher Read-only-Link pro Stand.
 
 ---
@@ -326,3 +328,56 @@ Exemplar meldet (das ist die eine Überquerung). `lending` merkt ihn sich in
 seinem eigenen `book` und prüft dann gegen die eigene Kopie der Tatsache —
 niemand von außen kann sie verfälschen. Die Frage für G3: Übernehmen wir
 die Alternative, und was bedeutet das für die Szenarien?
+
+---
+
+## 12. Kapitelstand und Tags
+
+Jedes Kapitel ist ein eigener Branch mit einem PR, gemergt als
+**Merge-Commit** (kein Squash). Die Tags `chapter-NN` setzen wir
+nachträglich in einem Rutsch auf die Commits dieser Tabelle. In der
+Cloud-Umgebung von Claude Code lassen sich Tags nicht pushen (403); sie
+werden im Browser über GitHub Releases oder lokal angelegt.
+
+| Tag | Kapitel | Branch / PR | Commit auf `main` | Studio-Versionen |
+|---|---|---|---|---|
+| `chapter-00` | The brief | `chapter-00-brief` (#1) | `a0eb886` (Squash) | — |
+| `chapter-01` | Big Picture Event Storming | `chapter-01-big-picture` (#2), Korrekturen #4 | `8ac11b4` | `ch1-big-picture-v2` |
+| `chapter-02` | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
+
+Hinweis: `chapter-00` zeigt auf den Squash-Commit von PR #1, weil diese
+Regel erst danach galt. Ab Kapitel 1 sind es Merge-Commits.
+
+Beim Taggen später: `git tag chapter-01 8ac11b4 && git push origin chapter-01`
+(lokal mit Schreibrecht für Tags).
+
+## 13. Regeln für die Arbeit mit Claude Code
+
+Die Arbeitsregeln stehen in `CLAUDE.md` (immer geladen) und im Skill
+`.claude/skills/close-chapter/` (Ablauf zum Abschluss eines Kapitels,
+Prüfliste für Domain Stories und Big Picture). Wer die Regeln ändern will,
+ändert diese Dateien, nicht nur dieses Gespräch.
+
+## 14. Selbstverbesserndes Vorgehen
+
+Ziel: Du musst nicht daran denken, ob die Regeln greifen. Dafür gibt es
+drei Mechanismen, alle im Repo:
+
+1. **Skript** `scripts/check_repo.py` prüft, was sich maschinell prüfen
+   lässt: Links, README und Kapitelstand, Snapshot-Header und
+   `eventOrder`, verwaiste Karten, fehlende `src:`-, `hotspot:`- und
+   `rule:`-Tags, Zahlen in Work-Object-Namen. Fehler brechen den
+   Kapitelabschluss ab, Warnungen kommen in die Rules-Audit.
+2. **Rules-Audit** in jedem Kapitel-PR: welche Prüfungen liefen, was kam
+   heraus, was wurde behoben, was bleibt offen. Ein PR ohne Audit ist nicht
+   „ready".
+3. **Retrospektive** am Kapitelende: Jeder Fund (von mir, vom Review, von
+   dir) führt zu einer Frage — welche Regel oder welche Prüfung hätte ihn
+   früher gefunden? Sie kommt im selben PR in `CLAUDE.md`, `checks.md`
+   oder ins Skript. Regeln, die nicht geholfen haben, fliegen raus.
+
+Grenze: Ob ein Satz gut klingt oder ein Schnitt fachlich stimmt, prüft kein
+Skript. Dafür bleiben die Prüfliste und der unabhängige Review. Ob die
+Regeln wirken, zeigt sich an der Rules-Audit von Kapitel 3: Fehlt sie oder
+ist sie oberflächlich, ist das ein Fehler von mir.
+
