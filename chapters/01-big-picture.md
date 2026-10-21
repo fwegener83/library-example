@@ -51,7 +51,10 @@ External systems, none of which we control: **National ISBN Service**, **CityPay
 
 Six rules were spoken aloud in the interviews, and they are not all the same kind of thing. A **policy** in Event Storming reads "whenever *this event* happens, then *do that*". An **invariant** is a rule that must hold at the moment something is decided, such as "at most five reservations per ordinary reader". It does not react to anything. It says no.
 
-Only one of the six is a policy: *when a member owes more than €10, block the card* (whenever a fine pushes the total over the limit, then block). The other five are invariants. They guard an event ("only a copy on the shelf can be reserved" guards *Book Reserved*) and are tagged `rule:invariant`. The Studio palette has no separate card for invariants, so we borrow the policy card and keep the tag. In the model later, invariants end up on the aggregate that decides, and the one policy becomes a real policy.
+Only one of the six is a policy: *when a member owes more than €10, block the card* (whenever a fine pushes the total over the limit, then block). The other five are invariants. They guard an event ("only a copy on the shelf can be reserved" guards *Book Reserved*) and are tagged `rule:invariant`. The Studio palette has no separate card for invariants, so we borrow the policy card and keep the tag.
+
+> **Make the tool fit your method.** If you would rather see invariants as their own card, DDD Studio lets you define **custom kinds** for a workspace (a card kind with its own name, sections and a short description of what it is for). Define an "Invariant" kind, and the five rule cards can have their own look instead of a tag on a borrowed card. The same works for arrow kinds (for example "guards" and "feeds" instead of plain labels) and for areas. We kept the tag here to stay on the stock palette, but this is exactly the kind of adjustment the tool is meant for.
+ In the model later, invariants end up on the aggregate that decides, and the one policy becomes a real policy.
 
 Even the policy has a gap. In the brief a person blocks the card, and the policy has no actor that notices (chapter 2 comes back to this).
 
