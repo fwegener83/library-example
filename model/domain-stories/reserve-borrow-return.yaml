@@ -13,38 +13,26 @@ sentences:
       - from:
           actor: reader
         to:
-          workObject: reservation-of-a-book-on-the-shelf
-        label: asks for
+          workObject: reservation
+        label: phones in
       - from:
-          workObject: reservation-of-a-book-on-the-shelf
+          workObject: reservation
         to:
           actor: branch-librarian
-        label: by phone or online to
+        label: to
   - sequenceNumber: 2
     edges:
       - from:
           actor: branch-librarian
         to:
           workObject: book
-        label: puts aside
+        label: puts aside behind the desk
       - from:
           workObject: book
         to:
-          workObject: place-behind-the-desk-with-the-reader-s-name
-        label: puts behind the desk with the reader's name
-  - sequenceNumber: 3
-    edges:
-      - from:
           actor: reader
-        to:
-          workObject: reserved-book
-        label: comes to collect
-      - from:
-          workObject: reserved-book
-        to:
-          actor: branch-librarian
-        label: asks at the desk
-  - sequenceNumber: 4
+        label: for
+  - sequenceNumber: 3
     edges:
       - from:
           actor: branch-librarian
@@ -55,8 +43,8 @@ sentences:
           workObject: book
         to:
           actor: reader
-        label: hands over for up to 60 days to
-  - sequenceNumber: 5
+        label: to
+  - sequenceNumber: 4
     edges:
       - from:
           actor: reader
@@ -67,16 +55,18 @@ sentences:
           workObject: book
         to:
           actor: branch-librarian
-        label: returns at the desk to
-  - sequenceNumber: 6
+        label: to
+  - sequenceNumber: 5
     edges:
       - from:
           actor: branch-librarian
         to:
           workObject: book
         label: checks in
+  - sequenceNumber: 6
+    edges:
       - from:
-          workObject: book
+          actor: branch-librarian
         to:
-          workObject: shelf
+          workObject: book
         label: puts back on the shelf

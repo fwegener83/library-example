@@ -25,13 +25,13 @@ sentences:
       - from:
           actor: branch-librarian
         to:
-          workObject: overdue-book
-        label: calls about
+          workObject: reminder-call
+        label: makes
       - from:
-          workObject: overdue-book
+          workObject: reminder-call
         to:
           actor: reader
-        label: phones
+        label: to
   - sequenceNumber: 3
     edges:
       - from:
@@ -43,44 +43,51 @@ sentences:
           workObject: overdue-book
         to:
           actor: branch-librarian
-        label: gives back to
+        label: to
   - sequenceNumber: 4
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: overdue-book
+        label: checks in
+      - from:
+          workObject: overdue-book
+        to:
+          actor: libtrack
+        label: in
+  - sequenceNumber: 5
     edges:
       - from:
           actor: libtrack
         to:
-          workObject: late-fine-0-50-per-day-up-to-the-price
+          workObject: late-fine
         label: calculates
-      - from:
-          workObject: late-fine-0-50-per-day-up-to-the-price
-        to:
-          actor: branch-librarian
-        label: shows to
-  - sequenceNumber: 5
+  - sequenceNumber: 6
     edges:
       - from:
           actor: membership-officer
         to:
-          workObject: library-card-owes-more-than-10
+          workObject: library-card
         label: blocks
       - from:
-          workObject: library-card-owes-more-than-10
+          workObject: library-card
         to:
           actor: reader
         label: of
-  - sequenceNumber: 6
+  - sequenceNumber: 7
     edges:
       - from:
           actor: reader
         to:
           workObject: fine
-        label: pays at the desk
+        label: pays
       - from:
           workObject: fine
         to:
           actor: branch-librarian
-        label: pays
-  - sequenceNumber: 7
+        label: at the desk to
+  - sequenceNumber: 8
     edges:
       - from:
           actor: branch-librarian
@@ -92,7 +99,7 @@ sentences:
         to:
           actor: citypay
         label: into the web portal of
-  - sequenceNumber: 8
+  - sequenceNumber: 9
     edges:
       - from:
           actor: membership-officer
