@@ -24,6 +24,23 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   brief (`requirements/brief.md`). Every claim needs a source or is marked
   as inferred or to-be.
 
+## Self-improving process
+
+The maintainer does not want to watch whether these rules are followed. So:
+
+- **Before showing a chapter**, run `python3 scripts/check_repo.py` and
+  the `close-chapter` skill. Fix failures. Report warnings.
+- **Show the audit.** Every chapter PR has a "Rules audit" section: which
+  checks ran, what they found, what was fixed, what stays open. No audit,
+  no "ready".
+- **Learn from every correction.** When the maintainer, a review or a
+  script finds a mistake, ask which rule would have caught it. Add that
+  rule (here, in `checks.md`, or as a check in the script) in the same PR
+  and say so in the PR text.
+- **Keep the rules honest.** If a rule did not help or got in the way,
+  change or remove it, and say why.
+- **Gaps in DDD Studio** go into `docs/tool-gaps.md`.
+
 ## Git workflow
 
 - One branch and one draft PR per chapter (`chapter-NN-topic`). Merge with

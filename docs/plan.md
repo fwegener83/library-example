@@ -357,3 +357,27 @@ Die Arbeitsregeln stehen in `CLAUDE.md` (immer geladen) und im Skill
 `.claude/skills/close-chapter/` (Ablauf zum Abschluss eines Kapitels,
 Prüfliste für Domain Stories und Big Picture). Wer die Regeln ändern will,
 ändert diese Dateien, nicht nur dieses Gespräch.
+
+## 14. Selbstverbesserndes Vorgehen
+
+Ziel: Du musst nicht daran denken, ob die Regeln greifen. Dafür gibt es
+drei Mechanismen, alle im Repo:
+
+1. **Skript** `scripts/check_repo.py` prüft, was sich maschinell prüfen
+   lässt: Links, README und Kapitelstand, Snapshot-Header und
+   `eventOrder`, verwaiste Karten, fehlende `src:`-, `hotspot:`- und
+   `rule:`-Tags, Zahlen in Work-Object-Namen. Fehler brechen den
+   Kapitelabschluss ab, Warnungen kommen in die Rules-Audit.
+2. **Rules-Audit** in jedem Kapitel-PR: welche Prüfungen liefen, was kam
+   heraus, was wurde behoben, was bleibt offen. Ein PR ohne Audit ist nicht
+   „ready".
+3. **Retrospektive** am Kapitelende: Jeder Fund (von mir, vom Review, von
+   dir) führt zu einer Frage — welche Regel oder welche Prüfung hätte ihn
+   früher gefunden? Sie kommt im selben PR in `CLAUDE.md`, `checks.md`
+   oder ins Skript. Regeln, die nicht geholfen haben, fliegen raus.
+
+Grenze: Ob ein Satz gut klingt oder ein Schnitt fachlich stimmt, prüft kein
+Skript. Dafür bleiben die Prüfliste und der unabhängige Review. Ob die
+Regeln wirken, zeigt sich an der Rules-Audit von Kapitel 3: Fehlt sie oder
+ist sie oberflächlich, ist das ein Fehler von mir.
+

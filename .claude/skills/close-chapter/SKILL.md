@@ -7,6 +7,8 @@ description: Finish a tutorial chapter in library-example. Use when a chapter's 
 
 Work through these in order. Stop and report if a step fails. Do not merge.
 
+0. **Run the script**: `python3 scripts/check_repo.py`. Fix every FAIL. Keep
+   the WARN lines for the audit.
 1. **Check the boards** against `checks.md` in this folder (Domain Story
    and Big Picture checks). Fix what fails on the board, not only in the
    text.
@@ -31,7 +33,12 @@ Work through these in order. Stop and report if a step fails. Do not merge.
 8. **Independent review.** Ask for a review that did not write the
    chapter (for example `/code-review` or a fresh agent that gets only the
    files). Fix findings before presenting.
-9. **Commit** on `chapter-NN-topic`, push, open a **draft** PR with a
-   short summary. Tell the maintainer what to review and what is still
+9. **Retrospective.** List what was found in steps 0 to 8 or by the
+   maintainer. For each finding, decide which rule or check would have
+   caught it earlier, and add it to `CLAUDE.md`, `checks.md` or
+   `scripts/check_repo.py`. Remove rules that did not help.
+10. **Commit** on `chapter-NN-topic`, push, open a **draft** PR with a
+   short summary and a **Rules audit** section (checks run, results, fixes,
+   open warnings, rules added or changed). Tell the maintainer what to review and what is still
    open. Wait for their approval before marking ready and merging with a
    merge commit.
