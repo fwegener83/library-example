@@ -145,7 +145,7 @@ im Event Storming naheliegt, aber nicht offensichtlich ist.
 | 0 | **The brief** — Anforderungsdokument der Stadtbibliothek: Interviewnotizen, absichtlich lückenhaft, mit Synonymen und Widersprüchen | Text | `requirements/brief.md` |
 | | **→ Gate G0** | | |
 | 1 | **Big Picture Event Storming** — Exploration, Zeitleiste, Schlüsselereignisse, Hotspots, Akteure, externe Systeme | Sketch Board | `model/sketch/…`, Screenshots |
-| 2 | **Domain Stories** — 2–3 Kernprozesse; Sprachkonflikte klären | Domain Stories | `model/stories/…` |
+| 2 | **Domain Stories** — 2–3 Kernprozesse; Sprachkonflikte klären | Domain Stories | `model/domain-stories/…` |
 | 3 | **Strategic design** — Subdomains, Bounded Contexts, Glossar, Context Map mit Mustern, Teamzuordnung; verworfene Partnership-Hypothese | Context Map, Glossar | `model/library.esdm.yaml` (strategisch) |
 | 4a | **Deployment decision** — Modulith, Modul = BC, Integrationsregeln als ADRs | ADRs | `docs/adr/…` |
 

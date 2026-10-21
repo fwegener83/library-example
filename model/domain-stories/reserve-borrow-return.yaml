@@ -1,0 +1,72 @@
+apiVersion: schema.esdm.io/domain-storytelling/v1
+kind: domain-story
+name: reserve-borrow-return
+description: A reader reserves a book on the shelf, collects it at the desk, borrows it and brings it back in time. As-is, from the brief (sections 3.2 and 4).
+scope:
+  domain: millbrook-library-tutorial
+pointInTime: as-is
+granularity: fine-grained
+domainPurity: pure
+sentences:
+  - sequenceNumber: 1
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: reservation
+        label: phones in
+      - from:
+          workObject: reservation
+        to:
+          actor: branch-librarian
+        label: to
+  - sequenceNumber: 2
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: puts aside behind the desk
+      - from:
+          workObject: book
+        to:
+          actor: reader
+        label: for
+  - sequenceNumber: 3
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: checks out
+      - from:
+          workObject: book
+        to:
+          actor: reader
+        label: to
+  - sequenceNumber: 4
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: book
+        label: brings back
+      - from:
+          workObject: book
+        to:
+          actor: branch-librarian
+        label: to
+  - sequenceNumber: 5
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: checks in
+  - sequenceNumber: 6
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: book
+        label: puts back on the shelf

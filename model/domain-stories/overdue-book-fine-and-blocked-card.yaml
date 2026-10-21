@@ -1,0 +1,113 @@
+apiVersion: schema.esdm.io/domain-storytelling/v1
+kind: domain-story
+name: overdue-book-fine-and-blocked-card
+description: A loan becomes overdue, the reader is called, returns the book, owes a fine, is blocked, pays through CityPay and is unblocked. As-is with LibTrack and CityPay, from the brief (sections 3.2 to 3.4 and 4).
+scope:
+  domain: millbrook-library-tutorial
+pointInTime: as-is
+granularity: fine-grained
+domainPurity: digitalized
+sentences:
+  - sequenceNumber: 1
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: list-of-overdue-loans
+        label: prints every morning
+      - from:
+          workObject: list-of-overdue-loans
+        to:
+          actor: libtrack
+        label: from
+  - sequenceNumber: 2
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: reminder-call
+        label: makes
+      - from:
+          workObject: reminder-call
+        to:
+          actor: reader
+        label: to
+  - sequenceNumber: 3
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: overdue-book
+        label: brings back
+      - from:
+          workObject: overdue-book
+        to:
+          actor: branch-librarian
+        label: to
+  - sequenceNumber: 4
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: overdue-book
+        label: checks in
+      - from:
+          workObject: overdue-book
+        to:
+          actor: libtrack
+        label: in
+  - sequenceNumber: 5
+    edges:
+      - from:
+          actor: libtrack
+        to:
+          workObject: late-fine
+        label: calculates
+  - sequenceNumber: 6
+    edges:
+      - from:
+          actor: membership-officer
+        to:
+          workObject: library-card
+        label: blocks
+      - from:
+          workObject: library-card
+        to:
+          actor: reader
+        label: of
+  - sequenceNumber: 7
+    edges:
+      - from:
+          actor: reader
+        to:
+          workObject: fine
+        label: pays
+      - from:
+          workObject: fine
+        to:
+          actor: branch-librarian
+        label: at the desk to
+  - sequenceNumber: 8
+    edges:
+      - from:
+          actor: branch-librarian
+        to:
+          workObject: payment
+        label: types in by hand
+      - from:
+          workObject: payment
+        to:
+          actor: citypay
+        label: into the web portal of
+  - sequenceNumber: 9
+    edges:
+      - from:
+          actor: membership-officer
+        to:
+          workObject: library-card
+        label: unblocks
+      - from:
+          workObject: library-card
+        to:
+          actor: reader
+        label: of

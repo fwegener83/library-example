@@ -11,8 +11,8 @@ modelled with [DDD Studio](https://ddd-studio.dev).
 | Chapter | Topic | Status |
 |---|---|---|
 | 0 | [The brief](requirements/brief.md) | done |
-| 1 | [Big Picture Event Storming](chapters/01-big-picture.md) | draft |
-| 2 | Domain Stories | planned |
+| 1 | [Big Picture Event Storming](chapters/01-big-picture.md) | done |
+| 2 | [Domain Stories](chapters/02-domain-stories.md) | draft |
 | 3 | Strategic design and the context map | planned |
 | 4 | Deployment decision | planned |
 
