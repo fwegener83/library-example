@@ -10,7 +10,7 @@ The Big Picture shows *what happens*, all at once and in no particular order. A 
 
 A sentence has the shape **actor – activity – work object – (preposition) – actor**. "Branch Librarian checks out Book to Reader" is one sentence. Reading a story aloud is the test: if a sentence sounds odd, or a domain expert says "no, that is not how we do it", the story is wrong, and that is useful to know. One sentence carries one activity, and work objects have plain names ("late fine", not "late fine of 50 cents per day"), because every rule in a name hides a second question.
 
-We tell each story on purpose as **one happy path**. Rules, limits and exceptions (five reservations, researchers, per-branch counts, expiry, the 60 days, the €10) stay out. They live on the Big Picture as policies and hotspots and will come back as scenarios in later chapters.
+We tell each story on purpose as **one happy path**. Rules, limits and exceptions (five reservations, researchers, per-branch counts, expiry, the 60 days, the €10) stay out. They live on the Big Picture as invariants (rules that guard an event), as one policy and as hotspots, and will come back as scenarios in later chapters.
 
 A caveat: in real Domain Storytelling the stories are told *by* the people who do the work. Ours are written from the brief, so they are our best reading and nothing more. Every sentence is a question to the business.
 
