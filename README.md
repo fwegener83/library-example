@@ -13,7 +13,7 @@ modelled with [DDD Studio](https://ddd-studio.dev).
 | 0 | [The brief](requirements/brief.md) | done |
 | 1 | [Big Picture Event Storming](chapters/01-big-picture.md) | done |
 | 2 | [Domain Stories](chapters/02-domain-stories.md) | done |
-| 3 | [Strategic design](chapters/03-strategic-design.md) | in review |
+| 3 | [Strategic design](chapters/03-strategic-design.md) | done |
 | 4 | Deployment decision | planned |
 
 The working plan (in German) is in [`docs/plan.md`](docs/plan.md).
