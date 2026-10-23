@@ -98,3 +98,16 @@ creation, so get them right at creation.
   as "which gate would own this word?".
 - A claim that something can be changed or split later names what that
   costs (failure handling, retries), not only what stays.
+
+## ADRs (`docs/adr/`, Nygard format, checked by the script)
+
+- Title `# N. <decision>`, then Date, Status, Context, Decision,
+  Consequences. Alternatives go into Context, rules into Decision,
+  effects into Consequences.
+- Status is one of `Proposed`, `Accepted`, `Deprecated`,
+  `Superseded by N`. "Needs a choice" goes into the index and the chapter,
+  not into the status.
+- Write a record only when there is something concrete to decide. A rule
+  for things that do not exist yet (no event specified) is a line in an
+  existing record, not a record of its own. (ADR 9 was written and
+  withdrawn in chapter 4 for this reason.)

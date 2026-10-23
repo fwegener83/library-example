@@ -109,6 +109,15 @@ if adr_dir.exists():
     for adr in sorted(adr_dir.glob("0*.md")):
         if adr.name not in adr_index:
             err(f"docs/adr/README.md does not list {adr.name}")
+        text = adr.read_text()
+        number = int(adr.name[:4])
+        if not re.match(rf"# {number}\. \S", text):
+            err(f"{adr.name}: title must be '# {number}. <decision>' (Nygard)")
+        for section in ("## Status", "## Context", "## Decision", "## Consequences"):
+            if f"\n{section}\n" not in text:
+                err(f"{adr.name}: missing section '{section}' (Nygard)")
+        if "We will" not in text.split("## Decision", 1)[-1].split("## Consequences", 1)[0]:
+            warn(f"{adr.name}: decision is not phrased as 'We will ...'")
 
 # the context map must not contain a circle (downstream depends on upstream)
 deps = {}
