@@ -87,6 +87,11 @@ creation, so get them right at creation.
   is open.
 - A record that changes an earlier chapter says which chapter, and the
   chapter is corrected in the same pull request.
+- A record or clarification that changes a rule is checked against the
+  **boards** too: every card that states the old rule is updated or gets
+  a hotspot pointing to the record, in the same pull request. (After
+  ADR 5 the Big Picture still showed "block the card" orders and the
+  money threshold in `membership`; found by `challenge-context-cut`.)
 
 ## Proposals and decisions (every chapter)
 

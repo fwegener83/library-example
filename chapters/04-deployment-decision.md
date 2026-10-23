@@ -52,6 +52,8 @@ ADR 5 keeps the rejected options with their reasons: plain block orders, `member
 
 The context map in Studio, both glossaries, the mapping and chapter 3 are updated. The check script no longer reports a circle.
 
+> **Challenging the cut.** Both mistakes were found late, so before anything is built on the cut we added a skill that challenges it: [`challenge-context-cut`](../.claude/skills/challenge-context-cut/SKILL.md). A fresh agent, which knows only the files, reads the contexts, glossaries and the map through six lenses (purpose, language, owner of each rule, dependencies, scenarios, patterns) and reports findings with evidence and alternatives. It changes nothing; the maintainer decides. Run on the state at the end of chapter 3, it found the circle, the missing owner of the €10 rule, the money word in `membership` and the unblock that lifts someone else's block. Run on the state after this chapter, it found seven open points, among them a board that still shows the rejected block orders. The [reports and the limits of this test](../docs/reviews/README.md) are in `docs/reviews/`.
+
 ## What we take with us
 
 - The four modules and their allowed dependencies are known. The order is: `catalogue` and `membership` first, then `lending`, then `fees`.
