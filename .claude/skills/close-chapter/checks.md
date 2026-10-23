@@ -107,6 +107,14 @@ creation, so get them right at creation.
 - Status is one of `Proposed`, `Accepted`, `Deprecated`,
   `Superseded by N`. "Needs a choice" goes into the index and the chapter,
   not into the status.
+- A record that moves a business rule between contexts, or turns an
+  arrow on the context map, first names whose rule it is and cites the
+  clarification that decided it. The technical reason (a circle, a
+  check) comes second. (The first ADR 5 argued from the circle alone and
+  picked the arrow that was easiest to turn; C-19 came only in review.)
+- Read each glossary for words of another context. If `membership`
+  defines a word through an amount of money, money has leaked in.
+  (The block definition used "amount owed" from `fees` until ADR 5.)
 - Write a record only when there is something concrete to decide. A rule
   for things that do not exist yet (no event specified) is a line in an
   existing record, not a record of its own. (ADR 9 was written and

@@ -1,0 +1,14 @@
+apiVersion: schema.esdm.io/core/v1
+kind: context-mapping
+name: membership-fees-customer-supplier
+description: 'The 10 euro rule belongs to fees (C-19): fees decides when a reader is in arrears and places or lifts the hold "unpaid fees" on the member''s card. Membership owns the card and its holds (a card with at least one hold is blocked) and knows nothing about money. What fees negotiates: placing and lifting its own hold, never another one. ADR 5.'
+type: customer-supplier
+supplier:
+  domain: millbrook-library-tutorial
+  boundedContext: membership
+customer:
+  domain: millbrook-library-tutorial
+  boundedContext: fees
+metadata:
+  annotations:
+    studio.id: d8b597ae-2818-46e6-b3e8-f7437e89d20f

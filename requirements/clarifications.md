@@ -189,6 +189,41 @@ moment it has to be decided).
   use `amount owed`.
 - **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted (option 1).
 
+## A2. Questions that came up in chapter 4
+
+### C-19 Whose rule is the €10 block?
+
+- **Source:** brief §3.3 ("We block a card when someone owes more than
+  €10 in fines … When they pay, we unblock."), §2 ("Fines … exist so
+  that books come back"); C-01 (decided: automatic). The brief does not
+  say who "we" is. Today the Membership Officer carries the block out by
+  hand, which says who does the work, not whose rule it is.
+- **Why now:** ADR 5. The rule links two contexts: the reason is money
+  (`fees`), the effect is on the card (`membership`). Whoever owns the
+  rule holds the policy, and the dependency between the two modules
+  follows from that. Chapter 4 first argued from the dependency circle
+  alone, which is the wrong order: the owner of the rule comes first,
+  the technical structure follows.
+- **Options:**
+  1. **The rule belongs to the finance side.** `fees` decides when a
+     reader is *in arrears* and places a hold "unpaid fees" on the card;
+     it lifts the hold when the amount owed is €10 or less again.
+     `membership` owns the card and its holds and knows nothing about
+     money. A card with at least one hold is blocked; nobody lifts a
+     hold placed by someone else.
+  2. **The rule belongs to the membership office.** `fees` only reports
+     the amount owed; `membership` holds the €10 threshold and decides.
+     `membership` then has to understand amounts of money.
+- **Recommendation:** option 1. The purpose of the rule is that books
+  come back and fees are paid; that is the agenda of `fees`. The card
+  stays the business of `membership`. The hold keeps the reasons apart:
+  in the first release there is only one (C-01 found no other reason to
+  block in the brief), but the rule "whoever placed a hold lifts it"
+  means a second reason, say a manual one by the Membership Officer,
+  cannot be undone by a payment.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the
+  library): recommendation accepted (option 1).
+
 ---
 
 ## B. Answered by the brief (confirm only)

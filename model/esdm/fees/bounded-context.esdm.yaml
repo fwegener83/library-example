@@ -14,7 +14,7 @@ ubiquitousLanguage:
   - term: late fine
     definition: 'What a reader owes for a loan returned late: per day from the day after the due date, never more than the replacement price.'
   - term: running fine
-    definition: The late fine so far on a loan that is still out. Not yet assessed, but counted towards the block (C-03).
+    definition: The late fine so far on a loan that is still out. Not yet assessed, but counted towards arrears (C-03).
   - term: assessed fine
     definition: The late fine fixed when the book comes back (C-03).
   - term: lost-book fee
@@ -26,7 +26,9 @@ ubiquitousLanguage:
   - term: waiver
     definition: A fine or fee that is not collected.
   - term: amount owed
-    definition: 'Everything charged to a reader and neither paid nor waived: fines, lost-book fees and usage fees. Above 10 euro it blocks the card (C-18).'
+    definition: 'Everything charged to a reader and neither paid nor waived, plus running fines: late fines, lost-book fees and usage fees (C-18).'
+  - term: arrears
+    definition: A reader is in arrears while the amount owed is above 10 euro. Fees then holds the reader's card through membership and lifts the hold when the amount owed is 10 euro or less (C-01, C-19).
 metadata:
   labels:
     src: brief-3.4
