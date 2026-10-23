@@ -153,6 +153,24 @@ moment it has to be decided).
   - *Patron* (LibTrack's word) is not used.
 - **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
+### C-17 Damaged copies: what is the library's own follow-up in the first release?
+
+- **Source:** C-06 (decided: a damaged copy is marked and not lendable;
+  "the collection decides to repair or withdraw it").
+- **Why now:** the follow-up (repair, withdraw, back on the shelf) is a
+  second crossing between lending and collection, in the opposite
+  direction to registration. Modelled in full it turns the one-way
+  relationship into a two-way one.
+- **Options:**
+  1. First release: lending marks the copy damaged and lists it for the
+     Head of Collection. Repair and withdrawal happen outside the system
+     and the copy is released by hand.
+  2. First release: collection owns the copy's condition and lending
+     reacts to it.
+- **Recommendation:** option 1. The brief says nothing about repair or
+  withdrawal. Option 2 is a later increment.
+- **Status:** proposed
+
 ---
 
 ## B. Answered by the brief (confirm only)
