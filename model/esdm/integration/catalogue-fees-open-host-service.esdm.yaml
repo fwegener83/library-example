@@ -1,0 +1,14 @@
+apiVersion: schema.esdm.io/core/v1
+kind: context-mapping
+name: catalogue-fees-open-host-service
+description: 'Fees needs the replacement price of a title: for the lost-book fee and as the cap on late fines (brief 3.4). Same service as for lending.'
+type: open-host-service
+host:
+  domain: millbrook-library-tutorial
+  boundedContext: catalogue
+consumer:
+  domain: millbrook-library-tutorial
+  boundedContext: fees
+metadata:
+  annotations:
+    studio.id: a6736674-94f8-401b-9fd0-e6b72402d61d

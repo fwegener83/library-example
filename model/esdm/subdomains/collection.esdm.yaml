@@ -1,0 +1,11 @@
+apiVersion: schema.esdm.io/core/v1
+kind: subdomain
+name: collection
+scope:
+  domain: millbrook-library-tutorial
+type: supporting
+boundedContexts:
+  - catalogue
+metadata:
+  annotations:
+    studio.id: cde396f8-6faf-4097-96f6-c82c2ea34c50

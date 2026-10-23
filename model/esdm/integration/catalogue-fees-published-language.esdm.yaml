@@ -1,0 +1,14 @@
+apiVersion: schema.esdm.io/core/v1
+kind: context-mapping
+name: catalogue-fees-published-language
+description: Same catalogue events and price field that lending uses; fees reads only the price.
+type: published-language
+publisher:
+  domain: millbrook-library-tutorial
+  boundedContext: catalogue
+consumer:
+  domain: millbrook-library-tutorial
+  boundedContext: fees
+metadata:
+  annotations:
+    studio.id: 512480c8-cf64-4d01-b92e-3f41bf16d9e2

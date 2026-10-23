@@ -1,0 +1,11 @@
+apiVersion: schema.esdm.io/core/v1
+kind: subdomain
+name: fines-and-payments
+scope:
+  domain: millbrook-library-tutorial
+type: supporting
+boundedContexts:
+  - fees
+metadata:
+  annotations:
+    studio.id: d210f24d-6b15-4e27-a9a5-2409f5d16980

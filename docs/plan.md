@@ -344,6 +344,7 @@ werden im Browser über GitHub Releases oder lokal angelegt.
 | `chapter-00` | The brief | `chapter-00-brief` (#1) | `a0eb886` (Squash) | — |
 | `chapter-01` | Big Picture Event Storming | `chapter-01-big-picture` (#2), Korrekturen #4 | `8ac11b4` | `ch1-big-picture-v2` |
 | `chapter-02` | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
+| `chapter-03` | Strategic design | `chapter-03-strategic-design` | (nach Merge) | `ch3-before-clarifications`, `ch3-context-cut-v2`, `ch3-context-map-v2` |
 
 Hinweis: `chapter-00` zeigt auf den Squash-Commit von PR #1, weil diese
 Regel erst danach galt. Ab Kapitel 1 sind es Merge-Commits.

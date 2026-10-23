@@ -1,0 +1,6 @@
+apiVersion: schema.esdm.io/core/v1
+kind: domain
+name: millbrook-library-tutorial
+metadata:
+  annotations:
+    studio.id: c037529e-c919-4e8f-a29f-3ed719a2ec3d

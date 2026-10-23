@@ -48,3 +48,30 @@ creation, so get them right at creation.
 - A rejected proposal stays in the entry, with the reason.
 - Every decision says who made it and when, and that it is a
   clarification, not the brief.
+
+## Strategic design (contexts, map, glossary)
+
+- Each context has a stated reason: a language break, a different decider,
+  or a different pace. "It is a team" or "it is a theme" is not enough.
+- Each mapping has a description that says *why* this pattern, and the
+  pattern fits the reason (an open host service for the consumer count
+  alone is not a reason; a negotiation is customer-supplier).
+- Every arrow that leaves an area on the board has a mapping, and every
+  mapping has an arrow. Cards of one kind that react to the same events
+  (block and unblock) sit in the same area, or the text says why not.
+- Claims about "events only", "no call back" and similar in the prose
+  match the mapping descriptions word for word.
+- Whatever a rejected alternative is said to cause is spelled out
+  correctly (partnership, shared kernel).
+
+## Prose against board and brief (every chapter)
+
+- Every quotation is copied word for word from the brief. Search for it;
+  do not write it from memory. (The independent review found three
+  altered quotes in chapter 3. A script check for this produced twelve
+  false alarms on examples and was removed.)
+- Every number or count in the text ("a third of", "five events") is
+  counted on the board or in the export. No estimated numbers.
+- If the text says "all X carry tag Y", count them in the snapshot.
+- Do not refer to hotspots by number; refer to them by their question.
+  Numbers drift between chapters.

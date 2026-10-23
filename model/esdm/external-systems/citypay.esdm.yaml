@@ -1,0 +1,9 @@
+apiVersion: schema.esdm.io/core/v1
+kind: external-system
+name: citypay
+scope:
+  domain: millbrook-library-tutorial
+direction: bidirectional
+metadata:
+  annotations:
+    studio.id: 5c09ca54-5e4f-4b73-93eb-1758e23697a7

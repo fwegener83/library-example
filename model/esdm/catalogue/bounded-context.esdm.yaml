@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: bounded-context
+name: catalogue
+scope:
+  domain: millbrook-library-tutorial
+ubiquitousLanguage:
+  - term: title
+    avoid:
+      - term: book
+        reason: Means the entry and the physical thing at once; we need to tell them apart (C-07).
+    definition: 'The catalogue entry for a work: ISBN, title, author and replacement price. One entry however many copies exist.'
+  - term: copy
+    avoid:
+      - term: item
+        reason: Same thing as copy in the brief; one word is chosen (C-07).
+      - term: instance
+        reason: LibTrack's word for the same thing (C-07).
+    definition: One physical book with its own barcode, registered under a title. Circulating or restricted.
+  - term: circulating
+    definition: A copy any reader may borrow.
+  - term: restricted
+    definition: 'A copy only researchers may borrow: signed first editions, the local history collection, anything the archive lent.'
+  - term: replacement price
+    definition: The price recorded on a title; what a lost copy is charged at.
+metadata:
+  labels:
+    src: brief-3.1
+    team: collection
+  annotations:
+    studio.id: b29df8f4-1dc1-48c2-972e-f07f2c366004

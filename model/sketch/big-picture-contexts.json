@@ -1,0 +1,1041 @@
+{
+  "snapshot": {
+    "chapter": "03-strategic-design",
+    "workspace": "Millbrook Library (tutorial)",
+    "board": "big-picture",
+    "savedVersion": "ch3-context-cut",
+    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-01 to C-10 were applied and the four bounded contexts were drawn as areas. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted.",
+    "eventOrder": [
+      "Title Added to Catalogue",
+      "Book Details Corrected",
+      "Copy Registered (circulating or restricted)",
+      "Member Registered (card issued)",
+      "Researcher Status Granted",
+      "Card Renewed",
+      "Card Expired",
+      "Researcher Status Expired",
+      "Card Blocked (owes more than €10)",
+      "Card Unblocked",
+      "Book Reserved",
+      "Book Kept for Researcher (no time limit)",
+      "Reservation Cancelled",
+      "Reservation-Ready Notice Sent",
+      "Reservation-Expiring Reminder Sent",
+      "Reservation Expired",
+      "Book Checked Out",
+      "Due Reminder Sent",
+      "Loan Became Overdue",
+      "Reader Reminded by Phone (overdue)",
+      "Book Returned",
+      "Book Found Damaged",
+      "Book Declared Lost",
+      "Usage Fee Charged",
+      "Late Fine Assessed",
+      "Lost-Book Fee Charged (price + €5)",
+      "Fine Paid",
+      "Fine Waived"
+    ]
+  },
+  "areas": [
+    {
+      "id": "91dd5651-fe1b-445d-a905-adc489a5de80",
+      "title": "catalogue (supporting)",
+      "label": "Bounded Context",
+      "tags": [
+        "bc:catalogue"
+      ],
+      "nodes": [
+        {
+          "id": "bcc42123-58c9-4ba5-b2c8-4e3dfcacdc65",
+          "kind": "event",
+          "text": "Title Added to Catalogue",
+          "tags": [
+            "theme:collection",
+            "src:brief-3.1"
+          ]
+        },
+        {
+          "id": "fe900759-76e7-4f87-9736-89c24a8f6f59",
+          "kind": "event",
+          "text": "Book Details Corrected",
+          "tags": [
+            "theme:collection",
+            "src:brief-3.1"
+          ]
+        },
+        {
+          "id": "d24c89aa-553d-4696-a45c-a749d1a62857",
+          "kind": "event",
+          "text": "Copy Registered (circulating or restricted)",
+          "tags": [
+            "theme:collection",
+            "src:brief-3.1"
+          ]
+        },
+        {
+          "id": "e1bbf273-3611-4dc1-9a8e-860430873983",
+          "kind": "hotspot",
+          "text": "'Book' means a title in the catalogue and also a copy on the shelf",
+          "tags": [
+            "hotspot:language",
+            "clar:C-07"
+          ]
+        },
+        {
+          "id": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+          "kind": "actor",
+          "text": "Head of Collection"
+        },
+        {
+          "id": "080a1999-c8c8-42a3-95da-9717866f5ba9",
+          "kind": "external-system",
+          "text": "National ISBN Service",
+          "sections": [
+            {
+              "label": "Notes",
+              "type": "text",
+              "text": "Titles and authors come back oddly formatted; no influence on it."
+            }
+          ]
+        },
+        {
+          "id": "1323e9ff-67e7-4c68-b0f0-a930ad411d14",
+          "kind": "policy",
+          "text": "A copy needs its title in the catalogue first",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "No copy registration without a catalogue entry."
+            }
+          ],
+          "tags": [
+            "rule:invariant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "848262b0-f928-46d7-a8c9-bd3a0aa7d9a3",
+      "title": "membership (supporting)",
+      "label": "Bounded Context",
+      "tags": [
+        "bc:membership"
+      ],
+      "nodes": [
+        {
+          "id": "ad4f013f-8a9c-4b07-af2f-54e3a769cfa3",
+          "kind": "event",
+          "text": "Member Registered (card issued)",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3"
+          ]
+        },
+        {
+          "id": "68bdf6a3-7f7e-4bd4-abb3-3bc5a52d6e7f",
+          "kind": "event",
+          "text": "Researcher Status Granted",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3"
+          ]
+        },
+        {
+          "id": "a15079d2-c169-4c24-9ba3-2b0a45dc6c31",
+          "kind": "event",
+          "text": "Card Renewed",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3"
+          ]
+        },
+        {
+          "id": "96d37bd6-ab72-4a4a-9fca-1d7e60214e13",
+          "kind": "event",
+          "text": "Card Expired",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3",
+            "clar:C-05",
+            "clar:C-09"
+          ]
+        },
+        {
+          "id": "69e61d87-e172-4fa6-b9d6-94e6080d8b16",
+          "kind": "event",
+          "text": "Researcher Status Expired",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3",
+            "clar:C-05",
+            "clar:C-09"
+          ]
+        },
+        {
+          "id": "0c166d63-08ae-4a06-9452-c3012ff4d88f",
+          "kind": "event",
+          "text": "Card Blocked (owes more than €10)",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3"
+          ]
+        },
+        {
+          "id": "9ac30076-bf03-4c1e-9194-404ffc156904",
+          "kind": "event",
+          "text": "Card Unblocked",
+          "tags": [
+            "theme:membership",
+            "src:brief-3.3"
+          ]
+        },
+        {
+          "id": "24e4039f-adba-487f-9ba4-eada202b61e7",
+          "kind": "actor",
+          "text": "Membership Officer"
+        }
+      ]
+    },
+    {
+      "id": "a599970d-cc38-479a-96ab-2b948ec78034",
+      "title": "lending (core)",
+      "label": "Bounded Context",
+      "tags": [
+        "bc:lending"
+      ],
+      "nodes": [
+        {
+          "id": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+          "kind": "event",
+          "text": "Book Reserved",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "4ae0696b-21b9-49d6-b561-17569cc5029c",
+          "kind": "event",
+          "text": "Book Kept for Researcher (no time limit)",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "52a57b3c-b2a0-4fef-9cf2-7e678e816015",
+          "kind": "event",
+          "text": "Reservation Cancelled",
+          "tags": [
+            "theme:lending",
+            "src:inferred",
+            "clar:C-10"
+          ]
+        },
+        {
+          "id": "111e7868-7e05-431c-abc4-9a25eeb86a40",
+          "kind": "event",
+          "text": "Reservation-Ready Notice Sent",
+          "tags": [
+            "theme:notification",
+            "src:brief-3.5",
+            "to-be"
+          ]
+        },
+        {
+          "id": "f9fd940d-a13d-45b2-873a-725223749984",
+          "kind": "event",
+          "text": "Reservation-Expiring Reminder Sent",
+          "tags": [
+            "theme:notification",
+            "src:brief-3.5",
+            "to-be"
+          ]
+        },
+        {
+          "id": "ad106216-f026-49de-8ec3-1c00e10969cf",
+          "kind": "event",
+          "text": "Reservation Expired",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "d6ae3273-6a86-4e2a-be56-743d291359c5",
+          "kind": "event",
+          "text": "Book Checked Out",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "cab03405-a80e-4d62-979a-5ddc096e1940",
+          "kind": "event",
+          "text": "Due Reminder Sent",
+          "tags": [
+            "theme:notification",
+            "src:brief-3.5",
+            "to-be"
+          ]
+        },
+        {
+          "id": "b433c3b8-48d2-4c19-9560-1ca8346ebac8",
+          "kind": "event",
+          "text": "Loan Became Overdue",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "fa955948-338f-4b6e-80f8-968727d11e6a",
+          "kind": "event",
+          "text": "Reader Reminded by Phone (overdue)",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "6b4d840a-a813-4c68-b0f2-aa27f7ef99e2",
+          "kind": "event",
+          "text": "Book Returned",
+          "tags": [
+            "theme:lending",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "226c3b97-611f-4348-8f3d-90e77de3638b",
+          "kind": "event",
+          "text": "Book Found Damaged",
+          "tags": [
+            "theme:lending",
+            "theme:collection",
+            "src:brief-3.2"
+          ]
+        },
+        {
+          "id": "6f5bb18e-1838-4a82-880a-f004cf9de9a6",
+          "kind": "event",
+          "text": "Book Declared Lost",
+          "tags": [
+            "theme:lending",
+            "theme:fees",
+            "src:brief-3.4"
+          ]
+        },
+        {
+          "id": "4f67126e-8c50-4188-b753-d45ecc6aabcd",
+          "kind": "hotspot",
+          "text": "Blocked card: may it collect a reservation made before the block?",
+          "tags": [
+            "hotspot:question",
+            "parked:C-11"
+          ]
+        },
+        {
+          "id": "730241fd-f3b7-4c9e-b466-8920cbc62623",
+          "kind": "hotspot",
+          "text": "Waiting line for books that are out: wanted, but not in the brief's scope?",
+          "tags": [
+            "hotspot:scope",
+            "to-be",
+            "parked:C-15"
+          ]
+        },
+        {
+          "id": "28421a0b-9724-40b4-bd1f-05b6145914a0",
+          "kind": "actor",
+          "text": "Reader / Patron / Member",
+          "sections": [
+            {
+              "label": "Notes",
+              "type": "text",
+              "text": "Three words for the same person in the brief (reader, patron, member) — see hotspot."
+            }
+          ]
+        },
+        {
+          "id": "f49f8857-c60e-4fa3-b751-28e7ffcde12c",
+          "kind": "policy",
+          "text": "Only a copy on the shelf can be reserved",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "No waiting line for books that are out."
+            }
+          ],
+          "tags": [
+            "rule:invariant"
+          ]
+        },
+        {
+          "id": "be43255f-2681-4d33-afac-809bcb9d1545",
+          "kind": "policy",
+          "text": "At most 5 reservations per ordinary reader; researchers unlimited",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "Reservation is refused when an ordinary reader already holds five."
+            }
+          ],
+          "tags": [
+            "rule:invariant"
+          ]
+        },
+        {
+          "id": "700acad7-9e0a-447d-8fb6-52a4cac8a5f0",
+          "kind": "policy",
+          "text": "More than 2 overdue books at a branch: no more reservations there",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "Counted per branch, applies to researchers too."
+            }
+          ],
+          "tags": [
+            "rule:invariant"
+          ]
+        },
+        {
+          "id": "a4bbb4d4-7980-4eb5-8353-3b7cabe8f10f",
+          "kind": "actor",
+          "text": "Researcher",
+          "sections": [
+            {
+              "label": "Notes",
+              "type": "text",
+              "text": "About 400 people; extra rights on restricted copies, reservations and holds."
+            }
+          ]
+        },
+        {
+          "id": "f4a48848-93db-44af-9d20-0aa76162022f",
+          "kind": "external-system",
+          "text": "City Mail Gateway",
+          "sections": [
+            {
+              "label": "Notes",
+              "type": "text",
+              "text": "Only way to send email."
+            }
+          ]
+        },
+        {
+          "id": "c221fb46-0501-4280-9fcb-72e880771840",
+          "kind": "hotspot",
+          "text": "Reservation kept 3 days or 5 days (Northgate)?",
+          "tags": [
+            "hotspot:question",
+            "parked:C-12"
+          ]
+        },
+        {
+          "id": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
+          "kind": "actor",
+          "text": "Clock (daily, per branch)",
+          "sections": [
+            {
+              "label": "Notes",
+              "type": "text",
+              "text": "Nobody 'does' expiry or overdue — time passes. Today a librarian prints two lists every morning."
+            }
+          ]
+        },
+        {
+          "id": "407cab5a-e89c-4bb1-b919-c8d0adbf734c",
+          "kind": "hotspot",
+          "text": "28 days instead of 60 for new releases — decided?",
+          "tags": [
+            "hotspot:question",
+            "parked:C-13"
+          ]
+        },
+        {
+          "id": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+          "kind": "actor",
+          "text": "Branch Librarian (lending desk)"
+        },
+        {
+          "id": "1d8b30be-25a8-44e3-a619-a2a1738548d8",
+          "kind": "policy",
+          "text": "Restricted copies: researchers only",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "Only researchers may borrow or reserve a restricted copy."
+            }
+          ],
+          "tags": [
+            "rule:invariant"
+          ]
+        },
+        {
+          "id": "d056f811-e9da-4b1c-8b19-ec405a855e7e",
+          "kind": "hotspot",
+          "text": "Overdue limit is counted per branch — intended rule or historical habit?",
+          "tags": [
+            "hotspot:question",
+            "parked:C-14"
+          ]
+        },
+        {
+          "id": "b4ec90ad-2d91-4b8f-99c5-3239266d0500",
+          "kind": "read-model",
+          "text": "Morning lists per branch: expired reservations, overdue loans"
+        },
+        {
+          "id": "bb0ac2db-57c8-4dbe-9643-85246d83c124",
+          "kind": "hotspot",
+          "text": "Damaged book 'goes to Tom' — what happens then?",
+          "tags": [
+            "hotspot:scope",
+            "clar:C-06"
+          ]
+        },
+        {
+          "id": "d369976f-ef07-46ba-ba80-413329c28b0f",
+          "kind": "hotspot",
+          "text": "Who declares a book lost, and when?",
+          "tags": [
+            "hotspot:question",
+            "clar:C-04"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5d4cde0f-f921-4067-b92e-40942c0b9af1",
+      "title": "fees (supporting)",
+      "label": "Bounded Context",
+      "tags": [
+        "bc:fees"
+      ],
+      "nodes": [
+        {
+          "id": "18cda650-8ced-4ee2-9acb-0a9587702c2d",
+          "kind": "event",
+          "text": "Usage Fee Charged",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4"
+          ]
+        },
+        {
+          "id": "7f3f9f97-14d8-4a6f-b31c-6e0058055fb2",
+          "kind": "event",
+          "text": "Late Fine Assessed",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4"
+          ]
+        },
+        {
+          "id": "d44edc23-b3cc-487a-bfe9-7ee909ce8db1",
+          "kind": "event",
+          "text": "Lost-Book Fee Charged (price + €5)",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4"
+          ]
+        },
+        {
+          "id": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
+          "kind": "event",
+          "text": "Fine Paid",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4",
+            "clar:C-02"
+          ]
+        },
+        {
+          "id": "f08ec6a8-4b5e-4fce-9561-15f27e6c6621",
+          "kind": "event",
+          "text": "Fine Waived",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4"
+          ]
+        },
+        {
+          "id": "403310e7-0155-47e8-b854-59ea548728a3",
+          "kind": "policy",
+          "text": "When an item with a usage fee is checked out, charge the fee",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "Charged at checkout, not at return."
+            }
+          ],
+          "tags": [
+            "rule:policy",
+            "clar:C-08"
+          ]
+        },
+        {
+          "id": "599a3c71-5846-40eb-b63d-5deaf0d68d97",
+          "kind": "hotspot",
+          "text": "When exactly is a late fine assessed: on return or every day?",
+          "tags": [
+            "hotspot:question",
+            "clar:C-03"
+          ]
+        },
+        {
+          "id": "0eb238b4-f579-42d2-a775-7093d8fa8bdd",
+          "kind": "policy",
+          "text": "When a member's fines are back at €10 or less, unblock the card",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "Triggered by a payment or a waiver. Replaces the membership office unblocking by hand."
+            }
+          ],
+          "tags": [
+            "rule:policy",
+            "to-be",
+            "clar:C-01"
+          ]
+        },
+        {
+          "id": "f96e775b-dd54-473a-89b8-65218d49161b",
+          "kind": "policy",
+          "text": "When an overdue book is returned, assess the late fine",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "€0.50 per day from the day after the due date, never more than the replacement price. Until the book is back the amount is running, not assessed."
+            }
+          ],
+          "tags": [
+            "rule:policy",
+            "clar:C-03"
+          ]
+        },
+        {
+          "id": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+          "kind": "policy",
+          "text": "When a member's fines exceed €10, block the card",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "Fines = assessed fines + running fines of loans still out (days overdue × €0.50, capped at the book's price). Checked every morning and whenever a fine is assessed. Blocked: no new loans or reservations."
+            }
+          ],
+          "tags": [
+            "rule:policy",
+            "clar:C-01",
+            "clar:C-03",
+            "to-be"
+          ]
+        },
+        {
+          "id": "7dcab4fc-dfa1-4a3d-aeeb-d9db2572b607",
+          "kind": "policy",
+          "text": "When a book is declared lost, charge the replacement price plus €5",
+          "sections": [
+            {
+              "label": "Rule",
+              "type": "text",
+              "text": "No late fine on top of the lost-book fee."
+            }
+          ],
+          "tags": [
+            "rule:policy",
+            "clar:C-04"
+          ]
+        },
+        {
+          "id": "bbdd9d57-e20b-4452-9047-210a3c912ffd",
+          "kind": "external-system",
+          "text": "CityPay",
+          "sections": [
+            {
+              "label": "Notes",
+              "type": "text",
+              "text": "Odd status codes, amounts in cents, 20-character references. Mandatory for all departments."
+            }
+          ]
+        },
+        {
+          "id": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+          "kind": "read-model",
+          "text": "Monthly fines report: charged, paid, waived, outstanding"
+        },
+        {
+          "id": "5142d76f-cc03-4bcc-a34d-d7476a4cfd97",
+          "kind": "actor",
+          "text": "Treasury Liaison"
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "598fd035-42f3-487b-be1e-b61cfcc18ea3",
+      "kind": "hotspot",
+      "text": "Reader / patron / member and item / copy / instance: same thing or not?",
+      "tags": [
+        "hotspot:language",
+        "clar:C-07"
+      ]
+    },
+    {
+      "id": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "kind": "read-model",
+      "text": "Reader account: at home, waiting for me, what I owe",
+      "tags": [
+        "to-be",
+        "src:brief-2"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "sourceId": "598fd035-42f3-487b-be1e-b61cfcc18ea3",
+      "targetId": "28421a0b-9724-40b4-bd1f-05b6145914a0"
+    },
+    {
+      "sourceId": "c221fb46-0501-4280-9fcb-72e880771840",
+      "targetId": "ad106216-f026-49de-8ec3-1c00e10969cf"
+    },
+    {
+      "sourceId": "4f67126e-8c50-4188-b753-d45ecc6aabcd",
+      "targetId": "0c166d63-08ae-4a06-9452-c3012ff4d88f"
+    },
+    {
+      "sourceId": "4f67126e-8c50-4188-b753-d45ecc6aabcd",
+      "targetId": "fbf41bb1-57aa-445a-9e9e-b125a359226e"
+    },
+    {
+      "sourceId": "407cab5a-e89c-4bb1-b919-c8d0adbf734c",
+      "targetId": "d6ae3273-6a86-4e2a-be56-743d291359c5"
+    },
+    {
+      "sourceId": "d056f811-e9da-4b1c-8b19-ec405a855e7e",
+      "targetId": "700acad7-9e0a-447d-8fb6-52a4cac8a5f0"
+    },
+    {
+      "sourceId": "d369976f-ef07-46ba-ba80-413329c28b0f",
+      "targetId": "6f5bb18e-1838-4a82-880a-f004cf9de9a6"
+    },
+    {
+      "sourceId": "bb0ac2db-57c8-4dbe-9643-85246d83c124",
+      "targetId": "226c3b97-611f-4348-8f3d-90e77de3638b"
+    },
+    {
+      "sourceId": "599a3c71-5846-40eb-b63d-5deaf0d68d97",
+      "targetId": "7f3f9f97-14d8-4a6f-b31c-6e0058055fb2"
+    },
+    {
+      "sourceId": "730241fd-f3b7-4c9e-b466-8920cbc62623",
+      "targetId": "f49f8857-c60e-4fa3-b751-28e7ffcde12c"
+    },
+    {
+      "sourceId": "e1bbf273-3611-4dc1-9a8e-860430873983",
+      "targetId": "d24c89aa-553d-4696-a45c-a749d1a62857"
+    },
+    {
+      "sourceId": "e1bbf273-3611-4dc1-9a8e-860430873983",
+      "targetId": "bcc42123-58c9-4ba5-b2c8-4e3dfcacdc65"
+    },
+    {
+      "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+      "targetId": "bcc42123-58c9-4ba5-b2c8-4e3dfcacdc65",
+      "label": "adds"
+    },
+    {
+      "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+      "targetId": "fe900759-76e7-4f87-9736-89c24a8f6f59",
+      "label": "corrects"
+    },
+    {
+      "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+      "targetId": "d24c89aa-553d-4696-a45c-a749d1a62857",
+      "label": "registers"
+    },
+    {
+      "sourceId": "080a1999-c8c8-42a3-95da-9717866f5ba9",
+      "targetId": "bcc42123-58c9-4ba5-b2c8-4e3dfcacdc65",
+      "label": "supplies details for"
+    },
+    {
+      "sourceId": "1323e9ff-67e7-4c68-b0f0-a930ad411d14",
+      "targetId": "d24c89aa-553d-4696-a45c-a749d1a62857",
+      "label": "guards"
+    },
+    {
+      "sourceId": "24e4039f-adba-487f-9ba4-eada202b61e7",
+      "targetId": "ad4f013f-8a9c-4b07-af2f-54e3a769cfa3",
+      "label": "registers"
+    },
+    {
+      "sourceId": "24e4039f-adba-487f-9ba4-eada202b61e7",
+      "targetId": "68bdf6a3-7f7e-4bd4-abb3-3bc5a52d6e7f",
+      "label": "grants"
+    },
+    {
+      "sourceId": "24e4039f-adba-487f-9ba4-eada202b61e7",
+      "targetId": "a15079d2-c169-4c24-9ba3-2b0a45dc6c31",
+      "label": "renews"
+    },
+    {
+      "sourceId": "24e4039f-adba-487f-9ba4-eada202b61e7",
+      "targetId": "0c166d63-08ae-4a06-9452-c3012ff4d88f",
+      "label": "blocks"
+    },
+    {
+      "sourceId": "24e4039f-adba-487f-9ba4-eada202b61e7",
+      "targetId": "9ac30076-bf03-4c1e-9194-404ffc156904",
+      "label": "unblocks"
+    },
+    {
+      "sourceId": "28421a0b-9724-40b4-bd1f-05b6145914a0",
+      "targetId": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+      "label": "reserves"
+    },
+    {
+      "sourceId": "a4bbb4d4-7980-4eb5-8353-3b7cabe8f10f",
+      "targetId": "4ae0696b-21b9-49d6-b561-17569cc5029c",
+      "label": "asks for"
+    },
+    {
+      "sourceId": "f49f8857-c60e-4fa3-b751-28e7ffcde12c",
+      "targetId": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+      "label": "guards"
+    },
+    {
+      "sourceId": "be43255f-2681-4d33-afac-809bcb9d1545",
+      "targetId": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+      "label": "guards"
+    },
+    {
+      "sourceId": "700acad7-9e0a-447d-8fb6-52a4cac8a5f0",
+      "targetId": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+      "label": "guards"
+    },
+    {
+      "sourceId": "1d8b30be-25a8-44e3-a619-a2a1738548d8",
+      "targetId": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+      "label": "guards"
+    },
+    {
+      "sourceId": "1d8b30be-25a8-44e3-a619-a2a1738548d8",
+      "targetId": "d6ae3273-6a86-4e2a-be56-743d291359c5",
+      "label": "guards"
+    },
+    {
+      "sourceId": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
+      "targetId": "ad106216-f026-49de-8ec3-1c00e10969cf",
+      "label": "triggers"
+    },
+    {
+      "sourceId": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
+      "targetId": "b433c3b8-48d2-4c19-9560-1ca8346ebac8",
+      "label": "triggers"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "d6ae3273-6a86-4e2a-be56-743d291359c5",
+      "label": "checks out"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "6b4d840a-a813-4c68-b0f2-aa27f7ef99e2",
+      "label": "checks in"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "fa955948-338f-4b6e-80f8-968727d11e6a",
+      "label": "calls the reader"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
+      "label": "takes payment"
+    },
+    {
+      "sourceId": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
+      "targetId": "bbdd9d57-e20b-4452-9047-210a3c912ffd",
+      "label": "is keyed in by hand"
+    },
+    {
+      "sourceId": "ad106216-f026-49de-8ec3-1c00e10969cf",
+      "targetId": "b4ec90ad-2d91-4b8f-99c5-3239266d0500",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "b433c3b8-48d2-4c19-9560-1ca8346ebac8",
+      "targetId": "b4ec90ad-2d91-4b8f-99c5-3239266d0500",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "b4ec90ad-2d91-4b8f-99c5-3239266d0500",
+      "label": "reads"
+    },
+    {
+      "sourceId": "7f3f9f97-14d8-4a6f-b31c-6e0058055fb2",
+      "targetId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "targetId": "0c166d63-08ae-4a06-9452-c3012ff4d88f",
+      "label": "then block"
+    },
+    {
+      "sourceId": "111e7868-7e05-431c-abc4-9a25eeb86a40",
+      "targetId": "f4a48848-93db-44af-9d20-0aa76162022f",
+      "label": "sent through"
+    },
+    {
+      "sourceId": "f9fd940d-a13d-45b2-873a-725223749984",
+      "targetId": "f4a48848-93db-44af-9d20-0aa76162022f",
+      "label": "sent through"
+    },
+    {
+      "sourceId": "cab03405-a80e-4d62-979a-5ddc096e1940",
+      "targetId": "f4a48848-93db-44af-9d20-0aa76162022f",
+      "label": "sent through"
+    },
+    {
+      "sourceId": "fbf41bb1-57aa-445a-9e9e-b125a359226e",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "d6ae3273-6a86-4e2a-be56-743d291359c5",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "7f3f9f97-14d8-4a6f-b31c-6e0058055fb2",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "28421a0b-9724-40b4-bd1f-05b6145914a0",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "reads"
+    },
+    {
+      "sourceId": "7f3f9f97-14d8-4a6f-b31c-6e0058055fb2",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "f08ec6a8-4b5e-4fce-9561-15f27e6c6621",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "5142d76f-cc03-4bcc-a34d-d7476a4cfd97",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "reads"
+    },
+    {
+      "sourceId": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
+      "targetId": "0eb238b4-f579-42d2-a775-7093d8fa8bdd",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "f08ec6a8-4b5e-4fce-9561-15f27e6c6621",
+      "targetId": "0eb238b4-f579-42d2-a775-7093d8fa8bdd",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "0eb238b4-f579-42d2-a775-7093d8fa8bdd",
+      "targetId": "9ac30076-bf03-4c1e-9194-404ffc156904",
+      "label": "then unblock"
+    },
+    {
+      "sourceId": "b433c3b8-48d2-4c19-9560-1ca8346ebac8",
+      "targetId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "label": "whenever (running fine)"
+    },
+    {
+      "sourceId": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
+      "targetId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "label": "checks every morning"
+    },
+    {
+      "sourceId": "6b4d840a-a813-4c68-b0f2-aa27f7ef99e2",
+      "targetId": "f96e775b-dd54-473a-89b8-65218d49161b",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "f96e775b-dd54-473a-89b8-65218d49161b",
+      "targetId": "7f3f9f97-14d8-4a6f-b31c-6e0058055fb2",
+      "label": "then assess"
+    },
+    {
+      "sourceId": "6f5bb18e-1838-4a82-880a-f004cf9de9a6",
+      "targetId": "7dcab4fc-dfa1-4a3d-aeeb-d9db2572b607",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "7dcab4fc-dfa1-4a3d-aeeb-d9db2572b607",
+      "targetId": "d44edc23-b3cc-487a-bfe9-7ee909ce8db1",
+      "label": "then charge"
+    },
+    {
+      "sourceId": "28421a0b-9724-40b4-bd1f-05b6145914a0",
+      "targetId": "6f5bb18e-1838-4a82-880a-f004cf9de9a6",
+      "label": "reports"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "6f5bb18e-1838-4a82-880a-f004cf9de9a6",
+      "label": "records"
+    },
+    {
+      "sourceId": "d6ae3273-6a86-4e2a-be56-743d291359c5",
+      "targetId": "403310e7-0155-47e8-b854-59ea548728a3",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "403310e7-0155-47e8-b854-59ea548728a3",
+      "targetId": "18cda650-8ced-4ee2-9acb-0a9587702c2d",
+      "label": "then charge"
+    },
+    {
+      "sourceId": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
+      "targetId": "96d37bd6-ab72-4a4a-9fca-1d7e60214e13",
+      "label": "triggers"
+    },
+    {
+      "sourceId": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
+      "targetId": "69e61d87-e172-4fa6-b9d6-94e6080d8b16",
+      "label": "triggers"
+    },
+    {
+      "sourceId": "28421a0b-9724-40b4-bd1f-05b6145914a0",
+      "targetId": "52a57b3c-b2a0-4fef-9cf2-7e678e816015",
+      "label": "cancels"
+    },
+    {
+      "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
+      "targetId": "52a57b3c-b2a0-4fef-9cf2-7e678e816015",
+      "label": "cancels for the reader"
+    }
+  ]
+}

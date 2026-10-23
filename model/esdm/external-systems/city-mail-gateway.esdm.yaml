@@ -1,0 +1,9 @@
+apiVersion: schema.esdm.io/core/v1
+kind: external-system
+name: city-mail-gateway
+scope:
+  domain: millbrook-library-tutorial
+direction: outbound
+metadata:
+  annotations:
+    studio.id: fe2c92e7-d42a-430b-9e4f-99d1ce4d46f1

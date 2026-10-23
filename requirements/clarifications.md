@@ -171,6 +171,24 @@ moment it has to be decided).
   withdrawal. Option 2 is a later increment.
 - **Status:** proposed
 
+### C-18 Which amounts count towards the €10 block?
+
+- **Source:** brief §3.3 ("when someone owes more than €10 in fines");
+  C-01 and C-03 (decided: the total of assessed and running fines).
+- **Why now:** the glossary of `fees` separates late fines, lost-book
+  fees and usage fees. The brief says "fines" for the block and does not
+  say whether the other two count.
+- **Options:**
+  1. Everything the reader owes (`amount owed`): late fines, lost-book
+     fees and usage fees.
+  2. Late fines only.
+- **Recommendation:** option 1. A lost-book fee is the replacement price
+  plus €5 and will usually be above €10 on its own; with option 2 a
+  reader who lost a book would not be blocked, which is the gap C-03
+  closed for late fines. The wording of the Big Picture policy ("fines")
+  stays until this is decided.
+- **Status:** proposed
+
 ---
 
 ## B. Answered by the brief (confirm only)
