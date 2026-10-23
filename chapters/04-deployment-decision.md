@@ -2,7 +2,7 @@
 
 **Input:** [the brief](../requirements/brief.md), [chapter 3](03-strategic-design.md)
 **Tool:** architecture decision records (ADRs) after Michael Nygard, plain Markdown
-**Result:** eight records in [`docs/adr/`](../docs/adr/README.md). ADR 5 is accepted, the others are proposed until the review of this chapter. One new business decision (C-19) and a turned arrow on the context map.
+**Result:** eight records in [`docs/adr/`](../docs/adr/README.md). All eight are accepted: ADR 5 after a second round, the others in the review of this chapter. One new business decision (C-19) and a turned arrow on the context map.
 
 ## Why decide now
 
@@ -20,7 +20,7 @@ What we do **not** decide here is technology: language version, framework, datab
 | [2](../docs/adr/0002-one-deployable-unit.md) | One application, a modular monolith | The IT contact asks for it ("One application to run, please, not a zoo of services"), the team is small, the contexts are coupled by the business flow. |
 | [3](../docs/adr/0003-one-module-per-bounded-context.md) | One module per context; other modules may use only its public API | Inside one process the boundary exists only if something checks it. |
 | [4](../docs/adr/0004-contexts-talk-through-published-events.md) | Facts travel as events, orders go through the owner's API, every module owns its data | This is what the mappings of chapter 3 look like in code. |
-| [5](../docs/adr/0005-no-circle-between-modules.md) | Fees holds a card through membership, so the modules form no circle (**accepted**) | The €10 rule belongs to fees (C-19); see below. |
+| [5](../docs/adr/0005-no-circle-between-modules.md) | Fees holds a card through membership, so the modules form no circle | The €10 rule belongs to fees (C-19); see below. |
 | [6](../docs/adr/0006-adapters-and-clock-inside-the-module.md) | External systems and the daily checks sit inside the module that owns the rule | The anti-corruption layers of chapter 3 need a place; the clock must not know the rules. |
 | [7](../docs/adr/0007-identifiers-across-contexts.md) | Identifiers are issued by the owning module; a member is not their card | A card expires, is renewed and can be blocked; the person stays the same. |
 | [8](../docs/adr/0008-user-interfaces-outside-the-modules.md) | User interfaces sit outside the modules and only ask them | The reader's account page needs two contexts; neither should learn about the other. |
@@ -54,12 +54,12 @@ The context map in Studio, both glossaries, the mapping and chapter 3 are update
 
 ## What we take with us
 
-- The four modules and their allowed dependencies are known, once the records are accepted. The order is: `catalogue` and `membership` first, then `lending`, then `fees`.
+- The four modules and their allowed dependencies are known. The order is: `catalogue` and `membership` first, then `lending`, then `fees`.
 - Deferred: a rule for changing published events (ADR 4 says only add, a record follows with the first event). Still open and deliberately not decided here: the mail gateway (its interface is not in the brief) and everything technical (gate G2).
 - **Gate G1 (spec-driven development) comes next.** Before any context is modelled in detail, we have to agree how DDD Studio and the specification tool work together. Nothing in the next chapters starts before that.
 
 ## Decisions in this chapter
 
 - **Business**, decided by the maintainer playing the library: C-19, the €10 rule belongs to the finance side. Recorded in the [clarification log](../requirements/clarifications.md), with the rejected option.
-- **Architecture:** [ADR 5](../docs/adr/0005-no-circle-between-modules.md) accepted by the maintainer: fees places a hold, membership owns the card, the arrow turns around. Its first version (plain block orders, argued from the circle alone) was rejected and is kept in the record. ADRs 1 to 4 and 6 to 8 are proposed until the maintainer has reviewed them.
+- **Architecture:** [ADR 5](../docs/adr/0005-no-circle-between-modules.md) accepted by the maintainer: fees places a hold, membership owns the card, the arrow turns around. Its first version (plain block orders, argued from the circle alone) was rejected and is kept in the record. ADRs 1 to 4 and 6 to 8 accepted by the maintainer in the review of this chapter (2026-10-23).
 - **Way of working:** a decision that moves a business rule between contexts starts with the business question (whose rule is it?), not with the technical structure. Gate G1 is next. It is a decision of the maintainer, prepared by the agent, and nothing per context starts before it.
