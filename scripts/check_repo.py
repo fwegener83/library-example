@@ -37,9 +37,20 @@ for ch in chapters:
     if f"`chapter-{n}`" not in plan:
         err(f"docs/plan.md section 12 has no row for chapter-{n}")
 
+latest = {}
+for f in (root / "model" / "sketch").glob("*.json"):
+    h = json.loads(f.read_text()).get("snapshot", {})
+    latest[h.get("board")] = max(latest.get(h.get("board"), ""), h.get("chapter", ""))
+
 for f in (root / "model" / "sketch").glob("*.json"):
     d = json.loads(f.read_text())
-    nodes = {n["id"]: n for n in d["nodes"]}
+    superseded = d.get("snapshot", {}).get("chapter", "") < latest.get(d.get("snapshot", {}).get("board"), "")
+    def flat(areas, loose):
+        for a in areas:
+            yield from flat(a.get("areas", []), a.get("nodes", []))
+        yield from loose
+
+    nodes = {n["id"]: n for n in flat(d.get("areas", []), d["nodes"])}
     snap = d.get("snapshot", {})
     for key in ("chapter", "board", "savedVersion", "note"):
         if key not in snap:
@@ -59,7 +70,8 @@ for f in (root / "model" / "sketch").glob("*.json"):
     for n in nodes.values():
         if n["id"] not in linked:
             if n["kind"] == "event":
-                warn(f"{f.name}: event without any connection (who or what causes it?): {n['text']}")
+                if not superseded:
+                    warn(f"{f.name}: event without any connection (who or what causes it?): {n['text']}")
             else:
                 err(f"{f.name}: card without any connection: {n['text']}")
         if n["kind"] == "event" and not any(
@@ -74,6 +86,22 @@ for f in (root / "model" / "sketch").glob("*.json"):
             t.startswith("rule:") for t in n.get("tags", [])
         ):
             err(f"{f.name}: policy card without rule: tag: {n['text']}")
+
+clar_file = root / "requirements" / "clarifications.md"
+clar = clar_file.read_text() if clar_file.exists() else ""
+known = set(re.findall(r"^(?:### |\| )(C-\d+)", clar, re.M))
+for cid in sorted(set(re.findall(r"^### (C-\d+)", clar, re.M))):
+    section = clar.split(f"### {cid}", 1)[1].split("\n### ", 1)[0]
+    if "**Status:** proposed" in section:
+        warn(f"clarifications: {cid} is still only proposed (no decision yet)")
+cited = set()
+for f in [*chapters, *(root / "model" / "sketch").glob("*.json"), *(root / "model" / "esdm").rglob("*.yaml")]:
+    cited |= set(re.findall(r"\bC-\d+\b", f.read_text()))
+for f in (root / "model" / "sketch").glob("*.json"):
+    for tag in re.findall(r'"(?:clar|parked):(C-\d+)"', f.read_text()):
+        cited.add(tag)
+for cid in sorted(cited - known):
+    err(f"{cid} is cited but has no entry in requirements/clarifications.md")
 
 for f in (root / "model" / "domain-stories").glob("*.yaml"):
     text = f.read_text()

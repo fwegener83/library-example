@@ -1,0 +1,14 @@
+apiVersion: schema.esdm.io/core/v1
+kind: context-mapping
+name: national-isbn-service-catalogue-anti-corruption-layer
+description: Titles and authors come back oddly formatted, subtitle glued to the title; the library has no influence on the service (brief 3.1). The catalogue translates into its own title record; what remains is corrected by hand.
+type: anti-corruption-layer
+upstream:
+  domain: millbrook-library-tutorial
+  externalSystem: national-isbn-service
+downstream:
+  domain: millbrook-library-tutorial
+  boundedContext: catalogue
+metadata:
+  annotations:
+    studio.id: 7741aafc-59e6-45d6-a5c2-9009eba48b76

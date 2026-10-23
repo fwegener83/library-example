@@ -1,0 +1,11 @@
+apiVersion: schema.esdm.io/core/v1
+kind: subdomain
+name: circulation
+scope:
+  domain: millbrook-library-tutorial
+type: core
+boundedContexts:
+  - lending
+metadata:
+  annotations:
+    studio.id: bcae8534-6a81-4b27-a28b-979398fd3a4e

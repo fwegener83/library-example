@@ -1,0 +1,11 @@
+apiVersion: schema.esdm.io/core/v1
+kind: subdomain
+name: member-services
+scope:
+  domain: millbrook-library-tutorial
+type: supporting
+boundedContexts:
+  - membership
+metadata:
+  annotations:
+    studio.id: 1d2c1ab7-ce1f-4f41-ba4c-5f587e88f351

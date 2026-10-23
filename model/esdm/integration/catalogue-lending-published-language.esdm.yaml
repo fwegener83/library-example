@@ -1,0 +1,14 @@
+apiVersion: schema.esdm.io/core/v1
+kind: context-mapping
+name: catalogue-lending-published-language
+description: Catalogue events (title added, copy registered with its circulating or restricted flag) are the agreed format lending listens to.
+type: published-language
+publisher:
+  domain: millbrook-library-tutorial
+  boundedContext: catalogue
+consumer:
+  domain: millbrook-library-tutorial
+  boundedContext: lending
+metadata:
+  annotations:
+    studio.id: 888d50ae-3b68-48e0-b502-de04ebde275a

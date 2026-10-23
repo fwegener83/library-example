@@ -1,0 +1,35 @@
+apiVersion: schema.esdm.io/core/v1
+kind: bounded-context
+name: fees
+scope:
+  domain: millbrook-library-tutorial
+ubiquitousLanguage:
+  - term: reader
+    avoid:
+      - term: member
+        reason: The membership office's word for the same person (C-07).
+      - term: patron
+        reason: LibTrack's word (C-07).
+    definition: The person who owes and pays.
+  - term: late fine
+    definition: 'What a reader owes for a loan returned late: per day from the day after the due date, never more than the replacement price.'
+  - term: running fine
+    definition: The late fine so far on a loan that is still out. Not yet assessed, but counted towards the block (C-03).
+  - term: assessed fine
+    definition: The late fine fixed when the book comes back (C-03).
+  - term: lost-book fee
+    definition: The replacement price plus a handling fee, charged when a copy is declared lost (C-04).
+  - term: usage fee
+    definition: A fee some special-collection items carry, charged at checkout (C-08).
+  - term: payment
+    definition: Money received for fines and fees, passed on to CityPay. Counts as paid when CityPay confirms (C-02).
+  - term: waiver
+    definition: A fine or fee that is not collected.
+  - term: amount owed
+    definition: 'Everything charged to a reader and neither paid nor waived: fines, lost-book fees and usage fees. Above 10 euro it blocks the card (C-18).'
+metadata:
+  labels:
+    src: brief-3.4
+    team: finance
+  annotations:
+    studio.id: dfc91695-2754-42e4-8ceb-4b349fdf5e5f

@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: bounded-context
+name: membership
+scope:
+  domain: millbrook-library-tutorial
+ubiquitousLanguage:
+  - term: member
+    avoid:
+      - term: reader
+        reason: The word lending and fees use for the same person (C-07).
+      - term: patron
+        reason: LibTrack's word (C-07).
+    definition: A person registered with the library and holding a card.
+  - term: library card
+    definition: Proof of membership with a card number; valid for a year and renewed when it runs out.
+  - term: researcher status
+    definition: Granted for twelve months on a letter from the university or the city archive; needs a new letter to continue.
+  - term: blocked card
+    definition: A card with which nothing new may be borrowed or reserved, because the member owes more than 10 euro in total: fines, lost-book fees and usage fees (C-01, C-18).
+  - term: expired card
+    definition: A card past its year. The member stays in the system; the card works like a blocked one until renewed (C-05).
+  - term: renewal
+    definition: Making a card valid for another year.
+metadata:
+  labels:
+    src: brief-3.3
+    team: members
+  annotations:
+    studio.id: e4b185d5-774c-4499-a769-89f4c740fae3

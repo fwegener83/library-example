@@ -13,3 +13,6 @@ Collected, not fixed. Changes to `ddd-studio` wait for gate G4 (see
 | 6 | Sketch export | No card positions. | Optional positions or an explicit order in the export. |
 | 7 | `arrange_sketch_board` | Returns counts only. | Return the resulting order, or a preview. |
 | 8 | Sketch palette | No card for invariants; the policy card is borrowed. | None needed: custom kinds cover it (see chapter 1). |
+| 9 | `edit_sketch_board` | An existing card cannot be moved into an area. The only way is `arrange_sketch_board` with a full timeline, which moves every card named. | Allow moving a card into an area, or an `arrange` mode that only sets the area. |
+| 10 | `export_esdm` | Returns the files only in the response, nothing is written to disk. Copying 22 files by hand invites mistakes. | Write to a path, or return a zip as an attachment. |
+| 11 | `get_sketch_board` with `tags` | An area that matches the filter is returned without the cards inside it when the cards do not match. | Return the cards of a matching area. |
