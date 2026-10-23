@@ -111,3 +111,11 @@ creation, so get them right at creation.
   for things that do not exist yet (no event specified) is a line in an
   existing record, not a record of its own. (ADR 9 was written and
   withdrawn in chapter 4 for this reason.)
+
+## Decisions box (every chapter, checked for presence by the script)
+
+- Every decision named in the box exists in the log it points to, with
+  the same status (decided, proposed, parked). The box says who decided.
+- Nothing is called decided in the box that is only proposed in the log.
+- Choices that belong to review (wording, colours, field names) are not
+  listed as decisions.

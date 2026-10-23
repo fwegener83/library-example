@@ -44,3 +44,9 @@ This changes the arrow on the context map, the glossary of `membership` (it no l
 - The four modules and their allowed dependencies are known, once the records are accepted and ADR 5 is decided. The order is: `catalogue` and `membership` first, then `lending`, then `fees`.
 - Deferred: a rule for changing published events (ADR 4 says only add, a record follows with the first event). Still open and deliberately not decided here: the mail gateway (its interface is not in the brief) and everything technical (gate G2).
 - **Gate G1 (spec-driven development) comes next.** Before any context is modelled in detail, we have to agree how DDD Studio and the specification tool work together. Nothing in the next chapters starts before that.
+
+## Decisions in this chapter
+
+- **Architecture:** eight proposed records, [ADR 1 to 8](../docs/adr/README.md). None is accepted until the maintainer has reviewed them. ADR 5 needs a choice between four options; the recommendation is option 1.
+- **Business:** none new.
+- **Way of working:** gate G1 is next. It is a decision of the maintainer, prepared by the agent, and nothing per context starts before it.

@@ -117,6 +117,13 @@ The glossary lives on each context and is part of the export. The overlap is int
 - How the four contexts are deployed is the topic of chapter 4. The brief already points to one application ("not a zoo of services"); chapter 4 turns that into a decision with reasons.
 - Open before the specification work: the mail gateway and the parked C-11 to C-16.
 
+## Decisions in this chapter
+
+- **Business**, decided by the maintainer playing the library: C-01 to C-10, C-17 and C-18, recorded with date and reason in the [clarification log](../requirements/clarifications.md). C-03 was decided in a second round after the first proposal was rejected. Parked on purpose: C-11 to C-16.
+- **Strategy**, approved by the maintainer in the conversation: the four contexts, the subdomain types, the patterns of the context map, no context for notifications. Recorded in the model (`model/esdm/`) and in this chapter.
+- **Way of working:** how decisions are recorded and who makes them is described in [`docs/decisions.md`](../docs/decisions.md).
+- **Open:** the mail gateway has no mapping because its interface is not known.
+
 ---
 
 *The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch3-before-clarifications`, `ch3-context-cut`, `ch3-context-cut-v2` and `ch3-context-cut-v3` (Big Picture with contexts as areas, snapshot in [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json)) and `ch3-context-map`, `ch3-context-map-v2` and `ch3-context-map-v3` (strategic model). The Big Picture of chapter 1 is kept as [`big-picture.json`](../model/sketch/big-picture.json). The reference project this tutorial adapts, [ddd-by-examples/library](https://github.com/ddd-by-examples/library), draws, according to its README and Big Picture notes, the same seam between catalogue and lending. Membership and fees go beyond it.*

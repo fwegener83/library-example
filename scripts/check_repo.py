@@ -33,6 +33,8 @@ for ch in chapters:
     for target in re.findall(r"\]\((?!https?:|#)([^)#]+)", text):
         if not (ch.parent / target).resolve().exists():
             err(f"{ch.name}: broken link {target}")
+    if "## Decisions in this chapter" not in text:
+        err(f"{ch.name}: missing the section 'Decisions in this chapter'")
     n = ch.name[:2]
     if f"`chapter-{n}`" not in plan:
         err(f"docs/plan.md section 12 has no row for chapter-{n}")

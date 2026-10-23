@@ -383,3 +383,30 @@ Skript. Dafür bleiben die Prüfliste und der unabhängige Review. Ob die
 Regeln wirken, zeigt sich an der Rules-Audit von Kapitel 3: Fehlt sie oder
 ist sie oberflächlich, ist das ein Fehler von mir.
 
+---
+
+## 15. Entscheidungsebenen (Human in the Loop)
+
+Das Tutorial zeigt auch, wo ein Agent aufhören und einen Menschen fragen
+muss. Beschrieben in `docs/decisions.md`; in Kürze:
+
+| Ebene | Entscheidet (im echten Projekt) | Festgehalten in |
+|---|---|---|
+| Fachlich | Fachbereich | `requirements/clarifications.md` (`C-nn`) |
+| Strategie und Architektur | Architekt/Team | Context Map in Studio, `docs/adr/` |
+| Vorgehen | Projektleitung | Gates in diesem Plan |
+
+- Der Agent bereitet vor (Quelle, Optionen, Empfehlung, Folgen), stoppt,
+  hält nach der Antwort fest, **wer wann entschieden hat und was verworfen
+  wurde**, und zieht alles nach, was davon abhängt.
+- Stopp-Kriterien: Antwort steht nicht in der Quelle; schwer umkehrbar oder
+  mehrere Module betroffen; legt das Vorgehen fest; macht eine frühere
+  Entscheidung rückgängig (dann offen sagen, nicht selbst ändern).
+- Ein Review prüft geleistete Arbeit, eine Entscheidung wählt zwischen
+  Optionen. Nicht jede Kleinigkeit ist eine Entscheidung, sonst nickt der
+  Mensch nur noch ab.
+- Jedes Kapitel (ab 1) endet mit dem Kasten „Decisions in this chapter“;
+  `scripts/check_repo.py` prüft, dass er da ist.
+- Mit G1 kommt die vierte Ebene dazu (Klärungsschritt der Spec); Vorbereitung
+  gehört dorthin.
+
