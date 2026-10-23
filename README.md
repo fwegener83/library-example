@@ -14,9 +14,9 @@ modelled with [DDD Studio](https://ddd-studio.dev).
 | 1 | [Big Picture Event Storming](chapters/01-big-picture.md) | done |
 | 2 | [Domain Stories](chapters/02-domain-stories.md) | done |
 | 3 | [Strategic design](chapters/03-strategic-design.md) | done |
-| 4 | Deployment decision | planned |
+| 4 | [Deployment decision](chapters/04-deployment-decision.md) | in review |
 
-The working plan (in German) is in [`docs/plan.md`](docs/plan.md).
+How decisions are made, and by whom, is described in [`docs/decisions.md`](docs/decisions.md). The working plan (in German) is in [`docs/plan.md`](docs/plan.md).
 
 ## Credits
 

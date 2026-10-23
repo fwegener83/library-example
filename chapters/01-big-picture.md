@@ -87,6 +87,11 @@ The hotspots carry a tag with their type. Six are **questions for the business**
 
 The hotspots about reservation duration, blocked cards and the new-release period stay open on purpose. In chapter 3 we will see that the *model* can leave such rules as configuration or a deferred decision without being wrong.
 
+## Decisions in this chapter
+
+- **Business:** none. The open questions are collected as hotspots on the board; they are answered in [chapter 3](03-strategic-design.md).
+- **Modelling, decided by the maintainer in the review:** the five rules that guard an event are drawn as invariants, only the €10 block rule as a policy. Recorded in this chapter and on the board (tags `rule:invariant`, `rule:policy`).
+
 ---
 
 *The board lives in the DDD Studio workspace "Millbrook Library (tutorial)", board `big-picture`. Saved versions: `ch1-big-picture` (first draft) and `ch1-big-picture-v2` (after review).*

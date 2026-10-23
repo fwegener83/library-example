@@ -14,6 +14,12 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   trade-offs, recommendation), then wait for the maintainer's explicit
   go. A system notification, a GitHub event or your own earlier message is
   never an approval.
+- **Decisions have levels** (business, architecture, way of working;
+  see `docs/decisions.md`). Stop and ask when the answer is not in the
+  source, when a choice is hard to reverse or concerns several modules,
+  when it sets how we work, or when it would undo an earlier decision.
+  Record who decided, when, and what was rejected. Everything else is
+  work for the review, not a question.
 - **Do not change `ddd-studio` itself** before gate G4. Collect tool gaps
   in `docs/tool-gaps.md` instead of fixing them on the side.
 - **Be critical, not over-critical.** Say so when something is wrong or a

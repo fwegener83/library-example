@@ -75,3 +75,55 @@ creation, so get them right at creation.
 - If the text says "all X carry tag Y", count them in the snapshot.
 - Do not refer to hotspots by number; refer to them by their question.
   Numbers drift between chapters.
+
+## Context map and architecture
+
+- Read the map for **dependencies**, not only for message flow: whoever
+  reacts to an event or calls an API depends on the publisher's types.
+  The script warns about circles; a circle must be resolved in an ADR
+  before the map is called done. (Chapter 3 called a circle harmless; it
+  was found in chapter 4.)
+- ADRs say what a technology must provide, never which one, while gate G2
+  is open.
+- A record that changes an earlier chapter says which chapter, and the
+  chapter is corrected in the same pull request.
+
+## Proposals and decisions (every chapter)
+
+- Words match status: a heading "The decisions" over proposed records,
+  or "known" for something that depends on an open decision, is an
+  overclaim. Say "proposed" in the heading and in the summary line.
+- A rule that sounds technology-neutral may still fix a technology
+  ("after commit", "foreign keys", "same database"). Read each rule once
+  as "which gate would own this word?".
+- A claim that something can be changed or split later names what that
+  costs (failure handling, retries), not only what stays.
+
+## ADRs (`docs/adr/`, Nygard format, checked by the script)
+
+- Title `# N. <decision>`, then Date, Status, Context, Decision,
+  Consequences. Alternatives go into Context, rules into Decision,
+  effects into Consequences.
+- Status is one of `Proposed`, `Accepted`, `Deprecated`,
+  `Superseded by N`. "Needs a choice" goes into the index and the chapter,
+  not into the status.
+- A record that moves a business rule between contexts, or turns an
+  arrow on the context map, first names whose rule it is and cites the
+  clarification that decided it. The technical reason (a circle, a
+  check) comes second. (The first ADR 5 argued from the circle alone and
+  picked the arrow that was easiest to turn; C-19 came only in review.)
+- Read each glossary for words of another context. If `membership`
+  defines a word through an amount of money, money has leaked in.
+  (The block definition used "amount owed" from `fees` until ADR 5.)
+- Write a record only when there is something concrete to decide. A rule
+  for things that do not exist yet (no event specified) is a line in an
+  existing record, not a record of its own. (ADR 9 was written and
+  withdrawn in chapter 4 for this reason.)
+
+## Decisions box (every chapter, checked for presence by the script)
+
+- Every decision named in the box exists in the log it points to, with
+  the same status (decided, proposed, parked). The box says who decided.
+- Nothing is called decided in the box that is only proposed in the log.
+- Choices that belong to review (wording, colours, field names) are not
+  listed as decisions.

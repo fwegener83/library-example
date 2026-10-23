@@ -60,6 +60,11 @@ This one is *digitalized*, because the two systems are part of the problem. LibT
 - The glossary starts with three entries that clearly need a decision: *book* (title or copy), *reader / patron / member*, *item / copy / instance*.
 - Three questions go to the business: who triggers a block and an unblock, what happens to a payment on the way from the desk to CityPay and back, and when the late fine is assessed.
 
+## Decisions in this chapter
+
+- **Business:** none. The stories are our reading of the brief. Three questions go to the business and are answered in [chapter 3](03-strategic-design.md).
+- **Strategy and architecture:** none.
+
 ---
 
 *The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch2-reserve-borrow-return-v2` and `ch2-overdue-fine-blocked-card-v2`.*
