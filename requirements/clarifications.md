@@ -88,7 +88,7 @@ moment it has to be decided).
   unblocked only by returning it or reporting it lost and then paying.
   Below €10 nothing happens: one book triggers the block from day 21
   overdue (21 × €0.50 = €10.50).
-- **Status:** proposed (second round)
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): option 1, second round.
 
 ### C-04 Who declares a book lost, and what does it cost?
 
