@@ -32,8 +32,19 @@ map as a build") are the lessons of chapters 3 and 4. The test shows
 that the rules find what they were written for. It does not show that
 they find unknown faults.
 
-The run on the current cut is the better evidence for that: seven
-findings, none of them known before. The agent who drew the cut checked
-the quoted evidence of the serious ones against the files; it is
-correct. Among them is a mistake from chapter 4: the Big Picture board
-still shows the plain block and unblock orders that ADR 5 rejected (F3).
+Better evidence is what the run on chapter 3 found besides these four:
+a lost copy never leaves the catalogue (F5), nobody owns the usage fee
+(F4), the open host services are justified by a count of consumers (F7),
+and a reader who pays at the desk stays blocked for a while (F8). Nobody
+had noticed them in chapter 3 or 4.
+
+The run on the state after chapter 4 found seven points. Four are the
+same as above and were still open; three are new, among them a mistake
+of chapter 4: the Big Picture board still showed the plain block and
+unblock orders that ADR 5 rejected (F3). The agent that drew the cut
+checked the quoted evidence of all seven against the files; it is
+correct. Chapter 5 answers the report.
+
+(Corrected in chapter 5: an earlier version of this page said the seven
+were "none of them known before", which the chapter 3 report
+contradicts. Found by the independent review of chapter 5.)

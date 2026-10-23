@@ -34,19 +34,19 @@ The state at the end of chapter 3 contains the mistakes found later. If the skil
 | "Amount owed" from `fees` in the glossary of `membership` | Yes, as evidence for the same finding |
 | An unblock can lift a block placed by someone else (the first ADR 5) | Yes |
 
-This is less than it looks. The skill was written by the agent that knew these mistakes, and its rules are the lessons of chapters 3 and 4. We replaced the examples from the library by examples from other domains, but the test can only show that the rules find what they were written for. Whether they find something new shows only on a cut nobody has checked this way. The [evaluation](../docs/reviews/README.md) says so too.
+This is less than it looks. The skill was written by the agent that knew these mistakes, and its rules are the lessons of chapters 3 and 4. We replaced the examples from the library by examples from other domains, but the test can only show that the rules find what they were written for. The better evidence is what the run found besides them: that a lost copy never leaves the catalogue, that nobody owns the usage fee, that the open host services are justified by a count of consumers, and that a reader who pays at the desk stays blocked for a while. Nobody had noticed these in chapter 3 or 4. The [evaluation](../docs/reviews/README.md) lists both.
 
 ## The run on the current cut
 
 The second run took the state after chapter 4. Its [report](../docs/reviews/ch04-context-cut.md) first says what holds: every context has a decider, decisions and words of its own; the dependencies form no circle; the €10 rule has one owner; both anti-corruption layers translate something real; none of the likely changes in the brief touches three contexts.
 
-It then found seven points, none of them blocking, none of them known before. The agent that drew the cut checked the quoted evidence of each; it is correct.
+It then found seven points, none of them blocking. Four had already come up in the run on chapter 3 and were still open (lost copy, usage fee, the open host services, payment at the desk); three were new, among them a mistake of chapter 4. The agent that drew the cut checked the quoted evidence of each; it is correct.
 
 | Finding | What we did |
 |---|---|
 | A lost copy leaves the collection (C-04), but nothing in the model takes it out; letting `catalogue` react to `lending` would bring back a circle | Business question, **C-20** |
 | No context owns which copies carry a usage fee, or how much it is | Business question, **C-21** |
-| The Big Picture board still shows the plain block orders that ADR 5 rejected, the money threshold in `membership`, one central clock, and "Fine Paid" as the only payment | Board corrected; the report question became **C-23** |
+| The Big Picture board still shows the plain block orders that ADR 5 rejected, the money threshold in `membership`, one central clock, and "Fine Paid" as the only payment | Board corrected, except one clock card and three old arrow labels, which notes now explain; the report question became **C-23** |
 | `lending` → `fees` is called an open host service for consumers that do not exist | **Open for the maintainer**, see below |
 | A reader who pays at the desk stays blocked until CityPay confirms | Business question, **C-22** |
 | The catalogue's open host service is justified by the number of consumers alone, and a mapping claims a price that lending does not use | Wording corrected |
@@ -56,7 +56,7 @@ The third finding is a mistake of chapter 4. ADR 5 changed the rule, and the con
 
 ## The decisions
 
-The maintainer, playing the library, accepted the recommendations before the entries were written; the [clarification log](../requirements/clarifications.md) says so in each entry.
+The maintainer, playing the library, accepted the recommendations before reading the final wording; each entry in the [clarification log](../requirements/clarifications.md) says "given in advance".
 
 - **C-20, lost copy.** `lending` ends the loan and lists the copy for the Head of Collection, as for damaged copies (C-17). The Head of Collection *withdraws* it in the catalogue, and the catalogue publishes that. The arrow stays catalogue → lending; the price is one manual step per lost copy.
 - **C-21, usage fee.** Split by the kind of fact: the Head of Collection marks a *usage-fee copy* when registering it; the amount is a *usage-fee tariff* in `fees`. Money stays in `fees`, and `lending` only reports the checkout.
@@ -67,8 +67,8 @@ The maintainer, playing the library, accepted the recommendations before the ent
 ## What changed in the model
 
 - **Glossaries.** `catalogue`: *home branch*, *usage-fee copy* (with *special collection* as the word to avoid), *withdrawn copy*. `lending`: *lost copy*, *damaged copy*, and a copy is on the shelf at one branch. `fees`: *usage-fee tariff*, *monthly report*, and a *payment* is received, then confirmed; *item* is avoided.
-- **Mappings.** The catalogue events carry the home branch and the usage-fee mark and announce a withdrawn copy. The loan events no longer report a usage fee. The CityPay translation knows received and confirmed. The catalogue's open host service is justified by what it is: one stable format, not tailored to anyone ("What happens to a book after it leaves my desk is the branches' business, honestly.", brief §3.1).
-- **Board.** The two policies now place and lift the hold "unpaid fees"; *Card Blocked* carries no amount; *Payment Received*, *Payment Confirmed by CityPay*, *Charge Waived* and *Copy Withdrawn* are there; lost and damaged copies feed a list that the Head of Collection reads. Notes say what was done by hand before (blocking, keying payments into CityPay) and that each daily check belongs to the module that owns its rule (ADR 6). Two things the tool cannot do yet (edit or remove an arrow) are in the [tool gaps](../docs/tool-gaps.md).
+- **Mappings.** The catalogue events carry the home branch and the usage-fee mark and announce a withdrawn copy. The loan events no longer report a usage fee. The CityPay translation knows received and confirmed. The catalogue's open host service is now justified by what it is: one format for titles and copies, offered to whoever needs it instead of being negotiated with each consumer; `lending` and `fees` take different parts of it.
+- **Board.** The two policies now place and lift the hold "unpaid fees"; *Card Blocked* carries no amount; *Payment Received*, *Payment Confirmed by CityPay*, *Charge Waived* and *Copy Withdrawn* are there; lost and damaged copies feed a list that the Head of Collection reads. Notes say what was done by hand before (blocking, keying payments into CityPay) and that each daily check belongs to the module that owns its rule (ADR 6). The board still has one clock card in the `lending` area and the old arrow labels "then block", "then unblock" and "is keyed in by hand": an arrow can be neither edited nor removed, and removing a card leaves its arrows behind (tool gaps 12 and 13 in [`docs/tool-gaps.md`](../docs/tool-gaps.md)).
 
 The dependencies did not change: `catalogue` and `membership` use no other module, `lending` uses those two, `fees` uses all three.
 
@@ -78,7 +78,7 @@ The dependencies did not change: `catalogue` and `membership` use no other modul
 
 The choice is the maintainer's, because it revises a pattern approved in chapter 3:
 
-1. **Customer–supplier** (lending supplier, fees customer). Honest about today; lending plans its events for fees. Changes the mapping, the table in chapter 3 and in ADR 4; the dependencies stay.
+1. **Customer–supplier** (lending supplier, fees customer). Honest about today; lending plans its events for fees. Changes the mapping and its row in the table of chapter 3; the dependencies stay.
 2. **Keep the open host service** and justify it by a stable public contract (ADR 4) instead of consumers that do not exist. Wording only.
 
 Recommendation: option 1. A pattern should describe the relationship we have, not one we might have later.
@@ -94,7 +94,7 @@ Recommendation: option 1. A pattern should describe the relationship we have, no
 
 - **Business**, decided by the maintainer playing the library: C-20 to C-24, recommendations accepted in advance. Recorded in the [clarification log](../requirements/clarifications.md); C-22 refines C-02, the return at another branch is parked with C-14.
 - **Architecture:** none new. The pattern between `lending` and `fees` is open for the maintainer (proposed: customer–supplier).
-- **Way of working**, approved by the maintainer: the cut is challenged by a fresh agent with the `challenge-context-cut` skill before every gate that builds on it and whenever it changes; its reports go to [`docs/reviews/`](../docs/reviews/README.md). New check: a changed rule is looked for on the boards too.
+- **Way of working**, approved by the maintainer in the conversation that led to this chapter (the skill was merged with PR #10): the cut is challenged by a fresh agent with the `challenge-context-cut` skill before every gate that builds on it and whenever it changes; its reports go to [`docs/reviews/`](../docs/reviews/README.md). New check: a changed rule is looked for on the boards too.
 
 ---
 

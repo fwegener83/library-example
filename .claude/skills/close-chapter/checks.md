@@ -75,6 +75,13 @@ creation, so get them right at creation.
 - If the text says "all X carry tag Y", count them in the snapshot.
 - Do not refer to hotspots by number; refer to them by their question.
   Numbers drift between chapters.
+- A claim that something is **new**, "not known before" or "found for
+  the first time" is checked against the earlier reports in
+  `docs/reviews/` and the logs. (Chapter 5 first said none of seven
+  findings was known; the chapter 3 report already had four of them.)
+- "Approved by the maintainer" names where: the conversation, a PR, a
+  log entry. Scope words in the source ("before reading the final
+  wording", "of the serious ones") are kept, not rounded up.
 
 ## Context map and architecture
 
