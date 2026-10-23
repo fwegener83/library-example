@@ -83,3 +83,11 @@ The maintainer does not want to watch whether these rules are followed. So:
 
 Use the `close-chapter` skill. It lists the steps from the last board edit
 to the draft PR.
+
+## Challenging the cut
+
+Before anything is built on the contexts and the context map (a gate,
+modelling a context in detail), and whenever the cut changes, run the
+`challenge-context-cut` skill in a fresh agent. It reports findings with
+evidence and alternatives to `docs/reviews/`; it does not change the
+model. The maintainer decides what follows.

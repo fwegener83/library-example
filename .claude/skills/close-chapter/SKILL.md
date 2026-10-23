@@ -32,7 +32,10 @@ Work through these in order. Stop and report if a step fails. Do not merge.
    merge commit once it exists.
 8. **Independent review.** Ask for a review that did not write the
    chapter (for example `/code-review` or a fresh agent that gets only the
-   files). Fix findings before presenting.
+   files). Fix findings before presenting. If the chapter adds, merges
+   or splits a context, turns a mapping or changes a glossary, the
+   review includes the `challenge-context-cut` skill in a fresh agent;
+   its report goes to `docs/reviews/`.
 9. **Retrospective.** List what was found in steps 0 to 8 or by the
    maintainer. For each finding, decide which rule or check would have
    caught it earlier, and add it to `CLAUDE.md`, `checks.md` or
