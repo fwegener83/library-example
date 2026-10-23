@@ -99,6 +99,10 @@ creation, so get them right at creation.
   a hotspot pointing to the record, in the same pull request. (After
   ADR 5 the Big Picture still showed "block the card" orders and the
   money threshold in `membership`; found by `challenge-context-cut`.)
+  Read the rule's own text for its triggers ("whenever a charge is
+  made", "every kind of charge") and check that each one has an arrow
+  on the board. (Chapter 5 renamed the policies but left lost-book and
+  usage fees without an arrow to the hold; found by the second run.)
 
 ## Proposals and decisions (every chapter)
 

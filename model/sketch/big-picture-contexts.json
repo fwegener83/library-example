@@ -3,8 +3,8 @@
     "chapter": "05-challenging-the-cut",
     "workspace": "Millbrook Library (tutorial)",
     "board": "big-picture",
-    "savedVersion": "ch5-big-picture-after-challenge",
-    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-24 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn' and 'Payment Confirmed by CityPay' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
+    "savedVersion": "ch5-big-picture-after-challenge-v2",
+    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-24 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn', 'Payment Confirmed by CityPay' and 'Payment Cancelled (rejected by CityPay)' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
     "eventOrder": [
       "Title Added to Catalogue",
       "Book Details Corrected",
@@ -35,6 +35,7 @@
       "Lost-Book Fee Charged (price + €5)",
       "Payment Received",
       "Payment Confirmed by CityPay",
+      "Payment Cancelled (rejected by CityPay)",
       "Charge Waived"
     ]
   },
@@ -742,6 +743,17 @@
           "id": "775c1260-a2c4-443a-a7f9-78f7bb0e5c58",
           "kind": "note",
           "text": "As-is: keyed into CityPay's portal by hand. To-be: the system passes each payment to CityPay. Received counts for the hold at once; confirmed counts for the accounts; a rejected payment is cancelled (C-02, C-22)."
+        },
+        {
+          "id": "ec8d1cc4-1ce3-4e34-beca-5bad22ac9f4c",
+          "kind": "event",
+          "text": "Payment Cancelled (rejected by CityPay)",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4",
+            "clar:C-22",
+            "to-be"
+          ]
         }
       ]
     }
@@ -1146,6 +1158,46 @@
       "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
       "targetId": "f547bd93-e237-4417-8959-f6fca89eb494",
       "label": "reads"
+    },
+    {
+      "sourceId": "bbdd9d57-e20b-4452-9047-210a3c912ffd",
+      "targetId": "ec8d1cc4-1ce3-4e34-beca-5bad22ac9f4c",
+      "label": "rejects"
+    },
+    {
+      "sourceId": "ec8d1cc4-1ce3-4e34-beca-5bad22ac9f4c",
+      "targetId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "18cda650-8ced-4ee2-9acb-0a9587702c2d",
+      "targetId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "d44edc23-b3cc-487a-bfe9-7ee909ce8db1",
+      "targetId": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
+      "label": "whenever"
+    },
+    {
+      "sourceId": "18cda650-8ced-4ee2-9acb-0a9587702c2d",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "18cda650-8ced-4ee2-9acb-0a9587702c2d",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "d44edc23-b3cc-487a-bfe9-7ee909ce8db1",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
+      "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
+      "label": "feeds"
     }
   ]
 }

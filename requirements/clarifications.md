@@ -351,6 +351,33 @@ recommendations before reading the final wording; the entries say so.
   library): recommendation accepted (given in advance); the return at
   another branch is parked with C-14.
 
+### C-25 Who decides what happens to a damaged copy?
+
+- **Source:** C-06, C-17 ("Repair and withdrawal happen outside the
+  system and the copy is released by hand"), C-20 (the Head of
+  Collection withdraws a lost copy in the catalogue); report
+  `docs/reviews/ch05-context-cut.md`, finding F4.
+- **Why now:** after C-20 the catalogue knows *withdrawn* copies, and
+  the lending glossary says a damaged copy is "released by hand or
+  withdrawn". C-17 still says both happen outside the system, and it
+  rejected the collection owning the copy's condition because that
+  would make lending and catalogue depend on each other. The list for
+  the Head of Collection (C-20) now exists, so the reason no longer
+  holds, and "released by hand" has no owner.
+- **Options:**
+  1. **Amend C-17.** `lending` marks the copy damaged and lists it, as
+     today. The Head of Collection decides: *withdraw* it in the catalogue
+     (as for a lost copy), or *release* it after repair, also in the
+     catalogue. `catalogue` publishes both; `lending` reacts. The arrow
+     stays catalogue → lending.
+  2. Keep C-17: withdrawal in the catalogue (C-20), release at the desk
+     by hand. Two places decide about the same copy.
+- **Recommendation:** option 1. The decision about a damaged copy is
+  the Head of Collection's (brief §3.2: "then it goes to Tom"); option 1
+  gives it one place and one owner, with no new dependency.
+- **Status:** proposed. It changes the decided C-17, so the maintainer
+  decides.
+
 ---
 
 ## B. Answered by the brief (confirm only)
@@ -370,6 +397,8 @@ recommendations before reading the final wording; the entries say so.
 | C-11 | Blocked card: collect a reservation made before the block? | brief §3.3, §6 | Modelling lending (rule, not a boundary) |
 | C-12 | Reservation kept 3 or 5 days? | brief §3.2, §6 | Modelling lending (a setting) |
 | C-13 | 28-day loans for new releases? | brief §3.4, §6 | Modelling lending (a setting) |
-| C-14 | Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? | brief §3.2, §3.5 | Modelling lending (rule) |
+| C-14 | Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? Which branch counts for the limit: where the copy was checked out, or its home branch (C-24)? | brief §3.2, §3.5 | Modelling lending (rule) |
 | C-15 | Waiting line for books that are out? | brief §3.2 | Scope of the first release, before specs |
 | C-16 | Who may waive a fine, and why? | brief §3.4 ("waived" in the report only) | Modelling fees |
+| C-26 | Monthly report: does "paid" mean received or confirmed by CityPay (C-22)? Does "outstanding" include running fines? | brief §3.4, C-22, C-23; report ch05 F2 | Modelling fees |
+| C-27 | Usage-fee copy: can the archive's fee start or end after registration, and is it one amount for all such copies? Fees must have the mark before the checkout arrives (C-21). | brief §3.4, C-21; report ch05 F5 | Modelling catalogue and fees |

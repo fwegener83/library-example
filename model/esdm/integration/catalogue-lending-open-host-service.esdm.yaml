@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: catalogue-lending-open-host-service
-description: 'The catalogue offers one format for titles and copies to whoever needs it, instead of negotiating with each consumer: lending takes availability, restricted copies and the home branch; fees takes the price and the usage-fee mark. See C-07 for the words, C-20, C-21, C-24.'
+description: 'The catalogue offers one format for titles and copies to whoever needs it, instead of negotiating with each consumer: lending takes the copies, circulating or restricted, with their home branch; fees takes the price and the usage-fee mark. Availability stays in lending. See C-07 for the words, C-20, C-21, C-24.'
 type: open-host-service
 host:
   domain: millbrook-library-tutorial

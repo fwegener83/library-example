@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: lending-fees-open-host-service
-description: 'Fees follows loans without lending knowing about fees: checked out, due date, returned, declared lost (C-03, C-04). Whether a checkout carries a usage fee is decided in fees from the catalogue''s mark, not reported by lending (C-21).'
+description: 'Fees follows loans without lending knowing about fees: checked out, became overdue, returned, declared lost, each with its due date (C-03, C-04). Whether a checkout carries a usage fee is decided in fees from the catalogue''s mark, not reported by lending (C-21).'
 type: open-host-service
 host:
   domain: millbrook-library-tutorial
