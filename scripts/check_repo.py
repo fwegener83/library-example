@@ -103,6 +103,42 @@ for f in (root / "model" / "sketch").glob("*.json"):
 for cid in sorted(cited - known):
     err(f"{cid} is cited but has no entry in requirements/clarifications.md")
 
+adr_dir = root / "docs" / "adr"
+if adr_dir.exists():
+    adr_index = (adr_dir / "README.md").read_text()
+    for adr in sorted(adr_dir.glob("0*.md")):
+        if adr.name not in adr_index:
+            err(f"docs/adr/README.md does not list {adr.name}")
+
+# the context map must not contain a circle (downstream depends on upstream)
+deps = {}
+roles_up = ("upstream", "host", "publisher", "supplier")
+roles_down = ("downstream", "consumer", "customer")
+for f in (root / "model" / "esdm" / "integration").glob("*.yaml"):
+    text = f.read_text()
+    def end(roles):
+        for r in roles:
+            m = re.search(rf"^{r}:\n  domain: \S+\n  boundedContext: (\S+)", text, re.M)
+            if m:
+                return m.group(1)
+    up, down = end(roles_up), end(roles_down)
+    if up and down:
+        deps.setdefault(down, set()).add(up)
+
+def find_circle(node, path):
+    if node in path:
+        return path[path.index(node):] + [node]
+    for nxt in sorted(deps.get(node, ())):
+        found = find_circle(nxt, path + [node])
+        if found:
+            return found
+
+for start in sorted(deps):
+    circle = find_circle(start, [])
+    if circle:
+        warn("context map has a circle (downstream depends on upstream): " + " -> ".join(circle))
+        break
+
 for f in (root / "model" / "domain-stories").glob("*.yaml"):
     text = f.read_text()
     for obj in set(re.findall(r"workObject: (\S+)", text)):

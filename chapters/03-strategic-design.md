@@ -106,7 +106,7 @@ The glossary lives on each context and is part of the export. The overlap is int
 
 ## What we found along the way
 
-- **The contexts form a circle, through events only.** lending → fees → membership → lending. As long as each arrow is a published event, and no context calls another and waits for the answer (lending keeps its own copy of the member status), this is workable. It is a deliberate decision, and it must hold when we choose the technology: no module may depend on another at build time in a circle.
+- **The contexts form a circle.** lending → fees → membership → lending. In chapter 3 we thought this harmless as long as every arrow is a published event. It is not: a module that reacts to an event has to know the event's type, so it depends on the module that publishes it, and three modules in a circle cannot be built or separated one by one. Chapter 4 follows this up (ADR-0004).
 - **Damaged copies cross the seam in the other direction** (C-06). In the first release lending only marks the copy as damaged and lists it for the Head of Collection; repair and withdrawal happen outside the system (C-17). Handling them inside the system would make the relationship between lending and catalogue two-way, which we deliberately avoid for now.
 - **The brief says "fines" for the block, but the amount owed is more than fines.** We count late fines, lost-book fees and usage fees (C-18). Otherwise a reader who lost a book could never be blocked.
 - **The mail gateway has no mapping yet.** It is in the model as an external system. Which pattern fits depends on its interface, which the brief does not describe. Until we know it, we do not guess.

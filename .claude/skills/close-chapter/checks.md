@@ -75,3 +75,26 @@ creation, so get them right at creation.
 - If the text says "all X carry tag Y", count them in the snapshot.
 - Do not refer to hotspots by number; refer to them by their question.
   Numbers drift between chapters.
+
+## Context map and architecture
+
+- Read the map for **dependencies**, not only for message flow: whoever
+  reacts to an event or calls an API depends on the publisher's types.
+  The script warns about circles; a circle must be resolved in an ADR
+  before the map is called done. (Chapter 3 called a circle harmless; it
+  was found in chapter 4.)
+- ADRs say what a technology must provide, never which one, while gate G2
+  is open.
+- A record that changes an earlier chapter says which chapter, and the
+  chapter is corrected in the same pull request.
+
+## Proposals and decisions (every chapter)
+
+- Words match status: a heading "The decisions" over proposed records,
+  or "known" for something that depends on an open decision, is an
+  overclaim. Say "proposed" in the heading and in the summary line.
+- A rule that sounds technology-neutral may still fix a technology
+  ("after commit", "foreign keys", "same database"). Read each rule once
+  as "which gate would own this word?".
+- A claim that something can be changed or split later names what that
+  costs (failure handling, retries), not only what stays.
