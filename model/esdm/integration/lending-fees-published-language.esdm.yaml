@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: lending-fees-published-language
-description: Loan events (checked out, became overdue, returned, declared lost) with due date and copy as the agreed format.
+description: Loan events (checked out, became overdue, returned, declared lost), each with the copy, the reader and the due date, as the agreed format.
 type: published-language
 publisher:
   domain: millbrook-library-tutorial

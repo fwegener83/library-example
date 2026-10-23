@@ -1,20 +1,21 @@
 {
   "snapshot": {
-    "chapter": "03-strategic-design",
+    "chapter": "05-challenging-the-cut",
     "workspace": "Millbrook Library (tutorial)",
     "board": "big-picture",
-    "savedVersion": "ch3-context-cut-v3",
-    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-01 to C-10 were applied and the four bounded contexts were drawn as areas. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted.",
+    "savedVersion": "ch5-big-picture-after-challenge",
+    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-24 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn' and 'Payment Confirmed by CityPay' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
     "eventOrder": [
       "Title Added to Catalogue",
       "Book Details Corrected",
-      "Copy Registered (circulating or restricted)",
+      "Copy Registered (circulating or restricted, home branch, usage fee or not)",
+      "Copy Withdrawn",
       "Member Registered (card issued)",
       "Researcher Status Granted",
       "Card Renewed",
       "Card Expired",
       "Researcher Status Expired",
-      "Card Blocked (owes more than €10)",
+      "Card Blocked",
       "Card Unblocked",
       "Book Reserved",
       "Book Kept for Researcher (no time limit)",
@@ -32,8 +33,9 @@
       "Usage Fee Charged",
       "Late Fine Assessed",
       "Lost-Book Fee Charged (price + €5)",
-      "Fine Paid",
-      "Fine Waived"
+      "Payment Received",
+      "Payment Confirmed by CityPay",
+      "Charge Waived"
     ]
   },
   "areas": [
@@ -66,10 +68,12 @@
         {
           "id": "d24c89aa-553d-4696-a45c-a749d1a62857",
           "kind": "event",
-          "text": "Copy Registered (circulating or restricted)",
+          "text": "Copy Registered (circulating or restricted, home branch, usage fee or not)",
           "tags": [
             "theme:collection",
-            "src:brief-3.1"
+            "src:brief-3.1",
+            "clar:C-21",
+            "clar:C-24"
           ]
         },
         {
@@ -111,6 +115,17 @@
           ],
           "tags": [
             "rule:invariant"
+          ]
+        },
+        {
+          "id": "7ea60a98-3f16-4bf2-8988-38346b2dff04",
+          "kind": "event",
+          "text": "Copy Withdrawn",
+          "tags": [
+            "theme:collection",
+            "src:inferred",
+            "clar:C-20",
+            "to-be"
           ]
         }
       ]
@@ -175,7 +190,7 @@
         {
           "id": "0c166d63-08ae-4a06-9452-c3012ff4d88f",
           "kind": "event",
-          "text": "Card Blocked (owes more than €10)",
+          "text": "Card Blocked",
           "tags": [
             "theme:membership",
             "src:brief-3.3"
@@ -194,6 +209,11 @@
           "id": "24e4039f-adba-487f-9ba4-eada202b61e7",
           "kind": "actor",
           "text": "Membership Officer"
+        },
+        {
+          "id": "75e6ee48-30ee-4925-b893-685736c7c92d",
+          "kind": "note",
+          "text": "As-is: the Membership Officer blocks and unblocks by hand. To-be: fees places and lifts the hold 'unpaid fees'; whoever placed a hold lifts it. Manual holds are not in the first release (C-01, C-19, ADR 5)."
         }
       ]
     },
@@ -440,7 +460,7 @@
         {
           "id": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e",
           "kind": "actor",
-          "text": "Clock (daily, per branch)",
+          "text": "Clock (daily)",
           "sections": [
             {
               "label": "Notes",
@@ -510,6 +530,22 @@
             "hotspot:question",
             "clar:C-04"
           ]
+        },
+        {
+          "id": "f547bd93-e237-4417-8959-f6fca89eb494",
+          "kind": "read-model",
+          "text": "Copies for the Head of Collection: lost or damaged",
+          "tags": [
+            "theme:lending",
+            "src:inferred",
+            "clar:C-20",
+            "to-be"
+          ]
+        },
+        {
+          "id": "7355ee56-302e-4922-863a-edbf9056bff7",
+          "kind": "note",
+          "text": "One card for all daily checks. Each check belongs to the module that owns its rule: reservations and overdue loans in lending, expiring cards in membership, running fines in fees (ADR 6)."
         }
       ]
     },
@@ -551,26 +587,28 @@
         {
           "id": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
           "kind": "event",
-          "text": "Fine Paid",
+          "text": "Payment Received",
           "tags": [
             "theme:fees",
             "src:brief-3.4",
-            "clar:C-02"
+            "clar:C-02",
+            "clar:C-22"
           ]
         },
         {
           "id": "f08ec6a8-4b5e-4fce-9561-15f27e6c6621",
           "kind": "event",
-          "text": "Fine Waived",
+          "text": "Charge Waived",
           "tags": [
             "theme:fees",
-            "src:brief-3.4"
+            "src:brief-3.4",
+            "clar:C-23"
           ]
         },
         {
           "id": "403310e7-0155-47e8-b854-59ea548728a3",
           "kind": "policy",
-          "text": "When an item with a usage fee is checked out, charge the fee",
+          "text": "When a usage-fee copy is checked out, charge the usage fee",
           "sections": [
             {
               "label": "Rule",
@@ -580,7 +618,8 @@
           ],
           "tags": [
             "rule:policy",
-            "clar:C-08"
+            "clar:C-08",
+            "clar:C-21"
           ]
         },
         {
@@ -595,7 +634,7 @@
         {
           "id": "0eb238b4-f579-42d2-a775-7093d8fa8bdd",
           "kind": "policy",
-          "text": "When a member's fines are back at €10 or less, unblock the card",
+          "text": "When the amount owed is €10 or less again, lift the hold 'unpaid fees'",
           "sections": [
             {
               "label": "Rule",
@@ -606,7 +645,8 @@
           "tags": [
             "rule:policy",
             "to-be",
-            "clar:C-01"
+            "clar:C-01",
+            "clar:C-19"
           ]
         },
         {
@@ -628,7 +668,7 @@
         {
           "id": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
           "kind": "policy",
-          "text": "When a member owes more than €10, block the card",
+          "text": "When a reader is in arrears (amount owed above €10), place the hold 'unpaid fees' on the card",
           "sections": [
             {
               "label": "Rule",
@@ -641,7 +681,8 @@
             "clar:C-01",
             "clar:C-03",
             "to-be",
-            "clar:C-18"
+            "clar:C-18",
+            "clar:C-19"
           ]
         },
         {
@@ -675,12 +716,32 @@
         {
           "id": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
           "kind": "read-model",
-          "text": "Monthly fines report: charged, paid, waived, outstanding"
+          "text": "Monthly report by kind of charge: charged, paid, waived, outstanding",
+          "tags": [
+            "src:brief-3.4",
+            "clar:C-23"
+          ]
         },
         {
           "id": "5142d76f-cc03-4bcc-a34d-d7476a4cfd97",
           "kind": "actor",
           "text": "Treasury Liaison"
+        },
+        {
+          "id": "c6254f71-1f82-42cc-8e93-062e1e90828f",
+          "kind": "event",
+          "text": "Payment Confirmed by CityPay",
+          "tags": [
+            "theme:fees",
+            "src:brief-3.4",
+            "clar:C-22",
+            "to-be"
+          ]
+        },
+        {
+          "id": "775c1260-a2c4-443a-a7f9-78f7bb0e5c58",
+          "kind": "note",
+          "text": "As-is: keyed into CityPay's portal by hand. To-be: the system passes each payment to CityPay. Received counts for the hold at once; confirmed counts for the accounts; a rejected payment is cancelled (C-02, C-22)."
         }
       ]
     }
@@ -1038,6 +1099,53 @@
       "sourceId": "10c0470d-b955-4c69-ac6d-1adb60b5d8bf",
       "targetId": "52a57b3c-b2a0-4fef-9cf2-7e678e816015",
       "label": "cancels for the reader"
+    },
+    {
+      "sourceId": "bbdd9d57-e20b-4452-9047-210a3c912ffd",
+      "targetId": "c6254f71-1f82-42cc-8e93-062e1e90828f",
+      "label": "confirms"
+    },
+    {
+      "sourceId": "c6254f71-1f82-42cc-8e93-062e1e90828f",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "d44edc23-b3cc-487a-bfe9-7ee909ce8db1",
+      "targetId": "347e9d5d-7eef-428b-a189-dd58ec08c9be",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "75e6ee48-30ee-4925-b893-685736c7c92d",
+      "targetId": "24e4039f-adba-487f-9ba4-eada202b61e7"
+    },
+    {
+      "sourceId": "7355ee56-302e-4922-863a-edbf9056bff7",
+      "targetId": "5b37dd5c-fa05-4a0b-bb0a-a3339e04963e"
+    },
+    {
+      "sourceId": "775c1260-a2c4-443a-a7f9-78f7bb0e5c58",
+      "targetId": "bbdd9d57-e20b-4452-9047-210a3c912ffd"
+    },
+    {
+      "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+      "targetId": "7ea60a98-3f16-4bf2-8988-38346b2dff04",
+      "label": "withdraws"
+    },
+    {
+      "sourceId": "6f5bb18e-1838-4a82-880a-f004cf9de9a6",
+      "targetId": "f547bd93-e237-4417-8959-f6fca89eb494",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "226c3b97-611f-4348-8f3d-90e77de3638b",
+      "targetId": "f547bd93-e237-4417-8959-f6fca89eb494",
+      "label": "feeds"
+    },
+    {
+      "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+      "targetId": "f547bd93-e237-4417-8959-f6fca89eb494",
+      "label": "reads"
     }
   ]
 }

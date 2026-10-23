@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: catalogue-lending-published-language
-description: Catalogue events (title added, copy registered with its circulating or restricted flag) are the agreed format lending listens to.
+description: 'Catalogue events are the agreed format lending listens to: title added; copy registered, with circulating or restricted, home branch and usage-fee mark; copy withdrawn (C-20, C-21, C-24).'
 type: published-language
 publisher:
   domain: millbrook-library-tutorial

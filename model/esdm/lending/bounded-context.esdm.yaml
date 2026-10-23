@@ -17,7 +17,7 @@ ubiquitousLanguage:
         reason: Everyday speech only; the model says copy or title (C-07).
       - term: item
         reason: Same as copy (C-07).
-    definition: 'A physical book and what may be done with it right now: on the shelf, reserved or on loan.'
+    definition: 'A physical book and what may be done with it right now: on the shelf at a branch, reserved, on loan, lost or damaged.'
   - term: loan
     definition: A copy held by a reader until its due date.
   - term: due date
@@ -29,7 +29,11 @@ ubiquitousLanguage:
   - term: researcher
     definition: 'A reader whom membership reports as a researcher: may borrow restricted copies and has no reservation limit.'
   - term: branch
-    definition: 'One of the four library sites: Central, Riverside, Northgate, Old Town.'
+    definition: 'One of the four library sites: Central, Riverside, Northgate, Old Town. A copy is on the shelf at one branch at a time; its home branch comes from the catalogue (C-24).'
+  - term: lost copy
+    definition: A copy the reader reports lost at the desk. The loan ends and the copy is listed for the Head of Collection, who withdraws it in the catalogue (C-04, C-20).
+  - term: damaged copy
+    definition: A copy found damaged at check-in. Not lendable and listed for the Head of Collection; released by hand or withdrawn (C-06, C-17).
   - term: morning list
     definition: 'The two lists a branch gets every morning: reservations that ran out and loans that are overdue.'
 metadata:

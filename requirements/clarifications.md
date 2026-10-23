@@ -224,6 +224,133 @@ moment it has to be decided).
 - **Status:** decided 2026-10-23 by the maintainer (acting for the
   library): recommendation accepted (option 1).
 
+## A3. Questions from challenging the cut (chapter 5)
+
+Raised by the `challenge-context-cut` report on the state after chapter 4
+(`docs/reviews/ch04-context-cut.md`). The maintainer accepted the
+recommendations before reading the final wording; the entries say so.
+
+### C-20 What happens to a lost copy in the collection?
+
+- **Source:** C-04 ("a lost book ends a loan, takes a copy out of the
+  collection and creates a fee: three areas meet here"); C-17 (damaged
+  copies are released by hand); brief §3.1 ("we own eleven copies of it
+  across the branches", "What happens to a book after it leaves my desk
+  is the branches' business, honestly."). Report finding F1.
+- **Why now:** the model ends the loan and charges the fee, but nothing
+  takes the copy out of the collection. Letting `catalogue` react to a
+  loss in `lending` would make the two depend on each other (ADR 3).
+- **Options:**
+  1. `lending` records the loss and lists the copy for the Head of
+     Collection, as for damaged copies (C-17). The Head of Collection
+     *withdraws* the copy in the catalogue; `catalogue` publishes that,
+     and `lending` stops offering it.
+  2. `lending` owns the end of a copy's circulation; the catalogue stays
+     a register of what was acquired.
+  3. `catalogue` reacts to the loss in `lending`.
+- **Recommendation:** option 1. It is the same path as for damaged
+  copies, the Head of Collection keeps the say over the collection, and
+  the arrow stays catalogue → lending. Cost: one manual step per lost
+  copy, and the catalogue counts the copy until it is withdrawn. Option 2
+  leaves the catalogue counting copies the library no longer has.
+  Option 3 creates a dependency circle.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the
+  library): recommendation accepted (given in advance).
+
+### C-21 Who decides which copies carry a usage fee, and how much?
+
+- **Source:** brief §3.4 ("Some items in the special collection carry a
+  usage fee — the archive insists on it. That's charged when the item is
+  checked out"), §3.1 ("When we register a copy, we decide whether it
+  circulates or not", "anything the archive lent us"); C-08. Report
+  finding F2.
+- **Why now:** `fees` charges the usage fee at checkout but no context
+  owns the two facts it needs: *which* copies and *how much*. The brief
+  says "items"; C-07 replaced the word by *copy*.
+- **Options:**
+  1. **Split by kind of fact.** The Head of Collection marks a copy as
+     *usage-fee copy* when registering it, as with circulating and
+     restricted; `catalogue` publishes the mark. The amount is a tariff in
+     `fees`, set by the Treasury Liaison. Per copy, not per title.
+  2. Everything in `catalogue`: the mark and the amount.
+  3. Everything in `fees`: a list of copies with their amounts.
+- **Recommendation:** option 1. Which copy belongs to the archive's
+  special collection is known when it is registered, by the person who
+  registers it. An amount of money is the business of `fees`; option 2
+  would bring money into `catalogue`, option 3 would make `fees` keep a
+  second list of copies in step with the catalogue. The mark is separate
+  from *restricted*: the brief does not say that the two coincide. The
+  amount is not in the brief; it is a setting.
+- **Consequence:** `lending` no longer reports "checkout of a copy with
+  a usage fee". It reports the checkout; `fees` knows from the catalogue
+  whether that copy carries a fee.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the
+  library): recommendation accepted (given in advance).
+
+### C-22 When does a payment at the desk unblock the card?
+
+- **Source:** brief §3.3 ("When they pay, we unblock."), §4 (payment
+  taken at the desk); C-02 ("a fine counts as paid when CityPay
+  confirms"); ADR 5. Report finding F5.
+- **Why now:** with C-02 alone, a reader who has just paid at the desk
+  stays blocked until CityPay confirms and the hold is lifted.
+- **Options:**
+  1. **Two steps.** A payment taken at the desk is *received* at once and
+     lowers the amount owed; the hold is lifted if it is then €10 or
+     less. CityPay's confirmation makes it *confirmed* for the accounts.
+     If CityPay rejects it, the payment is cancelled, the amount owed
+     rises again, and the €10 rule places the hold again.
+  2. Only on confirmation (C-02 as it stands); the desk shows "payment
+     pending".
+- **Recommendation:** option 1. It is what the brief says ("When they
+  pay, we unblock"), and the director wants fewer manual steps and
+  fewer phone calls. A rejected transfer is rare and is handled by the
+  rule that already exists. This **refines C-02**: for the accounts a
+  payment counts when CityPay confirms; for the block it counts when it
+  is received.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the
+  library): recommendation accepted (given in advance).
+
+### C-23 What does the monthly report cover?
+
+- **Source:** brief §3.4 ("We need a monthly report: fines charged,
+  paid, waived, outstanding."); C-18 (all charges count towards the
+  block); C-16 (parked: who may waive). Report finding F3.
+- **Why now:** the board feeds the report only with late fines, and the
+  only payment event is called *Fine Paid*.
+- **Options:**
+  1. The report covers every charge (late fines, lost-book fees, usage
+     fees), shown by kind: charged, paid, waived, outstanding.
+  2. Late fines only, as the word "fines" reads.
+- **Recommendation:** option 1, for the same reason as C-18: the brief
+  says "fines" for everything a reader owes, and a report without
+  lost-book fees would leave out most of the money. Every charge can be
+  paid. Who may waive which charge stays parked in C-16.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the
+  library): recommendation accepted (given in advance).
+
+### C-24 Does a copy belong to a branch?
+
+- **Source:** brief §3.1 ("we own eleven copies of it across the
+  branches"), §3.2 ("You can only reserve a book that's on the shelf",
+  "every branch keeps its own count"); C-14 (parked). Report finding F7.
+- **Why now:** reservations and the overdue limit work per branch, but no
+  context says where a copy belongs or who decides it.
+- **Options:**
+  1. Every copy has a **home branch**, set by the Head of Collection when
+     registering it; `catalogue` publishes it. *Where the copy is now*
+     (on the shelf at a branch, on loan) is the state of `lending`.
+  2. Copies have no home; they stay wherever they were returned
+     (`lending` only).
+- **Recommendation:** option 1. The brief speaks of copies the library
+  owns across its branches, which is a decision of the collection; the
+  shelf a copy is on right now is the desk's business. What happens when
+  a copy is returned at another branch is not in the brief; it is decided
+  with C-14 when `lending` is modelled.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the
+  library): recommendation accepted (given in advance); the return at
+  another branch is parked with C-14.
+
 ---
 
 ## B. Answered by the brief (confirm only)
@@ -243,6 +370,6 @@ moment it has to be decided).
 | C-11 | Blocked card: collect a reservation made before the block? | brief §3.3, §6 | Modelling lending (rule, not a boundary) |
 | C-12 | Reservation kept 3 or 5 days? | brief §3.2, §6 | Modelling lending (a setting) |
 | C-13 | 28-day loans for new releases? | brief §3.4, §6 | Modelling lending (a setting) |
-| C-14 | Overdue limit per branch: intended or habit? | brief §3.2, §3.5 | Modelling lending (rule) |
+| C-14 | Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? | brief §3.2, §3.5 | Modelling lending (rule) |
 | C-15 | Waiting line for books that are out? | brief §3.2 | Scope of the first release, before specs |
 | C-16 | Who may waive a fine, and why? | brief §3.4 ("waived" in the report only) | Modelling fees |

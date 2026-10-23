@@ -16,3 +16,5 @@ Collected, not fixed. Changes to `ddd-studio` wait for gate G4 (see
 | 9 | `edit_sketch_board` | An existing card cannot be moved into an area. The only way is `arrange_sketch_board` with a full timeline, which moves every card named. | Allow moving a card into an area, or an `arrange` mode that only sets the area. |
 | 10 | `export_esdm` | Returns the files only in the response, nothing is written to disk. Copying 22 files by hand invites mistakes. | Write to a path, or return a zip as an attachment. |
 | 11 | `get_sketch_board` with `tags` | An area that matches the filter is returned without the cards inside it when the cards do not match. | Return the cards of a matching area. |
+| 12 | `edit_sketch_board`, `remove` | Removing a card leaves its connections on the board as dangling edges (three after chapter 5). | Remove a card's connections with it. |
+| 13 | `edit_sketch_board`, connections | A connection's label cannot be changed and a connection cannot be removed; a new one in the same direction is skipped. | Allow updating and removing connections by id. |
