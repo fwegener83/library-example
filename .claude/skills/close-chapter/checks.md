@@ -37,3 +37,14 @@ creation, so get them right at creation.
   only for material this chapter owns. It returns counts only, so look at
   the board afterwards.
 - Hotspot and event numbers in the text match the board.
+
+## Clarifications (`requirements/clarifications.md`)
+
+- Every recommendation is tested against the director's goals (brief
+  §2) and the purpose of the rule it touches. Ask: is there a reader
+  who gets around the rule this way? (Caught too late in C-03: fines
+  assessed only on return let a reader who keeps a book escape the
+  block.)
+- A rejected proposal stays in the entry, with the reason.
+- Every decision says who made it and when, and that it is a
+  clarification, not the brief.

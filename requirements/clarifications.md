@@ -37,7 +37,7 @@ moment it has to be decided).
 - **Recommendation:** option 1, unblock at €10 or less. The rule is
   mechanical, and the director wants fewer manual steps. Blocking for
   other reasons is not in the brief.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
 ### C-02 How does a payment get to CityPay?
 
@@ -55,26 +55,40 @@ moment it has to be decided).
   step, which is the problem we found in chapter 2. Option 3 is not
   asked for (the director wants readers to *see* what they owe) and can
   come later on top of option 1.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
-### C-03 When is a late fine assessed?
+### C-03 When is a late fine assessed, and does it count towards the block?
 
 - **Source:** brief §3.4 (€0.50 per day per book from the day after the
-  due date, capped at the replacement price); hotspot "When exactly is a
-  late fine assessed: on return or every day?".
-- **Why now:** decides whether fees has to follow every overdue loan day
-  by day, and whether a reader with a book still out can be blocked
-  (C-01).
+  due date, capped at the replacement price), §3.3 (block above €10),
+  §2 ("Fines … exist so that books come back"); hotspot "When exactly is
+  a late fine assessed: on return or every day?".
+- **Why now:** decides whether fees has to follow loans that are still
+  out, and how the block (C-01) learns about them.
+- **First proposal (rejected):** assess once, on return or loss, and
+  count only assessed fines towards the block. Rejected by the
+  maintainer: a reader who never brings a book back would never be
+  blocked, which defeats the purpose of fines.
 - **Options:**
-  1. Once, when the book comes back (or is declared lost). While it is
-     out, the reader's account shows the amount so far, for information.
-  2. Daily: the fine grows every day and counts towards the €10 block
-     at once.
-- **Recommendation:** option 1. It gives one clear amount that can be
-  paid or waived. The overdue limit per branch already deals with books
-  that are still out. Trade-off: someone who never returns a book is
-  never blocked by fines; C-04 covers that case.
-- **Status:** proposed
+  1. The fine is fixed once, on return or loss. While the book is out,
+     the amount so far (days overdue × €0.50, capped at the price) is
+     *running* and counts towards the €10 block. A daily check (the
+     morning run) adds the running amounts to the fixed ones and blocks
+     the card when the total is above €10.
+  2. A fine is booked every day for every overdue book.
+  3. Fines only on return, plus a separate block after a number of days
+     overdue.
+- **Recommendation:** option 1. It closes the gap and keeps one clear
+  amount per book. Option 2 creates a booking per book per day for
+  nothing. Option 3 needs a number the brief does not give and a second
+  rule next to the €10 rule.
+- **Consequences:** fees has to know the due date of every loan and
+  learn when it ends (returned or lost); a running amount cannot be
+  paid, only a fixed one. A blocked reader with a book still out gets
+  unblocked only by returning it or reporting it lost and then paying.
+  Below €10 nothing happens: one book triggers the block from day 21
+  overdue (21 × €0.50 = €10.50).
+- **Status:** proposed (second round)
 
 ### C-04 Who declares a book lost, and what does it cost?
 
@@ -91,7 +105,7 @@ moment it has to be decided).
   number the brief does not give. No late fine on top: the cap at the
   replacement price suggests the price is the most a book can cost in
   fines.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
 ### C-05 What does an expired card or researcher status mean?
 
@@ -108,7 +122,7 @@ moment it has to be decided).
   2. Expired card: nothing changes until renewal is enforced at the desk.
 - **Recommendation:** option 1. Both expiries are triggered by time
   (actor *Clock*), not by a person.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
 ### C-06 What happens to a damaged book?
 
@@ -121,7 +135,7 @@ moment it has to be decided).
      charged.
   2. As 1, and the reader is charged.
 - **Recommendation:** option 1. The brief names no charge for damage.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
 ### C-07 Which words do we use?
 
@@ -137,7 +151,7 @@ moment it has to be decided).
   - **Reader**: the person at the desk, in lending and fees.
   - **Member**: the same person as seen by the membership office.
   - *Patron* (LibTrack's word) is not used.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted.
 
 ---
 
@@ -145,9 +159,9 @@ moment it has to be decided).
 
 | ID | Question | What the brief says | Status |
 |---|---|---|---|
-| C-08 | What causes *Usage Fee Charged*? | Charged at checkout (§3.4): the checkout causes it. | proposed |
-| C-09 | What causes *Card Expired* and *Researcher Status Expired*? | Time: one year / twelve months (§3.3). Actor *Clock*. | proposed |
-| C-10 | Is *Reservation Cancelled* real? | Not in the brief (`src:inferred`). Proposal: keep it, the reader or staff cancel a reservation. Otherwise drop the event. | proposed |
+| C-08 | What causes *Usage Fee Charged*? | Charged at checkout (§3.4): the checkout causes it. | decided 2026-10-23 (maintainer): as proposed |
+| C-09 | What causes *Card Expired* and *Researcher Status Expired*? | Time: one year / twelve months (§3.3). Actor *Clock*. | decided 2026-10-23 (maintainer): as proposed |
+| C-10 | Is *Reservation Cancelled* real? | Not in the brief (`src:inferred`). Proposal: keep it, the reader or staff cancel a reservation. Otherwise drop the event. | decided 2026-10-23 (maintainer): as proposed |
 
 ---
 
