@@ -169,7 +169,7 @@ moment it has to be decided).
      reacts to it.
 - **Recommendation:** option 1. The brief says nothing about repair or
   withdrawal. Option 2 is a later increment.
-- **Status:** proposed
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted (option 1).
 
 ### C-18 Which amounts count towards the €10 block?
 
@@ -185,9 +185,9 @@ moment it has to be decided).
 - **Recommendation:** option 1. A lost-book fee is the replacement price
   plus €5 and will usually be above €10 on its own; with option 2 a
   reader who lost a book would not be blocked, which is the gap C-03
-  closed for late fines. The wording of the Big Picture policy ("fines")
-  stays until this is decided.
-- **Status:** proposed
+  closed for late fines. The Big Picture policy and the glossaries of `membership` and `fees`
+  use `amount owed`.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted (option 1).
 
 ---
 

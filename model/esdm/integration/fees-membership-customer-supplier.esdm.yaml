@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: fees-membership-customer-supplier
-description: 'Membership blocks and unblocks the card from the member''s fines (C-01, C-03). Fees tells it when the total passes 10 euro or is back at 10 euro or less; membership decides what blocking means. Which amounts count towards the total is open (C-18). Note: the chain lending, fees, membership, lending runs in a circle through events only.'
+description: 'Membership blocks and unblocks the card from what the member owes (C-01, C-03). Fees tells it when the amount owed (fines, lost-book fees and usage fees, C-18) passes 10 euro or is back at 10 euro or less; membership decides what blocking means. Note: the chain lending, fees, membership, lending runs in a circle through events only.'
 type: customer-supplier
 supplier:
   domain: millbrook-library-tutorial

@@ -3,7 +3,7 @@
     "chapter": "03-strategic-design",
     "workspace": "Millbrook Library (tutorial)",
     "board": "big-picture",
-    "savedVersion": "ch3-context-cut",
+    "savedVersion": "ch3-context-cut-v3",
     "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-01 to C-10 were applied and the four bounded contexts were drawn as areas. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted.",
     "eventOrder": [
       "Title Added to Catalogue",
@@ -498,7 +498,8 @@
           "text": "Damaged book 'goes to Tom' — what happens then?",
           "tags": [
             "hotspot:scope",
-            "clar:C-06"
+            "clar:C-06",
+            "clar:C-17"
           ]
         },
         {
@@ -627,19 +628,20 @@
         {
           "id": "f8dc1207-7fe2-40e6-bfc3-6b0e4e96c01e",
           "kind": "policy",
-          "text": "When a member's fines exceed €10, block the card",
+          "text": "When a member owes more than €10, block the card",
           "sections": [
             {
               "label": "Rule",
               "type": "text",
-              "text": "Fines = assessed fines + running fines of loans still out (days overdue × €0.50, capped at the book's price). Checked every morning and whenever a fine is assessed. Blocked: no new loans or reservations."
+              "text": "Amount owed = assessed fines + running fines of loans still out (days overdue × €0.50, capped at the book's price) + lost-book fees + usage fees, minus what is paid or waived. Checked every morning and whenever a charge is made. Blocked: no new loans or reservations."
             }
           ],
           "tags": [
             "rule:policy",
             "clar:C-01",
             "clar:C-03",
-            "to-be"
+            "to-be",
+            "clar:C-18"
           ]
         },
         {

@@ -23,7 +23,7 @@ Two entries show why the log is worth keeping.
 - **C-03, when is a late fine assessed?** Our first proposal was: once, when the book comes back or is lost. The maintainer rejected it. A reader who never returns a book would then never be blocked, which defeats the purpose of fines ("Fines … exist so that books come back"). The decision: the fine is *assessed* on return (or on loss, see C-04), but while the book is out a *running* amount counts towards the €10 block. The rejected proposal and the reason stay in the log.
 - **C-07, which words do we use?** *Title* and *copy* instead of "book", *item* and *instance*; *reader* in lending and fees, *member* in membership; *patron* is dropped. The words that lose are recorded in the glossary, so someone who searches for them still finds the right one.
 
-The decisions C-01 to C-10 are applied on the Big Picture board (tag `clar:C-nn` on the cards they changed). Five events got a cause, four policies were added, and the €10 policy now checks every morning. The hotspots that were answered carry `clar:`, the ones deliberately postponed carry `parked:` (C-11 to C-15; C-16 has no card yet). All of these are to be decided when the model needs them. Both policies, block and unblock, are drawn in the `fees` area. The amounts are known there, and they end in an event of membership, which is the arrow from fees to membership on the map. One consequence to watch: the connections from the Membership Officer to *Card Blocked* and *Card Unblocked* still show how it is done today, by hand. The new policies show how it should be done. We keep both on purpose.
+The decisions C-01 to C-10, C-17 and C-18 are applied on the Big Picture board (tag `clar:C-nn` on the cards they changed). Five events got a cause, four policies were added, and the €10 policy now checks every morning. The hotspots that were answered carry `clar:`, the ones deliberately postponed carry `parked:` (C-11 to C-15; C-16 has no card yet). All of these are to be decided when the model needs them. Both policies, block and unblock, are drawn in the `fees` area. The amounts are known there, and they end in an event of membership, which is the arrow from fees to membership on the map. One consequence to watch: the connections from the Membership Officer to *Card Blocked* and *Card Unblocked* still show how it is done today, by hand. The new policies show how it should be done. We keep both on purpose.
 
 ## Step 2: Find the seams
 
@@ -81,7 +81,7 @@ flowchart LR
 | catalogue → lending, catalogue → fees | open host service + published language | Two consumers need the same thing: lending the copies and their flag, fees the price (lost-book fee, cap on late fines). One general service is cheaper than two bespoke ones. |
 | membership → lending | customer-supplier | Lending says what it must know (card valid? blocked? researcher?). Membership decides and publishes every change; lending keeps the part it needs. Both sit in one organisation and can negotiate. |
 | lending → fees | open host service + published language | Fees follows loans (due date, returned, lost, usage fee) without lending knowing that fees exist. Reminders and the reader account will need the same events, so lending publishes them once for everyone. Where the consumer's needs are negotiated one to one, as between membership and lending, *customer-supplier* fits better. |
-| fees → membership | customer-supplier | The block follows from the amounts (C-01, C-03). Fees reports when the fines pass €10 or are back at €10 or less (which amounts count is C-18); membership decides what blocking means. |
+| fees → membership | customer-supplier | The block follows from the amounts (C-01, C-03). Fees reports when the amount owed passes €10 or is back at €10 or less; membership decides what blocking means. The amount owed includes late fines, lost-book fees and usage fees (C-18). |
 
 ### Rejected
 
@@ -107,16 +107,16 @@ The glossary lives on each context and is part of the export. The overlap is int
 ## What we found along the way
 
 - **The contexts form a circle, through events only.** lending → fees → membership → lending. As long as each arrow is a published event, and no context calls another and waits for the answer (lending keeps its own copy of the member status), this is workable. It is a deliberate decision, and it must hold when we choose the technology: no module may depend on another at build time in a circle.
-- **Damaged copies cross the seam in the other direction** (C-06, C-17). The proposal is to keep it at "lending marks the copy and lists it for the Head of Collection" in the first release. It is not decided yet.
-- **Which amounts count towards the €10 block?** The brief says "fines". Whether lost-book and usage fees count is open as C-18.
+- **Damaged copies cross the seam in the other direction** (C-06). In the first release lending only marks the copy as damaged and lists it for the Head of Collection; repair and withdrawal happen outside the system (C-17). Handling them inside the system would make the relationship between lending and catalogue two-way, which we deliberately avoid for now.
+- **The brief says "fines" for the block, but the amount owed is more than fines.** We count late fines, lost-book fees and usage fees (C-18). Otherwise a reader who lost a book could never be blocked.
 - **The mail gateway has no mapping yet.** It is in the model as an external system. Which pattern fits depends on its interface, which the brief does not describe. Until we know it, we do not guess.
 - **A bounded context without an aggregate is a placeholder.** That is expected here; the aggregates come with the modelling of each context.
 
 ## What we take into the next chapter
 
 - How the four contexts are deployed is the topic of chapter 4. The brief already points to one application ("not a zoo of services"); chapter 4 turns that into a decision with reasons.
-- Open before the specification work: C-17, C-18, the mail gateway, the parked C-11 to C-16.
+- Open before the specification work: the mail gateway and the parked C-11 to C-16.
 
 ---
 
-*The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch3-before-clarifications`, `ch3-context-cut` and `ch3-context-cut-v2` (Big Picture with contexts as areas, snapshot in [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json)) and `ch3-context-map` and `ch3-context-map-v2` (strategic model). The Big Picture of chapter 1 is kept as [`big-picture.json`](../model/sketch/big-picture.json). The reference project this tutorial adapts, [ddd-by-examples/library](https://github.com/ddd-by-examples/library), draws, according to its README and Big Picture notes, the same seam between catalogue and lending. Membership and fees go beyond it.*
+*The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch3-before-clarifications`, `ch3-context-cut`, `ch3-context-cut-v2` and `ch3-context-cut-v3` (Big Picture with contexts as areas, snapshot in [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json)) and `ch3-context-map`, `ch3-context-map-v2` and `ch3-context-map-v3` (strategic model). The Big Picture of chapter 1 is kept as [`big-picture.json`](../model/sketch/big-picture.json). The reference project this tutorial adapts, [ddd-by-examples/library](https://github.com/ddd-by-examples/library), draws, according to its README and Big Picture notes, the same seam between catalogue and lending. Membership and fees go beyond it.*

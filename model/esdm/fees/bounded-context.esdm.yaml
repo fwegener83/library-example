@@ -26,7 +26,7 @@ ubiquitousLanguage:
   - term: waiver
     definition: A fine or fee that is not collected.
   - term: amount owed
-    definition: Everything charged to a reader and neither paid nor waived.
+    definition: 'Everything charged to a reader and neither paid nor waived: fines, lost-book fees and usage fees. Above 10 euro it blocks the card (C-18).'
 metadata:
   labels:
     src: brief-3.4
