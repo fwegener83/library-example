@@ -27,14 +27,15 @@ Which pattern describes the relationship between `lending` and `fees`?
 
 1. Customer–supplier
 2. Open host service with a published language, justified by a stable contract
+3. Conformist
 
 ## Decision Outcome
 
 Chosen option: "Customer–supplier", because `fees` is the only consumer and its needs shaped the loan events, which is what chapter 3 itself calls customer–supplier.
 
 * `lending` is the supplier, `fees` the customer. `lending` plans its loan events for what `fees` needs (checked out, became overdue, returned, declared lost, each with its due date) and tells `fees` before it changes them.
-* The facts still travel as events in the public API of `lending` (ADR 4 allows events with the changes the customer needs, as between `membership` and `lending`). `lending` still knows nothing about fees.
-* In the model, the two mappings `lending-fees-open-host-service` and `lending-fees-published-language` become one customer–supplier mapping. The table in chapter 3 changes.
+* The facts still travel as events in the public API of `lending` (ADR 4 allows events with the changes the customer needs, as between `membership` and `lending`). `lending` knows `fees` as its customer, but it does not depend on `fees` in code (ADR 3, ADR 5) and does not know what `fees` does with the events.
+* In the model, the two mappings `lending-fees-open-host-service` and `lending-fees-published-language` become one customer–supplier mapping, so the context map has nine mappings instead of the ten that ADR 4 counts. The table in chapter 3 changes.
 * If a second consumer of the loan events appears, the pattern is looked at again.
 
 ### Consequences
@@ -57,3 +58,10 @@ Chosen option: "Customer–supplier", because `fees` is the only consumer and it
 * Good, because it changes only words.
 * Good, because a second consumer would find a general format ready.
 * Bad, because it keeps a pattern for consumers that do not exist and gives it a new reason after the old one fell away.
+
+### Conformist
+
+`fees` takes the loan events as `lending` publishes them, and nobody negotiates.
+
+* Good, because it asks nothing of `lending`.
+* Bad, because there is a negotiation: the needs of `fees` shaped the events (the due date for the running fine, C-03; the loss, C-04), and `lending` has to tell `fees` before it changes them. Without that, a change in `lending` would break the fines silently. "Without anyone negotiating, it is a conformist relationship with a nicer name" (`challenge-context-cut`, heuristics §6); here someone negotiates.

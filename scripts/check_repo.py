@@ -35,6 +35,17 @@ for ch in chapters:
             err(f"{ch.name}: broken link {target}")
     if "## Decisions in this chapter" not in text:
         err(f"{ch.name}: missing the section 'Decisions in this chapter'")
+    # every row of a table has as many cells as its header
+    cells = None
+    for i, line in enumerate(text.splitlines(), 1):
+        if not line.startswith("|"):
+            cells = None
+            continue
+        count = len(re.findall(r"(?<!\\)\|", re.sub(r"`[^`]*`", "", line)))
+        if cells is None:
+            cells = count
+        elif count != cells:
+            err(f"{ch.name}:{i}: table row has {count - 1} cells, the header {cells - 1}")
     n = ch.name[:2]
     if f"`chapter-{n}`" not in plan:
         err(f"docs/plan.md section 12 has no row for chapter-{n}")

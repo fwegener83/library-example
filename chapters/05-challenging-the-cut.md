@@ -2,7 +2,7 @@
 
 **Input:** the [brief](../requirements/brief.md), the cut and map of [chapter 3](03-strategic-design.md), the records of [chapter 4](04-deployment-decision.md)
 **Tool:** the skill [`challenge-context-cut`](../.claude/skills/challenge-context-cut/SKILL.md), run by a fresh agent; DDD Studio for the changes
-**Result:** a tested way to challenge a context cut, a [report](../docs/reviews/ch04-context-cut.md) on the current cut, five new business decisions (C-20 to C-24), corrected glossaries, mappings and Big Picture board, and a [second report](../docs/reviews/ch05-context-cut.md) on our own answers. One new record, [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md): `lending` → `fees` becomes customer–supplier.
+**Result:** a tested way to challenge a context cut, a [report](../docs/reviews/ch04-context-cut.md) on the current cut, six new business decisions (C-20 to C-25), corrected glossaries, mappings and Big Picture board, and a [second report](../docs/reviews/ch05-context-cut.md) on our own answers. One new record, [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md): `lending` → `fees` becomes customer–supplier.
 
 ## Why challenge the cut
 
@@ -47,7 +47,7 @@ It then found seven points, none of them blocking. Four had already come up in t
 | A lost copy leaves the collection (C-04), but nothing in the model takes it out; letting `catalogue` react to `lending` would bring back a circle | Business question, **C-20** |
 | No context owns which copies carry a usage fee, or how much it is | Business question, **C-21** |
 | The Big Picture board still shows the plain block orders that ADR 5 rejected, the money threshold in `membership`, one central clock, and "Fine Paid" as the only payment | Board corrected, except one clock card and three old arrow labels, which notes now explain; the report question became **C-23** |
-| `lending` → `fees` is called an open host service for consumers that do not exist [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md): customer–supplier, see below |
+| `lending` → `fees` is called an open host service for consumers that do not exist | [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md): customer–supplier, see below |
 | A reader who pays at the desk stays blocked until CityPay confirms | Business question, **C-22** |
 | The catalogue's open host service is justified by the number of consumers alone, and a mapping claims a price that lending does not use | Wording corrected |
 | No context says which branch a copy belongs to | Business question, **C-24** |
@@ -87,7 +87,7 @@ Answers to a report can bring new problems, so the skill ran once more on the re
 | The board did not apply our own rules: lost-book and usage fees did not trigger the hold, a payment rejected by CityPay had no event, the usage fee did not reach the report | Board corrected: *Payment Cancelled (rejected by CityPay)*, and arrows from every charge to the hold policy, the report and the reader account |
 | "Paid" has two meanings in `fees` since C-22, and the report's "outstanding" is not the amount owed | *Amount owed* now says "no payment received"; what the report counts is parked as **C-26** (modelling `fees`) |
 | A catalogue mapping said lending takes *availability* from the catalogue, which chapter 3 rejected; chapter 3's table still had the old reasons | Mappings and the table in chapter 3 corrected |
-| After C-20, a damaged copy has two places that decide about it, and C-17 no longer fits **C-25**: the Head of Collection withdraws *or releases* a damaged copy in the catalogue; *Copy Released (after repair)* is on the board. It amends C-17, so it went to the maintainer, who followed the recommendation |
+| After C-20, a damaged copy has two places that decide about it, and C-17 no longer fits | **C-25**: the Head of Collection withdraws *or releases* a damaged copy in the catalogue; *Copy Released (after repair)* is on the board. It amends C-17, so it went to the maintainer, who followed the recommendation |
 | The usage fee depends on two streams of events meeting in `fees` in the right order | Parked with the open question on the mark as **C-27** (modelling `catalogue` and `fees`) |
 | C-24 brings a second branch to the per-branch overdue limit | Added to the parked C-14 |
 
@@ -108,4 +108,4 @@ The first finding is the same kind of slip as in chapter 4, although we had just
 
 ---
 
-*The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch5-big-picture-after-challenge`, `-v2` and `-v3` (Big Picture), `ch5-context-map-after-challenge`, `-v2` and `-v3` (model). Exports: [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json), [`model/esdm/`](../model/esdm/).*
+*The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch5-big-picture-after-challenge` to `-v4` (Big Picture), `ch5-context-map-after-challenge` to `-v4` (model). Exports: [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json), [`model/esdm/`](../model/esdm/).*

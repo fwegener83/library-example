@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: lending-fees-customer-supplier
-description: 'Fees is the only consumer of the loan events, and its needs shaped them: checked out, became overdue, returned, declared lost, each with the copy, the reader and the due date (C-03, C-04). Lending plans these events for fees and tells fees before it changes them; it still knows nothing about fees. Whether a checkout carries a usage fee is decided in fees from the catalogue''s mark (C-21). ADR 9.'
+description: 'Fees is the only consumer of the loan events, and its needs shaped them: checked out, became overdue, returned, declared lost, each with the copy, the reader and the due date (C-03, C-04). Lending knows fees as its customer, plans these events for it and tells fees before it changes them; it does not depend on fees in code and does not know what fees does with the events (ADR 3, ADR 5). Whether a checkout carries a usage fee is decided in fees from the catalogue''s mark (C-21). ADR 9.'
 type: customer-supplier
 supplier:
   domain: millbrook-library-tutorial

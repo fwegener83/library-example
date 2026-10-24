@@ -360,10 +360,11 @@ recommendations before reading the final wording; the entries say so.
 - **Why now:** after C-20 the catalogue knows *withdrawn* copies, and
   the lending glossary says a damaged copy is "released by hand or
   withdrawn". C-17 still says both happen outside the system, and it
-  rejected the collection owning the copy's condition because that
-  would make lending and catalogue depend on each other. The list for
-  the Head of Collection (C-20) now exists, so the reason no longer
-  holds, and "released by hand" has no owner.
+  left the collection owning the copy's condition for later, because
+  modelled in full it seemed to make the relationship between lending
+  and catalogue two-way. With C-20 the catalogue already publishes
+  withdrawals and lending reacts; a release can take the same path, so
+  the arrow stays catalogue → lending. "Released by hand" has no owner.
 - **Options:**
   1. **Amend C-17.** `lending` marks the copy damaged and lists it, as
      today. The Head of Collection decides: *withdraw* it in the catalogue

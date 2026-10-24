@@ -3,7 +3,7 @@
     "chapter": "05-challenging-the-cut",
     "workspace": "Millbrook Library (tutorial)",
     "board": "big-picture",
-    "savedVersion": "ch5-big-picture-after-challenge-v3",
+    "savedVersion": "ch5-big-picture-after-challenge-v4",
     "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-25 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn', 'Copy Released (after repair)', 'Payment Confirmed by CityPay' and 'Payment Cancelled (rejected by CityPay)' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
     "eventOrder": [
       "Title Added to Catalogue",
@@ -136,7 +136,7 @@
           "text": "Copy Released (after repair)",
           "tags": [
             "theme:collection",
-            "src:brief-3.2",
+            "src:inferred",
             "clar:C-25",
             "to-be"
           ]
@@ -532,7 +532,8 @@
           "tags": [
             "hotspot:scope",
             "clar:C-06",
-            "clar:C-17"
+            "clar:C-17",
+            "clar:C-25"
           ]
         },
         {

@@ -63,6 +63,12 @@ creation, so get them right at creation.
   match the mapping descriptions word for word.
 - Whatever a rejected alternative is said to cause is spelled out
   correctly (partnership, shared kernel).
+- When a mapping changes its pattern, read every sentence about it
+  against what the new pattern means, and weigh its nearest neighbour
+  (customer–supplier: the supplier knows its customer and plans for it;
+  without a negotiation it is conformist). (ADR 9 first said lending
+  "knows nothing about fees" while choosing customer–supplier, and did
+  not weigh conformist; found by the independent review.)
 
 ## Prose against board and brief (every chapter)
 
