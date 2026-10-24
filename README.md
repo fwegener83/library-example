@@ -15,7 +15,7 @@ modelled with [DDD Studio](https://ddd-studio.dev).
 | 2 | [Domain Stories](chapters/02-domain-stories.md) | done |
 | 3 | [Strategic design](chapters/03-strategic-design.md) | done |
 | 4 | [Deployment decision](chapters/04-deployment-decision.md) | done |
-| 5 | [Challenging the cut](chapters/05-challenging-the-cut.md) | in review |
+| 5 | [Challenging the cut](chapters/05-challenging-the-cut.md) | done |
 
 How decisions are made, and by whom, is described in [`docs/decisions.md`](docs/decisions.md). The working plan (in German) is in [`docs/plan.md`](docs/plan.md).
 
