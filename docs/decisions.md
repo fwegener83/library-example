@@ -19,6 +19,8 @@ In this tutorial the maintainer plays all the people on the right. The records s
 3. **Record.** After the answer: who decided, when, what was rejected and why. A rejected proposal stays in the record.
 4. **Apply.** Everything that depends on the decision is changed, and cites the record (`C-03`, `ADR 5`).
 
+In an architecture decision record the two steps are visible: while the status is `proposed`, the decision outcome is a *recommended* option; after the maintainer has approved it, it is the *chosen* option ([ADR 1](adr/0001-record-architecture-decisions.md)).
+
 ## When the agent must stop and ask
 
 - The answer is **not in the source**: the brief is silent, vague or contradicts itself, and the model depends on it. (Business)

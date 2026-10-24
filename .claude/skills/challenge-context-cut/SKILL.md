@@ -27,7 +27,8 @@ The heuristics are in `heuristics.md` in this folder. Read it first.
   the repo except its own report. Every serious finding comes with at
   least one alternative and what that alternative costs. Questions of
   business go out as draft clarifications (`C-nn`), questions of
-  architecture as draft ADRs. The maintainer decides
+  architecture as proposed ADRs (status `proposed`, with a recommended
+  option). The maintainer decides
   (`docs/decisions.md`).
 - **Say what holds.** A report that finds only faults is not believed.
   Name the parts of the cut that survive the tests and why.
@@ -96,7 +97,7 @@ Run by: <fresh agent | author>, <date>
 - Evidence: `<file>`: "<quote>"
 - Why it matters: <consequence, concretely>
 - Alternatives: <option> — costs <…>; <option> — costs <…>
-- Level and next step: business (draft C-nn) | architecture (draft ADR) | review
+- Level and next step: business (draft C-nn) | architecture (proposed ADR) | review
 
 ## Questions for the maintainer
 1. <question that only the business or the maintainer can answer>

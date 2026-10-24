@@ -108,18 +108,56 @@ for cid in sorted(cited - known):
 adr_dir = root / "docs" / "adr"
 if adr_dir.exists():
     adr_index = (adr_dir / "README.md").read_text()
+    # sections every record has (MADR full template, fixed in ADR 1)
+    adr_sections = (
+        "## Context and Problem Statement",
+        "## Decision Drivers",
+        "## Considered Options",
+        "## Decision Outcome",
+        "### Consequences",
+        "## Pros and Cons of the Options",
+    )
+    adr_keys = ("status", "date", "decision-makers", "consulted", "informed")
     for adr in sorted(adr_dir.glob("0*.md")):
         if adr.name not in adr_index:
             err(f"docs/adr/README.md does not list {adr.name}")
         text = adr.read_text()
         number = int(adr.name[:4])
-        if not re.match(rf"# {number}\. \S", text):
-            err(f"{adr.name}: title must be '# {number}. <decision>' (Nygard)")
-        for section in ("## Status", "## Context", "## Decision", "## Consequences"):
+        fm = re.match(r"---\n(.*?)\n---\n", text, re.S)
+        meta = {}
+        if not fm:
+            err(f"{adr.name}: missing metadata block (status, date, decision-makers, consulted, informed)")
+        else:
+            for line in fm.group(1).splitlines():
+                k, _, v = line.partition(":")
+                meta[k.strip()] = v.strip().strip('"')
+            for key in adr_keys:
+                if not meta.get(key):
+                    err(f"{adr.name}: metadata '{key}' is missing or empty")
+        body = text[fm.end():] if fm else text
+        if not re.match(rf"\n# {number}\. \S", "\n" + body.lstrip("\n")):
+            err(f"{adr.name}: title must be '# {number}. <decision>'")
+        for section in adr_sections:
             if f"\n{section}\n" not in text:
-                err(f"{adr.name}: missing section '{section}' (Nygard)")
-        if "We will" not in text.split("## Decision", 1)[-1].split("## Consequences", 1)[0]:
-            warn(f"{adr.name}: decision is not phrased as 'We will ...'")
+                err(f"{adr.name}: missing section '{section}'")
+        status = meta.get("status", "")
+        if status not in ("proposed", "accepted", "rejected", "deprecated") and not status.startswith("superseded by ADR-"):
+            err(f"{adr.name}: status '{status}' is not proposed, accepted, rejected, deprecated or superseded by ADR-N")
+        row = re.search(rf"\]\({re.escape(adr.name)}\) \| .*? \| (\S[^|]*?) \|", adr_index)
+        if row and row.group(1) != status:
+            err(f"{adr.name}: status '{status}' differs from the index ('{row.group(1)}')")
+        if "## Decision Outcome" in body and "## Pros and Cons" in body:
+            outcome = body.split("## Decision Outcome", 1)[1].split("## Pros and Cons", 1)[0]
+            said = re.findall(r"^(Recommended|Chosen) option:", outcome, re.M)
+            wanted = {"proposed": "Recommended", "accepted": "Chosen"}.get(status)
+            if wanted and said != [wanted]:
+                err(f"{adr.name}: status '{status}' needs exactly one line starting '{wanted} option:' in the Decision Outcome, found {said}")
+        if "## Considered Options" in body and "## Pros and Cons" in body:
+            options = body.split("## Considered Options", 1)[1].split("\n## ", 1)[0]
+            pros = body.split("## Pros and Cons of the Options", 1)[-1].split("\n## ", 1)[0]
+            for opt in re.findall(r"^(?:\*|\d+\.) (.+)$", options, re.M):
+                if f"\n### {opt}\n" not in "\n" + pros:
+                    err(f"{adr.name}: considered option '{opt}' has no heading under 'Pros and Cons of the Options'")
 
 # the context map must not contain a circle (downstream depends on upstream)
 deps = {}

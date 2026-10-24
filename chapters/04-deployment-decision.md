@@ -1,14 +1,16 @@
 # Chapter 4 — Deployment decision
 
 **Input:** [the brief](../requirements/brief.md), [chapter 3](03-strategic-design.md)
-**Tool:** architecture decision records (ADRs) after Michael Nygard, plain Markdown
+**Tool:** architecture decision records (ADRs) in the MADR format, plain Markdown
 **Result:** eight records in [`docs/adr/`](../docs/adr/README.md). All eight are accepted: ADR 5 after a second round, the others in the review of this chapter. One new business decision (C-19) and a turned arrow on the context map.
 
 ## Why decide now
 
 Chapter 3 cut the library into four bounded contexts. A cut on paper costs nothing. It starts to cost when it meets the code: how many programs do we run, and what stops one context from reaching into another? These decisions are architectural, they are expensive to change later, and they follow from the context map. That is why they come here, before any context is modelled in detail.
 
-We write each decision as an **architecture decision record** in the form Michael Nygard proposed in 2011: a title, a status, the *context* (the forces, including the alternatives that lost), the *decision* in plain sentences ("We will …"), and the *consequences*, good and bad. The first record ([ADR 1](../docs/adr/0001-record-architecture-decisions.md)) is the decision to keep such records at all. A short record that says *why* is worth more than a diagram that says only *what*.
+We write each decision as an **architecture decision record** with the full template of [MADR](https://adr.github.io/madr/) (Markdown Architectural Decision Records, version 4.0.0). A record opens with its metadata: status, date and who decides. Then come the *context and problem statement*, the *decision drivers*, the *considered options*, the *decision outcome* with its consequences, good and bad, and the *pros and cons of the options*. The last part keeps the options that lost in the record, with the reasons.
+
+The template fits the way of working of this tutorial ([who decides what](../docs/decisions.md)): the agent prepares options and a recommendation, the maintainer decides. While a record is `proposed`, its decision outcome reads "Recommended option: …". When the maintainer has approved it, the status is `accepted` and the same place reads "Chosen option: …, because …". The first record ([ADR 1](../docs/adr/0001-record-architecture-decisions.md)) is the decision to keep such records at all. A short record that says *why* is worth more than a diagram that says only *what*.
 
 What we do **not** decide here is technology: language version, framework, database, how events are stored, the user interface. That is a decision of its own (gate G2) and must not sneak in through the back door. The records say what a technology has to provide, not which one it is.
 
@@ -48,7 +50,7 @@ From that the design follows:
 - `membership` no longer knows anything about money. "Amount owed" left its glossary, and "hold" came in.
 - The arrow between the two turns around: `membership` is the supplier, `fees` the customer. The circle is gone, and this time for a business reason.
 
-ADR 5 keeps the rejected options with their reasons: plain block orders, `membership` owning the rule with each module's language as a separate artefact (the fallback if a circle ever appears that no business argument resolves), merging the two contexts, a shared module for all events, and living with the circle.
+ADR 5 keeps the rejected options with their reasons under *Pros and Cons of the Options*: plain block orders, `membership` owning the rule with each module's language as a separate artefact (the fallback if a circle ever appears that no business argument resolves), merging the two contexts, a shared module for all events, and living with the circle.
 
 The context map in Studio, both glossaries, the mapping and chapter 3 are updated. The check script no longer reports a circle.
 
