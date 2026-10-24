@@ -33,7 +33,7 @@ ubiquitousLanguage:
   - term: lost copy
     definition: A copy the reader reports lost at the desk. The loan ends and the copy is listed for the Head of Collection, who withdraws it in the catalogue (C-04, C-20).
   - term: damaged copy
-    definition: A copy found damaged at check-in. Not lendable and listed for the Head of Collection; released by hand or withdrawn (C-06, C-17).
+    definition: A copy found damaged at check-in. Not lendable and listed for the Head of Collection, who withdraws it or, after repair, releases it in the catalogue (C-06, C-25).
   - term: morning list
     definition: 'The two lists a branch gets every morning: reservations that ran out and loans that are overdue.'
 metadata:

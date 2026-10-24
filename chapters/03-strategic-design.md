@@ -67,7 +67,7 @@ flowchart LR
     CAT -->|OHS + PL| LEN[lending<br/>core]
     CAT -->|OHS + PL| FEE[fees]
     MEM[membership] -->|customer-supplier| LEN
-    LEN -->|OHS + PL| FEE
+    LEN -->|customer-supplier| FEE
     MEM -->|customer-supplier| FEE
     PAY[/CityPay/] -->|ACL| FEE
 ```
@@ -78,9 +78,9 @@ flowchart LR
 |---|---|---|
 | ISBN service → catalogue | anti-corruption layer | Titles arrive oddly formatted and we cannot influence the service. The catalogue translates into its own title record; what remains is corrected by hand. *Conformist* would let the mess into the catalogue. |
 | CityPay → fees | anti-corruption layer | Mandatory for the whole city, odd status codes, cents, 20-character references. None of this may reach the model of fees. |
-| catalogue → lending, catalogue → fees | open host service + published language | Two consumers need the same thing: lending the copies and their flag, fees the price (lost-book fee, cap on late fines). One general service is cheaper than two bespoke ones. *Changed in chapter 5:* the count of consumers alone is no reason; the catalogue offers one format to whoever needs it instead of negotiating with each. The events now also carry the home branch, the usage-fee mark and withdrawn copies (C-20, C-21, C-24). |
+| catalogue → lending, catalogue → fees | open host service + published language | Two consumers need the same thing: lending the copies and their flag, fees the price (lost-book fee, cap on late fines). One general service is cheaper than two bespoke ones. *Changed in chapter 5:* the count of consumers alone is no reason; the catalogue offers one format to whoever needs it instead of negotiating with each. The events now also carry the home branch, the usage-fee mark, and withdrawn and released copies (C-20, C-21, C-24, C-25). |
 | membership → lending | customer-supplier | Lending says what it must know (card valid? blocked? researcher?). Membership decides and publishes every change; lending keeps the part it needs. Both sit in one organisation and can negotiate. |
-| lending → fees | open host service + published language | Fees follows loans (due date, returned, lost, usage fee) without lending knowing that fees exist. Reminders and the reader account will need the same events, so lending publishes them once for everyone. *Changed in chapter 5:* lending no longer reports the usage fee (C-21), and the other consumers did not come; whether this stays an open host service is proposed as [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md) (chapter 5). Where the consumer's needs are negotiated one to one, as between membership and lending, *customer-supplier* fits better. |
+| lending → fees | customer-supplier (*changed in chapter 5*, ADR 9) | Fees follows loans (due date, returned, lost, usage fee) without lending knowing that fees exist. Reminders and the reader account will need the same events, so lending publishes them once for everyone. *Changed in chapter 5:* lending no longer reports the usage fee (C-21), and the other consumers did not come; so the pattern became customer-supplier ([ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md)). Where the consumer's needs are negotiated one to one, as between membership and lending, *customer-supplier* fits better. |
 | membership → fees | customer-supplier | *Changed in chapter 4.* The €10 rule belongs to fees (C-19). Fees decides when a reader is in arrears and places a *hold* on the card; it lifts the hold when the amount owed is €10 or less (C-01, C-03). The amount owed includes late fines, lost-book fees and usage fees (C-18). Membership owns the card and its holds and knows nothing about money. This chapter first drew the arrow the other way; [ADR 5](../docs/adr/0005-no-circle-between-modules.md) explains why it turned. |
 
 ### Rejected

@@ -28,7 +28,9 @@ ubiquitousLanguage:
   - term: home branch
     definition: The branch a copy belongs to, set when it is registered. Where the copy is right now is not known here (C-24).
   - term: withdrawn copy
-    definition: A copy taken out of the collection by the Head of Collection, after it was lost or damaged beyond repair. Still recorded, no longer lendable (C-17, C-20).
+    definition: A copy taken out of the collection by the Head of Collection, after it was lost or damaged beyond repair. Still recorded, no longer lendable (C-20, C-25).
+  - term: released copy
+    definition: A damaged copy that the Head of Collection makes lendable again after repair (C-25).
   - term: replacement price
     definition: The price recorded on a title; what a lost copy is charged at.
 metadata:

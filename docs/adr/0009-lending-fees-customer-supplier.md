@@ -1,5 +1,5 @@
 ---
-status: "proposed"
+status: "accepted"
 date: 2026-10-24
 decision-makers: the maintainer
 consulted: none recorded
@@ -12,7 +12,7 @@ informed: none recorded
 
 Chapter 3 drew `lending` → `fees` as an open host service with a published language. Its reason: "Fees follows loans (due date, returned, lost, usage fee) without lending knowing that fees exist. Reminders and the reader account will need the same events, so lending publishes them once for everyone." The same table says: "Where the consumer's needs are negotiated one to one, as between membership and lending, *customer-supplier* fits better."
 
-Since then the other consumers have not come. Reminders stay inside `lending` (chapter 3, "What we did not cut"), and the reader's account page asks the modules instead of listening to their events (ADR 8). `fees` is the only consumer of the loan events, and its needs shaped them: the due date for the running fine (C-03), the loss (C-04). The usage fee is no longer part of them (C-21). The challenge of the cut found this (`docs/reviews/ch04-context-cut.md`, F4); chapter 5 left it open for the maintainer.
+Since then the other consumers have not come. Reminders stay inside `lending` (chapter 3, "What we did not cut"), and the reader's account page asks the modules instead of listening to their events (ADR 8). `fees` is the only consumer of the loan events, and its needs shaped them: the due date for the running fine (C-03), the loss (C-04). The usage fee is no longer part of them (C-21). The challenge of the cut found this (`docs/reviews/ch04-context-cut.md`, F4); chapter 5 prepared it, and the maintainer followed the recommendation (2026-10-24).
 
 Which pattern describes the relationship between `lending` and `fees`?
 
@@ -30,7 +30,7 @@ Which pattern describes the relationship between `lending` and `fees`?
 
 ## Decision Outcome
 
-Recommended option: "Customer–supplier", because `fees` is the only consumer and its needs shaped the loan events, which is what chapter 3 itself calls customer–supplier.
+Chosen option: "Customer–supplier", because `fees` is the only consumer and its needs shaped the loan events, which is what chapter 3 itself calls customer–supplier.
 
 * `lending` is the supplier, `fees` the customer. `lending` plans its loan events for what `fees` needs (checked out, became overdue, returned, declared lost, each with its due date) and tells `fees` before it changes them.
 * The facts still travel as events in the public API of `lending` (ADR 4 allows events with the changes the customer needs, as between `membership` and `lending`). `lending` still knows nothing about fees.

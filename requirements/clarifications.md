@@ -169,7 +169,7 @@ moment it has to be decided).
      reacts to it.
 - **Recommendation:** option 1. The brief says nothing about repair or
   withdrawal. Option 2 is a later increment.
-- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted (option 1).
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): recommendation accepted (option 1). **Amended by C-25** (2026-10-24): the Head of Collection withdraws or releases a damaged copy in the catalogue.
 
 ### C-18 Which amounts count towards the €10 block?
 
@@ -375,8 +375,9 @@ recommendations before reading the final wording; the entries say so.
 - **Recommendation:** option 1. The decision about a damaged copy is
   the Head of Collection's (brief §3.2: "then it goes to Tom"); option 1
   gives it one place and one owner, with no new dependency.
-- **Status:** proposed. It changes the decided C-17, so the maintainer
-  decides.
+- **Status:** decided 2026-10-24 by the maintainer (acting for the
+  library): recommendation accepted (option 1). C-17 is amended
+  accordingly.
 
 ---
 

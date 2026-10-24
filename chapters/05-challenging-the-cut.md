@@ -2,7 +2,7 @@
 
 **Input:** the [brief](../requirements/brief.md), the cut and map of [chapter 3](03-strategic-design.md), the records of [chapter 4](04-deployment-decision.md)
 **Tool:** the skill [`challenge-context-cut`](../.claude/skills/challenge-context-cut/SKILL.md), run by a fresh agent; DDD Studio for the changes
-**Result:** a tested way to challenge a context cut, a [report](../docs/reviews/ch04-context-cut.md) on the current cut, five new business decisions (C-20 to C-24), corrected glossaries, mappings and Big Picture board, and a [second report](../docs/reviews/ch05-context-cut.md) on our own answers. Open for the maintainer: [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md) (proposed) and C-25.
+**Result:** a tested way to challenge a context cut, a [report](../docs/reviews/ch04-context-cut.md) on the current cut, five new business decisions (C-20 to C-24), corrected glossaries, mappings and Big Picture board, and a [second report](../docs/reviews/ch05-context-cut.md) on our own answers. One new record, [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md): `lending` → `fees` becomes customer–supplier.
 
 ## Why challenge the cut
 
@@ -47,7 +47,7 @@ It then found seven points, none of them blocking. Four had already come up in t
 | A lost copy leaves the collection (C-04), but nothing in the model takes it out; letting `catalogue` react to `lending` would bring back a circle | Business question, **C-20** |
 | No context owns which copies carry a usage fee, or how much it is | Business question, **C-21** |
 | The Big Picture board still shows the plain block orders that ADR 5 rejected, the money threshold in `membership`, one central clock, and "Fine Paid" as the only payment | Board corrected, except one clock card and three old arrow labels, which notes now explain; the report question became **C-23** |
-| `lending` → `fees` is called an open host service for consumers that do not exist | [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md), proposed, see below |
+| `lending` → `fees` is called an open host service for consumers that do not exist [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md): customer–supplier, see below |
 | A reader who pays at the desk stays blocked until CityPay confirms | Business question, **C-22** |
 | The catalogue's open host service is justified by the number of consumers alone, and a mapping claims a price that lending does not use | Wording corrected |
 | No context says which branch a copy belongs to | Business question, **C-24** |
@@ -72,11 +72,11 @@ The maintainer, playing the library, accepted the recommendations before reading
 
 The dependencies did not change: `catalogue` and `membership` use no other module, `lending` uses those two, `fees` uses all three.
 
-## Open: the pattern between lending and fees
+## The pattern between lending and fees
 
-`lending` → `fees` is drawn as an open host service with a published language. Chapter 3 gave as reason that "Reminders and the reader account will need the same events". Since then, reminders stayed inside `lending` and the account page asks the modules instead of listening (ADR 8). `fees` is the only consumer, and its needs shaped the events (due date for the running fine, the loss). That is what chapter 3 itself calls customer–supplier.
+`lending` → `fees` was drawn as an open host service with a published language. Chapter 3 gave as reason that "Reminders and the reader account will need the same events". Since then, reminders stayed inside `lending` and the account page asks the modules instead of listening (ADR 8). `fees` is the only consumer, and its needs shaped the events (due date for the running fine, the loss). That is what chapter 3 itself calls customer–supplier.
 
-The choice is the maintainer's, because it revises a pattern approved in chapter 3. It is prepared as [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md), status `proposed`, with two options: customer–supplier, or keeping the open host service with a stable contract as its reason. Recommended option: customer–supplier, because a pattern should describe the relationship we have, not one we might have later. The dependencies stay as they are either way; until the maintainer decides, the model keeps the open host service.
+Because it revises a pattern approved in chapter 3, it was prepared as [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md) with two options: customer–supplier, or keeping the open host service with a stable contract as its reason. The maintainer followed the recommendation: **customer–supplier**, because a pattern should describe the relationship we have, not one we might have later. In the model the two mappings (open host service and published language) became one customer–supplier mapping. The dependencies did not change, and the loan events stay events (ADR 4).
 
 ## A second run on our own answers
 
@@ -87,7 +87,7 @@ Answers to a report can bring new problems, so the skill ran once more on the re
 | The board did not apply our own rules: lost-book and usage fees did not trigger the hold, a payment rejected by CityPay had no event, the usage fee did not reach the report | Board corrected: *Payment Cancelled (rejected by CityPay)*, and arrows from every charge to the hold policy, the report and the reader account |
 | "Paid" has two meanings in `fees` since C-22, and the report's "outstanding" is not the amount owed | *Amount owed* now says "no payment received"; what the report counts is parked as **C-26** (modelling `fees`) |
 | A catalogue mapping said lending takes *availability* from the catalogue, which chapter 3 rejected; chapter 3's table still had the old reasons | Mappings and the table in chapter 3 corrected |
-| After C-20, a damaged copy has two places that decide about it, and C-17 no longer fits | **C-25** proposed: the Head of Collection withdraws *or releases* a damaged copy in the catalogue. It changes the decided C-17, so it waits for the maintainer |
+| After C-20, a damaged copy has two places that decide about it, and C-17 no longer fits **C-25**: the Head of Collection withdraws *or releases* a damaged copy in the catalogue; *Copy Released (after repair)* is on the board. It amends C-17, so it went to the maintainer, who followed the recommendation |
 | The usage fee depends on two streams of events meeting in `fees` in the right order | Parked with the open question on the mark as **C-27** (modelling `catalogue` and `fees`) |
 | C-24 brings a second branch to the per-branch overdue limit | Added to the parked C-14 |
 
@@ -95,17 +95,17 @@ The first finding is the same kind of slip as in chapter 4, although we had just
 
 ## What we take with us
 
-- The cut has now been challenged by a reader who did not draw it, and the mistakes it found are fixed or decided, with one exception above.
+- The cut has now been challenged twice by a reader who did not draw it. What it found is fixed, decided or parked with the moment it has to be decided.
 - The skill runs again whenever the cut changes and before every gate that builds on it (`CLAUDE.md`, `close-chapter`).
-- Still parked: C-11 to C-16, C-26, C-27, the mail gateway. Waiting for the maintainer: C-25 and ADR 9.
+- Still parked: C-11 to C-16, C-26, C-27, the mail gateway.
 - **Gate G1 (spec-driven development) comes next.** Nothing per context starts before it.
 
 ## Decisions in this chapter
 
-- **Business**, decided by the maintainer playing the library: C-20 to C-24, recommendations accepted in advance. Recorded in the [clarification log](../requirements/clarifications.md); C-22 refines C-02, the return at another branch is parked with C-14. **Proposed**, for the maintainer: C-25 (damaged copies, amends C-17). **Parked:** C-26, C-27, and an addition to C-14.
-- **Architecture:** [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md), the pattern between `lending` and `fees`, is `proposed` with customer–supplier as the recommended option; the maintainer decides. No record is accepted in this chapter.
+- **Business**, decided by the maintainer playing the library: C-20 to C-24, recommendations accepted in advance. Recorded in the [clarification log](../requirements/clarifications.md); C-22 refines C-02, the return at another branch is parked with C-14. C-25 (damaged copies, amends C-17) decided 2026-10-24, recommendation accepted. **Parked:** C-26, C-27, and an addition to C-14.
+- **Architecture:** [ADR 9](../docs/adr/0009-lending-fees-customer-supplier.md) accepted by the maintainer (2026-10-24): `lending` → `fees` is customer–supplier.
 - **Way of working**, approved by the maintainer in the conversation that led to this chapter (the skill was merged with PR #10): the cut is challenged by a fresh agent with the `challenge-context-cut` skill before every gate that builds on it and whenever it changes; its reports go to [`docs/reviews/`](../docs/reviews/README.md). New checks: a changed rule is looked for on the boards, including its own triggers; a claim that something is new is checked against earlier reports; an approval names where it was given.
 
 ---
 
-*The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch5-big-picture-after-challenge` and `-v2` (Big Picture), `ch5-context-map-after-challenge` and `-v2` (model). Exports: [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json), [`model/esdm/`](../model/esdm/).*
+*The boards live in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch5-big-picture-after-challenge`, `-v2` and `-v3` (Big Picture), `ch5-context-map-after-challenge`, `-v2` and `-v3` (model). Exports: [`model/sketch/big-picture-contexts.json`](../model/sketch/big-picture-contexts.json), [`model/esdm/`](../model/esdm/).*

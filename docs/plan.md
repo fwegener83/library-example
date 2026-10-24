@@ -350,7 +350,7 @@ werden im Browser über GitHub Releases oder lokal angelegt.
 | `chapter-02` | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | `chapter-03` | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
 | `chapter-04` | Deployment decision | `chapter-04-deployment` (#8) | `ba18cf6` (Ende des Kapitel-Branches) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
-| `chapter-05` | Challenging the cut | `chapter-05-challenging-the-cut` | (nach Merge) | `ch5-big-picture-after-challenge(-v2)`, `ch5-context-map-after-challenge(-v2)` |
+| `chapter-05` | Challenging the cut | `chapter-05-challenging-the-cut` | (nach Merge) | `ch5-big-picture-after-challenge(-v2, -v3)`, `ch5-context-map-after-challenge(-v2, -v3)` |
 
 Hinweis: `chapter-00` zeigt auf den Squash-Commit von PR #1, weil diese
 Regel erst danach galt. Ab Kapitel 1 sind es Merge-Commits.

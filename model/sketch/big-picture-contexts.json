@@ -3,13 +3,14 @@
     "chapter": "05-challenging-the-cut",
     "workspace": "Millbrook Library (tutorial)",
     "board": "big-picture",
-    "savedVersion": "ch5-big-picture-after-challenge-v2",
-    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-24 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn', 'Payment Confirmed by CityPay' and 'Payment Cancelled (rejected by CityPay)' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
+    "savedVersion": "ch5-big-picture-after-challenge-v3",
+    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-25 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn', 'Copy Released (after repair)', 'Payment Confirmed by CityPay' and 'Payment Cancelled (rejected by CityPay)' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
     "eventOrder": [
       "Title Added to Catalogue",
       "Book Details Corrected",
       "Copy Registered (circulating or restricted, home branch, usage fee or not)",
       "Copy Withdrawn",
+      "Copy Released (after repair)",
       "Member Registered (card issued)",
       "Researcher Status Granted",
       "Card Renewed",
@@ -126,6 +127,17 @@
             "theme:collection",
             "src:inferred",
             "clar:C-20",
+            "to-be"
+          ]
+        },
+        {
+          "id": "6cb14547-a4c0-46d7-97ce-37d38a82af9a",
+          "kind": "event",
+          "text": "Copy Released (after repair)",
+          "tags": [
+            "theme:collection",
+            "src:brief-3.2",
+            "clar:C-25",
             "to-be"
           ]
         }
@@ -1198,6 +1210,11 @@
       "sourceId": "f7ae6ad8-62dc-4023-bf28-a670940fe545",
       "targetId": "b021aaf6-f9f5-4307-b0fc-4cffce2e2d7f",
       "label": "feeds"
+    },
+    {
+      "sourceId": "2cc7071f-d10c-441e-b245-675a71bb2c5c",
+      "targetId": "6cb14547-a4c0-46d7-97ce-37d38a82af9a",
+      "label": "releases"
     }
   ]
 }
