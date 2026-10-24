@@ -63,6 +63,12 @@ creation, so get them right at creation.
   match the mapping descriptions word for word.
 - Whatever a rejected alternative is said to cause is spelled out
   correctly (partnership, shared kernel).
+- When a mapping changes its pattern, read every sentence about it
+  against what the new pattern means, and weigh its nearest neighbour
+  (customer–supplier: the supplier knows its customer and plans for it;
+  without a negotiation it is conformist). (ADR 9 first said lending
+  "knows nothing about fees" while choosing customer–supplier, and did
+  not weigh conformist; found by the independent review.)
 
 ## Prose against board and brief (every chapter)
 
@@ -75,6 +81,13 @@ creation, so get them right at creation.
 - If the text says "all X carry tag Y", count them in the snapshot.
 - Do not refer to hotspots by number; refer to them by their question.
   Numbers drift between chapters.
+- A claim that something is **new**, "not known before" or "found for
+  the first time" is checked against the earlier reports in
+  `docs/reviews/` and the logs. (Chapter 5 first said none of seven
+  findings was known; the chapter 3 report already had four of them.)
+- "Approved by the maintainer" names where: the conversation, a PR, a
+  log entry. Scope words in the source ("before reading the final
+  wording", "of the serious ones") are kept, not rounded up.
 
 ## Context map and architecture
 
@@ -92,6 +105,10 @@ creation, so get them right at creation.
   a hotspot pointing to the record, in the same pull request. (After
   ADR 5 the Big Picture still showed "block the card" orders and the
   money threshold in `membership`; found by `challenge-context-cut`.)
+  Read the rule's own text for its triggers ("whenever a charge is
+  made", "every kind of charge") and check that each one has an arrow
+  on the board. (Chapter 5 renamed the policies but left lost-book and
+  usage fees without an arrow to the hold; found by the second run.)
 
 ## Proposals and decisions (every chapter)
 

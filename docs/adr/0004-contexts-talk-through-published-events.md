@@ -41,7 +41,7 @@ We will connect the modules as follows.
 | Mapping on the context map | In code |
 |---|---|
 | open host service + published language | public events in the publisher's API |
-| customer-supplier | the supplier's public interface, shaped by what the customer asks for: events with the changes the customer needs (membership → lending), or an order the customer gives (if ADR 5 is accepted: fees gives orders to membership, which becomes the supplier) |
+| customer-supplier | the supplier's public interface, shaped by what the customer asks for: events with the changes the customer needs (membership → lending), or an order the customer gives (fees places and lifts a hold through membership's interface, ADR 5) |
 | anti-corruption layer | adapter inside the downstream module |
 
 ### Consequences

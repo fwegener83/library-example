@@ -60,7 +60,7 @@ The context map in Studio, both glossaries, the mapping and chapter 3 are update
 
 - The four modules and their allowed dependencies are known. The order is: `catalogue` and `membership` first, then `lending`, then `fees`.
 - Deferred: a rule for changing published events (ADR 4 says only add, a record follows with the first event). Still open and deliberately not decided here: the mail gateway (its interface is not in the brief) and everything technical (gate G2).
-- **Gate G1 (spec-driven development) comes next.** Before any context is modelled in detail, we have to agree how DDD Studio and the specification tool work together. Nothing in the next chapters starts before that.
+- **Gate G1 (spec-driven development) comes after chapter 5**, which challenges the cut. Before any context is modelled in detail, we have to agree how DDD Studio and the specification tool work together. Nothing in the next chapters starts before that.
 
 ## Decisions in this chapter
 

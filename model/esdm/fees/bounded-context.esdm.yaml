@@ -16,19 +16,26 @@ ubiquitousLanguage:
   - term: running fine
     definition: The late fine so far on a loan that is still out. Not yet assessed, but counted towards arrears (C-03).
   - term: assessed fine
-    definition: The late fine fixed when the book comes back (C-03).
+    definition: The late fine fixed when the copy comes back (C-03).
   - term: lost-book fee
     definition: The replacement price plus a handling fee, charged when a copy is declared lost (C-04).
   - term: usage fee
-    definition: A fee some special-collection items carry, charged at checkout (C-08).
+    avoid:
+      - term: item
+        reason: The brief's word; the model says copy (C-07).
+    definition: Charged when a usage-fee copy is checked out (C-08). Which copies carry it comes from the catalogue; the amount is the usage-fee tariff (C-21).
+  - term: usage-fee tariff
+    definition: The amount of the usage fee, set by the Treasury Liaison. Not in the brief; a setting (C-21).
   - term: payment
-    definition: Money received for fines and fees, passed on to CityPay. Counts as paid when CityPay confirms (C-02).
+    definition: 'Money a reader pays for any charge. Received when taken at the desk: it lowers the amount owed at once. Confirmed when CityPay confirms it; a payment CityPay rejects is cancelled and the amount owed rises again (C-02, C-22).'
   - term: waiver
-    definition: A fine or fee that is not collected.
+    definition: A charge that is not collected. Who may waive which charge is open (C-16).
   - term: amount owed
-    definition: 'Everything charged to a reader and neither paid nor waived, plus running fines: late fines, lost-book fees and usage fees (C-18).'
+    definition: 'Everything charged to a reader for which no payment has been received and that is not waived, plus running fines: late fines, lost-book fees and usage fees (C-18, C-22).'
   - term: arrears
     definition: A reader is in arrears while the amount owed is above 10 euro. Fees then holds the reader's card through membership and lifts the hold when the amount owed is 10 euro or less (C-01, C-19).
+  - term: monthly report
+    definition: 'For every kind of charge (late fines, lost-book fees, usage fees): charged, paid, waived, outstanding (C-23). Whether paid means received or confirmed, and whether running fines count as outstanding, is open (C-26).'
 metadata:
   labels:
     src: brief-3.4

@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: catalogue-lending-open-host-service
-description: Two contexts need title and copy data (lending for availability and restricted copies, fees for the price). One general service instead of two bespoke integrations. Derived from brief 3.1 and 3.4; see C-07 for the words.
+description: 'The catalogue offers one format for titles and copies to whoever needs it, instead of negotiating with each consumer: lending takes the copies, circulating or restricted, with their home branch; fees takes the price and the usage-fee mark. Availability stays in lending. See C-07 for the words, C-20, C-21, C-24.'
 type: open-host-service
 host:
   domain: millbrook-library-tutorial

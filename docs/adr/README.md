@@ -14,5 +14,6 @@ Status values: `proposed`, `accepted`, `rejected`, `deprecated`, `superseded by 
 | [6](0006-adapters-and-clock-inside-the-module.md) | External systems and the clock sit inside the owning module | accepted |
 | [7](0007-identifiers-across-contexts.md) | Identifiers across contexts are issued by the owner | accepted |
 | [8](0008-user-interfaces-outside-the-modules.md) | User interfaces sit outside the modules and use only public APIs | accepted |
+| [9](0009-lending-fees-customer-supplier.md) | Lending supplies fees as customer and supplier, not as an open host | accepted |
 
 Technology (language version, framework, database, event store, user interface technology) is decided at gate G2 and is deliberately not part of these records.

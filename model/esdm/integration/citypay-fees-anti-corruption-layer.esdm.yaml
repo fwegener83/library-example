@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: citypay-fees-anti-corruption-layer
-description: 'CityPay is mandatory for every department and cannot be changed: odd status codes, amounts in cents, references limited to 20 characters (brief 3.4). Fees translates both ways so that none of this reaches its own model. Payment is passed to CityPay by the system and counts as paid when CityPay confirms (C-02).'
+description: 'CityPay is mandatory for every department and cannot be changed: odd status codes, amounts in cents, references limited to 20 characters (brief 3.4). Fees translates both ways so that none of this reaches its own model. The system passes each payment taken at the desk to CityPay; it counts as received at once and as confirmed when CityPay confirms (C-02, C-22).'
 type: anti-corruption-layer
 upstream:
   domain: millbrook-library-tutorial

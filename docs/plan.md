@@ -22,7 +22,7 @@ nichts, was ins Tutorial oder in den Code eingeht.
 | Gate | Wann | Was geklärt wird | Status |
 |---|---|---|---|
 | **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
-| **G1 — SDD** | nach Kapitel 4a, **vor jeder Arbeit pro Bounded Context** | Zusammenspiel DDD Studio ↔ Spec Kit: Reihenfolge, Zuschnitt einer Spec, Rollen (§6) | offen |
+| **G1 — SDD** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Zusammenspiel DDD Studio ↔ Spec Kit: Reihenfolge, Zuschnitt einer Spec, Rollen (§6) | offen |
 | **G2 — Technik** | vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, UI-Technik, Datenbank (§7) | offen |
 | **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | offen |
 | **G4 — In-App-Beispiel** | bevor irgendetwas in `ddd-studio` geändert wird | Ersetzen des Library-Beispiels (§10) | offen |
@@ -148,6 +148,7 @@ im Event Storming naheliegt, aber nicht offensichtlich ist.
 | 2 | **Domain Stories** — 2–3 Kernprozesse; Sprachkonflikte klären | Domain Stories | `model/domain-stories/…` |
 | 3 | **Strategic design** — Subdomains, Bounded Contexts, Glossar, Context Map mit Mustern, Teamzuordnung; verworfene Partnership-Hypothese | Context Map, Glossar | `model/library.esdm.yaml` (strategisch) |
 | 4a | **Deployment decision** — Modulith, Modul = BC, Integrationsregeln als ADRs | ADRs | `docs/adr/…` |
+| 5 | **Challenging the cut** — Schnitt und Context Map von einem frischen Agenten prüfen lassen (Skill `challenge-context-cut`), Befunde als Klärungen C-20 bis C-24, Board und Glossare nachziehen | Skill, DDD Studio | `docs/reviews/…`, `requirements/clarifications.md` |
 
 ### → Gate G1 (SDD) — harter Halt
 
@@ -157,6 +158,9 @@ folgende Gliederung ist deshalb **vorläufig** und wird nach G1 neu
 geschnitten.
 
 ### Teil B — vorläufig, nach G1 (und G2/G3) neu zu planen
+
+Die Nummern unten stammen aus der ersten Planung; Kapitel 5 ist inzwischen
+"Challenging the cut" (Teil A). Teil B wird nach G1 neu nummeriert.
 
 | # | Kapitel (Arbeitstitel) | Werkzeug |
 |---|---|---|
@@ -346,6 +350,7 @@ werden im Browser über GitHub Releases oder lokal angelegt.
 | `chapter-02` | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | `chapter-03` | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
 | `chapter-04` | Deployment decision | `chapter-04-deployment` (#8) | `ba18cf6` (Ende des Kapitel-Branches) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| `chapter-05` | Challenging the cut | `chapter-05-challenging-the-cut` | (nach Merge) | `ch5-big-picture-after-challenge(-v2 … -v4)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 Hinweis: `chapter-00` zeigt auf den Squash-Commit von PR #1, weil diese
 Regel erst danach galt. Ab Kapitel 1 sind es Merge-Commits.

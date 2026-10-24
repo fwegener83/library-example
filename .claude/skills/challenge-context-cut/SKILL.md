@@ -97,7 +97,7 @@ Run by: <fresh agent | author>, <date>
 - Evidence: `<file>`: "<quote>"
 - Why it matters: <consequence, concretely>
 - Alternatives: <option> — costs <…>; <option> — costs <…>
-- Level and next step: business (draft C-nn) | architecture (draft ADR) | review
+- Level and next step: business (draft C-nn) | architecture (proposed ADR) | review
 
 ## Questions for the maintainer
 1. <question that only the business or the maintainer can answer>
