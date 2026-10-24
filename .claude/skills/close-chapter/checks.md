@@ -99,14 +99,26 @@ creation, so get them right at creation.
 - A claim that something can be changed or split later names what that
   costs (failure handling, retries), not only what stays.
 
-## ADRs (`docs/adr/`, Nygard format, checked by the script)
+## ADRs (`docs/adr/`, MADR format, checked by the script)
 
-- Title `# N. <decision>`, then Date, Status, Context, Decision,
-  Consequences. Alternatives go into Context, rules into Decision,
-  effects into Consequences.
-- Status is one of `Proposed`, `Accepted`, `Deprecated`,
-  `Superseded by N`. "Needs a choice" goes into the index and the chapter,
-  not into the status.
+- Title `# N. <decision>`, a metadata block (`status`, `date`,
+  `decision-makers`, `consulted`, `informed`), then Context and Problem
+  Statement, Decision Drivers, Considered Options, Decision Outcome with
+  Consequences, Pros and Cons of the Options. Confirmation and More
+  Information only where there is something to say. ADR 1 fixes the list;
+  the script reads the same list.
+- Every considered option has a heading of the same name under Pros and
+  Cons of the Options, with the reason it won or lost.
+- Status is one of `proposed`, `accepted`, `rejected`, `deprecated`,
+  `superseded by ADR-N`, and it is the same in the file and in the index.
+  "Needs a choice" goes into the index and the chapter, not into the status.
+- A `proposed` record says "Recommended option: …, because …" in its
+  Decision Outcome, an `accepted` one says "Chosen option: …, because …".
+  When the maintainer approves a record, status, index and that sentence
+  change in the same commit.
+- A statement in a record comes from the brief, a clarification, the
+  chapter text or another record. Do not add arguments to fill a section;
+  keep an empty section short and say so in the PR.
 - A record that moves a business rule between contexts, or turns an
   arrow on the context map, first names whose rule it is and cites the
   clarification that decided it. The technical reason (a circle, a
@@ -119,6 +131,10 @@ creation, so get them right at creation.
   for things that do not exist yet (no event specified) is a line in an
   existing record, not a record of its own. (ADR 9 was written and
   withdrawn in chapter 4 for this reason.)
+- When the record format or any other convention changes, search the
+  whole repo for its name, its section names and its source (chapters,
+  index, skills, checks, script), not only the files that come to mind.
+  Fix the script and this list in the same commit.
 
 ## Decisions box (every chapter, checked for presence by the script)
 

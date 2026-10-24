@@ -1,12 +1,14 @@
+---
+status: "proposed"
+date: 2026-10-23
+decision-makers: the maintainer
+consulted: none recorded
+informed: none recorded
+---
+
 # 7. Identifiers across contexts are issued by the owner
 
-Date: 2026-10-23
-
-## Status
-
-Proposed
-
-## Context
+## Context and Problem Statement
 
 ADR 4 lets modules refer to each other's things only by identifier. Three things cross the boundaries all the time: the person (member in `membership`, reader in `lending` and `fees`), the copy, and the title.
 
@@ -14,15 +16,46 @@ For the person, the brief offers the card number: "you get a card number, and yo
 
 For copies and titles the brief names a barcode and an ISBN (§3.1). Whether those are stable enough to serve as identity (a replaced barcode label, two editions of one title) is not in the brief and is a question for the modelling of `catalogue`.
 
-## Decision
+Who issues the identifiers that cross the boundaries, and what is the identity of a person?
+
+## Decision Drivers
+
+* ADR 4 lets modules refer to each other's things only by identifier.
+* A person who owes money must stay the same person when the card changes.
+* A card is valid for a year, is renewed and can be blocked (brief §3.3).
+* The brief does not say whether the card number stays when a card is replaced, nor whether barcode and ISBN are stable enough to serve as identity (§3.1).
+
+## Considered Options
+
+* The owning module issues the identifier; every other module only stores it
+* The card number is the identity of the person
+
+## Decision Outcome
+
+Recommended option: "The owning module issues the identifier; every other module only stores it", because a person must stay the same person when the card changes, and the card number belongs to a card that is renewed and can be blocked.
 
 We will let the owning module issue the identifier of its things; every other module only stores it and never invents one.
 
-- **Member:** `membership` issues a member number at registration. The card number is an attribute of the card, not the identity of the person.
-- **Copy and title:** `catalogue` issues their identifiers. Whether it uses the barcode and the ISBN for that, or its own numbers with barcode and ISBN as attributes, is decided when `catalogue` is modelled.
+* **Member:** `membership` issues a member number at registration. The card number is an attribute of the card, not the identity of the person.
+* **Copy and title:** `catalogue` issues their identifiers. Whether it uses the barcode and the ISBN for that, or its own numbers with barcode and ISBN as attributes, is decided when `catalogue` is modelled.
 
-## Consequences
+### Consequences
 
-- No module has to look up or guess another module's identifiers.
-- `lending` and `fees` speak of a *reader* but store the *member number*. The word changes at the boundary, the identifier does not.
-- If the business wants the card number to be the member number, that is a decision of `membership` alone.
+* Good, because no module has to look up or guess another module's identifiers.
+* Neutral, because `lending` and `fees` speak of a *reader* but store the *member number*. The word changes at the boundary, the identifier does not.
+* Neutral, because if the business wants the card number to be the member number, that is a decision of `membership` alone.
+
+## Pros and Cons of the Options
+
+### The owning module issues the identifier; every other module only stores it
+
+* Good, because no module has to look up or guess another module's identifiers.
+* Good, because the person stays the same when the card changes: the card number is an attribute of the card.
+* Neutral, because for copies and titles it is open whether barcode and ISBN or own numbers are used; that is decided when `catalogue` is modelled.
+
+### The card number is the identity of the person
+
+The brief offers the card number: "you get a card number, and you're a member" (§3.3).
+
+* Good, because the brief names it.
+* Bad, because a card is valid for a year, is renewed and can be blocked, and the brief does not say whether the number stays when a card is replaced.
