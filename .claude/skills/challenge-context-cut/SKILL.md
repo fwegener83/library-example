@@ -112,6 +112,5 @@ a concrete failure yet.
 
 - Sharpening the language *inside* one context while modelling it, and
   the cut of aggregates (invariants, consistency boundaries). Both come
-  in phase 5 of the phase model (gate G1, `docs/gates/g1-model-to-code.md`
-  §3 has the abort criteria), once contexts are modelled in detail. Add
+  in the detailed modelling phase of the workflow. Add
   them here as a second mode then, not as guesswork now.

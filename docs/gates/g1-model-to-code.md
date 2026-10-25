@@ -120,7 +120,7 @@ clarifications `C-nn`.
 Phase 3 no longer asks how many deployment units there are. It sets the
 rules of the one unit: module = context, public API only, facts as
 events, orders through the owner, each module owns its data, REST at the
-edges (ADR 2 to 9, and ADR 10 for REST). The skill is opinionated
+edges (ADR 2 to 9; REST at the edges was decided by the maintainer on 2026-10-25 and is to be recorded as ADR 10). The skill is opinionated
 (§5).
 
 ### Phase 4: delivery scope
@@ -233,7 +233,7 @@ only when a module is pulled out.
 | Process-level Event Storming as a sketch board in phase 1 and as the source of flows | Two artefacts for one process drift apart. Studio flows are the source; a sketch board only as a throw-away for a tangled process. |
 | The agent drawing the Big Picture | It mirrors the documents. The agent prepares, transfers and checks. |
 | "No modelling in phase 7" without a small loop | Forces a big design up front. Building always finds gaps. |
-| Thymeleaf and htmx for the front end (plan §7) | The maintainer wants REST for every front end (ADR 10). |
+| Thymeleaf and htmx for the front end (plan §7) | The maintainer wants REST for every front end (conversation of 2026-10-25; ADR 10 to be written). |
 | Generating the OpenAPI specification from the code | Then the code defines the contract, not the model. |
 | Skills straight into a plugin or into `ddd-studio` | `ddd-studio` is behind gate G4, and skills never used once are guesswork. |
 
@@ -251,7 +251,7 @@ pulled out of chapters 0 to 5, `checks.md` and the heuristics *after* the
 first context is built, and tested like a regression: a fresh agent gets
 only the brief in a new throw-away workspace. Does it reach a comparable
 cut? Only that run shows whether the framework carries. The same test for
-`set-modulith-rules`: does a fresh agent reach ADR 2 to 9?
+`set-modulith-rules`: does a fresh agent reach ADR 2 to 10?
 
 | Skill | Phase | Status |
 |---|---|---|
