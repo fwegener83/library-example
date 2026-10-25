@@ -115,7 +115,7 @@ The glossary lives on each context and is part of the export. The overlap is int
 ## What we take into the next chapter
 
 - How the four contexts are deployed is the topic of chapter 4. The brief already points to one application ("not a zoo of services"); chapter 4 turns that into a decision with reasons.
-- Open before the specification work: the mail gateway and the parked C-11 to C-16.
+- Open before the detailed modelling: the mail gateway and the parked C-11 to C-16.
 
 ## Decisions in this chapter
 
