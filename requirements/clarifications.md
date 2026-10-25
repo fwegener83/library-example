@@ -387,6 +387,182 @@ recommendations before reading the final wording; the entries say so.
 
 ---
 
+## A4. Questions from the review before gate G6
+
+Raised by the `challenge-context-cut` report on the state after ADR 10
+(`docs/reviews/pre-g6-context-cut.md`). On 2026-10-25 the maintainer
+handed these business questions to the agent: where a sensible behaviour
+exists, the agent decides and the answer is set; only where none exists
+does the agent ask (`docs/decisions.md`). The entries below are
+therefore decided by the agent, acting for the library. The maintainer
+can still overturn any of them in the review of the pull request.
+
+### C-28 When do a card and researcher status end, and may a restricted copy be lent after the end?
+
+- **Source:** brief §3.3 ("The card is valid for a year", "you're a
+  researcher for twelve months"), §2 ("they expect us to treat it
+  carefully"); C-05, C-09. Report finding F2.
+- **Why now:** today the end is an event the clock fires
+  (*Card Expired*, *Researcher Status Expired*, C-09). `lending` learns
+  of it some time after midnight. Until then it would lend a restricted
+  copy to someone who is no longer a researcher.
+- **Options:**
+  1. The end is a **date**, decided when the card or status is granted
+     or renewed. Whoever applies a rule compares the date with today. The
+     events stay, for information.
+  2. The end is an event; the minutes or hours until it arrives are
+     accepted.
+- **Decision:** option 1. A card granted on 25 October is valid up to
+  and including 24 October of the next year; researcher status the same
+  with twelve months. From the first day after that, no new loan or
+  reservation counts on it. A restricted copy is never lent after the
+  date, not even for minutes. The brief states durations, not events, so
+  a date is the more faithful reading, and it removes the window instead
+  of tolerating it.
+- **Consequence:** what `membership` tells `lending` includes the end
+  dates, not only the status. That is part of the contract
+  `membership` → `lending` (chapter 7). C-09 stays true: time causes the
+  end; the event only reports it.
+- **Status:** decided 2026-10-25 by the agent (delegated by the
+  maintainer).
+
+### C-29 Who decides who may borrow a restricted copy?
+
+- **Source:** brief §3.1 (Tom Okafor: "When we register a copy, we
+  decide whether it circulates or not", "Those are restricted: only
+  researchers may borrow them"); C-05; the catalogue glossary
+  (*restricted*: "A copy only researchers may borrow"). Report finding F4.
+- **Why now:** the catalogue's definition contains a rule of `lending`
+  and a word of `membership`. If the archive wants another group (for
+  example university staff) to use the local history collection, three
+  contexts change.
+- **Options:**
+  1. **The Head of Collection classifies, `lending` decides who may
+     borrow.** *Restricted* in the catalogue means "kept out of general
+     circulation"; "only researchers may borrow or reserve a restricted
+     copy" is a lending rule.
+  2. The catalogue publishes the access rule itself ("borrowable by:
+     researchers").
+  3. Leave both definitions as they are.
+- **Decision:** option 1. Tom decides *which* copies need care; who may
+  then borrow them is a lending rule, applied at the desk, as the brief
+  describes it. A new group changes the lending rule and `membership`
+  (the status), no longer the catalogue. Option 2 would bring
+  `membership`'s statuses into the catalogue.
+- **Consequence:** the catalogue's *restricted* no longer names
+  researchers; `lending` gets the term *restricted copy* with the rule.
+- **Status:** decided 2026-10-25 by the agent (delegated by the
+  maintainer).
+
+### C-30 What happens when a lost copy comes back?
+
+- **Source:** brief §3.4 ("A lost book is charged at its replacement
+  price, plus a €5 handling fee"); C-03 ("If the book is declared lost
+  instead, the running amount ends without being fixed"), C-04, C-20,
+  C-25. The brief says nothing about a copy that turns up. Report
+  finding F6.
+- **Why now:** a reader reports a copy lost, pays, finds it and brings
+  it back. Nothing says what `lending`, `catalogue` and `fees` do.
+- **Options:**
+  1. Handled by hand, outside the system.
+  2. **A found copy is taken back.** `lending` records it as found; the
+     copy goes on the Head of Collection's list, as a damaged copy does
+     (C-25). `fees` cancels the replacement price; the €5 handling fee
+     stays. The loan counts as returned on the day the loss was
+     reported, so a late fine up to that day is assessed as usual (C-03).
+  3. The same, but the late fine runs until the day the copy is back.
+- **Decision:** option 2. Libraries commonly refund the replacement
+  price for a book that turns up and keep the handling fee. The reader
+  is not fined for the days after the loss report, because the loan
+  ended then (C-03, C-04). The Head of Collection decides about the copy
+  as for any damaged or lost copy: release it, or leave it withdrawn
+  (C-20, C-25). If the replacement price was already paid, the refund
+  goes through CityPay; until the CityPay interface is known, staff
+  refund by hand, and `fees` records the refund.
+- **Consequence:** a scenario "lost copy found" in `lending` and `fees`.
+  It need not be in the first increment (G6).
+- **Status:** decided 2026-10-25 by the agent (delegated by the
+  maintainer).
+
+### C-31 Which contact details does the library hold about a member, and who keeps them?
+
+- **Source:** brief §3.3 ("you come in with your ID and proof of
+  address"), §2 ("Staff spend an hour a day calling people"), §3.2
+  ("for the overdue ones, we call people"; reservations "online or by
+  phone"), §3.5 ("Tell me when my reservation is ready"), §3.6 ("Emails
+  go out through the city's mail gateway"). Report finding F7.
+- **Why now:** the morning lists need a name and a phone number, the
+  notices an email address. No context holds them.
+- **Options:**
+  1. **`membership` holds them.** Name, postal address, phone number
+     and email address are recorded at registration and kept up to date
+     by the membership office; the member can change phone and email.
+  2. Each context keeps what it needs.
+- **Decision:** option 1. The membership office already checks the
+  address (§3.3); contact details belong to the person, not to a loan.
+  Phone and email are optional: a member without email gets no email
+  notices, and staff call instead. The morning lists are a staff page
+  that puts together loans and reservations from `lending`, people from
+  `membership` and titles from `catalogue` (ADR 8, ADR 10), not a list
+  that `lending` prints alone.
+- **Open, for chapter 7:** how a notice from `lending` reaches an email
+  address that `membership` keeps (a copy in `lending`, or `membership`
+  sends). That is a question of the contract, not of the business.
+- **Status:** decided 2026-10-25 by the agent (delegated by the
+  maintainer).
+
+### C-32 What happens to a researcher's keeps and reservations when the status ends?
+
+- **Source:** brief §3.2 ("Researchers can ask us to keep a book for
+  them until they come in, without any time limit", "Researchers have no
+  limit"); C-05 ("what is already out stays out"), C-28. Report finding
+  F8.
+- **Why now:** a keep has no end. After the status ends it would hold a
+  copy behind the desk for good, possibly a restricted one the member
+  may no longer borrow.
+- **Options:**
+  1. **Keeps become normal reservations, restricted ones end.** On the
+     first day after the status ends (C-28), each keep becomes a
+     normal reservation that runs out after the normal holding period
+     (C-12), counted from that day. A reservation of a restricted copy
+     ends that day, because it can no longer be collected. Other
+     reservations stay, even above the limit of five; only new ones
+     count against it.
+  2. Everything stays until a person decides.
+  3. All reservations end with the status.
+- **Decision:** option 1. It follows C-05 ("what is already out stays
+  out") for everything the member may still collect, ends only what
+  can no longer be collected, and gives a keep the end it lacks. The
+  member is told through the normal notice.
+- **Status:** decided 2026-10-25 by the agent (delegated by the
+  maintainer).
+
+### C-27 Can the kind of a copy change after registration? (decided, was parked)
+
+- **Source:** brief §3.1 ("When we register a copy, we decide whether
+  it circulates or not"; nothing says it is final; for titles "We fix it
+  by hand"), §3.4 (usage fee); C-21, C-24. Report findings F3 (this
+  report) and F5 (`docs/reviews/ch05-context-cut.md`).
+- **Why now:** a signed first edition registered as circulating by
+  mistake cannot be corrected; the only way out would be to withdraw it
+  and register it again, which loses its history.
+- **Options:**
+  1. **The Head of Collection may correct a copy:** circulating or
+     restricted, the usage-fee mark, and the home branch. The change
+     counts from that moment: for new loans, reservations and checkouts.
+     A copy that is out stays out; a usage fee already charged stays.
+  2. Registration is final.
+- **Decision:** option 1. Mistakes happen at registration, and the
+  archive can change its mind about a copy. The usage fee is one
+  amount for all usage-fee copies, a tariff of `fees` set by the
+  Treasury Liaison (C-21); different amounts are not in the brief.
+- **Consequence:** the catalogue publishes a correction of a copy
+  (kind, mark, home branch) in its published language (chapter 7).
+- **Status:** decided 2026-10-25 by the agent (delegated by the
+  maintainer). The entry in section C is moved here.
+
+---
+
 ## B. Answered by the brief (confirm only)
 
 | ID | Question | What the brief says | Status |
@@ -408,4 +584,3 @@ recommendations before reading the final wording; the entries say so.
 | C-15 | Waiting line for books that are out? | brief §3.2 | Scope of the first release, before detailed modelling |
 | C-16 | Who may waive a fine, and why? | brief §3.4 ("waived" in the report only) | Modelling fees |
 | C-26 | Monthly report: does "paid" mean received or confirmed by CityPay (C-22)? Does "outstanding" include running fines? | brief §3.4, C-22, C-23; report ch05 F2 | Modelling fees |
-| C-27 | Usage-fee copy: can the archive's fee start or end after registration, and is it one amount for all such copies? Fees must have the mark before the checkout arrives (C-21). | brief §3.4, C-21; report ch05 F5 | Modelling catalogue and fees |

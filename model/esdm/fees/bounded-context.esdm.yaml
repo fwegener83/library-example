@@ -18,14 +18,14 @@ ubiquitousLanguage:
   - term: assessed fine
     definition: The late fine fixed when the copy comes back (C-03).
   - term: lost-book fee
-    definition: The replacement price plus a handling fee, charged when a copy is declared lost (C-04).
+    definition: The replacement price plus a handling fee, charged when a copy is declared lost (C-04). If the copy comes back, the replacement price is cancelled, or refunded if paid; the handling fee stays, and a late fine up to the day of the loss report is assessed (C-30).
   - term: usage fee
     avoid:
       - term: item
         reason: The brief's word; the model says copy (C-07).
     definition: Charged when a usage-fee copy is checked out (C-08). Which copies carry it comes from the catalogue; the amount is the usage-fee tariff (C-21).
   - term: usage-fee tariff
-    definition: The amount of the usage fee, set by the Treasury Liaison. Not in the brief; a setting (C-21).
+    definition: The amount of the usage fee, one for all usage-fee copies, set by the Treasury Liaison. Not in the brief; a setting (C-21, C-27).
   - term: payment
     definition: 'Money a reader pays for any charge. Received when taken at the desk: it lowers the amount owed at once. Confirmed when CityPay confirms it; a payment CityPay rejects is cancelled and the amount owed rises again (C-02, C-22).'
   - term: waiver

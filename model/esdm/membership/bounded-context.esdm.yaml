@@ -11,16 +11,18 @@ ubiquitousLanguage:
       - term: patron
         reason: LibTrack's word (C-07).
     definition: A person registered with the library and holding a card.
+  - term: contact details
+    definition: Name and postal address, checked at registration; phone number and email address if the member gives them. Kept up to date by the membership office; the member may change phone and email (C-31).
   - term: library card
-    definition: Proof of membership with a card number; valid for a year and renewed when it runs out.
+    definition: Proof of membership with a card number; valid for a year, up to and including the day before the same date next year, and renewed when it runs out (C-28).
   - term: researcher status
-    definition: Granted for twelve months on a letter from the university or the city archive; needs a new letter to continue.
+    definition: Granted for twelve months on a letter from the university or the city archive, with a fixed end date (C-28); needs a new letter to continue.
   - term: hold
     definition: A reason why a card may not be used for now, with the party that placed it. Whoever placed a hold lifts it; nobody lifts another party's hold (C-19).
   - term: blocked card
     definition: A card with at least one hold. Nothing new may be borrowed or reserved with it (C-01, C-19).
   - term: expired card
-    definition: A card past its year. The member stays in the system; the card works like a blocked one until renewed (C-05).
+    definition: A card past its end date. The member stays in the system; the card works like a blocked one until renewed (C-05, C-28).
   - term: renewal
     definition: Making a card valid for another year.
 metadata:

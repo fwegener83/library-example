@@ -23,10 +23,12 @@ In an architecture decision record the two steps are visible: while the status i
 
 ## When the agent must stop and ask
 
-- The answer is **not in the source**: the brief is silent, vague or contradicts itself, and the model depends on it. (Business)
+- The answer is **not in the source**: the brief is silent, vague or contradicts itself, the model depends on it, and the agent finds no sensible behaviour of its own (see below). (Business)
 - The decision is **hard to reverse** and there are **real alternatives**. (Architecture)
 - It decides **how we work** from here on, or it would touch something the tutorial has declared untouchable (a gate). (Way of working)
 - A recommendation turns out to **undo an earlier decision** (for example the circle that undid a statement of chapter 3). The agent says so openly and does not change the earlier decision on its own.
+
+**Business questions delegated (2026-10-25).** From the review before gate G6 on, the maintainer has handed business questions to the agent: where a sensible behaviour exists, the agent decides, records the options and the reason in the clarification log, marks the entry "decided by the agent (delegated by the maintainer)", and lists it in the pull request, where the maintainer can still overturn it. The agent asks only where it finds no sensible behaviour. Gates and architecture decisions that are hard to reverse are not part of this delegation. In a real project this is the moment when the business trusts the team with the small rules and keeps the big ones; the tutorial shows it openly instead of pretending every rule came from an interview.
 
 ## When it is not a decision
 
