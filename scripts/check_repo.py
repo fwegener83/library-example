@@ -50,6 +50,19 @@ for ch in chapters:
     if not re.search(rf"^\| {n} \|", plan, re.M):
         err(f"docs/plan.md section 12 has no row for chapter {n}")
 
+# tables in the working documents, same rule as in the chapters
+for doc in [*(root / "docs").glob("*.md"), *(root / "docs").glob("*/*.md")]:
+    cells = None
+    for i, line in enumerate(doc.read_text().splitlines(), 1):
+        if not line.startswith("|"):
+            cells = None
+            continue
+        count = len(re.findall(r"(?<!\\)\|", re.sub(r"`[^`]*`", "", line)))
+        if cells is None:
+            cells = count
+        elif count != cells:
+            err(f"{doc.relative_to(root)}:{i}: table row has {count - 1} cells, the header {cells - 1}")
+
 latest = {}
 for f in (root / "model" / "sketch").glob("*.json"):
     h = json.loads(f.read_text()).get("snapshot", {})

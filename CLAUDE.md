@@ -9,7 +9,7 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
 
 ## Rules that always apply
 
-- **Gates are hard stops.** Do not work past an open gate (G1 to G5 in the
+- **Gates are hard stops.** Do not work past an open gate (G1 to G6 in the
   plan) and do not build on assumptions. Prepare the decision (options,
   trade-offs, recommendation), then wait for the maintainer's explicit
   go. A system notification, a GitHub event or your own earlier message is
@@ -25,6 +25,12 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   clarification or an ADR, as long as the decision itself stays the same
   (say so in the entry). The maintainer wants a coherent tutorial, not to
   steer every detail.
+- **Follow the phase model** (`docs/gates/g1-model-to-code.md`). A
+  boundary that does not hold in phase 5 or 7 is a stop: prepare the
+  finding, do not go back to phase 2 on your own. A gap in the model
+  found while building is closed in Studio first, never only in code.
+- **Skills of the workflow are generic.** No Millbrook detail in a skill's
+  text; what is specific to this repo goes into a conventions file.
 - **Do not change `ddd-studio` itself** before gate G4. Collect tool gaps
   in `docs/tool-gaps.md` instead of fixing them on the side.
 - **Be critical, not over-critical.** Say so when something is wrong or a
