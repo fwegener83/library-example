@@ -405,7 +405,7 @@ recommendations before reading the final wording; the entries say so.
 | C-12 | Reservation kept 3 or 5 days? | brief §3.2, §6 | Modelling lending (a setting) |
 | C-13 | 28-day loans for new releases? | brief §3.4, §6 | Modelling lending (a setting) |
 | C-14 | Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? Which branch counts for the limit: where the copy was checked out, or its home branch (C-24)? | brief §3.2, §3.5 | Modelling lending (rule) |
-| C-15 | Waiting line for books that are out? | brief §3.2 | Scope of the first release, before specs |
+| C-15 | Waiting line for books that are out? | brief §3.2 | Scope of the first release, before detailed modelling |
 | C-16 | Who may waive a fine, and why? | brief §3.4 ("waived" in the report only) | Modelling fees |
 | C-26 | Monthly report: does "paid" mean received or confirmed by CityPay (C-22)? Does "outstanding" include running fines? | brief §3.4, C-22, C-23; report ch05 F2 | Modelling fees |
 | C-27 | Usage-fee copy: can the archive's fee start or end after registration, and is it one amount for all such copies? Fees must have the mark before the checkout arrives (C-21). | brief §3.4, C-21; report ch05 F5 | Modelling catalogue and fees |

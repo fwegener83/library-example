@@ -6,7 +6,7 @@
 
 ## Why challenge the cut
 
-The cut into contexts is the decision that is most expensive to undo. Everything after gate G1 builds on it: the specifications, the detailed models, the code. Two mistakes in it were found late. Chapter 3 called a dependency circle harmless, and chapter 4 first moved a business rule without asking whose rule it was. DDD Studio draws the cut, but it does not argue with it.
+The cut into contexts is the decision that is most expensive to undo. Everything after gate G1 builds on it: the detailed models and the code. Two mistakes in it were found late. Chapter 3 called a dependency circle harmless, and chapter 4 first moved a business rule without asking whose rule it was. DDD Studio draws the cut, but it does not argue with it.
 
 So before we build on the cut, we let someone argue with it, and we do it in a way that can be repeated before every gate.
 
@@ -98,7 +98,7 @@ The first finding is the same kind of slip as in chapter 4, although we had just
 - The cut has now been challenged twice by a reader who did not draw it. What it found is fixed, decided or parked with the moment it has to be decided.
 - The skill runs again whenever the cut changes and before every gate that builds on it (`CLAUDE.md`, `close-chapter`).
 - Still parked: C-11 to C-16, C-26, C-27, the mail gateway.
-- **Gate G1 (spec-driven development) comes next.** Nothing per context starts before it.
+- **Gate G1 (from the model to code) comes next.** Nothing per context starts before it.
 
 ## Decisions in this chapter
 

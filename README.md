@@ -4,11 +4,10 @@ A tutorial that walks a single example, a public library, from an
 unpolished requirements brief to a working application: Big Picture Event
 Storming, Domain Stories, a context map, bounded contexts as modules of
 one Spring Boot application, and then one context after the other,
-specified and built — modelled with [DDD Studio](https://ddd-studio.dev).
+modelled in detail and built from the model — with [DDD Studio](https://ddd-studio.dev).
 
 **Status:** work in progress. Chapters 0 to 5 are done. Next is gate G1
-in the plan: how the model and the specification of each context work
-together.
+in the plan: how a context goes from the model to code.
 
 | Chapter | Topic | Status |
 |---|---|---|

@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; als Nächstes Gate G1, Teil B danach*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; als Nächstes Gate G1 (vom Modell zum Code), Teil B danach*
 
 ---
 
@@ -22,7 +22,7 @@ nichts, was ins Tutorial oder in den Code eingeht.
 | Gate | Wann | Was geklärt wird | Status |
 |---|---|---|---|
 | **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
-| **G1 — SDD** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Zusammenspiel DDD Studio ↔ Spec Kit: Reihenfolge, Zuschnitt einer Spec, Rollen (§6) | offen |
+| **G1 — Vom Modell zum Code** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Wie der Agent pro Kontext vom Modell in DDD Studio zum Code kommt: Reihenfolge, Einheit eines Inkrements, Szenarien als Tests, fehlende Skills (§6) | offen |
 | **G2 — Technik** | vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, UI-Technik, Datenbank (§7) | offen |
 | **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | **entschieden** 2026-10-25 (Maintainer): der Katalog meldet es, `lending` prüft gegen die eigene Kopie. Im Modell seit Kapitel 3 so angelegt, vor der Freigabe; siehe §11 |
 | **G4 — In-App-Beispiel** | bevor irgendetwas in `ddd-studio` geändert wird | Ersetzen des Library-Beispiels (§10) | offen |
@@ -46,9 +46,9 @@ arbeiten — zu laufender Software.
 
 1. **Erst verstehen, dann schneiden, dann bauen.** Big Picture Event
    Storming und Domain Stories liefern die Kontextgrenzen.
-2. **Das Modell treibt die Umsetzung.** Domänenmodell (DDD Studio) und
-   Spec-Driven Development (Spec Kit) haben getrennte, klar benannte
-   Zuständigkeiten — *wie genau*, klärt Gate G1.
+2. **Das Modell treibt die Umsetzung.** Das Modell in DDD Studio ist die
+   einzige fachliche Quelle. Der Agent liest es und baut daraus den Code;
+   die Szenarien werden zu Tests — *wie genau*, klärt Gate G1.
 3. **Grenzen sind anfangs Hypothesen.** Deshalb ein modularer Monolith mit
    *geprüften* Modulgrenzen.
 
@@ -99,6 +99,7 @@ Partnership).
 | Ort | eigenes Repo `fwegener83/library-example` |
 | Deployment | eine Deployment-Einheit, Module = Bounded Contexts |
 | Teams | gedanklich getrennte Teams pro BC, sichtbar über Verträge |
+| Vorgehen pro Kontext | allein aus dem Modell in DDD Studio (Maintainer, 2026-10-25). Einzelheiten: G1 (§6) |
 | UI | **kleine, minimale UI** — macht das Ergebnis greifbar (Technik: G2) |
 | Format | Markdown-Kapitel im Repo; später Übernahme auf die DDD-Studio-Homepage |
 | F1 Process Manager | vorerst **ohne**; ggf. später eigener Abschnitt (G5) |
@@ -169,22 +170,21 @@ geändert hat und wo:
 | 4 | **Deployment decision** — Modulith, Modul = BC, Integrationsregeln als ADRs | ADRs | `docs/adr/…` |
 | 5 | **Challenging the cut** — Schnitt und Context Map von einem frischen Agenten prüfen lassen (Skill `challenge-context-cut`), Befunde als Klärungen C-20 bis C-25 und ADR 9, Board und Glossare nachziehen | Skill, DDD Studio | `docs/reviews/…`, `requirements/clarifications.md`, `docs/adr/0009-…` |
 
-### → Gate G1 (SDD) — harter Halt
+### → Gate G1 (Vom Modell zum Code) — harter Halt
 
 Alles ab hier hängt davon ab, *in welcher Reihenfolge* pro Bounded Context
-Feinmodellierung und Spec-Driven Development ineinandergreifen. Die
-folgende Gliederung ist deshalb **vorläufig** und wird nach G1 neu
-geschnitten und nummeriert (ab Kapitel 6).
+Feinmodellierung und Umsetzung ineinandergreifen. Die folgende Gliederung
+ist deshalb **vorläufig** und wird nach G1 neu geschnitten und nummeriert
+(ab Kapitel 6).
 
 ### Teil B — vorläufig, nach G1 (und G2) neu zu planen
 
 | # | Kapitel (Arbeitstitel) | Werkzeug |
 |---|---|---|
-| B1 | Constitution aus dem strategischen Design | Spec Kit |
-| B2 | Kontextübergreifende Flows | Flow View |
-| B3 | Feinmodellierung je Kontext (Aggregates, Invarianten, Slices, GWT) | Static View, Slices, Scenarios |
-| B4 | Vom Modell zur Spec | Spec Kit + DDD-Studio-MCP |
-| B5 | Umsetzung inkl. minimaler UI | Code, Spring Modulith |
+| B1 | Kontextübergreifende Flows | Flow View |
+| B2 | Feinmodellierung je Kontext (Aggregates, Invarianten, Slices, GWT) | Static View, Slices, Scenarios |
+| B3 | Umsetzung je Kontext in der Reihenfolge aus Kapitel 4 (`catalogue` und `membership`, dann `lending`, dann `fees`); Szenarien als Tests | Code, Spring Modulith, DDD-Studio-MCP |
+| B4 | Minimale UI | Code |
 
 Umsetzungstiefe im Code (Vorschlag): voll — `lending`, `fees` + ACL;
 schlicht — `catalogue`, `membership` (CRUD); Hinweise an Leser als
@@ -195,11 +195,11 @@ schlichter Versand über das Mail-Gateway.
 - **Process Manager** (F1): z. B. ein Mahnlauf über mehrere Kontexte,
   abgewogen gegen Policy-Choreographie.
 - **Evolution** (F4): eine neue Anforderung (z. B. E-Books) verschiebt den
-  Schnitt; Modell → Spec → Code ändern sich in dieser Reihenfolge.
+  Schnitt; Modell → Code ändern sich in dieser Reihenfolge.
 
 ---
 
-## 6. Kernthema für G1: DDD und Spec-Driven Development
+## 6. Kernthema für G1: Vom Modell zum Code
 
 *Nichts in diesem Abschnitt ist entschieden. Er sammelt die Frage, das
 Material und die Vorbereitung für G1.*
@@ -208,50 +208,42 @@ Material und die Vorbereitung für G1.*
 
 Nach Kapitel 5 haben wir: Bounded Contexts, eine zweimal geprüfte Context
 Map mit Beziehungen, Deployment-Entscheidungen als ADRs. Jetzt rückt erstmals **pro
-Bounded Context** die Umsetzung in den Fokus.
+Bounded Context** die Umsetzung in den Fokus. Das Modell in DDD Studio ist
+dafür die einzige fachliche Quelle (Entscheidung des Maintainers, 2026-10-25).
 
-> **Was passiert dann zuerst — und was ist die Einheit, die von DDD Studio
-> an Spec Kit übergeht?**
+> **Wie kommt der Agent pro Bounded Context vom Modell zum laufenden Code?**
 
 Teilfragen:
 
-- **Reihenfolge:** Erst Feinmodellierung in DDD Studio (Flows, Slices,
-  Szenarien), dann Spec? Oder erst eine Spec (Nutzen, Scope), die die
-  Feinmodellierung anstößt? Oder abwechselnd, Slice für Slice?
-- **Einheit:** Ist ein *Flow* eine Spec? Ein *Slice*? Ein *Feature* mit
-  GWT-Szenarien? Eine Nutzerfähigkeit innerhalb eines BC?
-- **Kontextübergreifende Flows:** Wer spezifiziert einen Ablauf, der über
-  mehrere Teams läuft — und wie hängen die Team-Specs zusammen?
-- **Wahrheit:** Spec Kit versteht die Spec als „source of truth", DDD
-  Studio das Modell. Wer ist wofür Master, ohne dass es doppelt geführt
-  wird? (Risiko: „Key Entities" und `data-model.md` beschreiben die
-  Fachlichkeit ein zweites Mal.)
-- **Werkzeuge:** Reicht eine Constitution, oder braucht es ein eigenes
-  Spec-Kit-Preset? Wie liest der Agent das Modell (MCP oder ESDM-Export)?
-- **Szenarien → Tests:** von Hand mit Namenskonvention oder generiert?
+- **Reihenfolge:** Erst ein Kontext vollständig fein modellieren und dann
+  bauen, oder abwechselnd, Slice für Slice? Was kommt zuerst: die
+  kontextübergreifenden Flows oder die Innensicht eines Kontexts?
+- **Einheit:** Was ist ein Inkrement, das der Agent in einem Zug umsetzt —
+  ein *Flow*, ein *Slice*, ein *Feature* mit GWT-Szenarien?
+- **Kontextübergreifende Flows:** Wer modelliert einen Ablauf, der über
+  mehrere Teams läuft, und wie hängen die Teile zusammen?
+- **Modell lesen:** Liest der Agent das Modell über den MCP-Server oder über
+  den ESDM-Export? Was gilt, wenn beides auseinanderläuft?
+- **Szenarien → Tests:** von Hand mit Namenskonvention oder generiert? Wie
+  wird geprüft, dass jedes Szenario einen Test hat?
+- **Modell und Code im Gleichklang:** Wie fällt auf, wenn der Code vom
+  Modell abweicht (Module == Kontexte, Ereignisse == Published Language)?
+- **Wem gehört eine Regel?** DDD Studio hängt eine Policy an die Domain,
+  nicht an einen Kontext, und nennt eine Regel mit laufender Summe einen
+  Process Manager (`docs/tool-gaps.md`, 14 und 15). Wem eine Regel gehört
+  (z. B. die €10-Regel, `fees`, C-19), muss bei der Feinmodellierung
+  trotzdem sichtbar bleiben.
+- **Skills:** Welche Arbeitsschritte wiederholen sich so, dass ein Skill
+  lohnt? Kandidaten: Szenario → Test, Code gegen Modell prüfen, einen
+  Kontext umsetzen.
 
-### 6.2 Material aus der bisherigen Diskussion (nicht entschieden)
+### 6.2 Vorbereitung für G1 (erlaubt vor dem Gate)
 
-Ein Vorschlag lag schon auf dem Tisch und dient G1 als Ausgangspunkt:
-*Modell = was die Domäne ist; Spec = warum, welches Inkrement, wie
-gebaut.* Dazu: Constitution aus dem strategischen Design, Preset mit
-„Domain model references" statt „Key Entities", Szenarien als zuerst
-fehlschlagende Tests, CI-Prüfungen (jedes Szenario hat einen Test; Module
-== BCs). Alternativen: *Spec-first* (Modell als Dekoration) und
-*Model-only* (ohne Spec Kit). Alles davon steht in G1 zur Disposition.
-
-### 6.3 Vorbereitung für G1 (erlaubt vor dem Gate)
-
-1. **Spec Kit praktisch erkunden** — aktuelle Version in einer
-   Wegwerf-Umgebung installieren und einmal durchspielen: Welche Befehle
-   gibt es wirklich (die Benennung hat sich geändert, z. B. Skills
-   `/speckit-…`, neu `/speckit-converge`), welche Dateien entstehen, wie
-   sehen die Templates aus, was können Presets und Extensions?
-2. **Entscheidungsvorlage** `docs/gates/g1-sdd.md` (nicht zu verwechseln
-   mit `docs/decisions.md`, den Entscheidungsebenen): Fakten zu Spec
-   Kit, zwei bis drei durchgespielte Varianten am konkreten Beispiel eines
-   `lending`-Slices, Abwägung, Empfehlung.
-3. Dann: gemeinsame Runde, Entscheidung von dir, Teil B neu planen.
+1. **Entscheidungsvorlage** `docs/gates/g1-model-to-code.md` (nicht zu
+   verwechseln mit `docs/decisions.md`, den Entscheidungsebenen): zwei bis
+   drei Varianten, am konkreten Beispiel eines `lending`-Slices
+   durchgespielt, Abwägung, Empfehlung, Skill-Kandidaten.
+2. Dann: gemeinsame Runde, Entscheidung des Maintainers, Teil B neu planen.
 
 ---
 
@@ -268,7 +260,7 @@ fehlschlagende Tests, CI-Prüfungen (jedes Szenario hat einen Test; Module
   hängt eine Policy an die Domain, nicht an einen Kontext, und nennt eine
   Regel mit laufender Summe einen Process Manager (`docs/tool-gaps.md`,
   14 und 15). Wem eine Regel gehört (z. B. die €10-Regel `fees`, C-19),
-  muss bei der Feinmodellierung trotzdem sichtbar bleiben — Frage für G1.
+  muss bei der Feinmodellierung trotzdem sichtbar bleiben — siehe §6.1.
 - System-Commands aus dem Tagesblatt per Scheduler.
 - **Minimale UI** — Kandidaten für G2: serverseitig (Thymeleaf + htmx,
   bleibt im Spring-Monolithen, minimaler Aufwand) vs. kleine SPA.
@@ -302,7 +294,6 @@ library-example/
 │   ├── adr/                     # Architekturentscheidungen (MADR)
 │   ├── reviews/                 # Berichte von challenge-context-cut
 │   └── tool-gaps.md             # Lücken in DDD Studio
-├── .specify/ · specs/           # Spec Kit — Struktur nach G1
 └── src/…                        # nach G2
 ```
 
@@ -319,7 +310,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | M2 | Kapitel 1–3 im Studio + Export + Texte | G0 |
 | M3 | Kapitel 4: Deployment-ADRs | G0 |
 | M3b | Kapitel 5: Schnitt prüfen (erledigt) | — |
-| M4 | Vorbereitung G1: Spec Kit erkunden, Entscheidungsvorlage | — (Vorbereitung) |
+| M4 | Vorbereitung G1: Entscheidungsvorlage Vom Modell zum Code | — (Vorbereitung) |
 | — | **G1, G2** | |
 | M5+ | Teil B, neu geplant | G1, G2 |
 | — | **G4, G5** | |
@@ -343,7 +334,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 
 | ID | Frage | Gate | Stand |
 |---|---|---|---|
-| S1–S6 + Reihenfolge | Zusammenspiel DDD Studio ↔ Spec Kit (§6) | G1 | offen |
+| G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | offen |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | UI-Technik (Vorschlag: Thymeleaf + htmx) | G2 | offen |
@@ -452,7 +443,3 @@ muss. Beschrieben in `docs/decisions.md`; in Kürze:
   Mensch nur noch ab.
 - Jedes Kapitel (ab 1) endet mit dem Kasten „Decisions in this chapter“;
   `scripts/check_repo.py` prüft, dass er da ist.
-- Vorschlag für G1 (nicht entschieden): eine vierte Ebene für den
-  Klärungsschritt der Spec. Erst wenn G1 sie bestätigt, kommt sie in
-  `docs/decisions.md` und `CLAUDE.md`.
-

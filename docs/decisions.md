@@ -8,7 +8,7 @@ This tutorial builds software with an AI agent. The agent prepares, a human deci
 |---|---|---|---|---|
 | **Business** | What the rules of the business are, where the brief is silent or contradicts itself | The business: director, membership office, finance | [`requirements/clarifications.md`](../requirements/clarifications.md), entries `C-nn` | C-03: a late fine is fixed on return, but the running amount already counts towards the €10 block |
 | **Strategy and architecture** | Where the boundaries run, how the parts are deployed and talk to each other | Architect or team | The context map in DDD Studio and [`docs/adr/`](adr/README.md) | ADR 5: how to avoid a circle between modules |
-| **Way of working** | How we work on the next steps: tools, order, roles | Project lead | The gates in [`docs/plan.md`](plan.md) | G1: how DDD Studio and the specification tool work together |
+| **Way of working** | How we work on the next steps: tools, order, roles | Project lead | The gates in [`docs/plan.md`](plan.md) | G1: how a context goes from the model in DDD Studio to code |
 
 In this tutorial the maintainer plays all the people on the right. The records say so wherever it matters.
 
