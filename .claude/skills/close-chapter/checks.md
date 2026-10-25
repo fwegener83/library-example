@@ -46,6 +46,9 @@ creation, so get them right at creation.
   assessed only on return let a reader who keeps a book escape the
   block.)
 - A rejected proposal stays in the entry, with the reason.
+- Entries that touch the same event are read together (C-03 said a fine
+  is fixed "on return or loss", C-04 said no late fine on loss; found
+  only in the consistency pass after chapter 5).
 - Every decision says who made it and when, and that it is a
   clarification, not the brief.
 
@@ -97,7 +100,11 @@ creation, so get them right at creation.
   before the map is called done. (Chapter 3 called a circle harmless; it
   was found in chapter 4.)
 - ADRs say what a technology must provide, never which one, while gate G2
-  is open.
+  is open. Java, Spring Boot and Spring Modulith are a premise of the
+  tutorial (plan §3); versions, event store, database and UI are G2.
+- A statement in the model that answers a question a gate still holds
+  open (F2: "lending the copies and their flag" while G3 was open) is
+  either taken out or put to the maintainer at once.
 - A record that changes an earlier chapter says which chapter, and the
   chapter is corrected in the same pull request.
 - A record or clarification that changes a rule is checked against the

@@ -16,4 +16,4 @@ Status values: `proposed`, `accepted`, `rejected`, `deprecated`, `superseded by 
 | [8](0008-user-interfaces-outside-the-modules.md) | User interfaces sit outside the modules and use only public APIs | accepted |
 | [9](0009-lending-fees-customer-supplier.md) | Lending supplies fees as customer and supplier, not as an open host | accepted |
 
-Technology (language version, framework, database, event store, user interface technology) is decided at gate G2 and is deliberately not part of these records.
+The tutorial is written for Java, Spring Boot and Spring Modulith (a premise, see [ADR 1](0001-record-architecture-decisions.md)). Versions, event store, database and user interface technology are decided at gate G2 and are deliberately not part of these records.

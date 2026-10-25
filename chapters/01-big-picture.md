@@ -94,4 +94,4 @@ The hotspots about reservation duration, blocked cards and the new-release perio
 
 ---
 
-*The board lives in the DDD Studio workspace "Millbrook Library (tutorial)", board `big-picture`. Saved versions: `ch1-big-picture` (first draft) and `ch1-big-picture-v2` (after review).*
+*The board lives in the DDD Studio workspace "Millbrook Library (tutorial)", board `big-picture`. Saved version of the board: `ch1-big-picture-v2` (after review). The first draft was saved as a workspace version, `ch1-big-picture`.*

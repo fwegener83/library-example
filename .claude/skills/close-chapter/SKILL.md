@@ -23,13 +23,16 @@ Work through these in order. Stop and report if a step fails. Do not merge.
      with a `snapshot` header (chapter, workspace, board, savedVersion,
      note) and `eventOrder` for timeline boards. Positions are not in the
      export, so say so in the note.
-   - Context map and later: `export_esdm` → `model/library.esdm.yaml`
+   - Context map and later: `export_esdm` → one file per element under
+     `model/esdm/` (the tool returns the files in its answer; write each
+     one to its `path`)
 5. **Chapter file** `chapters/NN-<topic>.md`: input, tool, result at the
    top; findings and "what we take into the next chapter" at the bottom;
    saved version names in the footer.
-6. **README**: update the chapter table.
+6. **README**: update the chapter table and the status line.
 7. **Plan**: add the chapter to the table in `docs/plan.md` §12 with the
-   merge commit once it exists.
+   merge commit once it exists. Read the rest of the plan against the new
+   state (gates, §4, register in §11) and fix what has gone stale.
 8. **Independent review.** Ask for a review that did not write the
    chapter (for example `/code-review` or a fresh agent that gets only the
    files). Fix findings before presenting. If the chapter adds, merges
@@ -41,7 +44,8 @@ Work through these in order. Stop and report if a step fails. Do not merge.
    caught it earlier, and add it to `CLAUDE.md`, `checks.md` or
    `scripts/check_repo.py`. Remove rules that did not help.
 10. **Commit** on `chapter-NN-topic`, push, open a **draft** PR with a
-   short summary and a **Rules audit** section (checks run, results, fixes,
-   open warnings, rules added or changed). Tell the maintainer what to review and what is still
+   short summary, a **Rules audit** section (checks run, results, fixes,
+   open warnings, rules added or changed) and **Decided by the agent**
+   (choices the agent made itself, so the maintainer can object). Tell the maintainer what to review and what is still
    open. Wait for their approval before marking ready and merging with a
    merge commit.

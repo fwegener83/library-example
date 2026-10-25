@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-19 · Status: Teil A freigegeben, Teil B hinter Gate G1*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; als Nächstes Gate G1, Teil B danach*
 
 ---
 
@@ -24,7 +24,7 @@ nichts, was ins Tutorial oder in den Code eingeht.
 | **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
 | **G1 — SDD** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Zusammenspiel DDD Studio ↔ Spec Kit: Reihenfolge, Zuschnitt einer Spec, Rollen (§6) | offen |
 | **G2 — Technik** | vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, UI-Technik, Datenbank (§7) | offen |
-| **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | offen |
+| **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | **entschieden** 2026-10-25 (Maintainer): der Katalog meldet es, `lending` prüft gegen die eigene Kopie. Im Modell seit Kapitel 3 so angelegt, vor der Freigabe; siehe §11 |
 | **G4 — In-App-Beispiel** | bevor irgendetwas in `ddd-studio` geändert wird | Ersetzen des Library-Beispiels (§10) | offen |
 | **G5 — Erweiterungen** | nach fertiger Basis | Process-Manager-Kapitel (F1), Evolutionskapitel (F4) | offen |
 
@@ -92,7 +92,9 @@ Partnership).
 | Thema | Entscheidung |
 |---|---|
 | Domäne | Bibliothek auf Basis des zweiten Schnitts, erweitert |
-| Stack | Java, Spring Boot, Spring Modulith (Details: G2) |
+| Stack | Java, Spring Boot, Spring Modulith — Prämisse des Tutorials. Offen für G2: Versionen, Event-Store, Datenbank, UI-Technik (§7) |
+| Schnitt | vier Kontexte `catalogue`, `lending`, `membership`, `fees`; kein Kontext für Benachrichtigungen (Kap. 3, geprüft in Kap. 5) |
+| Git-Tags | keine (2026-10-25). Die Kapitel-Branches und Merge-Commits zeigen die Stände (§12) |
 | Sprache | Englisch (Tutorial, Code, Modell); dieses Planungsdokument deutsch |
 | Ort | eigenes Repo `fwegener83/library-example` |
 | Deployment | eine Deployment-Einheit, Module = Bounded Contexts |
@@ -104,74 +106,89 @@ Partnership).
 
 ---
 
-## 4. Domänenzuschnitt (Hypothese — wird im Tutorial *hergeleitet*)
+## 4. Domänenzuschnitt
 
-Das Anforderungsdokument (Kap. 0) wird so geschrieben, dass dieser Schnitt
-im Event Storming naheliegt, aber nicht offensichtlich ist.
+### 4.1 Ergebnis (Kapitel 3–5)
 
-| Kontext | Subdomain | Team (fiktiv) | Tiefe | Lehrzweck | Herkunft |
-|---|---|---|---|---|---|
-| `catalogue` | Supporting | Team Collection | CRUD | Datensätze + Exemplare; Homonym `book` | 2. Schnitt |
-| `lending` | **Core** | Team Circulation | event-sourced | Patron-Regeln, Holds, Checkouts, Überfälligkeit, Tagesblatt | 2. Schnitt |
-| `membership` | Supporting | Team Members | CRUD | Registrierung, Patron-Typ, Sperren | neu |
-| `fees` | Supporting | Team Finance | event-sourced | Gebühren, Zahlung über ACL | neu |
-| `notification` | Generic | Team Platform | dünn | reiner Event-Konsument | neu |
-| *Payment Provider* | extern | — | Stub | **Anti-Corruption Layer** | neu |
-| *Book Metadata Service* | extern | — | echter Aufruf + Stub im Test | ACL vs. Conformist | neu |
+Quelle der Wahrheit sind die Context Map in DDD Studio und der Export in
+`model/esdm/`; begründet in Kapitel 3, geändert in Kapitel 4 (ADR 5) und
+Kapitel 5 (ADR 9, C-20 bis C-25).
 
-**Context-Map-Hypothese:**
+| Kontext | Subdomain | Team (fiktiv) | Tiefe (Vorschlag, G2) |
+|---|---|---|---|
+| `catalogue` | collection, supporting | Collection | CRUD |
+| `lending` | circulation, **core** | Circulation | event-sourced |
+| `membership` | member-services, supporting | Members | CRUD |
+| `fees` | fines-and-payments, supporting | Finance | event-sourced |
 
-- `catalogue` → `lending`: **Customer/Supplier**, eine Überquerung in eine Richtung
-- `membership` → `lending`: **Customer/Supplier**; *member* in membership,
-  *patron* in lending (zweite Sprachlektion)
-- `lending` → `fees`, `notification`: **Open Host Service + Published Language**
-- `fees` → `membership`: **Customer/Supplier** (offene Gebühren sperren)
-- `fees` → Payment Provider: **ACL**
-- `catalogue` → Metadata Service: **ACL** (Alternative Conformist diskutiert)
-- **Shared Kernel** diskutiert und verworfen; **Partnership** des ersten
-  Schnitts als verworfene Hypothese
+Externe Systeme: *National ISBN Service*, *CityPay*, *City Mail Gateway*.
 
-**Nicht jeder Kontext verdient dieselbe Tiefe:** `catalogue` und
-`membership` bleiben CRUD, `notification` ein Listener.
+Context Map (upstream → downstream):
+
+- `catalogue` → `lending`, `catalogue` → `fees`: **Open Host Service +
+  Published Language** (Titel und Exemplare mit Art, Heimatzweigstelle,
+  Nutzungsgebühr-Markierung; Abgang und Freigabe eines Exemplars)
+- `membership` → `lending`: **Customer/Supplier**
+- `membership` → `fees`: **Customer/Supplier** — `fees` setzt und hebt die
+  Sperre „unpaid fees“ (C-19, ADR 5)
+- `lending` → `fees`: **Customer/Supplier** (ADR 9)
+- ISBN-Dienst → `catalogue`, CityPay → `fees`: **ACL**
+- Mail-Gateway: noch ohne Mapping (Schnittstelle unbekannt)
+- Verworfen: Partnership (erster Schnitt), Shared Kernel, ein gemeinsamer
+  Kontext für `fees` und `membership`, ein Kontext für Benachrichtigungen
+
+### 4.2 Ursprüngliche Hypothese (überholt)
+
+Vor Kapitel 0 stand hier eine Hypothese mit fünf Kontexten. Was sich
+geändert hat und wo:
+
+- Kein Kontext `notification`: keine eigene Sprache, kein Aggregat
+  (Kapitel 3). Die Hinweise an Leser hängen an `lending`.
+- *patron* wird nicht verwendet; die Person heißt *reader* in `lending`
+  und `fees`, *member* in `membership` (C-07).
+- Die Beziehung zwischen `fees` und `membership` ist umgedreht:
+  `membership` ist Supplier (C-19, ADR 5).
+- `lending` → `fees` ist Customer/Supplier statt Open Host Service (ADR 9).
+- `catalogue` beliefert auch `fees` (Preis, Nutzungsgebühr-Markierung).
+- Die externen Systeme heißen wie im Brief: CityPay statt „Payment
+  Provider“, National ISBN Service statt „Book Metadata Service“.
 
 ---
 
 ## 5. Ablauf
 
-### Teil A — freigegeben
+### Teil A — abgeschlossen
 
 | # | Kapitel | Werkzeug | Ergebnis im Repo |
 |---|---|---|---|
 | 0 | **The brief** — Anforderungsdokument der Stadtbibliothek: Interviewnotizen, absichtlich lückenhaft, mit Synonymen und Widersprüchen | Text | `requirements/brief.md` |
 | | **→ Gate G0** | | |
-| 1 | **Big Picture Event Storming** — Exploration, Zeitleiste, Schlüsselereignisse, Hotspots, Akteure, externe Systeme | Sketch Board | `model/sketch/…`, Screenshots |
-| 2 | **Domain Stories** — 2–3 Kernprozesse; Sprachkonflikte klären | Domain Stories | `model/domain-stories/…` |
-| 3 | **Strategic design** — Subdomains, Bounded Contexts, Glossar, Context Map mit Mustern, Teamzuordnung; verworfene Partnership-Hypothese | Context Map, Glossar | `model/library.esdm.yaml` (strategisch) |
-| 4a | **Deployment decision** — Modulith, Modul = BC, Integrationsregeln als ADRs | ADRs | `docs/adr/…` |
-| 5 | **Challenging the cut** — Schnitt und Context Map von einem frischen Agenten prüfen lassen (Skill `challenge-context-cut`), Befunde als Klärungen C-20 bis C-24, Board und Glossare nachziehen | Skill, DDD Studio | `docs/reviews/…`, `requirements/clarifications.md` |
+| 1 | **Big Picture Event Storming** — Exploration, Zeitleiste, Schlüsselereignisse, Hotspots, Akteure, externe Systeme | Sketch Board | `model/sketch/big-picture.json` |
+| 2 | **Domain Stories** — zwei Kernprozesse; Sprachkonflikte sichtbar machen | Domain Stories | `model/domain-stories/…` |
+| 3 | **Strategic design** — Klärungen, Subdomains, Bounded Contexts, Glossare, Context Map mit Mustern, Teamzuordnung; verworfene Partnership-Hypothese | Context Map, Glossar | `model/esdm/`, `model/sketch/big-picture-contexts.json`, `requirements/clarifications.md` |
+| 4 | **Deployment decision** — Modulith, Modul = BC, Integrationsregeln als ADRs | ADRs | `docs/adr/…` |
+| 5 | **Challenging the cut** — Schnitt und Context Map von einem frischen Agenten prüfen lassen (Skill `challenge-context-cut`), Befunde als Klärungen C-20 bis C-25 und ADR 9, Board und Glossare nachziehen | Skill, DDD Studio | `docs/reviews/…`, `requirements/clarifications.md`, `docs/adr/0009-…` |
 
 ### → Gate G1 (SDD) — harter Halt
 
 Alles ab hier hängt davon ab, *in welcher Reihenfolge* pro Bounded Context
 Feinmodellierung und Spec-Driven Development ineinandergreifen. Die
 folgende Gliederung ist deshalb **vorläufig** und wird nach G1 neu
-geschnitten.
+geschnitten und nummeriert (ab Kapitel 6).
 
-### Teil B — vorläufig, nach G1 (und G2/G3) neu zu planen
-
-Die Nummern unten stammen aus der ersten Planung; Kapitel 5 ist inzwischen
-"Challenging the cut" (Teil A). Teil B wird nach G1 neu nummeriert.
+### Teil B — vorläufig, nach G1 (und G2) neu zu planen
 
 | # | Kapitel (Arbeitstitel) | Werkzeug |
 |---|---|---|
-| 4b | Constitution aus dem strategischen Design | Spec Kit |
-| 5 | Kontextübergreifende Flows | Flow View |
-| 6 | Feinmodellierung je Kontext (Aggregates, Invarianten, Slices, GWT) | Static View, Slices, Scenarios |
-| 7 | Vom Modell zur Spec | Spec Kit + DDD-Studio-MCP |
-| 8 | Umsetzung inkl. minimaler UI | Code, Spring Modulith |
+| B1 | Constitution aus dem strategischen Design | Spec Kit |
+| B2 | Kontextübergreifende Flows | Flow View |
+| B3 | Feinmodellierung je Kontext (Aggregates, Invarianten, Slices, GWT) | Static View, Slices, Scenarios |
+| B4 | Vom Modell zur Spec | Spec Kit + DDD-Studio-MCP |
+| B5 | Umsetzung inkl. minimaler UI | Code, Spring Modulith |
 
 Umsetzungstiefe im Code (Vorschlag): voll — `lending`, `fees` + ACL;
-schlicht — `catalogue`, `membership` (CRUD), `notification` (Stub).
+schlicht — `catalogue`, `membership` (CRUD); Hinweise an Leser als
+schlichter Versand über das Mail-Gateway.
 
 ### Erweiterungen — nach G5
 
@@ -189,8 +206,8 @@ Material und die Vorbereitung für G1.*
 
 ### 6.1 Die Frage
 
-Nach Kapitel 4a haben wir: Bounded Contexts, eine Context Map mit
-Beziehungen, eine Deployment-Entscheidung. Jetzt rückt erstmals **pro
+Nach Kapitel 5 haben wir: Bounded Contexts, eine zweimal geprüfte Context
+Map mit Beziehungen, Deployment-Entscheidungen als ADRs. Jetzt rückt erstmals **pro
 Bounded Context** die Umsetzung in den Fokus.
 
 > **Was passiert dann zuerst — und was ist die Einheit, die von DDD Studio
@@ -230,7 +247,8 @@ fehlschlagende Tests, CI-Prüfungen (jedes Szenario hat einen Test; Module
    gibt es wirklich (die Benennung hat sich geändert, z. B. Skills
    `/speckit-…`, neu `/speckit-converge`), welche Dateien entstehen, wie
    sehen die Templates aus, was können Presets und Extensions?
-2. **Entscheidungsvorlage** `docs/decisions/g1-sdd.md`: Fakten zu Spec
+2. **Entscheidungsvorlage** `docs/gates/g1-sdd.md` (nicht zu verwechseln
+   mit `docs/decisions.md`, den Entscheidungsebenen): Fakten zu Spec
    Kit, zwei bis drei durchgespielte Varianten am konkreten Beispiel eines
    `lending`-Slices, Abwägung, Empfehlung.
 3. Dann: gemeinsame Runde, Entscheidung von dir, Teil B neu planen.
@@ -246,11 +264,15 @@ fehlschlagende Tests, CI-Prüfungen (jedes Szenario hat einen Test; Module
   (`decide`/`evolve`, sealed Interfaces + Records), schlanker
   JDBC-Event-Store in Postgres. Kein Axon (versteckt das Konzept).
 - Policies als `@ApplicationModuleListener` im Downstream-Modul; Event
-  Publication Registry = Outbox mit at-least-once.
+  Publication Registry = Outbox mit at-least-once. Achtung: DDD Studio
+  hängt eine Policy an die Domain, nicht an einen Kontext, und nennt eine
+  Regel mit laufender Summe einen Process Manager (`docs/tool-gaps.md`,
+  14 und 15). Wem eine Regel gehört (z. B. die €10-Regel `fees`, C-19),
+  muss bei der Feinmodellierung trotzdem sichtbar bleiben — Frage für G1.
 - System-Commands aus dem Tagesblatt per Scheduler.
 - **Minimale UI** — Kandidaten für G2: serverseitig (Thymeleaf + htmx,
   bleibt im Spring-Monolithen, minimaler Aufwand) vs. kleine SPA.
-  Vorschlag: serverseitig; Seiten etwa Katalogsuche, Patron-Profil,
+  Vorschlag: serverseitig; Seiten etwa Katalogsuche, Leserkonto,
   Ausleihtheke, Tagesblatt.
 - Tests: Decider-Unit-Tests aus Szenarien, Modulith-Scenario-Tests,
   Testcontainers, WireMock.
@@ -264,19 +286,28 @@ library-example/
 ├── README.md
 ├── CLAUDE.md                    # Regeln für Claude Code (Session-übergreifend)
 ├── .claude/skills/              # Skills, z. B. close-chapter
-├── requirements/brief.md        # Kapitel 0
+├── requirements/
+│   ├── brief.md                 # Kapitel 0
+│   └── clarifications.md        # fachliche Klärungen C-nn
 ├── chapters/NN-*.md             # die Kapitel
-├── model/                       # ESDM-Exporte, Stories, Sketch-Exporte
+├── model/
+│   ├── esdm/                    # Context Map (export_esdm)
+│   ├── domain-stories/          # export_domain_story
+│   └── sketch/                  # Board-Snapshots (JSON)
+├── scripts/check_repo.py        # maschinelle Prüfungen
 ├── docs/
 │   ├── plan.md                  # dieses Dokument
-│   ├── decisions/               # Entscheidungsvorlagen der Gates
-│   └── adr/
+│   ├── decisions.md             # wer was entscheidet (Ebenen)
+│   ├── gates/                   # Entscheidungsvorlagen der Gates (ab G1)
+│   ├── adr/                     # Architekturentscheidungen (MADR)
+│   ├── reviews/                 # Berichte von challenge-context-cut
+│   └── tool-gaps.md             # Lücken in DDD Studio
 ├── .specify/ · specs/           # Spec Kit — Struktur nach G1
 └── src/…                        # nach G2
 ```
 
-Git-Tags pro Kapitel (werden nachträglich gesetzt, siehe §12); Studio-Workspace mit gleichnamigen Versionen;
-öffentlicher Read-only-Link pro Stand.
+Keine Git-Tags; die Kapitel-Branches zeigen die Stände (§12). Studio-Workspace
+mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 
 ---
 
@@ -286,10 +317,11 @@ Git-Tags pro Kapitel (werden nachträglich gesetzt, siehe §12); Studio-Workspac
 |---|---|---|
 | M1 | Kapitel 0: Anforderungsdokument | — |
 | M2 | Kapitel 1–3 im Studio + Export + Texte | G0 |
-| M3 | Kapitel 4a: Deployment-ADRs | G0 |
+| M3 | Kapitel 4: Deployment-ADRs | G0 |
+| M3b | Kapitel 5: Schnitt prüfen (erledigt) | — |
 | M4 | Vorbereitung G1: Spec Kit erkunden, Entscheidungsvorlage | — (Vorbereitung) |
 | — | **G1, G2** | |
-| M5+ | Teil B, neu geplant | G1, G2, G3 |
+| M5+ | Teil B, neu geplant | G1, G2 |
 | — | **G4, G5** | |
 
 ---
@@ -300,8 +332,8 @@ Git-Tags pro Kapitel (werden nachträglich gesetzt, siehe §12); Studio-Workspac
   ersetzen (aus `0e0797ff^` wiederherstellen, an den heutigen
   Metamodell-Stand anpassen). Erweiterungen bleiben im Tutorial-Workspace;
   das In-App-Beispiel bleibt „der kurze Einstieg".
-- **Werkzeuglücken sammeln, nicht nebenbei fixen** — als Issues im
-  `ddd-studio`-Repo.
+- **Werkzeuglücken sammeln, nicht nebenbei fixen** — erst in
+  `docs/tool-gaps.md`, nach G4 als Issues im `ddd-studio`-Repo.
 - **Homepage:** Beitrag + Link aufs Repo und die Read-only-Workspaces —
   später.
 
@@ -316,52 +348,48 @@ Git-Tags pro Kapitel (werden nachträglich gesetzt, siehe §12); Studio-Workspac
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | UI-Technik (Vorschlag: Thymeleaf + htmx) | G2 | offen |
 | F1 | Process Manager | G5 | vorerst ohne |
-| F2 | Woher kennt `lending` den Exemplartyp? (siehe unten) | G3 | offen |
+| F2 | Woher kennt `lending` den Exemplartyp? (siehe unten) | G3 | **entschieden** 2026-10-25: aus den Ereignissen des Katalogs |
 | F3 | UI | — | **entschieden:** minimale UI |
 | F4 | Evolutionskapitel | G5 | nach der Basis |
 | F5 | Format | — | **entschieden:** Markdown im Repo |
 | E1 | In-App-Beispiel ersetzen | G4 | offen |
 
 **F2 in einfachen Worten.** Nur Researcher dürfen ein *restricted*
-Exemplar vormerken. Ob ein Exemplar restricted ist, weiß ursprünglich der
-**Katalog**. Die Regel wird aber in `lending` geprüft. Im zweiten Schnitt
-hat man das gelöst, indem der **Aufrufer** den Typ im Vormerk-Command
-mitschickt — die UI sagt also „das ist restricted", und `lending` glaubt
-es. Alternative: Der Katalog schickt den Typ ohnehin mit, wenn er ein neues
-Exemplar meldet (das ist die eine Überquerung). `lending` merkt ihn sich in
-seinem eigenen `book` und prüft dann gegen die eigene Kopie der Tatsache —
-niemand von außen kann sie verfälschen. Die Frage für G3: Übernehmen wir
-die Alternative, und was bedeutet das für die Szenarien?
+Exemplar (*copy*) ausleihen. Ob eine Kopie restricted ist, entscheidet der
+**Katalog** beim Registrieren. Die Regel wird aber in `lending` geprüft. Im
+zweiten Schnitt schickte der **Aufrufer** die Art im Command mit — die UI
+sagt „das ist restricted“, und `lending` glaubt es.
+
+**Entscheidung (G3, 2026-10-25, Maintainer):** Der Katalog meldet die Art
+mit, wenn er eine Kopie registriert (Published Language
+`catalogue-lending`). `lending` merkt sie sich in seiner eigenen Sicht auf
+die Kopie und prüft gegen diese Kopie der Tatsache; niemand von außen kann
+sie verfälschen. Verworfen: die Art im Command des Aufrufers. So stand es
+schon seit Kapitel 3 im Modell („lending the copies and their flag“), bevor
+das Gate entschieden war; die Konsistenzprüfung nach Kapitel 5 hat das
+gefunden, der Maintainer hat es nachträglich bestätigt. Folge für die
+Szenarien: Ein Given „copy registered as restricted“ steht vor jedem
+Szenario, das die Regel prüft; wie mit einer Ausleihe umzugehen ist, deren
+Kopie `lending` noch nicht kennt, klärt die Feinmodellierung von `lending`.
 
 ---
 
-## 12. Kapitelstand und Tags
+## 12. Kapitelstand
 
 Jedes Kapitel ist ein eigener Branch mit einem PR, gemergt als
-**Merge-Commit** (kein Squash). Die Tags `chapter-NN` setzen wir
-nachträglich in einem Rutsch auf die Commits dieser Tabelle. In der
-Cloud-Umgebung von Claude Code lassen sich Tags nicht pushen (403); sie
-werden im Browser über GitHub Releases oder lokal angelegt.
+**Merge-Commit** (kein Squash). Git-Tags setzen wir nicht (entschieden
+2026-10-25): Die Branches und Merge-Commits zeigen die Stände der Kapitel.
+Korrekturen nach dem Merge laufen über eigene PRs und stehen in der
+Spalte „Danach“.
 
-| Tag | Kapitel | Branch / PR | Commit (`main`, außer `chapter-04`) | Studio-Versionen |
-|---|---|---|---|---|
-| `chapter-00` | The brief | `chapter-00-brief` (#1) | `a0eb886` (Squash) | — |
-| `chapter-01` | Big Picture Event Storming | `chapter-01-big-picture` (#2), Korrekturen #4 | `8ac11b4` | `ch1-big-picture-v2` |
-| `chapter-02` | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
-| `chapter-03` | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| `chapter-04` | Deployment decision | `chapter-04-deployment` (#8) | `ba18cf6` (Ende des Kapitel-Branches) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
-| `chapter-05` | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | `ch5-big-picture-after-challenge(-v2 … -v4)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
-
-Hinweis: `chapter-00` zeigt auf den Squash-Commit von PR #1, weil diese
-Regel erst danach galt. Ab Kapitel 1 sind es Merge-Commits.
-
-Hinweis: `chapter-04` zeigt auf das Ende des Branches `chapter-04-deployment`,
-nicht auf einen Commit von `main`. Der Branch trägt nach dem Merge von PR #8
-(`9e404d9`) weitere Commits mit Korrekturen am Kapitel; der Tag soll Kapitel 4
-in seinem endgültigen Stand zeigen, ohne spätere Inhalte.
-
-Beim Taggen später: `git tag chapter-01 8ac11b4 && git push origin chapter-01`
-(lokal mit Schreibrecht für Tags).
+| Kapitel | Thema | Branch / PR | Merge-Commit (`main`) | Danach | Studio-Versionen |
+|---|---|---|---|---|---|
+| 00 | The brief | `chapter-00-brief` (#1) | `a0eb886` (Squash, vor der Regel) | — | — |
+| 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
+| 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
+| 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05` | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 ## 13. Regeln für die Arbeit mit Claude Code
 
@@ -390,8 +418,9 @@ drei Mechanismen, alle im Repo:
 
 Grenze: Ob ein Satz gut klingt oder ein Schnitt fachlich stimmt, prüft kein
 Skript. Dafür bleiben die Prüfliste und der unabhängige Review. Ob die
-Regeln wirken, zeigt sich an der Rules-Audit von Kapitel 3: Fehlt sie oder
-ist sie oberflächlich, ist das ein Fehler von mir.
+Regeln wirken, zeigt sich an jeder Rules-Audit: Fehlt sie oder ist sie
+oberflächlich, ist das ein Fehler von mir. Regeln, die nur bremsen, ohne
+Fehler zu finden, werden gestrichen.
 
 ---
 
@@ -409,14 +438,21 @@ muss. Beschrieben in `docs/decisions.md`; in Kürze:
 - Der Agent bereitet vor (Quelle, Optionen, Empfehlung, Folgen), stoppt,
   hält nach der Antwort fest, **wer wann entschieden hat und was verworfen
   wurde**, und zieht alles nach, was davon abhängt.
-- Stopp-Kriterien: Antwort steht nicht in der Quelle; schwer umkehrbar oder
-  mehrere Module betroffen; legt das Vorgehen fest; macht eine frühere
-  Entscheidung rückgängig (dann offen sagen, nicht selbst ändern).
+- Stopp-Kriterien: eine fachliche Regel steht nicht in der Quelle; ein
+  Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
+  frühere Entscheidung rückgängig (dann offen sagen, nicht selbst ändern).
+- Alles andere entscheidet der Agent selbst, wenn es eine vernünftige
+  Lösung gibt, und meldet es im PR („vom Agenten entschieden“). Dazu
+  gehören Korrekturen, die ein Dokument mit dem entschiedenen Stand in
+  Einklang bringen, auch im Wortlaut einer Klärung oder eines ADR, solange
+  sich die Entscheidung nicht ändert. Der Maintainer will ein schlüssiges
+  Tutorial, nicht jede Kleinigkeit steuern (2026-10-25).
 - Ein Review prüft geleistete Arbeit, eine Entscheidung wählt zwischen
   Optionen. Nicht jede Kleinigkeit ist eine Entscheidung, sonst nickt der
   Mensch nur noch ab.
 - Jedes Kapitel (ab 1) endet mit dem Kasten „Decisions in this chapter“;
   `scripts/check_repo.py` prüft, dass er da ist.
-- Mit G1 kommt die vierte Ebene dazu (Klärungsschritt der Spec); Vorbereitung
-  gehört dorthin.
+- Vorschlag für G1 (nicht entschieden): eine vierte Ebene für den
+  Klärungsschritt der Spec. Erst wenn G1 sie bestätigt, kommt sie in
+  `docs/decisions.md` und `CLAUDE.md`.
 
