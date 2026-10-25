@@ -6,8 +6,10 @@ Storming, Domain Stories, a context map, bounded contexts as modules of
 one Spring Boot application, and then one context after the other,
 modelled in detail and built from the model — with [DDD Studio](https://ddd-studio.dev).
 
-**Status:** work in progress. Chapters 0 to 5 are done. Next is gate G1
-in the plan: how a context goes from the model to code.
+**Status:** work in progress. Chapters 0 to 5 are done. Gate G1 is
+decided: the tutorial follows a [phase model](docs/gates/g1-model-to-code.md)
+from a few documents with requirements to running software, with a skill
+for each phase. Next are ADR 10 (REST at the edges) and chapter 6, choosing the first increment.
 
 | Chapter | Topic | Status |
 |---|---|---|

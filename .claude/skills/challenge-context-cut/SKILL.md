@@ -112,5 +112,5 @@ a concrete failure yet.
 
 - Sharpening the language *inside* one context while modelling it, and
   the cut of aggregates (invariants, consistency boundaries). Both come
-  after gate G1, once contexts are modelled in detail. Add them here as
-  a second mode then, not as guesswork now.
+  in the detailed modelling phase of the workflow. Add
+  them here as a second mode then, not as guesswork now.

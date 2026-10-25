@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; als Nächstes Gate G1 (vom Modell zum Code), Teil B danach*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); als Nächstes ADR 10 (REST an den Außenkanten) und Kapitel 6 (Liefer-Scope, Gate G6)*
 
 ---
 
@@ -22,16 +22,26 @@ nichts, was ins Tutorial oder in den Code eingeht.
 | Gate | Wann | Was geklärt wird | Status |
 |---|---|---|---|
 | **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
-| **G1 — Vom Modell zum Code** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Wie der Agent pro Kontext vom Modell in DDD Studio zum Code kommt: Reihenfolge, Einheit eines Inkrements, Szenarien als Tests, fehlende Skills (§6) | offen |
-| **G2 — Technik** | vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, UI-Technik, Datenbank (§7) | offen |
+| **G1 — Vom Modell zum Code** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Das Phasenmodell 0–7 mit Skills, Rücksprüngen und starken Defaults (§6) | **entschieden** 2026-10-25 (Maintainer, im Gespräch: alle Empfehlungen angenommen); schriftliche Fassung `docs/gates/g1-model-to-code.md` |
+| **G6 — Liefer-Scope** | nach G1, **vor der Feinmodellierung** (Phase 4, Kapitel 6) | Welche Szenarien jetzt fein modelliert und gebaut werden; fachliche Entscheidung | offen |
+| **G2 — Technik** | nach der Feinmodellierung (Phase 6), vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, Frontend-Technik (REST gesetzt), Datenbank, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) (§7) | offen |
 | **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | **entschieden** 2026-10-25 (Maintainer): der Katalog meldet es, `lending` prüft gegen die eigene Kopie. Im Modell seit Kapitel 3 so angelegt, vor der Freigabe; siehe §11 |
 | **G4 — In-App-Beispiel** | bevor irgendetwas in `ddd-studio` geändert wird | Ersetzen des Library-Beispiels (§10) | offen |
 | **G5 — Erweiterungen** | nach fertiger Basis | Process-Manager-Kapitel (F1), Evolutionskapitel (F4) | offen |
+
+Die Gates sind nicht nach Zeit nummeriert: G6 kommt vor G2, G3 war vor G1
+entschieden.
 
 Daneben gibt es **weiche Reviews**: Jedes Kapitel kommt als eigener
 Pull Request. Du reviewst, ich arbeite Änderungen ein; innerhalb von
 Teil A darf ich parallel am nächsten Kapitel weiterarbeiten, sobald G0
 durch ist.
+
+**Rücksprünge sind Halte** (G1, §4 der Vorlage): Trägt eine Grenze in
+Phase 5 oder 7 nicht, halte ich an und lege den Befund vor; zurück nach
+Phase 2 geht es erst nach deiner Entscheidung. Eine Lücke im Modell, die
+beim Bauen auffällt, schließe ich in Studio (kleine Schleife) und melde
+sie im PR; eine fachliche Frage darin geht vorher als `C-nn` an dich.
 
 ---
 
@@ -47,10 +57,16 @@ arbeiten — zu laufender Software.
 1. **Erst verstehen, dann schneiden, dann bauen.** Big Picture Event
    Storming und Domain Stories liefern die Kontextgrenzen.
 2. **Das Modell treibt die Umsetzung.** Das Modell in DDD Studio ist die
-   einzige fachliche Quelle. Der Agent liest es und baut daraus den Code;
-   die Szenarien werden zu Tests — *wie genau*, klärt Gate G1.
+   einzige fachliche Quelle. Es wird vor dem Code für den Liefer-Scope
+   fertig modelliert und testet dabei den Schnitt; der Agent baut daraus
+   den Code, die Szenarien werden zu Tests (G1).
 3. **Grenzen sind anfangs Hypothesen.** Deshalb ein modularer Monolith mit
-   *geprüften* Modulgrenzen.
+   *geprüften* Modulgrenzen; herausgelöst wird erst, wenn der Schnitt
+   getragen hat.
+
+**Und das Tutorial ist der erste Durchlauf eines wiederverwendbaren
+Workflows** (G1): Wer ein paar Dokumente mit Anforderungen hat, soll
+später mit denselben Skills durch dieselben Phasen kommen.
 
 **Zielgruppe:** Entwickler:innen und Architekt:innen mit Grundkenntnissen
 in Java/Spring, die DDD „schon mal gehört" haben und sehen wollen, wie die
@@ -100,7 +116,12 @@ Partnership).
 | Deployment | eine Deployment-Einheit, Module = Bounded Contexts |
 | Teams | gedanklich getrennte Teams pro BC, sichtbar über Verträge |
 | Vorgehen pro Kontext | allein aus dem Modell in DDD Studio (Maintainer, 2026-10-25). Einzelheiten: G1 (§6) |
-| UI | **kleine, minimale UI** — macht das Ergebnis greifbar (Technik: G2) |
+| Vorgehen insgesamt | Phasenmodell 0–7 mit Skills, kleinem und großem Rücksprung (G1, Maintainer, 2026-10-25) |
+| Scope | breit erschließen, eng bauen: Problem-Scope in Phase 0, Liefer-Scope nach dem Schnitt (G6) (Maintainer, 2026-10-25) |
+| Modulith zuerst | starker Default: eine Einheit, bis der Schnitt getragen hat; Herauslösen später mit eigenem Skill (Maintainer, 2026-10-25) |
+| Schnittstellen | **REST für alle Frontends**, Endpunkte im jeweiligen Modul, OpenAPI vor dem Code; zwischen Modulen Events und Aufträge (ADR 4), kein REST (Maintainer, 2026-10-25; ADR 10 folgt) |
+| Skills | im Repo unter `.claude/skills/`, generisch formuliert, je Phase beim ersten echten Einsatz; Phasen 0–3 später herausgelöst und per frischem Durchlauf getestet (Maintainer, 2026-10-25) |
+| UI | **kleine, minimale UI** über REST — macht das Ergebnis greifbar (Technik: G2) |
 | Format | Markdown-Kapitel im Repo; später Übernahme auf die DDD-Studio-Homepage |
 | F1 Process Manager | vorerst **ohne**; ggf. später eigener Abschnitt (G5) |
 | F4 Evolution | erst die Basis; danach als Erweiterung (G5) |
@@ -170,25 +191,50 @@ geändert hat und wo:
 | 4 | **Deployment decision** — Modulith, Modul = BC, Integrationsregeln als ADRs | ADRs | `docs/adr/…` |
 | 5 | **Challenging the cut** — Schnitt und Context Map von einem frischen Agenten prüfen lassen (Skill `challenge-context-cut`), Befunde als Klärungen C-20 bis C-25 und ADR 9, Board und Glossare nachziehen | Skill, DDD Studio | `docs/reviews/…`, `requirements/clarifications.md`, `docs/adr/0009-…` |
 
-### → Gate G1 (Vom Modell zum Code) — harter Halt
+### Phasenmodell (G1)
 
-Alles ab hier hängt davon ab, *in welcher Reihenfolge* pro Bounded Context
-Feinmodellierung und Umsetzung ineinandergreifen. Die folgende Gliederung
-ist deshalb **vorläufig** und wird nach G1 neu geschnitten und nummeriert
-(ab Kapitel 6).
+Teil A war, ohne dass wir es so genannt haben, der Durchlauf der Phasen 0
+bis 3. Ab hier folgt das Tutorial dem Phasenmodell aus G1
+(`docs/gates/g1-model-to-code.md`); jede Phase bekommt ihren Skill beim
+ersten echten Einsatz.
 
-### Teil B — vorläufig, nach G1 (und G2) neu zu planen
+| Phase | Ziel | Skills | Im Tutorial |
+|---|---|---|---|
+| 0 Wissen sammeln | Quellen einordnen, Wissensdokument, Problem-Scope | `gather-knowledge` | Kap. 0 (dünn: der Brief ist schon ein Dokument) |
+| 1 Domäne erschließen | genug verstehen, um zu schneiden | `prepare-event-storming`, `digitize-board`, `draw-domain-story`, `discovery-readiness` | Kap. 1, 2 |
+| 2 Schneiden | Kontexte, Context Map, Glossare | `derive-contexts`, `challenge-context-cut` | Kap. 3, 5 |
+| 3 Modulith-Regeln | eine Einheit, Integrationsregeln, REST nach außen | `set-modulith-rules` | Kap. 4, ADR 10 |
+| 4 Liefer-Scope | was jetzt modelliert und gebaut wird | `plan-scope` | Kap. 6 → G6 |
+| 5 Feinmodellieren = Schnitt testen | statisches Modell für den Scope | `model-flows`, `design-context-contracts`, `example-mapping`, `model-context`, `challenge-context-cut` (Modus 2) | Kap. 7 ff. |
+| 6 Technik | Technik, Tiefe, Deployment-Einheiten | `decide-technology` | → G2 |
+| 7 Bauen | Plan und Code aus dem Modell | `plan-implementation`, `implement-slice`, `check-model-code` | danach |
+| später | Modul herauslösen | `extract-module` | offen |
 
-| # | Kapitel (Arbeitstitel) | Werkzeug |
-|---|---|---|
-| B1 | Kontextübergreifende Flows | Flow View |
-| B2 | Feinmodellierung je Kontext (Aggregates, Invarianten, Slices, GWT) | Static View, Slices, Scenarios |
-| B3 | Umsetzung je Kontext in der Reihenfolge aus Kapitel 4 (`catalogue` und `membership`, dann `lending`, dann `fees`); Szenarien als Tests | Code, Spring Modulith, DDD-Studio-MCP |
-| B4 | Minimale UI | Code |
+Darüber `ddd-workflow` als Einstieg (welche Phase, welcher Halt, welcher
+Skill als Nächstes). Rücksprünge: klein 7 → 5 (Lücke im Modell), groß
+5/7 → 2 (Schnitt trägt nicht, Halt).
 
-Umsetzungstiefe im Code (Vorschlag): voll — `lending`, `fees` + ACL;
-schlicht — `catalogue`, `membership` (CRUD); Hinweise an Leser als
-schlichter Versand über das Mail-Gateway.
+### Teil B — nach G1
+
+Die Kapitelnummern ab 7 sind vorläufig: Wie viele Kapitel die
+Feinmodellierung braucht, zeigt Kapitel 6 (Liefer-Scope).
+
+| # | Kapitel (Arbeitstitel) | Phase | Neuer Skill | Werkzeug | Halt |
+|---|---|---|---|---|---|
+| — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed`, abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
+| — | **Unabhängige Prüfung des Schnitts** vor G6 — `challenge-context-cut` in frischem Agenten (CLAUDE.md, „Challenging the cut“); Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | du entscheidest über die Funde |
+| 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6** |
+| 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
+| 8 | **Modelling `lending`** — Example Mapping, Aggregate, Invarianten, GWT, REST-API; G3-Folgefrage (Kopie noch unbekannt); `challenge-context-cut` Modus 2 | 5 | `example-mapping`, `model-context` | Sketch Board, Static View, Features | Review; Rücksprung nach 2 möglich |
+| 9 | **Modelling `fees`** — laufende Summe und €10-Regel (C-03, C-18, C-19), Muster aus Tool-Gap 15 | 5 | — (Skills aus 8) | wie 8 | wie 8 |
+| 10 | **Modelling `catalogue` and `membership`** — schlank, vor allem API und Published Language | 5 | — | wie 8 | wie 8 |
+| 11 | **Choosing the technology** — Versionen, Event Store, DB, Frontend-Technik, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) | 6 | `decide-technology` | ADRs | **G2** |
+| 12 ff. | **Building** — Implementierungsplan, Skelett, dann `catalogue` und `membership`, `lending`, `fees`, minimale UI über REST | 7 | `plan-implementation`, `implement-slice`, `check-model-code` | Code, Spring Modulith, DDD-Studio-MCP | Review je Kontext; Rücksprünge |
+| — | **Skills der Phasen 0–3 herauslösen** und mit frischem Durchlauf testen (neuer Wegwerf-Workspace, nur der Brief); `ddd-workflow`, `close-step` | 0–3 | `gather-knowledge` … `set-modulith-rules` | Skills | Review |
+
+Umsetzungstiefe im Code (Vorschlag, entschieden in G2): voll — `lending`,
+`fees` + ACL; schlicht — `catalogue`, `membership` (CRUD); Hinweise an
+Leser als schlichter Versand über das Mail-Gateway.
 
 ### Erweiterungen — nach G5
 
@@ -196,54 +242,45 @@ schlichter Versand über das Mail-Gateway.
   abgewogen gegen Policy-Choreographie.
 - **Evolution** (F4): eine neue Anforderung (z. B. E-Books) verschiebt den
   Schnitt; Modell → Code ändern sich in dieser Reihenfolge.
+- **Herauslösen eines Moduls** (`extract-module`), wenn der Schnitt
+  getragen hat.
 
 ---
 
-## 6. Kernthema für G1: Vom Modell zum Code
+## 6. Gate G1: Vom Modell zum Code — entschieden
 
-*Nichts in diesem Abschnitt ist entschieden. Er sammelt die Frage, das
-Material und die Vorbereitung für G1.*
+*Entschieden vom Maintainer im Gespräch vom 2026-10-25 (alle Empfehlungen
+angenommen). Schriftliche Fassung mit Begründung und verworfenen
+Alternativen: `docs/gates/g1-model-to-code.md`.*
 
-### 6.1 Die Frage
+Die Frage war: Wie kommt der Agent pro Bounded Context vom Modell zum
+laufenden Code? Sie ist im Gespräch größer geworden: Das Tutorial soll der
+erste Durchlauf eines Workflows sein, der von ein paar Dokumenten mit
+Anforderungen zu laufender Software führt. Die Antwort in Kürze:
 
-Nach Kapitel 5 haben wir: Bounded Contexts, eine zweimal geprüfte Context
-Map mit Beziehungen, Deployment-Entscheidungen als ADRs. Jetzt rückt erstmals **pro
-Bounded Context** die Umsetzung in den Fokus. Das Modell in DDD Studio ist
-dafür die einzige fachliche Quelle (Entscheidung des Maintainers, 2026-10-25).
+1. **Acht Phasen** (0–7, §5), jede mit Ziel, Skills und einem Ende, das
+   ein Mensch abnimmt; `ddd-workflow` als Einstieg.
+2. **Breit erschließen, eng bauen.** Problem-Scope in Phase 0, Liefer-Scope
+   nach dem Schnitt (G6).
+3. **Das Modell testet den Schnitt.** Die Innensicht aller Kontexte im
+   Scope entsteht in Phase 5 in Studio, vor jedem Code. Abbruchkriterien
+   (Invariante über zwei Kontexte, Policy ohne Owner, Pendel-Flow,
+   Aggregat braucht fremden Zustand, Begriff mit zwei Bedeutungen) führen
+   zurück nach Phase 2.
+4. **Phase 7 baut nur.** Lücken im Modell schließt die kleine Schleife in
+   Studio; ein falscher Schnitt ist ein Halt.
+5. **Modulith zuerst**, stark: „Verhandeln wie getrennte Teams, ändern wie
+   ein Repo.“ Deployment-Einheiten werden erst in Phase 6 gefragt, mit dem
+   Default „eine“.
+6. **REST an den Außenkanten, API first** (OpenAPI vor dem Code, Endpunkte
+   im Modul); zwischen den Modulen Events und Aufträge, kein REST.
+7. **Skills im Repo**, generisch, je Phase beim ersten Einsatz; die
+   Phasen 0–3 werden später herausgelöst und mit einem frischen Durchlauf
+   getestet.
 
-> **Wie kommt der Agent pro Bounded Context vom Modell zum laufenden Code?**
-
-Teilfragen:
-
-- **Reihenfolge:** Erst ein Kontext vollständig fein modellieren und dann
-  bauen, oder abwechselnd, Slice für Slice? Was kommt zuerst: die
-  kontextübergreifenden Flows oder die Innensicht eines Kontexts?
-- **Einheit:** Was ist ein Inkrement, das der Agent in einem Zug umsetzt —
-  ein *Flow*, ein *Slice*, ein *Feature* mit GWT-Szenarien?
-- **Kontextübergreifende Flows:** Wer modelliert einen Ablauf, der über
-  mehrere Teams läuft, und wie hängen die Teile zusammen?
-- **Modell lesen:** Liest der Agent das Modell über den MCP-Server oder über
-  den ESDM-Export? Was gilt, wenn beides auseinanderläuft?
-- **Szenarien → Tests:** von Hand mit Namenskonvention oder generiert? Wie
-  wird geprüft, dass jedes Szenario einen Test hat?
-- **Modell und Code im Gleichklang:** Wie fällt auf, wenn der Code vom
-  Modell abweicht (Module == Kontexte, Ereignisse == Published Language)?
-- **Wem gehört eine Regel?** DDD Studio hängt eine Policy an die Domain,
-  nicht an einen Kontext, und nennt eine Regel mit laufender Summe einen
-  Process Manager (`docs/tool-gaps.md`, 14 und 15). Wem eine Regel gehört
-  (z. B. die €10-Regel, `fees`, C-19), muss bei der Feinmodellierung
-  trotzdem sichtbar bleiben.
-- **Skills:** Welche Arbeitsschritte wiederholen sich so, dass ein Skill
-  lohnt? Kandidaten: Szenario → Test, Code gegen Modell prüfen, einen
-  Kontext umsetzen.
-
-### 6.2 Vorbereitung für G1 (erlaubt vor dem Gate)
-
-1. **Entscheidungsvorlage** `docs/gates/g1-model-to-code.md` (nicht zu
-   verwechseln mit `docs/decisions.md`, den Entscheidungsebenen): zwei bis
-   drei Varianten, am konkreten Beispiel eines `lending`-Slices
-   durchgespielt, Abwägung, Empfehlung, Skill-Kandidaten.
-2. Dann: gemeinsame Runde, Entscheidung des Maintainers, Teil B neu planen.
+Offen und mit festem Zeitpunkt: die genaue Einheit eines Inkrements und
+die Namenskonvention Szenario → Test (`plan-implementation`,
+`check-model-code`, erstes Bau-Kapitel).
 
 ---
 
@@ -260,13 +297,22 @@ Teilfragen:
   hängt eine Policy an die Domain, nicht an einen Kontext, und nennt eine
   Regel mit laufender Summe einen Process Manager (`docs/tool-gaps.md`,
   14 und 15). Wem eine Regel gehört (z. B. die €10-Regel `fees`, C-19),
-  muss bei der Feinmodellierung trotzdem sichtbar bleiben — siehe §6.1.
+  steht bis dahin in der Beschreibung der Policy (G1, §8 der Vorlage).
 - System-Commands aus dem Tagesblatt per Scheduler.
-- **Minimale UI** — Kandidaten für G2: serverseitig (Thymeleaf + htmx,
-  bleibt im Spring-Monolithen, minimaler Aufwand) vs. kleine SPA.
-  Vorschlag: serverseitig; Seiten etwa Katalogsuche, Leserkonto,
-  Ausleihtheke, Tagesblatt.
+- **REST an den Außenkanten** (entschieden, Maintainer 2026-10-25; ADR 10
+  folgt): Jedes Modul hat seine REST-Endpunkte als Web-Adapter; die
+  OpenAPI-Spezifikation entsteht vor dem Code aus Commands, Queries und
+  Read Models in Studio, der Code wird im Test dagegen geprüft. Zwischen
+  den Modulen kein REST. Verworfen: Thymeleaf + htmx (serverseitig, ohne
+  REST).
+- **Minimale UI** als eigener REST-Client (Technik in G2, z. B. eine kleine
+  SPA); Seiten etwa Katalogsuche, Leserkonto, Ausleihtheke, Tagesblatt.
+  Die UI setzt Seiten aus mehreren Modulen zusammen (ADR 8); ein Backend
+  for Frontend bleibt der Ausweg.
+- **Deployment-Einheiten:** Default eine (Phase 6, G2); Herauslösen erst,
+  wenn der Schnitt getragen hat.
 - Tests: Decider-Unit-Tests aus Szenarien, Modulith-Scenario-Tests,
+  Akzeptanztests aus Flows, Prüfung gegen die OpenAPI-Spezifikation,
   Testcontainers, WireMock.
 
 ---
@@ -277,7 +323,7 @@ Teilfragen:
 library-example/
 ├── README.md
 ├── CLAUDE.md                    # Regeln für Claude Code (Session-übergreifend)
-├── .claude/skills/              # Skills, z. B. close-chapter
+├── .claude/skills/              # Skills des Workflows (G1), z. B. close-chapter
 ├── requirements/
 │   ├── brief.md                 # Kapitel 0
 │   └── clarifications.md        # fachliche Klärungen C-nn
@@ -290,10 +336,11 @@ library-example/
 ├── docs/
 │   ├── plan.md                  # dieses Dokument
 │   ├── decisions.md             # wer was entscheidet (Ebenen)
-│   ├── gates/                   # Entscheidungsvorlagen der Gates (ab G1)
+│   ├── gates/                   # Entscheidungen der Gates (ab G1)
 │   ├── adr/                     # Architekturentscheidungen (MADR)
 │   ├── reviews/                 # Berichte von challenge-context-cut
 │   └── tool-gaps.md             # Lücken in DDD Studio
+├── api/                         # OpenAPI-Spezifikationen je Modul (Phase 5)
 └── src/…                        # nach G2
 ```
 
@@ -310,9 +357,13 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | M2 | Kapitel 1–3 im Studio + Export + Texte | G0 |
 | M3 | Kapitel 4: Deployment-ADRs | G0 |
 | M3b | Kapitel 5: Schnitt prüfen (erledigt) | — |
-| M4 | Vorbereitung G1: Entscheidungsvorlage Vom Modell zum Code | — (Vorbereitung) |
-| — | **G1, G2** | |
-| M5+ | Teil B, neu geplant | G1, G2 |
+| M4 | G1: Phasenmodell (erledigt) | — |
+| M5 | ADR 10 (mit Korrekturen an Kapitel 4), unabhängige Prüfung des Schnitts, Kapitel 6: Liefer-Scope | G1 |
+| — | **G6** | |
+| M6 | Kapitel 7–10: Feinmodellierung, Schnitt im Modell getestet | G6 |
+| — | **G2** (Kapitel 11) | |
+| M7 | Bauen, Kontext für Kontext | G2 |
+| M8 | Skills der Phasen 0–3 herauslösen, frischer Durchlauf | nach dem ersten gebauten Kontext |
 | — | **G4, G5** | |
 
 ---
@@ -334,10 +385,13 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 
 | ID | Frage | Gate | Stand |
 |---|---|---|---|
-| G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | offen |
+| G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
+| S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | offen (Kapitel 6) |
+| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25, ADR folgt |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
-| T3 | UI-Technik (Vorschlag: Thymeleaf + htmx) | G2 | offen |
+| T3 | Frontend-Technik (REST gesetzt; Thymeleaf + htmx verworfen) | G2 | offen |
+| T4 | Deployment-Einheiten (Default: eine) | G2 | offen |
 | F1 | Process Manager | G5 | vorerst ohne |
 | F2 | Woher kennt `lending` den Exemplartyp? (siehe unten) | G3 | **entschieden** 2026-10-25: aus den Ereignissen des Katalogs |
 | F3 | UI | — | **entschieden:** minimale UI |
@@ -379,8 +433,11 @@ Spalte „Danach“.
 | 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
 | 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15 | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; **offen:** ADR 10 samt Korrekturen an ADR 2–8 (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
+
+Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
+(`docs/gates/g1-model-to-code.md`).
 
 ## 13. Regeln für die Arbeit mit Claude Code
 

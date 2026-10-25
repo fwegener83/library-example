@@ -26,6 +26,27 @@ chapters = sorted((root / "chapters").glob("[0-9][0-9]-*.md"))
 readme = (root / "README.md").read_text()
 plan = (root / "docs" / "plan.md").read_text()
 
+def check_tables(path):
+    """Every row of a table has as many cells as its header; code fences are skipped."""
+    cells, fence = None, False
+    for i, line in enumerate(path.read_text().splitlines(), 1):
+        if line.lstrip().startswith(("```", "~~~")):
+            fence = not fence
+        if fence or not line.startswith("|"):
+            cells = None
+            continue
+        count = len(re.findall(r"(?<!\\)\|", re.sub(r"`[^`]*`", "", line)))
+        if cells is None:
+            cells = count
+        elif count != cells:
+            err(f"{path.relative_to(root)}:{i}: table row has {count - 1} cells, the header {cells - 1}")
+
+
+# the chapter log is section 12; other tables in the plan also start with numbers
+log = plan.split("\n## 12.", 1)[1].split("\n## 13.", 1)[0] if "\n## 12." in plan else ""
+if not log:
+    err("docs/plan.md has no section 12 (chapter log)")
+
 for ch in chapters:
     if f"chapters/{ch.name}" not in readme:
         err(f"README does not link {ch.name}")
@@ -35,20 +56,15 @@ for ch in chapters:
             err(f"{ch.name}: broken link {target}")
     if "## Decisions in this chapter" not in text:
         err(f"{ch.name}: missing the section 'Decisions in this chapter'")
-    # every row of a table has as many cells as its header
-    cells = None
-    for i, line in enumerate(text.splitlines(), 1):
-        if not line.startswith("|"):
-            cells = None
-            continue
-        count = len(re.findall(r"(?<!\\)\|", re.sub(r"`[^`]*`", "", line)))
-        if cells is None:
-            cells = count
-        elif count != cells:
-            err(f"{ch.name}:{i}: table row has {count - 1} cells, the header {cells - 1}")
+    check_tables(ch)
     n = ch.name[:2]
-    if not re.search(rf"^\| {n} \|", plan, re.M):
+    if not re.search(rf"^\| {n} \|", log, re.M):
         err(f"docs/plan.md section 12 has no row for chapter {n}")
+
+# tables in the working documents, same rule as in the chapters
+for doc in [root / "README.md", *(root / "requirements").glob("*.md"),
+            *(root / "docs").glob("*.md"), *(root / "docs").glob("*/*.md")]:
+    check_tables(doc)
 
 latest = {}
 for f in (root / "model" / "sketch").glob("*.json"):
