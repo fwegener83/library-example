@@ -10,13 +10,13 @@ informed: none recorded
 
 ## Context and Problem Statement
 
-The context map has ten mappings (chapter 3). They say who is upstream, who is downstream and what kind of translation is needed. We have to decide what they look like in code.
+The context map has nine mappings (ten in chapter 3, nine since [ADR 9](0009-lending-fees-customer-supplier.md)). They say who is upstream, who is downstream and what kind of translation is needed. We have to decide what they look like in code.
 
 How do the modules exchange facts and orders, and who owns the data?
 
 ## Decision Drivers
 
-* The ten mappings of the context map say who is upstream, who is downstream and what kind of translation is needed. The code has to show them.
+* The nine mappings of the context map say who is upstream, who is downstream and what kind of translation is needed. The code has to show them.
 * Any module that can read another module's state ends the boundary.
 * One module's failure should not become everybody's.
 
@@ -30,7 +30,7 @@ How do the modules exchange facts and orders, and who owns the data?
 
 Chosen option: "Events for facts, orders through the owner's public API, each module owns its data", because a shared database ends every boundary, and synchronous calls for everything make one module's failure everybody's.
 
-We will connect the modules as follows.
+The modules are connected as follows.
 
 1. **Facts travel as events.** What a context wants others to know is published as an event in its public API (open host service plus published language). Downstream modules react to events and keep the part they need, in their own words.
 2. **Orders go through the public API of the owner.** A module that needs another module to *do* something, not just to know something, gives an order through that module's public API (customer-supplier). An order is not a fact, so it cannot be an event. It is the one kind of call from one module to another that we allow (ADR 5 has the case of a hold on a card). Questions (queries) in a module's public API are for the user interfaces (ADR 8); a module does not ask another module during its own work, it uses its own copy.

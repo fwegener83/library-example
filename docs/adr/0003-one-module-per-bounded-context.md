@@ -31,7 +31,7 @@ What stops one context from reaching into another inside one application?
 
 Chosen option: "One module per bounded context, public API only", because a boundary that the build checks holds where a shared type or an agreement does not.
 
-We will make each bounded context one module with the context's name: `catalogue`, `lending`, `membership`, `fees`.
+Each bounded context is one module with the context's name: `catalogue`, `lending`, `membership`, `fees`.
 
 * A module has a **public API** (orders it accepts, questions it answers, events it publishes) and an **inside**. Other modules may use only the public API.
 * The build fails when a module uses another module's inside, or when modules depend on each other in a circle (ADR 5).

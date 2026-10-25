@@ -33,7 +33,7 @@ How many programs do we build and run for the four contexts?
 
 Chosen option: "One application with one release cycle, a modular monolith", because the IT contact asks for one application, the contexts are coupled by the business flow, and the benefits of separate services are in our assessment not needed.
 
-We will build and deploy one application with one release cycle, a modular monolith. The four contexts are modules inside it (ADR 3), not services.
+The four contexts are modules inside it (ADR 3), not services.
 
 ### Consequences
 
