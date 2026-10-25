@@ -30,9 +30,9 @@ Where do the external systems and the daily, time-driven work sit?
 
 Chosen option: "One adapter and one schedule inside the module that owns the relationship or the rule", because an integration module would end up knowing the vocabulary of every context, and a central job would have to reach into every module and know their rules.
 
-We will reach every external system through one adapter inside the module that owns the relationship: the ISBN service from `catalogue`, CityPay from `fees`. The adapter is the anti-corruption layer of the context map. No other module sees the external system's types, codes or units (cents, 20-character references).
+Every external system is reached through one adapter inside the module that owns the relationship: the ISBN service from `catalogue`, CityPay from `fees`. The adapter is the anti-corruption layer of the context map. No other module sees the external system's types, codes or units (cents, 20-character references).
 
-We will treat time-driven work as an order a module gives itself on a schedule. The daily checks (expired reservations, overdue loans, expiring cards, running fines) belong to the module that owns the rule.
+Time-driven work is an order a module gives itself on a schedule. The daily checks (expired reservations, overdue loans, expiring cards, running fines) belong to the module that owns the rule.
 
 ### Consequences
 

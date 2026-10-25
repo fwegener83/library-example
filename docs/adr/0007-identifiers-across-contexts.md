@@ -34,8 +34,6 @@ Who issues the identifiers that cross the boundaries, and what is the identity o
 
 Chosen option: "The owning module issues the identifier; every other module only stores it", because a person must stay the same person when the card changes, and the card number belongs to a card that is renewed and can be blocked.
 
-We will let the owning module issue the identifier of its things; every other module only stores it and never invents one.
-
 * **Member:** `membership` issues a member number at registration. The card number is an attribute of the card, not the identity of the person.
 * **Copy and title:** `catalogue` issues their identifiers. Whether it uses the barcode and the ISBN for that, or its own numbers with barcode and ISBN as attributes, is decided when `catalogue` is modelled.
 

@@ -31,7 +31,7 @@ Where does a page live that needs the answers of several modules?
 
 Chosen option: "A user interface outside the modules", because it asks both modules through their public APIs and puts the answers on one page, without giving one module the knowledge of another and without a fifth module.
 
-We will keep the user interfaces outside the four modules. A page may use the public API of any module (ADR 3) and may put the answers of several modules on one page. The user interfaces may depend on every module; no module depends on a user interface. It contains no business rules: a page never decides whether a reservation is allowed, it asks the module that decides.
+The user interfaces stay outside the four modules. A page may use the public API of any module (ADR 3) and may put the answers of several modules on one page. The user interfaces may depend on every module; no module depends on a user interface. It contains no business rules: a page never decides whether a reservation is allowed, it asks the module that decides.
 
 The technology of the user interface is decided at gate G2. Depending on that choice, "asking a module" may be a call inside the application or a request from a browser; the rule is the same.
 

@@ -120,7 +120,7 @@ clarifications `C-nn`.
 Phase 3 no longer asks how many deployment units there are. It sets the
 rules of the one unit: module = context, public API only, facts as
 events, orders through the owner, each module owns its data, REST at the
-edges (ADR 2 to 9; REST at the edges was decided by the maintainer on 2026-10-25 and is to be recorded as ADR 10). The skill is opinionated
+edges (ADR 2 to 9; REST at the edges was decided by the maintainer on 2026-10-25 and is recorded as ADR 10). The skill is opinionated
 (§5).
 
 ### Phase 4: delivery scope
@@ -233,7 +233,7 @@ only when a module is pulled out.
 | Process-level Event Storming as a sketch board in phase 1 and as the source of flows | Two artefacts for one process drift apart. Studio flows are the source; a sketch board only as a throw-away for a tangled process. |
 | The agent drawing the Big Picture | It mirrors the documents. The agent prepares, transfers and checks. |
 | "No modelling in phase 7" without a small loop | Forces a big design up front. Building always finds gaps. |
-| Thymeleaf and htmx for the front end (plan §7) | The maintainer wants REST for every front end (conversation of 2026-10-25; ADR 10 to be written). |
+| Thymeleaf and htmx for the front end (plan §7) | The maintainer wants REST for every front end (conversation of 2026-10-25; ADR 10). |
 | Generating the OpenAPI specification from the code | Then the code defines the contract, not the model. |
 | Skills straight into a plugin or into `ddd-studio` | `ddd-studio` is behind gate G4, and skills never used once are guesswork. |
 
@@ -286,7 +286,7 @@ cut? Only that run shows whether the framework carries. The same test for
 
 | Phase | Chapter |
 |---|---|
-| 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) follows chapter 4 in a pull request of its own. |
+| 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) follows chapter 4 in a pull request of its own (`proposed` until the maintainer accepts it). |
 | 4 Delivery scope | Chapter 6, gate G6 |
 | 5 Model in detail | Chapter 7 (boundaries and flows), then the inside of the contexts, `lending` first |
 | 6 Technology | After phase 5, gate G2 |

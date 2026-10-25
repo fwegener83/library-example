@@ -9,7 +9,7 @@ modelled in detail and built from the model — with [DDD Studio](https://ddd-st
 **Status:** work in progress. Chapters 0 to 5 are done. Gate G1 is
 decided: the tutorial follows a [phase model](docs/gates/g1-model-to-code.md)
 from a few documents with requirements to running software, with a skill
-for each phase. Next are ADR 10 (REST at the edges) and chapter 6, choosing the first increment.
+for each phase. ADR 10 (REST at the edges) is proposed and waits for approval. Next are the independent review of the cut and chapter 6, choosing the first increment.
 
 | Chapter | Topic | Status |
 |---|---|---|

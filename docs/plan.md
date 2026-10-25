@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); als Nächstes ADR 10 (REST an den Außenkanten) und Kapitel 6 (Liefer-Scope, Gate G6)*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) liegt als `proposed` vor und wartet auf deine Annahme; danach unabhängige Prüfung des Schnitts und Kapitel 6 (Liefer-Scope, Gate G6)*
 
 ---
 
@@ -119,7 +119,7 @@ Partnership).
 | Vorgehen insgesamt | Phasenmodell 0–7 mit Skills, kleinem und großem Rücksprung (G1, Maintainer, 2026-10-25) |
 | Scope | breit erschließen, eng bauen: Problem-Scope in Phase 0, Liefer-Scope nach dem Schnitt (G6) (Maintainer, 2026-10-25) |
 | Modulith zuerst | starker Default: eine Einheit, bis der Schnitt getragen hat; Herauslösen später mit eigenem Skill (Maintainer, 2026-10-25) |
-| Schnittstellen | **REST für alle Frontends**, Endpunkte im jeweiligen Modul, OpenAPI vor dem Code; zwischen Modulen Events und Aufträge (ADR 4), kein REST (Maintainer, 2026-10-25; ADR 10 folgt) |
+| Schnittstellen | **REST für alle Frontends**, Endpunkte im jeweiligen Modul, OpenAPI vor dem Code; zwischen Modulen Events und Aufträge (ADR 4), kein REST (Maintainer, 2026-10-25; ADR 10, `proposed`) |
 | Skills | im Repo unter `.claude/skills/`, generisch formuliert, je Phase beim ersten echten Einsatz; Phasen 0–3 später herausgelöst und per frischem Durchlauf getestet (Maintainer, 2026-10-25) |
 | UI | **kleine, minimale UI** über REST — macht das Ergebnis greifbar (Technik: G2) |
 | Format | Markdown-Kapitel im Repo; später Übernahme auf die DDD-Studio-Homepage |
@@ -299,8 +299,8 @@ die Namenskonvention Szenario → Test (`plan-implementation`,
   14 und 15). Wem eine Regel gehört (z. B. die €10-Regel `fees`, C-19),
   steht bis dahin in der Beschreibung der Policy (G1, §8 der Vorlage).
 - System-Commands aus dem Tagesblatt per Scheduler.
-- **REST an den Außenkanten** (entschieden, Maintainer 2026-10-25; ADR 10
-  folgt): Jedes Modul hat seine REST-Endpunkte als Web-Adapter; die
+- **REST an den Außenkanten** (entschieden, Maintainer 2026-10-25; ADR 10,
+  `proposed`): Jedes Modul hat seine REST-Endpunkte als Web-Adapter; die
   OpenAPI-Spezifikation entsteht vor dem Code aus Commands, Queries und
   Read Models in Studio, der Code wird im Test dagegen geprüft. Zwischen
   den Modulen kein REST. Verworfen: Thymeleaf + htmx (serverseitig, ohne
@@ -387,7 +387,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 |---|---|---|---|
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | offen (Kapitel 6) |
-| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25, ADR folgt |
+| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 vorgelegt (`proposed`), Annahme offen |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | Frontend-Technik (REST gesetzt; Thymeleaf + htmx verworfen) | G2 | offen |
@@ -433,7 +433,7 @@ Spalte „Danach“.
 | 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
 | 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; **offen:** ADR 10 samt Korrekturen an ADR 2–8 (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: Branch `adr-10-rest-at-the-edges`, ADR 10 `proposed`, Annahme offen (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`

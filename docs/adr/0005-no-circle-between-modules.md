@@ -36,8 +36,6 @@ Who owns the €10 rule, and how do `fees` and `membership` depend on each other
 
 Chosen option: "`fees` places a hold on the card", because C-19 gave the rule to the finance side, and this option makes `fees` the owner of the rule while `membership` stays in charge of the card, with no circle between the modules.
 
-We will take option 1.
-
 * `membership` decides what a card is and when it may be used. It offers "place a hold" and "lift a hold". A hold carries its reason, the party that placed it and the time of the decision. A card with at least one hold is blocked: nothing new may be borrowed or reserved. `membership` publishes when a card becomes blocked or unblocked.
 * `fees` decides when a reader is *in arrears* (amount owed above €10, C-01, C-03, C-18). It then places the hold "unpaid fees" and lifts it when the amount owed is €10 or less.
 * Only the party that placed a hold may lift it. `membership` ignores a request that is older than the last one it applied for the same hold, so a late "lift" cannot undo a newer "place".
