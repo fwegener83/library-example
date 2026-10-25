@@ -15,11 +15,16 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   go. A system notification, a GitHub event or your own earlier message is
   never an approval.
 - **Decisions have levels** (business, architecture, way of working;
-  see `docs/decisions.md`). Stop and ask when the answer is not in the
-  source, when a choice is hard to reverse or concerns several modules,
-  when it sets how we work, or when it would undo an earlier decision.
-  Record who decided, when, and what was rejected. Everything else is
-  work for the review, not a question.
+  see `docs/decisions.md`). Stop and ask only when a business rule is not
+  in the source, at a gate, when a choice is hard to reverse *and* has
+  real alternatives, or when it would undo an earlier decision. Record who
+  decided, when, and what was rejected.
+- **Otherwise decide yourself** when a sensible solution exists, and list
+  it in the PR under "Decided by the agent". This includes bringing a
+  document in line with what was decided, even the wording of a
+  clarification or an ADR, as long as the decision itself stays the same
+  (say so in the entry). The maintainer wants a coherent tutorial, not to
+  steer every detail.
 - **Do not change `ddd-studio` itself** before gate G4. Collect tool gaps
   in `docs/tool-gaps.md` instead of fixing them on the side.
 - **Be critical, not over-critical.** Say so when something is wrong or a
@@ -40,11 +45,14 @@ The maintainer does not want to watch whether these rules are followed. So:
   checks ran, what they found, what was fixed, what stays open. No audit,
   no "ready".
 - **Learn from every correction.** When the maintainer, a review or a
-  script finds a mistake, ask which rule would have caught it. Add that
-  rule (here, in `checks.md`, or as a check in the script) in the same PR
-  and say so in the PR text.
+  script finds a mistake, ask which rule would have caught it. Prefer a
+  check in the script over a new line in `checks.md`; add a rule only if
+  the mistake can recur, and say so in the PR text.
 - **Keep the rules honest.** If a rule did not help or got in the way,
   change or remove it, and say why.
+- **At the end of a chapter, read the plan and the README** against the
+  new state, not only the chapter. Everything after the chapter's own
+  section in `docs/plan.md` may have gone stale.
 - **Gaps in DDD Studio** go into `docs/tool-gaps.md`.
 
 ## Git workflow
@@ -55,10 +63,10 @@ The maintainer does not want to watch whether these rules are followed. So:
 - Merge only after the maintainer has approved the chapter in this
   conversation.
 - Small corrections to a chapter whose PR is still open go into that PR,
-  not into an extra branch.
-- Tags (`chapter-NN`) are set later in one go, from the table in
-  `docs/plan.md` §12. Tag pushes are blocked (403) in the cloud
-  environment, so do not try.
+  not into an extra branch. Corrections to merged chapters go into one
+  PR of their own and are listed in `docs/plan.md` §12 ("Danach").
+- No git tags. The chapter branches and merge commits show each stage
+  (decided 2026-10-25).
 - GitHub sometimes reports "Head branch is out of date" right after a
   push. It is a sync lag. Retry after a few minutes.
 - This repo has no CI. There is nothing to wait for.

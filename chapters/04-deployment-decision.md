@@ -12,7 +12,7 @@ We write each decision as an **architecture decision record** with the full temp
 
 The template fits the way of working of this tutorial ([who decides what](../docs/decisions.md)): the agent prepares options and a recommendation, the maintainer decides. While a record is `proposed`, its decision outcome reads "Recommended option: …". When the maintainer has approved it, the status is `accepted` and the same place reads "Chosen option: …, because …". The first record ([ADR 1](../docs/adr/0001-record-architecture-decisions.md)) is the decision to keep such records at all. A short record that says *why* is worth more than a diagram that says only *what*.
 
-What we do **not** decide here is technology: language version, framework, database, how events are stored, the user interface. That is a decision of its own (gate G2) and must not sneak in through the back door. The records say what a technology has to provide, not which one it is.
+What we do **not** decide here is technology. The tutorial is written for Java, Spring Boot and Spring Modulith; that is a premise of the tutorial, not something the brief asks for. Versions, how events are stored, the database and the user interface technology are a decision of their own (gate G2) and must not sneak in through the back door. The records say what a technology has to provide, not which one it is.
 
 ## The decisions
 
@@ -54,7 +54,7 @@ ADR 5 keeps the rejected options with their reasons under *Pros and Cons of the 
 
 The context map in Studio, both glossaries, the mapping and chapter 3 are updated. The check script no longer reports a circle.
 
-> **Challenging the cut.** Both mistakes were found late, so before anything is built on the cut we added a skill that challenges it: [`challenge-context-cut`](../.claude/skills/challenge-context-cut/SKILL.md). A fresh agent, which knows only the files, reads the contexts, glossaries and the map through six lenses (purpose, language, owner of each rule, dependencies, scenarios, patterns) and reports findings with evidence and alternatives. It changes nothing; the maintainer decides. Run on the state at the end of chapter 3, it found the circle, the missing owner of the €10 rule, the money word in `membership` and the unblock that lifts someone else's block. Run on the state after this chapter, it found seven open points, among them a board that still shows the rejected block orders. The [reports and the limits of this test](../docs/reviews/README.md) are in `docs/reviews/`.
+> **Challenging the cut** (a look ahead to [chapter 5](05-challenging-the-cut.md)). Both mistakes were found late, so before anything is built on the cut we added a skill that challenges it: [`challenge-context-cut`](../.claude/skills/challenge-context-cut/SKILL.md). A fresh agent, which knows only the files, reads the contexts, glossaries and the map through six lenses (purpose, language, owner of each rule, dependencies, scenarios, patterns) and reports findings with evidence and alternatives. It changes nothing; the maintainer decides. Run on the state at the end of chapter 3, it found the circle, the missing owner of the €10 rule, the money word in `membership` and the unblock that lifts someone else's block. Run on the state after this chapter, it found seven open points, among them a board that still shows the rejected block orders. The [reports and the limits of this test](../docs/reviews/README.md) are in `docs/reviews/`.
 
 ## What we take with us
 
@@ -66,4 +66,8 @@ The context map in Studio, both glossaries, the mapping and chapter 3 are update
 
 - **Business**, decided by the maintainer playing the library: C-19, the €10 rule belongs to the finance side. Recorded in the [clarification log](../requirements/clarifications.md), with the rejected option.
 - **Architecture:** [ADR 5](../docs/adr/0005-no-circle-between-modules.md) accepted by the maintainer: fees places a hold, membership owns the card, the arrow turns around. Its first version (plain block orders, argued from the circle alone) was rejected and is kept in the record. ADRs 1 to 4 and 6 to 8 accepted by the maintainer in the review of this chapter (2026-10-23).
-- **Way of working:** a decision that moves a business rule between contexts starts with the business question (whose rule is it?), not with the technical structure. Gate G1 is next. It is a decision of the maintainer, prepared by the agent, and nothing per context starts before it.
+- **Way of working:** a decision that moves a business rule between contexts starts with the business question (whose rule is it?), not with the technical structure. Gate G1 follows after chapter 5. It is a decision of the maintainer, prepared by the agent, and nothing per context starts before it.
+
+---
+
+*The context map lives in the DDD Studio workspace "Millbrook Library (tutorial)". Saved versions: `ch4-context-map-circle-noted` (the circle noted, map unchanged) and `ch4-context-map-holds` (ADR 5: fees places a hold, the arrow between fees and membership turned). Export: [`model/esdm/`](../model/esdm/).*

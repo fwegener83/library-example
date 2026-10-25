@@ -47,8 +47,8 @@ for ch in chapters:
         elif count != cells:
             err(f"{ch.name}:{i}: table row has {count - 1} cells, the header {cells - 1}")
     n = ch.name[:2]
-    if f"`chapter-{n}`" not in plan:
-        err(f"docs/plan.md section 12 has no row for chapter-{n}")
+    if not re.search(rf"^\| {n} \|", plan, re.M):
+        err(f"docs/plan.md section 12 has no row for chapter {n}")
 
 latest = {}
 for f in (root / "model" / "sketch").glob("*.json"):
@@ -91,6 +91,9 @@ for f in (root / "model" / "sketch").glob("*.json"):
             t.startswith("src:") for t in n.get("tags", [])
         ):
             err(f"{f.name}: event without src: tag: {n['text']}")
+        for t in n.get("tags", []):
+            if t.startswith("src:") and not re.fullmatch(r"src:(brief-[\d.]+|inferred)", t):
+                err(f"{f.name}: '{t}' on '{n['text']}': src: points into the brief or says inferred; decisions are clar:")
         if n["kind"] == "hotspot" and not any(
             t.startswith("hotspot:") for t in n.get("tags", [])
         ):
@@ -204,6 +207,14 @@ for f in (root / "model" / "domain-stories").glob("*.yaml"):
     for obj in set(re.findall(r"workObject: (\S+)", text)):
         if re.search(r"\d", obj):
             err(f"{f.name}: digits in work object name '{obj}' (rules belong in findings)")
+
+# paths named in the working rules must exist (placeholders like <slug> are skipped)
+for f in [root / "CLAUDE.md", *(root / ".claude" / "skills").rglob("SKILL.md")]:
+    for path in re.findall(r"`((?:model|docs|scripts|requirements|chapters)/[^`\s]*)`", f.read_text()):
+        if any(c in path for c in "<>*…") or "NN" in path:
+            continue
+        if not (root / path).exists():
+            err(f"{f.relative_to(root)}: names {path}, which does not exist")
 
 if warnings:
     print("\n".join(f"WARN {w}" for w in warnings))

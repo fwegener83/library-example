@@ -70,11 +70,13 @@ moment it has to be decided).
   maintainer: a reader who never brings a book back would never be
   blocked, which defeats the purpose of fines.
 - **Options:**
-  1. The fine is fixed once, on return or loss. While the book is out,
-     the amount so far (days overdue × €0.50, capped at the price) is
+  1. The fine is fixed once, when the book comes back. While the book is
+     out, the amount so far (days overdue × €0.50, capped at the price) is
      *running* and counts towards the €10 block. A daily check (the
      morning run) adds the running amounts to the fixed ones and blocks
-     the card when the total is above €10.
+     the card when the total is above €10. If the book is declared lost
+     instead, the running amount ends without being fixed; the lost-book
+     fee takes its place (C-04).
   2. A fine is booked every day for every overdue book.
   3. Fines only on return, plus a separate block after a number of days
      overdue.
@@ -88,7 +90,7 @@ moment it has to be decided).
   unblocked only by returning it or reporting it lost and then paying.
   Below €10 nothing happens: one book triggers the block from day 21
   overdue (21 × €0.50 = €10.50).
-- **Status:** decided 2026-10-23 by the maintainer (acting for the library): option 1, second round.
+- **Status:** decided 2026-10-23 by the maintainer (acting for the library): option 1, second round. Wording of option 1 corrected 2026-10-25: it said "fixed once, on return or loss", which contradicted C-04 (no late fine on top of the lost-book fee). The decision itself is unchanged.
 
 ### C-04 Who declares a book lost, and what does it cost?
 
@@ -147,7 +149,10 @@ moment it has to be decided).
   - **Title**: the catalogue entry (ISBN, title, author, price).
   - **Copy**: one physical book with its own barcode. *Item* and
     *instance* are not used.
-  - **Book**: only in everyday speech, never in the model.
+  - **Book**: only in everyday speech, never in the model. One
+    exception: *lost-book fee*, the finance office's own term (brief
+    §3.4, "A lost book is charged at its replacement price"), stays in
+    `fees`; there "book" can only mean the copy (added 2026-10-25).
   - **Reader**: the person at the desk, in lending and fees.
   - **Member**: the same person as seen by the membership office.
   - *Patron* (LibTrack's word) is not used.

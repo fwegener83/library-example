@@ -63,4 +63,4 @@ Chosen option: "MADR, full template", because it has a place for each step of th
 
 ## More Information
 
-Technology (language version, framework, database, event store, user interface technology) is decided at gate G2. Until then, records say what a technology must provide, never which one.
+The tutorial is written for Java, Spring Boot and Spring Modulith (`docs/plan.md` §3); that is a premise of the tutorial, not a record. Versions, the event store, the database and the user interface technology are decided at gate G2. Until then, records say what a technology must provide, never which one. (Corrected 2026-10-25: this paragraph first listed the framework as open too, which contradicted the plan.)

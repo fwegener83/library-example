@@ -3,8 +3,8 @@
     "chapter": "05-challenging-the-cut",
     "workspace": "Millbrook Library (tutorial)",
     "board": "big-picture",
-    "savedVersion": "ch5-big-picture-after-challenge-v4",
-    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-25 and ADRs 5 and 6 were applied in chapter 5. Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn', 'Copy Released (after repair)', 'Payment Confirmed by CityPay' and 'Payment Cancelled (rejected by CityPay)' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
+    "savedVersion": "ch5-big-picture-after-challenge-v5",
+    "note": "Content, tags and connections of the board as exported by the MCP server, after the clarifications C-19 to C-25 and ADRs 5 and 6 were applied in chapter 5, and the consistency corrections after chapter 5 (actor 'Reader' named after C-07; tags on the hold policies cleaned up). Card positions are not part of this export. The left-to-right order of the events on the board, section by section (catalogue, membership, lending, fees), is given by 'eventOrder'; the new events 'Copy Withdrawn', 'Copy Released (after repair)', 'Payment Confirmed by CityPay' and 'Payment Cancelled (rejected by CityPay)' were placed by the server and are listed where they belong in time. Cards in 'areas' sit inside that bounded context; cards at the top level belong to none. Edge ids are omitted. Three connections of a card that was deleted and recreated stay on the board as dangling edges (docs/tool-gaps.md) and are left out here; old edge labels ('is keyed in by hand', 'then block', 'then unblock') cannot be edited; the notes and policy texts say what they mean now.",
     "eventOrder": [
       "Title Added to Catalogue",
       "Book Details Corrected",
@@ -383,13 +383,16 @@
         {
           "id": "28421a0b-9724-40b4-bd1f-05b6145914a0",
           "kind": "actor",
-          "text": "Reader / Patron / Member",
+          "text": "Reader",
           "sections": [
             {
               "label": "Notes",
               "type": "text",
-              "text": "Three words for the same person in the brief (reader, patron, member) — see hotspot."
+              "text": "The brief also says patron and member for the same person. The model says reader in lending and fees, member in membership (C-07)."
             }
+          ],
+          "tags": [
+            "clar:C-07"
           ]
         },
         {

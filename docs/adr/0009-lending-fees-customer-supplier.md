@@ -10,9 +10,9 @@ informed: none recorded
 
 ## Context and Problem Statement
 
-Chapter 3 drew `lending` → `fees` as an open host service with a published language. Its reason: "Fees follows loans (due date, returned, lost, usage fee) without lending knowing that fees exist. Reminders and the reader account will need the same events, so lending publishes them once for everyone." The same table says: "Where the consumer's needs are negotiated one to one, as between membership and lending, *customer-supplier* fits better."
+Chapter 3 drew `lending` → `fees` as an open host service with a published language. Its reason, in the wording chapter 3 had then: "Fees follows loans (due date, returned, lost, usage fee) without lending knowing that fees exist. Reminders and the reader account will need the same events, so lending publishes them once for everyone." The same table says: "Where the consumer's needs are negotiated one to one, as between membership and lending, *customer-supplier* fits better."
 
-Since then the other consumers have not come. Reminders stay inside `lending` (chapter 3, "What we did not cut"), and the reader's account page asks the modules instead of listening to their events (ADR 8). `fees` is the only consumer of the loan events, and its needs shaped them: the due date for the running fine (C-03), the loss (C-04). The usage fee is no longer part of them (C-21). The challenge of the cut found this (`docs/reviews/ch04-context-cut.md`, F4); chapter 5 prepared it, and the maintainer followed the recommendation (2026-10-24).
+Since then the other consumers have not come. Chapter 3 cut no context for notifications; the reminders all concern `lending` ("What we did not cut"). And the reader's account page asks the modules instead of listening to their events (ADR 8). `fees` is the only consumer of the loan events, and its needs shaped them: the due date for the running fine (C-03), the loss (C-04). The usage fee is no longer part of them (C-21). The challenge of the cut found this (`docs/reviews/ch04-context-cut.md`, F4); chapter 5 prepared it, and the maintainer followed the recommendation (2026-10-24).
 
 Which pattern describes the relationship between `lending` and `fees`?
 

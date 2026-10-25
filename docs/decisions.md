@@ -24,13 +24,13 @@ In an architecture decision record the two steps are visible: while the status i
 ## When the agent must stop and ask
 
 - The answer is **not in the source**: the brief is silent, vague or contradicts itself, and the model depends on it. (Business)
-- The decision is **hard to reverse** or concerns **more than one module**. (Architecture)
+- The decision is **hard to reverse** and there are **real alternatives**. (Architecture)
 - It decides **how we work** from here on, or it would touch something the tutorial has declared untouchable (a gate). (Way of working)
 - A recommendation turns out to **undo an earlier decision** (for example the circle that undid a statement of chapter 3). The agent says so openly and does not change the earlier decision on its own.
 
 ## When it is not a decision
 
-Writing a sentence in the glossary, choosing a card colour, naming a field: these are the agent's work and the **review** of the chapter covers them. A review checks work that has been done; a decision chooses between options that have not. If the agent presents every small choice as a question, the human stops deciding and starts nodding, and the real decisions disappear in the noise.
+Writing a sentence in the glossary, choosing a card colour, naming a field, correcting a document so that it says what was decided: these are the agent's work and the **review** of the chapter covers them. The agent lists what it decided this way in the pull request, so the maintainer can still object. A review checks work that has been done; a decision chooses between options that have not. If the agent presents every small choice as a question, the human stops deciding and starts nodding, and the real decisions disappear in the noise.
 
 ## Where to find them
 
