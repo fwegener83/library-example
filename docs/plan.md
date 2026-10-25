@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) liegt als `proposed` vor und wartet auf deine Annahme; danach unabhängige Prüfung des Schnitts und Kapitel 6 (Liefer-Scope, Gate G6)*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen (2026-10-25); als Nächstes unabhängige Prüfung des Schnitts und Kapitel 6 (Liefer-Scope, Gate G6)*
 
 ---
 
@@ -119,7 +119,7 @@ Partnership).
 | Vorgehen insgesamt | Phasenmodell 0–7 mit Skills, kleinem und großem Rücksprung (G1, Maintainer, 2026-10-25) |
 | Scope | breit erschließen, eng bauen: Problem-Scope in Phase 0, Liefer-Scope nach dem Schnitt (G6) (Maintainer, 2026-10-25) |
 | Modulith zuerst | starker Default: eine Einheit, bis der Schnitt getragen hat; Herauslösen später mit eigenem Skill (Maintainer, 2026-10-25) |
-| Schnittstellen | **REST für alle Frontends**, Endpunkte im jeweiligen Modul, OpenAPI vor dem Code; zwischen Modulen Events und Aufträge (ADR 4), kein REST (Maintainer, 2026-10-25; ADR 10, `proposed`) |
+| Schnittstellen | **REST für alle Frontends**, Endpunkte im jeweiligen Modul, OpenAPI vor dem Code; zwischen Modulen Events und Aufträge (ADR 4), kein REST (Maintainer, 2026-10-25; ADR 10) |
 | Skills | im Repo unter `.claude/skills/`, generisch formuliert, je Phase beim ersten echten Einsatz; Phasen 0–3 später herausgelöst und per frischem Durchlauf getestet (Maintainer, 2026-10-25) |
 | UI | **kleine, minimale UI** über REST — macht das Ergebnis greifbar (Technik: G2) |
 | Format | Markdown-Kapitel im Repo; später Übernahme auf die DDD-Studio-Homepage |
@@ -221,7 +221,7 @@ Feinmodellierung braucht, zeigt Kapitel 6 (Liefer-Scope).
 
 | # | Kapitel (Arbeitstitel) | Phase | Neuer Skill | Werkzeug | Halt |
 |---|---|---|---|---|---|
-| — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed`, abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
+| — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed` bei Vorlage, am 2026-10-25 angenommen; abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
 | — | **Unabhängige Prüfung des Schnitts** vor G6 — `challenge-context-cut` in frischem Agenten (CLAUDE.md, „Challenging the cut“); Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | du entscheidest über die Funde |
 | 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6** |
 | 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
@@ -299,8 +299,7 @@ die Namenskonvention Szenario → Test (`plan-implementation`,
   14 und 15). Wem eine Regel gehört (z. B. die €10-Regel `fees`, C-19),
   steht bis dahin in der Beschreibung der Policy (G1, §8 der Vorlage).
 - System-Commands aus dem Tagesblatt per Scheduler.
-- **REST an den Außenkanten** (entschieden, Maintainer 2026-10-25; ADR 10,
-  `proposed`): Jedes Modul hat seine REST-Endpunkte als Web-Adapter; die
+- **REST an den Außenkanten** (entschieden, Maintainer 2026-10-25; ADR 10): Jedes Modul hat seine REST-Endpunkte als Web-Adapter; die
   OpenAPI-Spezifikation entsteht vor dem Code aus Commands, Queries und
   Read Models in Studio, der Code wird im Test dagegen geprüft. Zwischen
   den Modulen kein REST. Verworfen: Thymeleaf + htmx (serverseitig, ohne
@@ -387,7 +386,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 |---|---|---|---|
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | offen (Kapitel 6) |
-| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 vorgelegt (`proposed`), Annahme offen |
+| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted` (PR #17) |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | Frontend-Technik (REST gesetzt; Thymeleaf + htmx verworfen) | G2 | offen |
@@ -433,7 +432,7 @@ Spalte „Danach“.
 | 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
 | 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: Branch `adr-10-rest-at-the-edges`, ADR 10 `proposed`, Annahme offen (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: #17, ADR 10 `accepted` 2026-10-25 (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`

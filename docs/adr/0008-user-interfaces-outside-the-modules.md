@@ -33,7 +33,7 @@ Chosen option: "A user interface outside the modules", because it asks both modu
 
 The user interfaces stay outside the four modules. A page may use the public API of any module (ADR 3) and may put the answers of several modules on one page. The user interfaces may depend on every module; no module depends on a user interface. It contains no business rules: a page never decides whether a reservation is allowed, it asks the module that decides.
 
-The technology of the user interface is decided at gate G2. Depending on that choice, "asking a module" may be a call inside the application or a request from a browser; the rule is the same.
+The technology of the user interface is decided at gate G2. Depending on that choice, "asking a module" may be a call inside the application or a request from a browser; the rule is the same. [ADR 10](0010-rest-at-the-edges.md) settles it for the front ends: a request over REST.
 
 ### Consequences
 

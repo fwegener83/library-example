@@ -1,5 +1,5 @@
 ---
-status: "proposed"
+status: "accepted"
 date: 2026-10-25
 decision-makers: the maintainer
 consulted: none recorded
@@ -12,7 +12,7 @@ informed: none recorded
 
 [ADR 8](0008-user-interfaces-outside-the-modules.md) keeps the user interfaces outside the four modules and lets a page use the public API of any module. It leaves open how a page asks: "Depending on that choice, 'asking a module' may be a call inside the application or a request from a browser; the rule is the same." [ADR 4](0004-contexts-talk-through-published-events.md) fixes how modules talk to each other (events and orders) but says nothing about the way in from outside.
 
-The brief asks for a screen at the desk for staff and a page for readers (§3.6). The plan first assumed Thymeleaf and htmx, that is pages rendered on the server. On 2026-10-25 the maintainer asked for REST for every front end instead; [the phase model of gate G1](../gates/g1-model-to-code.md) builds on it (principle 5, "REST at the edges, events inside"). This record writes the decision down with its reasons and what it rules out.
+The brief asks for a screen at the desk for staff and a page for readers (§3.6). The plan first assumed Thymeleaf and htmx, that is pages rendered on the server. On 2026-10-25 the maintainer asked for REST for every front end instead; [the phase model of gate G1](../gates/g1-model-to-code.md) builds on it (principle 5, "REST at the edges, events inside"). The maintainer accepted it on 2026-10-25. This record writes the decision down with its reasons and what it rules out.
 
 How do the front ends reach the modules, and does REST have a place between the modules?
 
@@ -32,7 +32,7 @@ How do the front ends reach the modules, and does REST have a place between the 
 
 ## Decision Outcome
 
-Recommended option: "REST at the edges: every front end uses the modules through REST, and the modules do not use REST between them", because it gives every front end the same language-neutral contract, derived from the model, and keeps the modules free of HTTP between each other.
+Chosen option: "REST at the edges: every front end uses the modules through REST, and the modules do not use REST between them", because it gives every front end the same language-neutral contract, derived from the model, and keeps the modules free of HTTP between each other.
 
 * **Endpoints sit inside each module** as its web adapter, in the same way as the adapters to external systems (ADR 6). The commands, queries and read models of the module become its REST resources. The module's public API (ADR 3) stays what other modules use; REST is how the world outside the application uses it.
 * **API first.** The OpenAPI specification of a module is written before its code, derived from the commands, queries and read models in DDD Studio, and the code is tested against it. The code does not generate the contract.

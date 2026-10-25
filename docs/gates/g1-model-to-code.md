@@ -286,7 +286,7 @@ cut? Only that run shows whether the framework carries. The same test for
 
 | Phase | Chapter |
 |---|---|
-| 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) follows chapter 4 in a pull request of its own (`proposed` until the maintainer accepts it). |
+| 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) follows chapter 4 in a pull request of its own (accepted 2026-10-25). |
 | 4 Delivery scope | Chapter 6, gate G6 |
 | 5 Model in detail | Chapter 7 (boundaries and flows), then the inside of the contexts, `lending` first |
 | 6 Technology | After phase 5, gate G2 |
