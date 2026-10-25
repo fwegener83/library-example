@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen (2026-10-25); als Nächstes unabhängige Prüfung des Schnitts und Kapitel 6 (Liefer-Scope, Gate G6)*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden) und wartet auf deine Entscheidung zu den Funden; danach Kapitel 6 (Liefer-Scope, Gate G6)*
 
 ---
 
@@ -386,7 +386,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 |---|---|---|---|
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | offen (Kapitel 6) |
-| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted` (PR #17) |
+| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted`, gemergt (#17, `b911252`) |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | Frontend-Technik (REST gesetzt; Thymeleaf + htmx verworfen) | G2 | offen |
@@ -432,7 +432,7 @@ Spalte „Danach“.
 | 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
 | 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: #17, ADR 10 `accepted` 2026-10-25 (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: ADR 10 samt Korrekturen an ADR 2–8: #17 (`b911252`, 2026-10-25) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
