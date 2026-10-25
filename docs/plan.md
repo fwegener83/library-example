@@ -221,7 +221,8 @@ Feinmodellierung braucht, zeigt Kapitel 6 (Liefer-Scope).
 
 | # | Kapitel (Arbeitstitel) | Phase | Neuer Skill | Werkzeug | Halt |
 |---|---|---|---|---|---|
-| — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR | 3 | — | ADR | Annahme durch dich |
+| — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed`, abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
+| — | **Unabhängige Prüfung des Schnitts** vor G6 — `challenge-context-cut` in frischem Agenten (CLAUDE.md, „Challenging the cut“); Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | du entscheidest über die Funde |
 | 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6** |
 | 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
 | 8 | **Modelling `lending`** — Example Mapping, Aggregate, Invarianten, GWT, REST-API; G3-Folgefrage (Kopie noch unbekannt); `challenge-context-cut` Modus 2 | 5 | `example-mapping`, `model-context` | Sketch Board, Static View, Features | Review; Rücksprung nach 2 möglich |
@@ -357,7 +358,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | M3 | Kapitel 4: Deployment-ADRs | G0 |
 | M3b | Kapitel 5: Schnitt prüfen (erledigt) | — |
 | M4 | G1: Phasenmodell (erledigt) | — |
-| M5 | ADR 10, Kapitel 6: Liefer-Scope | G1 |
+| M5 | ADR 10 (mit Korrekturen an Kapitel 4), unabhängige Prüfung des Schnitts, Kapitel 6: Liefer-Scope | G1 |
 | — | **G6** | |
 | M6 | Kapitel 7–10: Feinmodellierung, Schnitt im Modell getestet | G6 |
 | — | **G2** (Kapitel 11) | |
@@ -432,7 +433,7 @@ Spalte „Danach“.
 | 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
 | 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15 | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; **offen:** ADR 10 samt Korrekturen an ADR 2–8 (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
