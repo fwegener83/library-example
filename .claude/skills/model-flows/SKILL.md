@@ -19,9 +19,10 @@ turns each crossing into a contract.
   or a rule of the requirements log. A step that is only inferred says so
   in its description.
 - **Boundaries first.** A flow shows what crosses a boundary and who owns
-  each side. What happens inside a context stays a stub (an aggregate
-  that holds the commands and events, no more) until the context is
-  modelled in detail.
+  each side. Aggregates, commands, events and policies are real model
+  elements, as many as the flows need. Invariants, scenarios and the
+  commands that touch no boundary follow when the context is modelled in
+  detail; the aggregate is then refined, not replaced.
 - **Business before technology.** A flow names facts, orders and
   questions in the words of the contexts. It names no queue, table or
   endpoint.
@@ -44,9 +45,9 @@ turns each crossing into a contract.
    order. Add a second run where the same scenario has a different path
    across the boundaries (for example the late case); the exception
    path is where cuts break.
-2. **Create the stubs.** For every command, event, policy and read model
-   the run needs: the node under its owning context, with the smallest
-   shape that is valid. Name events as past-tense facts of the owner.
+2. **Create the elements.** For every aggregate, command, event, policy
+   and read model the run needs: the node under its owning context, with
+   the fields the run needs. Name events as past-tense facts of the owner.
    Wire the references before grouping them into steps.
 3. **Draw the steps.** One step per command or per reaction, in time
    order, with concrete example data from the sources. A reaction in
