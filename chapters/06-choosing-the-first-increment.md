@@ -2,7 +2,7 @@
 
 **Input:** the [brief](../requirements/brief.md), the [domain stories](../model/domain-stories/) and the [Big Picture board](../model/sketch/big-picture-contexts.json), the cut and map of [chapter 3](03-strategic-design.md), the records [ADR 2 to 11](../docs/adr/README.md), the [clarification log](../requirements/clarifications.md), the [report before this gate](../docs/reviews/pre-g6-context-cut.md)
 **Tool:** the skill [`plan-scope`](../.claude/skills/plan-scope/SKILL.md); no board is changed in this chapter
-**Result:** eighteen candidate scenarios with the contexts and boundaries each one touches and what each one needs, four options for the first increment, a recommendation, and the questions the scope decides. **The decision is open: this is gate G6.** Nothing in this chapter is modelled in detail or built.
+**Result:** eighteen candidate scenarios with the contexts and boundaries each one touches and what each one needs, four options for the first increment, a recommendation, and the questions the scope decides. **Gate G6 was decided on 2026-10-26: option 3.** Nothing in this chapter is modelled in detail or built.
 
 ## Why a scope at all
 
@@ -105,6 +105,8 @@ Option 3 and F, G2, H, I, K.
 
 ## Questions that the scope decides
 
+*(Decided on 2026-10-26, see the last section. The text below is the proposal the maintainer accepted.)*
+
 * **Does the first increment go live beside LibTrack, or does it stay a complete piece of software until further increments make a cut-over possible?** No option replaces LibTrack: the brief says the new system "must cover what LibTrack does today" (§1). Parallel running means double entry for everything the new system does. **Proposal:** for the tutorial, no go-live; each increment is complete as software and the cut-over is a later decision, as in the plan. This is for the maintainer to confirm, because it decides whether the double entry of option 2 ever happens in practice.
 * **Option 2 and CityPay (see above):** confirm that postponing E4 is acceptable.
 * **C-15, the waiting line for books that are out.** The question is parked "for the scope of the first release". **Proposal:** not in the first increment. It is a new feature that would change the rules for reservations (D); it reaches `lending` only. It is not decided here because it is part of the scope, which is the gate's decision. If the maintainer takes it in, it becomes part of D.
@@ -112,14 +114,20 @@ Option 3 and F, G2, H, I, K.
 
 ## What we take with us
 
-* The decision is the maintainer's. **Gate G6 is open.** The chapters on the flows and contracts and on the detailed modelling do not start before it is closed.
+* **Gate G6 is closed** (2026-10-26). The chapters on the flows and contracts and on the detailed modelling can start.
 * The skill `plan-scope` exists and was used here for the first time. A fresh agent reviewed this chapter and found errors in the first version (among them a wrong statement about how fines are handled today); the skill now asks for a column of needs, a check that each option contains what its members need, and a line on the system being replaced.
-* After the decision the accepted candidates become the list of scenarios that the chapters 7 to 10 cover. Each of those chapters says which of them it models. Chapter 7 (flows and contracts) is needed by every option.
+* The accepted candidates are the list of scenarios that the chapters 7 to 10 cover. Each of those chapters says which of them it models. Chapter 7 (flows and contracts) comes first.
 
 ## Decisions in this chapter
 
-* **Way of working:** gate G6 is **open**. Options and a recommendation are prepared above; the choice of the first increment is the maintainer's and is not yet made. Nothing recorded in this chapter is a decision.
-* **Business:** none yet. C-15 and the two questions on LibTrack and CityPay go to the maintainer with the scope; the parked C-11 to C-14 stay parked.
+* **Way of working, gate G6 — decided by the maintainer on 2026-10-26.** The maintainer accepted the chapter as written, with its recommendation and its proposals, after reading it in the pull request. So:
+  * **The first increment is option 3:** A, B, C, D, E1, E2, E3, G1 and J1. Candidates in these terms: titles and copies; members, cards, holds; check out and return, with a damaged copy marked at check-in; reservations; the late fine, the running fine with the block above €10, the payment at the desk and the unblock; declaring a copy lost with the lost-book fee; the morning lists.
+  * **Rejected:** option 1 (without fines and blocking), option 2 (without the morning lists), option 4 (the whole desk as far as it is clear). Reasons are in the chapter.
+  * **Left out of the first increment:** E4 (CityPay), F (usage fee), G2 (a lost copy comes back), H (withdraw or release a damaged copy), I (keeps, end of researcher status), J2 (notices by email), K (search, the reader's account), L1 (monthly report), L2 (waiving). The gaps this leaves are named under each option.
+  * **LibTrack:** the first increment does not go live beside LibTrack. Each increment is complete as software; the cut-over is a later decision.
+  * **CityPay:** postponing E4 is accepted; until it is built, a payment in `fees` means "received" only, and C-26 stays open. C-02 is not reversed.
+  * **C-15** (the waiting line for books that are out): not in the first increment (recorded in the [clarification log](../requirements/clarifications.md)).
+* **Business:** C-15 as above. The parked C-11, C-12 and C-14 are decided when `lending` is modelled (chapter 8).
 * **Architecture:** none.
 
 ---
