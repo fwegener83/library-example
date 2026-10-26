@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden); die fachlichen Funde hat der Agent im Auftrag entschieden (C-27 bis C-32), ADR 11 (Event-Umschlag) angenommen (2026-10-26); danach Kapitel 6 (Liefer-Scope, Gate G6)*
+*Stand: 2026-10-26 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden); die fachlichen Funde hat der Agent im Auftrag entschieden (C-27 bis C-32), ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); als Nächstes Kapitel 7 (Flows und Verträge)*
 
 ---
 
@@ -23,7 +23,7 @@ nichts, was ins Tutorial oder in den Code eingeht.
 |---|---|---|---|
 | **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
 | **G1 — Vom Modell zum Code** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Das Phasenmodell 0–7 mit Skills, Rücksprüngen und starken Defaults (§6) | **entschieden** 2026-10-25 (Maintainer, im Gespräch: alle Empfehlungen angenommen); schriftliche Fassung `docs/gates/g1-model-to-code.md` |
-| **G6 — Liefer-Scope** | nach G1, **vor der Feinmodellierung** (Phase 4, Kapitel 6) | Welche Szenarien jetzt fein modelliert und gebaut werden; fachliche Entscheidung | offen |
+| **G6 — Liefer-Scope** | nach G1, **vor der Feinmodellierung** (Phase 4, Kapitel 6) | Welche Szenarien jetzt fein modelliert und gebaut werden; fachliche Entscheidung | **entschieden** 2026-10-26 (Maintainer): Option 3 aus Kapitel 6 |
 | **G2 — Technik** | nach der Feinmodellierung (Phase 6), vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, Frontend-Technik (REST gesetzt), Datenbank, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) (§7) | offen |
 | **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | **entschieden** 2026-10-25 (Maintainer): der Katalog meldet es, `lending` prüft gegen die eigene Kopie. Im Modell seit Kapitel 3 so angelegt, vor der Freigabe; siehe §11 |
 | **G4 — In-App-Beispiel** | bevor irgendetwas in `ddd-studio` geändert wird | Ersetzen des Library-Beispiels (§10) | offen |
@@ -223,7 +223,7 @@ Feinmodellierung braucht, zeigt Kapitel 6 (Liefer-Scope).
 |---|---|---|---|---|---|
 | — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed` bei Vorlage, am 2026-10-25 angenommen; abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
 | — | **Unabhängige Prüfung des Schnitts** vor G6 — `challenge-context-cut` in frischem Agenten (CLAUDE.md, „Challenging the cut“); Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | du entscheidest über die Funde |
-| 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6** |
+| 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek. **Vorlage liegt vor** (18 Kandidaten, vier Optionen, Empfehlung Option 3 = Ausleihe, Mahngebühr, Sperre, Verlustmeldung und Morgenlisten; Skill `plan-scope` geschrieben) | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6 entschieden** 2026-10-26: Option 3 |
 | 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt; ADR 11 regelt nur den Umschlag, die Versionierung der Events bleibt für dieses Kapitel; Freigabe einer Kopie nennt den Schadensfall, den sie beantwortet). Aus der Prüfung vor G6: Enddaten von Karte und Researcher-Status im Vertrag membership → lending (C-28), Korrektur einer Kopie im Published Language des Katalogs (C-27), wie ein Hinweis von `lending` die E-Mail-Adresse aus `membership` erreicht (C-31) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
 | 8 | **Modelling `lending`** — Example Mapping, Aggregate, Invarianten, GWT, REST-API; G3-Folgefrage (Kopie noch unbekannt); `challenge-context-cut` Modus 2 | 5 | `example-mapping`, `model-context` | Sketch Board, Static View, Features | Review; Rücksprung nach 2 möglich |
 | 9 | **Modelling `fees`** — laufende Summe und €10-Regel (C-03, C-18, C-19), Muster aus Tool-Gap 15 | 5 | — (Skills aus 8) | wie 8 | wie 8 |
@@ -385,7 +385,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | ID | Frage | Gate | Stand |
 |---|---|---|---|
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
-| S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | offen (Kapitel 6) |
+| S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | **entschieden** 2026-10-26: Option 3 (A, B, C, D, E1–E3, G1, J1), kein Go-live neben LibTrack, CityPay später, C-15 draußen |
 | A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted`, gemergt (#17, `b911252`) |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
@@ -434,6 +434,7 @@ Spalte „Danach“.
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
 | 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: ADR 10 samt Korrekturen an ADR 2–8: #17 (`b911252`, 2026-10-25) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
+| 06 | Choosing the first increment | `chapter-06-first-increment` (#19) | (Merge durch den Maintainer) | — | — |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
 (`docs/gates/g1-model-to-code.md`). Unabhängige Prüfung des Schnitts vor

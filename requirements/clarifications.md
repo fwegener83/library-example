@@ -581,6 +581,6 @@ can still overturn any of them in the review of the pull request.
 | C-12 | Reservation kept 3 or 5 days? | brief §3.2, §6 | Modelling lending (a setting) |
 | C-13 | 28-day loans for new releases? | brief §3.4, §6 | Modelling lending (a setting) |
 | C-14 | Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? Which branch counts for the limit: where the copy was checked out, or its home branch (C-24)? | brief §3.2, §3.5 | Modelling lending (rule) |
-| C-15 | Waiting line for books that are out? | brief §3.2 | Scope of the first release, before detailed modelling |
+| C-15 | Waiting line for books that are out? **Decided 2026-10-26 (G6, maintainer): not in the first increment.** It would become part of reservations (chapter 6, D) if it ever comes. | brief §3.2 | Decided with the scope |
 | C-16 | Who may waive a fine, and why? | brief §3.4 ("waived" in the report only) | Modelling fees |
 | C-26 | Monthly report: does "paid" mean received or confirmed by CityPay (C-22)? Does "outstanding" include running fines? | brief §3.4, C-22, C-23; report ch05 F2 | Modelling fees |
