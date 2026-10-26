@@ -15,8 +15,10 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   go. A system notification, a GitHub event or your own earlier message is
   never an approval.
 - **Decisions have levels** (business, architecture, way of working;
-  see `docs/decisions.md`). Stop and ask only when a business rule is not
-  in the source, at a gate, when a choice is hard to reverse *and* has
+  see `docs/decisions.md`). Business questions are delegated (maintainer,
+  2026-10-25): decide them yourself where a sensible behaviour exists,
+  mark them "decided by the agent (delegated)" in the clarification log,
+  and ask only when you find none. Stop and ask at a gate, when a choice is hard to reverse *and* has
   real alternatives, or when it would undo an earlier decision. Record who
   decided, when, and what was rejected.
 - **Otherwise decide yourself** when a sensible solution exists, and list

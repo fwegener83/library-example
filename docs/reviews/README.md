@@ -12,6 +12,7 @@ real numbers are given when a question goes into the log.
 | [ch03-baseline-context-cut.md](ch03-baseline-context-cut.md) | `6547c0c`, end of chapter 3 | Test of the skill: does it find the faults that were found later? |
 | [ch04-context-cut.md](ch04-context-cut.md) | `9e404d9`, after chapter 4 | The real run on the current cut |
 | [ch05-context-cut.md](ch05-context-cut.md) | chapter 5 branch, after the answers to the chapter 4 report | Did the answers hold, or did they bring new problems? |
+| [pre-g6-context-cut.md](pre-g6-context-cut.md) | `b911252`, after ADR 10, before gate G6 | Does the cut hold for choosing the delivery scope and for the detailed modelling? |
 
 ## Test of the skill (2026-10-23)
 

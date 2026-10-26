@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen (2026-10-25); als Nächstes unabhängige Prüfung des Schnitts und Kapitel 6 (Liefer-Scope, Gate G6)*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden); die fachlichen Funde hat der Agent im Auftrag entschieden (C-27 bis C-32), ADR 11 (Event-Umschlag) angenommen (2026-10-26); danach Kapitel 6 (Liefer-Scope, Gate G6)*
 
 ---
 
@@ -224,7 +224,7 @@ Feinmodellierung braucht, zeigt Kapitel 6 (Liefer-Scope).
 | — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed` bei Vorlage, am 2026-10-25 angenommen; abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
 | — | **Unabhängige Prüfung des Schnitts** vor G6 — `challenge-context-cut` in frischem Agenten (CLAUDE.md, „Challenging the cut“); Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | du entscheidest über die Funde |
 | 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6** |
-| 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
+| 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt; ADR 11 regelt nur den Umschlag, die Versionierung der Events bleibt für dieses Kapitel; Freigabe einer Kopie nennt den Schadensfall, den sie beantwortet). Aus der Prüfung vor G6: Enddaten von Karte und Researcher-Status im Vertrag membership → lending (C-28), Korrektur einer Kopie im Published Language des Katalogs (C-27), wie ein Hinweis von `lending` die E-Mail-Adresse aus `membership` erreicht (C-31) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
 | 8 | **Modelling `lending`** — Example Mapping, Aggregate, Invarianten, GWT, REST-API; G3-Folgefrage (Kopie noch unbekannt); `challenge-context-cut` Modus 2 | 5 | `example-mapping`, `model-context` | Sketch Board, Static View, Features | Review; Rücksprung nach 2 möglich |
 | 9 | **Modelling `fees`** — laufende Summe und €10-Regel (C-03, C-18, C-19), Muster aus Tool-Gap 15 | 5 | — (Skills aus 8) | wie 8 | wie 8 |
 | 10 | **Modelling `catalogue` and `membership`** — schlank, vor allem API und Published Language | 5 | — | wie 8 | wie 8 |
@@ -386,7 +386,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 |---|---|---|---|
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | offen (Kapitel 6) |
-| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted` (PR #17) |
+| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted`, gemergt (#17, `b911252`) |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | Frontend-Technik (REST gesetzt; Thymeleaf + htmx verworfen) | G2 | offen |
@@ -432,11 +432,14 @@ Spalte „Danach“.
 | 01 | Big Picture Event Storming | `chapter-01-big-picture` (#2) | `8ac11b4` | Korrekturen #4 | `ch1-big-picture-v2` |
 | 02 | Domain Stories | `chapter-02-domain-stories` (#3) | `d40021b` | — | `ch2-reserve-borrow-return-v2`, `ch2-overdue-fine-blocked-card-v2` |
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
-| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: #17, ADR 10 `accepted` 2026-10-25 (siehe Teil B) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
+| 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: ADR 10 samt Korrekturen an ADR 2–8: #17 (`b911252`, 2026-10-25) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
-(`docs/gates/g1-model-to-code.md`).
+(`docs/gates/g1-model-to-code.md`). Unabhängige Prüfung des Schnitts vor
+G6 — `cut-review-before-g6` (#18): Bericht, C-27 bis C-32 (vom Agenten
+entschieden, delegiert), ADR 11 `accepted` (2026-10-26), Glossare nachgezogen
+(Studio-Version `pre-g6-glossaries-after-review`).
 
 ## 13. Regeln für die Arbeit mit Claude Code
 
@@ -485,8 +488,10 @@ muss. Beschrieben in `docs/decisions.md`; in Kürze:
 - Der Agent bereitet vor (Quelle, Optionen, Empfehlung, Folgen), stoppt,
   hält nach der Antwort fest, **wer wann entschieden hat und was verworfen
   wurde**, und zieht alles nach, was davon abhängt.
-- Stopp-Kriterien: eine fachliche Regel steht nicht in der Quelle; ein
-  Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
+- Stopp-Kriterien: eine fachliche Regel steht nicht in der Quelle **und**
+  der Agent findet kein sinnvolles Verhalten (fachliche Fragen sind seit
+  2026-10-25 an den Agenten delegiert, Einträge „decided by the agent
+  (delegated)“, Maintainer kann im PR widersprechen); ein Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
   frühere Entscheidung rückgängig (dann offen sagen, nicht selbst ändern).
 - Alles andere entscheidet der Agent selbst, wenn es eine vernünftige
   Lösung gibt, und meldet es im PR („vom Agenten entschieden“). Dazu

@@ -32,6 +32,8 @@ Who issues the identifiers that cross the boundaries, and what is the identity o
 
 ## Decision Outcome
 
+(Added with [ADR 11](0011-what-every-published-event-carries.md): `lending` also issues the identifier of a loan and of a damage report, and every published event names its subject by such an identifier.)
+
 Chosen option: "The owning module issues the identifier; every other module only stores it", because a person must stay the same person when the card changes, and the card number belongs to a card that is renewed and can be blocked.
 
 * **Member:** `membership` issues a member number at registration. The card number is an attribute of the card, not the identity of the person.

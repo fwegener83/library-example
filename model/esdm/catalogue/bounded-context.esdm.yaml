@@ -15,18 +15,18 @@ ubiquitousLanguage:
         reason: Same thing as copy in the brief; one word is chosen (C-07).
       - term: instance
         reason: LibTrack's word for the same thing (C-07).
-    definition: One physical book with its own barcode, registered under a title with a home branch. Circulating or restricted; may be a usage-fee copy.
+    definition: One physical book with its own barcode, registered under a title with a home branch. Circulating or restricted; may be a usage-fee copy. The Head of Collection may correct all three later; a correction counts from then on (C-27).
   - term: circulating
-    definition: A copy any reader may borrow.
+    definition: A copy in general circulation.
   - term: restricted
-    definition: 'A copy only researchers may borrow: signed first editions, the local history collection, anything the archive lent.'
+    definition: 'A copy the Head of Collection keeps out of general circulation: signed first editions, the local history collection, anything the archive lent. Who may still borrow it is a rule of lending, not of the catalogue (C-29).'
   - term: usage-fee copy
     avoid:
       - term: special collection
         reason: The brief's word for the part of the collection the archive and the university fund. Only some copies in it carry a fee, so the mark on the copy is what counts (C-21).
-    definition: A copy for which the archive asks a usage fee. Marked by the Head of Collection when the copy is registered, independent of circulating or restricted. The amount is not known here; it is a tariff of fees (C-21).
+    definition: A copy for which the archive asks a usage fee. Marked by the Head of Collection when the copy is registered, independent of circulating or restricted, and correctable later (C-27). The amount is not known here; it is one tariff of fees (C-21, C-27).
   - term: home branch
-    definition: The branch a copy belongs to, set when it is registered. Where the copy is right now is not known here (C-24).
+    definition: The branch a copy belongs to, set when it is registered and changeable by the Head of Collection (C-27). Where the copy is right now is not known here (C-24).
   - term: withdrawn copy
     definition: A copy taken out of the collection by the Head of Collection, after it was lost or damaged beyond repair. Still recorded, no longer lendable (C-20, C-25).
   - term: released copy
