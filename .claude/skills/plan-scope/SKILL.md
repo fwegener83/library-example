@@ -12,11 +12,11 @@ options and does not start from a blank page.
 
 ## Rules
 
-- **Stop at the gate.** The scope is chosen by the human (the gate of the
-  plan). Until then nothing is modelled in detail and nothing is built for
+- **Stop at the gate.** The scope is chosen by the human (the decision
+  point of the plan). Until then nothing is modelled in detail and nothing is built for
   a scenario that is not yet in scope.
 - **Sources, not memory.** A scenario comes from a domain story, an event
-  on the Big Picture board or a sentence of the brief. Each row quotes
+  on the Big Picture board or a sentence of the source documents. Each row quotes
   where. A scenario that is only inferred says so.
 - **Boundaries decide the cost.** The size of a scenario is the number of
   contexts it touches, the boundaries it crosses and the rules still open,
@@ -25,7 +25,7 @@ options and does not start from a blank page.
   test of the cut (phase 5). A scope that leaves out the hardest
   boundaries postpones the test; say so.
 - **Business before technology.** Open rules that a scenario pulls in are
-  asked as clarifications (decide them if the maintainer delegated them,
+  asked as clarifications (decide them if the decision maker delegated them,
   otherwise ask), not assumed.
 - **Say what is left out and why.** The increment is a cut through the
   scenarios; what stays outside is named, with the reason, so that nobody
@@ -33,7 +33,7 @@ options and does not start from a blank page.
 
 ## Inputs
 
-- the brief, the clarification log (decided and parked questions),
+- the requirements source, the log of clarifications (decided and parked questions),
 - the domain stories and the Big Picture board (events in time order),
 - the context map, glossaries and mappings, the architecture records,
 - the latest report of `challenge-context-cut` (its "consequences for the
@@ -42,8 +42,8 @@ options and does not start from a blank page.
 ## Steps
 
 1. **Collect candidates.** One row per business capability that a person
-   in the brief relies on or asks for (the "what people rely on" list, the
-   stories, the Big Picture events). Split a row when its parts have
+   in the sources relies on or asks for (a list of what users rely on, if the
+   sources have one; the stories; the Big Picture events). Split a row when its parts have
    different owners or different open rules.
 2. **For each candidate:** the contexts it touches; each boundary it
    crosses, in which direction and with which kind of contract (fact,
@@ -51,7 +51,7 @@ options and does not start from a blank page.
    needs from other candidates (a column of its own); and a size (S, M, L)
    by a definition written down once. Check the table against the
    sources before it goes on: a statement about how things work today
-   (the old system) is quoted from the brief, not remembered.
+   (the old system) is quoted from the sources, not remembered.
 3. **Order by need.** Which candidate cannot work without which other.
    This is a build order, and it must be acyclic.
 4. **Form two to four options.** Each option is a set of candidates.
@@ -59,7 +59,7 @@ options and does not start from a blank page.
    include an option that skips a prerequisite: for each option, list
    what its members need and confirm that all of it is inside. For each
    option: what it delivers, what it tests of the cut and what it does
-   not, what it leaves out, what it costs in chapters and in open
+   not, what it leaves out, what it costs in modelling effort and in open
    questions, and what it means for the system being replaced (can it be
    switched off, what still needs it). Say if an option postpones a
    decision that was already taken.
@@ -69,13 +69,13 @@ options and does not start from a blank page.
 6. **List the open questions the scope decides** (for example a parked
    clarification marked "decide in the scope") and propose an answer to
    each.
-7. **Write it up** as the chapter of the scope decision, with a box
-   "Decisions in this chapter" that says the gate is open. Do not mark
-   the chapter ready and do not go on to the detailed modelling.
+7. **Write it up** as a decision document, with a box listing the
+   decisions taken and saying that the gate is open. Do not mark it
+   ready and do not go on to the detailed modelling.
 
 ## After the decision
 
 Record who decided what and what was rejected (log of decisions, plan,
-chapter). The accepted scope becomes the list of scenarios that the
-detailed modelling covers; each later chapter says which of them it
+the document). The accepted scope becomes the list of scenarios that the
+detailed modelling covers; each later step says which of them it
 models.
