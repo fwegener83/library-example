@@ -48,16 +48,24 @@ options and does not start from a blank page.
 2. **For each candidate:** the contexts it touches; each boundary it
    crosses, in which direction and with which kind of contract (fact,
    order, question); open rules from the log that it pulls in; what it
-   needs from other candidates; and a size (S, M, L) with the reason.
+   needs from other candidates (a column of its own); and a size (S, M, L)
+   by a definition written down once. Check the table against the
+   sources before it goes on: a statement about how things work today
+   (the old system) is quoted from the brief, not remembered.
 3. **Order by need.** Which candidate cannot work without which other.
    This is a build order, and it must be acyclic.
 4. **Form two to four options.** Each option is a set of candidates.
    Include one that is as small as is useful and one that is wide; do not
-   include an option that skips a prerequisite. For each: what it
-   delivers, what it tests of the cut, what it leaves out, what it costs
-   in chapters and in open questions.
+   include an option that skips a prerequisite: for each option, list
+   what its members need and confirm that all of it is inside. For each
+   option: what it delivers, what it tests of the cut and what it does
+   not, what it leaves out, what it costs in chapters and in open
+   questions, and what it means for the system being replaced (can it be
+   switched off, what still needs it). Say if an option postpones a
+   decision that was already taken.
 5. **Recommend one** and say what would change the recommendation. Name
-   the strongest argument against it.
+   the strongest argument against it, with what earlier reports and
+   records say about it, not only its mirror image.
 6. **List the open questions the scope decides** (for example a parked
    clarification marked "decide in the scope") and propose an answer to
    each.
