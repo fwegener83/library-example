@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden); die fachlichen Funde hat der Agent im Auftrag entschieden (C-27 bis C-32), ADR 11 (Event-Umschlag) liegt als `proposed` vor; danach Kapitel 6 (Liefer-Scope, Gate G6)*
+*Stand: 2026-10-25 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden); die fachlichen Funde hat der Agent im Auftrag entschieden (C-27 bis C-32), ADR 11 (Event-Umschlag) angenommen (2026-10-26); danach Kapitel 6 (Liefer-Scope, Gate G6)*
 
 ---
 
@@ -438,7 +438,7 @@ Spalte „Danach“.
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
 (`docs/gates/g1-model-to-code.md`). Unabhängige Prüfung des Schnitts vor
 G6 — `cut-review-before-g6` (#18): Bericht, C-27 bis C-32 (vom Agenten
-entschieden, delegiert), ADR 11 `proposed`, Glossare nachgezogen
+entschieden, delegiert), ADR 11 `accepted` (2026-10-26), Glossare nachgezogen
 (Studio-Version `pre-g6-glossaries-after-review`).
 
 ## 13. Regeln für die Arbeit mit Claude Code

@@ -1,5 +1,5 @@
 ---
-status: "proposed"
+status: "accepted"
 date: 2026-10-25
 decision-makers: the maintainer
 consulted: none recorded
@@ -22,7 +22,7 @@ The review before gate G6 (`docs/reviews/pre-g6-context-cut.md`, F1, F2, F3, F5)
 * The Head of Collection releases a damaged copy, it is damaged again, and the first release arrives late. `lending` cannot tell which damage the release answers.
 * An event or an order names a copy that the receiver does not know yet.
 
-The phase 5 flows (chapter 7) will specify every event that crosses a boundary. What must every one of them carry, and what does a consumer do with it?
+The phase 5 flows (chapter 7) will specify every event that crosses a boundary. What must every one of them carry, and what does a consumer do with it? The maintainer accepted the record on 2026-10-26.
 
 ## Decision Drivers
 
@@ -40,7 +40,7 @@ The phase 5 flows (chapter 7) will specify every event that crosses a boundary. 
 
 ## Decision Outcome
 
-Recommended option: "One rule for every published event: subject identity, business time and order per subject", because it is the smallest rule that makes the cases above decidable, and it costs a few fields that are cheap now and expensive later.
+Chosen option: "One rule for every published event: subject identity, business time and order per subject", because it is the smallest rule that makes the cases above decidable, and it costs a few fields that are cheap now and expensive later.
 
 Every event a module publishes carries:
 
