@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: charge-lost-book-fee
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    declared-on:
+      format: date
+      type: string
+    loan-id:
+      type: string
+    member-id:
+      type: string
+  required:
+    - member-id
+    - loan-id
+    - declared-on
+    - applied-sequence
+  type: object
+publishes:
+  - lost-book-fee-charged
+metadata:
+  annotations:
+    studio.id: 2cf60fb9-ee9f-4f79-b0f7-44e20bb8a702

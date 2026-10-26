@@ -33,7 +33,7 @@ Which pattern describes the relationship between `lending` and `fees`?
 
 Chosen option: "Customer–supplier", because `fees` is the only consumer and its needs shaped the loan events, which is what chapter 3 itself calls customer–supplier.
 
-* `lending` is the supplier, `fees` the customer. `lending` plans its loan events for what `fees` needs (checked out, became overdue, returned, declared lost, each with its due date) and tells `fees` before it changes them.
+* `lending` is the supplier, `fees` the customer. `lending` plans its loan events for what `fees` needs (checked out, returned, declared lost; the due date travels with the checkout. Chapter 7 dropped *became overdue* from this list: `fees` counts from the due date, so no event is needed) and tells `fees` before it changes them.
 * The facts still travel as events in the public API of `lending` (ADR 4 allows events with the changes the customer needs, as between `membership` and `lending`). `lending` knows `fees` as its customer, but it does not depend on `fees` in code (ADR 3, ADR 5) and does not know what `fees` does with the events.
 * In the model, the two mappings `lending-fees-open-host-service` and `lending-fees-published-language` become one customer–supplier mapping, so the context map has nine mappings instead of the ten that ADR 4 counts. The table in chapter 3 changes.
 * If a second consumer of the loan events appears, the pattern is looked at again.

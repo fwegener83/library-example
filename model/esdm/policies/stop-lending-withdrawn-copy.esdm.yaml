@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: stop-lending-withdrawn-copy
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per copy (ADR 11)
+handles:
+  - boundedContext: catalogue
+    aggregate: copy
+    event: copy-withdrawn
+emits:
+  - boundedContext: lending
+    aggregate: copy
+    command: remove-copy-from-circulation
+metadata:
+  annotations:
+    studio.id: 140d130f-59ea-4a94-a538-5d2d3cede06f

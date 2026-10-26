@@ -1,0 +1,21 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: declare-copy-lost
+scope:
+  aggregate: loan
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    loan-id:
+      type: string
+  required:
+    - loan-id
+publishes:
+  - copy-declared-lost
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: fc8d230f-2b7c-4a1b-bfef-ede6483636d4

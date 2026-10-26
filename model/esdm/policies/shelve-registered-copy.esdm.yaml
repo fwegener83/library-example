@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: shelve-registered-copy
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: 'keeps the last applied number per copy (ADR 11): a repeat is ignored, a gap is held back'
+handles:
+  - boundedContext: catalogue
+    aggregate: copy
+    event: copy-registered
+emits:
+  - boundedContext: lending
+    aggregate: copy
+    command: add-copy-to-shelf
+metadata:
+  annotations:
+    studio.id: 99189fc9-4941-430e-9766-6a47e029ec64

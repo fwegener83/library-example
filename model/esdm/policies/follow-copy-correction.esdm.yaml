@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: follow-copy-correction
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per copy (ADR 11)
+handles:
+  - boundedContext: catalogue
+    aggregate: copy
+    event: copy-corrected
+emits:
+  - boundedContext: lending
+    aggregate: copy
+    command: update-copy-details
+metadata:
+  annotations:
+    studio.id: 802c2d3e-abf0-48ee-b329-420035419efd

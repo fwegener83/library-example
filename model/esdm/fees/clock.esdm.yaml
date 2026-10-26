@@ -1,0 +1,10 @@
+apiVersion: schema.esdm.io/core/v1
+kind: actor
+name: clock
+scope:
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+type: system
+metadata:
+  annotations:
+    studio.id: 224be8ea-809a-4efd-a067-f0e879686cdb

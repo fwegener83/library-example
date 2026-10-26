@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: payment-received
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    amount-owed-cents:
+      type: integer
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    paid-cents:
+      type: integer
+    payment-id:
+      type: string
+  required:
+    - member-id
+    - payment-id
+    - paid-cents
+    - amount-owed-cents
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 13f37920-a4f2-4ee2-aa26-57dff6124d2e

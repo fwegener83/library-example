@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: assess-late-fine
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    returned-on:
+      format: date
+      type: string
+  required:
+    - member-id
+    - loan-id
+    - returned-on
+    - applied-sequence
+  type: object
+publishes:
+  - late-fine-assessed
+metadata:
+  annotations:
+    studio.id: e32b2746-3da1-4c68-bb0a-0ea9a11a2558

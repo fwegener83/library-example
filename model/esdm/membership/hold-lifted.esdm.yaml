@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: hold-lifted
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    blocked:
+      type: boolean
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    reason:
+      type: string
+    sequence:
+      type: integer
+  required:
+    - member-id
+    - reason
+    - blocked
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: c4deff51-ab77-493f-bca1-7d02c7ae9d58

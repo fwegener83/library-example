@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: track-loan-for-fees
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per loan (ADR 11)
+handles:
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-checked-out
+emits:
+  - boundedContext: fees
+    aggregate: reader-account
+    command: track-loan
+metadata:
+  annotations:
+    studio.id: 7e1b77d6-2018-4c5d-a105-2efe2ebaa8eb

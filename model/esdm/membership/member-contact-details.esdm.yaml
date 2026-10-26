@@ -1,0 +1,32 @@
+apiVersion: schema.esdm.io/core/v1
+kind: read-model
+name: member-contact-details
+scope:
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+paradigm: document
+schema:
+  type: object
+  properties:
+    email:
+      type: string
+    member-id:
+      type: string
+    name:
+      type: string
+    phone:
+      type: string
+    postal-address:
+      type: string
+  required:
+    - member-id
+    - name
+    - postal-address
+projections:
+  - boundedContext: membership
+    aggregate: member
+    event: contact-details-recorded
+    rule: Replaces the contact details of the member.
+metadata:
+  annotations:
+    studio.id: cfa072e2-2963-407b-9214-de220ebe564c

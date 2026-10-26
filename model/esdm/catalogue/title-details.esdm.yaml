@@ -1,0 +1,35 @@
+apiVersion: schema.esdm.io/core/v1
+kind: read-model
+name: title-details
+scope:
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+paradigm: document
+schema:
+  type: object
+  properties:
+    author:
+      type: string
+    isbn:
+      type: string
+    title:
+      type: string
+    title-id:
+      type: string
+  required:
+    - author
+    - isbn
+    - title
+    - title-id
+projections:
+  - boundedContext: catalogue
+    aggregate: title
+    event: title-added
+    rule: Adds the title.
+  - boundedContext: catalogue
+    aggregate: title
+    event: title-details-corrected
+    rule: Replaces the details of the title.
+metadata:
+  annotations:
+    studio.id: 504ba044-35af-4427-92f2-b07dd6ebea01

@@ -1,0 +1,27 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: running-fines-counted
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    amount-owed-cents:
+      type: integer
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    running-fine-cents:
+      type: integer
+  required:
+    - member-id
+    - running-fine-cents
+    - amount-owed-cents
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 2b545ea3-e85c-48de-b8a2-63c529d98de1

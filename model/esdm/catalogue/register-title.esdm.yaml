@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: register-title
+scope:
+  aggregate: title
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    author:
+      type: string
+    isbn:
+      type: string
+    replacement-price-cents:
+      type: integer
+    title:
+      type: string
+  required:
+    - author
+    - isbn
+    - replacement-price-cents
+    - title
+publishes:
+  - title-added
+actors:
+  - head-of-collection
+metadata:
+  annotations:
+    studio.id: 84eddddb-9563-4ed4-8b74-e0bc60e37cc6

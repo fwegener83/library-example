@@ -1,0 +1,10 @@
+apiVersion: schema.esdm.io/core/v1
+kind: actor
+name: head-of-collection
+scope:
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+type: human
+metadata:
+  annotations:
+    studio.id: b93c7593-e818-4b7f-b606-2eadddaddda6

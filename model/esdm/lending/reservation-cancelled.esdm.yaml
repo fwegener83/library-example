@@ -1,0 +1,24 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: reservation-cancelled
+scope:
+  aggregate: reservation
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    reservation-id:
+      type: string
+  required:
+    - reservation-id
+    - copy-id
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 5719bf82-f6aa-4c4f-9c52-2914f857bb8e

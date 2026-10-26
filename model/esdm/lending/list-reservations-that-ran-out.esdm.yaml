@@ -1,0 +1,45 @@
+apiVersion: schema.esdm.io/core/v1
+kind: query
+name: list-reservations-that-ran-out
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+readModel: reservations-that-ran-out
+result:
+  items:
+    properties:
+      branch:
+        type: string
+      copy-id:
+        type: string
+      member-id:
+        type: string
+      ran-out-on:
+        format: date
+        type: string
+      reservation-id:
+        type: string
+    required:
+      - reservation-id
+      - member-id
+      - copy-id
+      - branch
+      - ran-out-on
+    type: object
+  type: array
+parameters:
+  properties:
+    branch:
+      type: string
+    day:
+      format: date
+      type: string
+  required:
+    - branch
+    - day
+  type: object
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: 68f7f149-9584-448b-a5a9-01ea70920533

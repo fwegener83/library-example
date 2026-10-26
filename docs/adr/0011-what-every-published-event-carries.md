@@ -10,7 +10,7 @@ informed: none recorded
 
 ## Context and Problem Statement
 
-[ADR 4](0004-contexts-talk-through-published-events.md) says: "Reactions to events must tolerate events that arrive twice or late." It leaves to each context what to do about it ("the rules of each context must say what happens then") and announces a record of its own for the contract of events. This record covers the **envelope** every event carries, so that a context can apply its rules at all. It builds on ADR 4 and changes none of it. The versioning of events (adding fields, events in transit during a release) stays with the record that ADR 4 announces; it is written when the first event is specified in chapter 7.
+[ADR 4](0004-contexts-talk-through-published-events.md) says: "Reactions to events must tolerate events that arrive twice or late." It leaves to each context what to do about it ("the rules of each context must say what happens then") and announces a record of its own for the contract of events. This record covers the **envelope** every event carries, so that a context can apply its rules at all. It builds on ADR 4 and changes none of it. The versioning of events (adding fields, events in transit during a release) stays with the record that ADR 4 announces; it is [ADR 12](0012-changing-published-events.md), proposed with chapter 7.
 
 So far only one direction has the means to be tolerant, and it does so for orders, not events: `membership` "ignores a request that is older than the last one it applied for the same hold" ([ADR 5](0005-no-circle-between-modules.md)), judged by the time of the decision that the order carries. The events themselves carry nothing that lets a consumer tell a repeat from a new fact, or an old fact from a new one.
 

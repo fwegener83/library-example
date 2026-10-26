@@ -1,0 +1,31 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: change-contact-details
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    email:
+      type: string
+    member-id:
+      type: string
+    name:
+      type: string
+    phone:
+      type: string
+    postal-address:
+      type: string
+  required:
+    - member-id
+    - name
+    - postal-address
+publishes:
+  - contact-details-recorded
+actors:
+  - membership-officer
+metadata:
+  annotations:
+    studio.id: c055ab1a-6c4c-4cec-bf42-8d2183e3d5e3

@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: hold-placed
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    blocked:
+      type: boolean
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    reason:
+      type: string
+    sequence:
+      type: integer
+  required:
+    - member-id
+    - reason
+    - blocked
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: dc1bb09b-e27a-467e-a0da-14f1a51bd317

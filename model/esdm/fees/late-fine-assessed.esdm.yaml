@@ -1,0 +1,36 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: late-fine-assessed
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    amount-owed-cents:
+      type: integer
+    applied-sequence:
+      type: integer
+    days-late:
+      type: integer
+    fine-cents:
+      type: integer
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+  required:
+    - member-id
+    - loan-id
+    - days-late
+    - fine-cents
+    - amount-owed-cents
+    - applied-sequence
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 4e677f1a-f0a8-4072-92af-246e895ee40d

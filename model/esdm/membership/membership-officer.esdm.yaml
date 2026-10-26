@@ -1,0 +1,10 @@
+apiVersion: schema.esdm.io/core/v1
+kind: actor
+name: membership-officer
+scope:
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+type: human
+metadata:
+  annotations:
+    studio.id: 710e1446-2644-4c65-8805-15c6b1ee0579

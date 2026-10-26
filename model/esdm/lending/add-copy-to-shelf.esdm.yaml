@@ -1,0 +1,34 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: add-copy-to-shelf
+scope:
+  aggregate: copy
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    copy-id:
+      type: string
+    home-branch:
+      type: string
+    kind:
+      enum:
+        - circulating
+        - restricted
+      type: string
+    title-id:
+      type: string
+  required:
+    - copy-id
+    - title-id
+    - kind
+    - home-branch
+    - applied-sequence
+  type: object
+publishes:
+  - copy-added-to-shelf
+metadata:
+  annotations:
+    studio.id: 420ce335-9755-448a-81e6-ae2cf529f375

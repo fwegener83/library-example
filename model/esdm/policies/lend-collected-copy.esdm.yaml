@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: lend-collected-copy
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: a checkout carries the reservation it answers; the same reservation is checked out once
+handles:
+  - boundedContext: lending
+    aggregate: reservation
+    event: reservation-collected
+emits:
+  - boundedContext: lending
+    aggregate: loan
+    command: check-out-copy
+metadata:
+  annotations:
+    studio.id: a3dd984f-3785-4077-91b1-8cfb3123fe14

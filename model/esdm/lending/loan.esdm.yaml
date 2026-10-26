@@ -1,0 +1,49 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: loan
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: loan-id
+  source: state
+state:
+  properties:
+    branch:
+      type: string
+    checked-out-on:
+      format: date
+      type: string
+    copy-id:
+      type: string
+    due-on:
+      format: date
+      type: string
+    ended-on:
+      format: date
+      type: string
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    status:
+      enum:
+        - open
+        - returned
+        - lost
+      type: string
+    title-id:
+      type: string
+  required:
+    - loan-id
+    - member-id
+    - copy-id
+    - title-id
+    - branch
+    - checked-out-on
+    - due-on
+    - status
+  type: object
+metadata:
+  annotations:
+    studio.id: 8b565fbc-3160-4e61-91a2-543ad1c0197f

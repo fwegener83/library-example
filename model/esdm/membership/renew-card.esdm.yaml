@@ -1,0 +1,21 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: renew-card
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    member-id:
+      type: string
+  required:
+    - member-id
+publishes:
+  - card-renewed
+actors:
+  - membership-officer
+metadata:
+  annotations:
+    studio.id: aa51a268-6906-4a6e-aa41-cc2905f569e0

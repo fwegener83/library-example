@@ -1,0 +1,31 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-withdrawn
+scope:
+  aggregate: copy
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    reason:
+      enum:
+        - lost
+        - damaged
+        - other
+      type: string
+    sequence:
+      type: integer
+  required:
+    - copy-id
+    - reason
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: d0dbb02a-fe3b-4bfe-a0de-391d081c61e9

@@ -1,0 +1,21 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: cancel-reservation
+scope:
+  aggregate: reservation
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    reservation-id:
+      type: string
+  required:
+    - reservation-id
+publishes:
+  - reservation-cancelled
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: 770be61a-22cf-407f-a5bb-e85c5fb33e38

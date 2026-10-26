@@ -1,0 +1,31 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: contact-details-recorded
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    email:
+      type: string
+    member-id:
+      type: string
+    name:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    phone:
+      type: string
+    postal-address:
+      type: string
+  required:
+    - member-id
+    - name
+    - postal-address
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 8d4fc1b6-1199-443d-babc-c9f7c747098e

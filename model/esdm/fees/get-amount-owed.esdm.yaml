@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: query
+name: get-amount-owed
+scope:
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+readModel: amount-owed
+result:
+  type: object
+  properties:
+    amount-owed-cents:
+      type: integer
+    member-id:
+      type: string
+  required:
+    - amount-owed-cents
+    - member-id
+parameters:
+  type: object
+  properties:
+    member-id:
+      type: string
+  required:
+    - member-id
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: 35ea02d5-0872-4aef-99fb-b28d6f1f4523

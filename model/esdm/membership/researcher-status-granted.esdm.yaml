@@ -1,0 +1,28 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: researcher-status-granted
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    researcher-until:
+      format: date
+      type: string
+    sequence:
+      type: integer
+  required:
+    - member-id
+    - researcher-until
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: ad01cc1f-c3c5-4ff9-9dc9-1e751357f0ee

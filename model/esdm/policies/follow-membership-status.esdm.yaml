@@ -1,0 +1,32 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: follow-membership-status
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per member (ADR 11)
+handles:
+  - boundedContext: membership
+    aggregate: member
+    event: member-registered
+  - boundedContext: membership
+    aggregate: member
+    event: researcher-status-granted
+  - boundedContext: membership
+    aggregate: member
+    event: card-renewed
+  - boundedContext: membership
+    aggregate: member
+    event: hold-placed
+  - boundedContext: membership
+    aggregate: member
+    event: hold-lifted
+emits:
+  - boundedContext: lending
+    aggregate: reader
+    command: update-reader-status
+metadata:
+  annotations:
+    studio.id: c7ffa23e-8e76-46c4-966f-c03d1de230d6

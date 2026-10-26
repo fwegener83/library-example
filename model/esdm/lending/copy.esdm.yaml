@@ -1,0 +1,45 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: copy
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: copy-id
+  source: state
+state:
+  properties:
+    copy-id:
+      type: string
+    current-branch:
+      type: string
+    home-branch:
+      type: string
+    kind:
+      enum:
+        - circulating
+        - restricted
+      type: string
+    last-applied-sequence:
+      type: integer
+    shelf-state:
+      enum:
+        - on-shelf
+        - reserved
+        - on-loan
+        - lost
+        - damaged
+        - withdrawn
+      type: string
+    title-id:
+      type: string
+  required:
+    - copy-id
+    - title-id
+    - kind
+    - home-branch
+    - shelf-state
+  type: object
+metadata:
+  annotations:
+    studio.id: fffb01c0-4c9a-4240-95f0-9ea9d52880a2

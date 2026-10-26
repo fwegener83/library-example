@@ -1,0 +1,33 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-details-updated
+scope:
+  aggregate: copy
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    copy-id:
+      type: string
+    home-branch:
+      type: string
+    kind:
+      enum:
+        - circulating
+        - restricted
+      type: string
+    occurred-on:
+      format: date
+      type: string
+  required:
+    - copy-id
+    - kind
+    - home-branch
+    - applied-sequence
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: b9f5ddba-9bca-4917-8377-618389dfd24b

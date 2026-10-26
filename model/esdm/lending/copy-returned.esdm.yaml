@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-returned
+scope:
+  aggregate: loan
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+  required:
+    - loan-id
+    - member-id
+    - copy-id
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: 9e2e2d5a-e916-43ba-a2e2-d2486c29c3cf

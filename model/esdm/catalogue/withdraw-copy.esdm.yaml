@@ -1,0 +1,28 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: withdraw-copy
+scope:
+  aggregate: copy
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    reason:
+      enum:
+        - lost
+        - damaged
+        - other
+      type: string
+  required:
+    - copy-id
+    - reason
+  type: object
+publishes:
+  - copy-withdrawn
+actors:
+  - head-of-collection
+metadata:
+  annotations:
+    studio.id: 9b485313-12c7-48f7-a961-f62d95e1b58c

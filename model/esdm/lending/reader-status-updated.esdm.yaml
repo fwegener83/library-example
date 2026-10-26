@@ -1,0 +1,33 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: reader-status-updated
+scope:
+  aggregate: reader
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    blocked:
+      type: boolean
+    card-valid-until:
+      format: date
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    researcher-until:
+      format: date
+      type: string
+  required:
+    - member-id
+    - blocked
+    - applied-sequence
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: c839fd85-20af-411c-bbdd-dfda7861b08e

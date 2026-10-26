@@ -1,0 +1,32 @@
+apiVersion: schema.esdm.io/core/v1
+kind: query
+name: list-copies-for-head-of-collection
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+readModel: copies-for-head-of-collection
+result:
+  items:
+    properties:
+      copy-id:
+        type: string
+      damage-report-id:
+        type: string
+      reason:
+        enum:
+          - lost
+          - damaged
+        type: string
+      since:
+        format: date
+        type: string
+    required:
+      - copy-id
+      - reason
+      - since
+    type: object
+  type: array
+parameters: {}
+metadata:
+  annotations:
+    studio.id: 70f2fc8b-20b3-4350-be16-8219661412f5

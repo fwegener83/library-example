@@ -1,0 +1,21 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: expire-reservation
+scope:
+  aggregate: reservation
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    reservation-id:
+      type: string
+  required:
+    - reservation-id
+publishes:
+  - reservation-expired
+actors:
+  - clock
+metadata:
+  annotations:
+    studio.id: 89c54037-f160-43a5-98d3-f075d6023bb3

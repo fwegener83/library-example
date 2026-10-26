@@ -1,0 +1,32 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: keep-unpaid-fees-hold-in-line
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: downstream
+  strategy: membership ignores an order older than the last one it applied for the same hold (ADR 5)
+handles:
+  - boundedContext: fees
+    aggregate: reader-account
+    event: late-fine-assessed
+  - boundedContext: fees
+    aggregate: reader-account
+    event: lost-book-fee-charged
+  - boundedContext: fees
+    aggregate: reader-account
+    event: running-fines-counted
+  - boundedContext: fees
+    aggregate: reader-account
+    event: payment-received
+emits:
+  - boundedContext: membership
+    aggregate: member
+    command: place-hold
+  - boundedContext: membership
+    aggregate: member
+    command: lift-hold
+metadata:
+  annotations:
+    studio.id: 1c9772cc-a1db-4400-b6cc-fcf2ed898d9c

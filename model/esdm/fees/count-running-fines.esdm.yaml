@@ -1,0 +1,25 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: count-running-fines
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    counted-on:
+      format: date
+      type: string
+    member-id:
+      type: string
+  required:
+    - member-id
+    - counted-on
+  type: object
+publishes:
+  - running-fines-counted
+actors:
+  - clock
+metadata:
+  annotations:
+    studio.id: 3d40b370-8bd2-492d-b4ff-a1e835707339

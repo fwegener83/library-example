@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: check-out-copy
+scope:
+  aggregate: loan
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    branch:
+      type: string
+    copy-id:
+      type: string
+    member-id:
+      type: string
+    reservation-id:
+      type: string
+  required:
+    - branch
+    - copy-id
+    - member-id
+publishes:
+  - copy-checked-out
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: fd920f0c-5594-445f-85fc-82f2ac446d3f

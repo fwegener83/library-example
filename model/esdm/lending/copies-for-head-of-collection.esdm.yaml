@@ -1,0 +1,44 @@
+apiVersion: schema.esdm.io/core/v1
+kind: read-model
+name: copies-for-head-of-collection
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+paradigm: tabular
+schema:
+  items:
+    properties:
+      copy-id:
+        type: string
+      damage-report-id:
+        type: string
+      reason:
+        enum:
+          - lost
+          - damaged
+        type: string
+      since:
+        format: date
+        type: string
+    required:
+      - copy-id
+      - reason
+      - since
+    type: object
+  type: array
+projections:
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-declared-lost
+    rule: Adds the copy with the reason lost.
+  - boundedContext: lending
+    aggregate: copy
+    event: copy-found-damaged
+    rule: Adds the copy with the reason damaged and the damage report identifier.
+  - boundedContext: lending
+    aggregate: copy
+    event: copy-removed-from-circulation
+    rule: 'Removes the copy: the Head of Collection has decided.'
+metadata:
+  annotations:
+    studio.id: ec27b18e-b405-4f6a-8ce6-5548d45dbeeb

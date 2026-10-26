@@ -1,0 +1,41 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-corrected
+scope:
+  aggregate: copy
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    home-branch:
+      enum:
+        - central
+        - riverside
+        - northgate
+        - old-town
+      type: string
+    kind:
+      enum:
+        - circulating
+        - restricted
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+    usage-fee-copy:
+      type: boolean
+  required:
+    - copy-id
+    - kind
+    - usage-fee-copy
+    - home-branch
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: e1e95b59-4201-481e-8708-e06808a093a8

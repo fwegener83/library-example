@@ -1,0 +1,44 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: reservation
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: reservation-id
+  source: state
+state:
+  properties:
+    branch:
+      type: string
+    copy-id:
+      type: string
+    member-id:
+      type: string
+    reservation-id:
+      type: string
+    reserved-on:
+      format: date
+      type: string
+    runs-out-on:
+      format: date
+      type: string
+    status:
+      enum:
+        - open
+        - collected
+        - cancelled
+        - expired
+      type: string
+  required:
+    - reservation-id
+    - member-id
+    - copy-id
+    - branch
+    - reserved-on
+    - runs-out-on
+    - status
+  type: object
+metadata:
+  annotations:
+    studio.id: 3e2bb962-06eb-4e37-b0e1-cdcbeea09733

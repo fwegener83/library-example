@@ -1,0 +1,32 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: track-loan
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    due-on:
+      format: date
+      type: string
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    title-id:
+      type: string
+  required:
+    - member-id
+    - loan-id
+    - title-id
+    - due-on
+    - applied-sequence
+  type: object
+publishes:
+  - loan-tracked
+metadata:
+  annotations:
+    studio.id: b5da019f-3c96-473b-8316-baa1da6579c1

@@ -1,0 +1,42 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: copy
+scope:
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: copy-id
+  source: state
+state:
+  properties:
+    copy-id:
+      type: string
+    home-branch:
+      enum:
+        - central
+        - riverside
+        - northgate
+        - old-town
+      type: string
+    kind:
+      enum:
+        - circulating
+        - restricted
+      type: string
+    title-id:
+      type: string
+    usage-fee-copy:
+      type: boolean
+    withdrawn:
+      type: boolean
+  required:
+    - copy-id
+    - title-id
+    - kind
+    - usage-fee-copy
+    - home-branch
+    - withdrawn
+  type: object
+metadata:
+  annotations:
+    studio.id: 57bacce1-1dc5-43de-b55d-b3b4a743e1c5

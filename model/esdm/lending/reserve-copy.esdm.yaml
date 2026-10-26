@@ -1,0 +1,27 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: reserve-copy
+scope:
+  aggregate: reservation
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    branch:
+      type: string
+    copy-id:
+      type: string
+    member-id:
+      type: string
+  required:
+    - branch
+    - copy-id
+    - member-id
+publishes:
+  - copy-reserved
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: 44f15ec6-177d-486a-aea5-7096e4f94b28

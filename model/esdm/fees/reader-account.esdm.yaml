@@ -1,0 +1,54 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: reader-account
+scope:
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: member-id
+  source: state
+state:
+  properties:
+    amount-owed-cents:
+      type: integer
+    hold-placed:
+      type: boolean
+    loans:
+      items:
+        properties:
+          due-on:
+            format: date
+            type: string
+          fine-cents:
+            type: integer
+          loan-id:
+            type: string
+          lost-book-fee-cents:
+            type: integer
+          status:
+            enum:
+              - running
+              - returned
+              - lost
+            type: string
+          title-id:
+            type: string
+        required:
+          - loan-id
+          - title-id
+          - due-on
+          - status
+        type: object
+      type: array
+    member-id:
+      type: string
+    payments-received-cents:
+      type: integer
+  required:
+    - member-id
+    - amount-owed-cents
+    - hold-placed
+  type: object
+metadata:
+  annotations:
+    studio.id: a0f8c551-fefe-4c20-aae2-d420c7fa77d1

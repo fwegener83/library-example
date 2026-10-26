@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-declared-lost
+scope:
+  aggregate: loan
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+  required:
+    - loan-id
+    - member-id
+    - copy-id
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: d3343982-fd8e-4420-bfad-3b7e1f7c9a07

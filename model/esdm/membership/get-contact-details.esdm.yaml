@@ -1,0 +1,38 @@
+apiVersion: schema.esdm.io/core/v1
+kind: query
+name: get-contact-details
+scope:
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+readModel: member-contact-details
+result:
+  type: array
+  items:
+    type: object
+    properties:
+      email:
+        type: string
+      member-id:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      postal-address:
+        type: string
+    required:
+      - member-id
+      - name
+      - postal-address
+parameters:
+  type: object
+  properties:
+    member-ids:
+      type: array
+      items:
+        type: string
+  required:
+    - member-ids
+metadata:
+  annotations:
+    studio.id: 3a8debfc-5d90-444e-9347-530cfbe17b77

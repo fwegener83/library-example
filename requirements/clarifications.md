@@ -508,6 +508,10 @@ can still overturn any of them in the review of the pull request.
 - **Open, for chapter 7:** how a notice from `lending` reaches an email
   address that `membership` keeps (a copy in `lending`, or `membership`
   sends). That is a question of the contract, not of the business.
+  *Chapter 7 (2026-10-26):* the question belongs to the notices by email
+  (J2), which the first increment leaves out, so no contract of this
+  increment needs the address. The options and the recommendation are in
+  chapter 7; the decision comes with J2.
 - **Status:** decided 2026-10-25 by the agent (delegated by the
   maintainer).
 
@@ -560,6 +564,28 @@ can still overturn any of them in the review of the pull request.
   (kind, mark, home branch) in its published language (chapter 7).
 - **Status:** decided 2026-10-25 by the agent (delegated by the
   maintainer). The entry in section C is moved here.
+
+### C-33 Is a late fine charged when the returned copy is damaged?
+
+- **Source:** brief §3.2 ("Unless it's damaged, then it goes to Tom"),
+  §3.4 (late returns cost EUR 0.50 per day); C-06 (the reader is not
+  charged for the damage), C-03.
+- **Why now:** in the flow "check out and return" a return always
+  publishes the fact that the copy came back; a damaged copy additionally
+  gets a damage report. `fees` follows the return. Whether a damaged copy
+  returned late is fined decides what `fees` does with that return.
+- **Options:**
+  1. **Lateness and damage are separate.** The late fine is assessed as
+     for any return; the damage costs the reader nothing (C-06).
+  2. No late fine when the copy is damaged.
+- **Decision:** option 1. C-06 says only that the damage is not charged;
+  nothing in the brief says that a damaged copy excuses the days. A
+  reader who brings back a damaged copy three weeks late owes the fine for
+  the three weeks.
+- **Consequence:** `lending` publishes the same return fact for a damaged
+  and an undamaged copy; `fees` does not need to know about the damage.
+- **Status:** decided 2026-10-26 by the agent (delegated by the
+  maintainer).
 
 ---
 

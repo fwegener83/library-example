@@ -1,0 +1,23 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: follow-title-prices
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per title (ADR 11)
+handles:
+  - boundedContext: catalogue
+    aggregate: title
+    event: title-added
+  - boundedContext: catalogue
+    aggregate: title
+    event: title-details-corrected
+emits:
+  - boundedContext: fees
+    aggregate: title-price
+    command: record-title-price
+metadata:
+  annotations:
+    studio.id: 9a54e3d1-3a62-4b62-92c8-00ad56bca31c

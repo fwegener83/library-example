@@ -1,0 +1,24 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-removed-from-circulation
+scope:
+  aggregate: copy
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    applied-sequence:
+      type: integer
+    copy-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+  required:
+    - copy-id
+    - applied-sequence
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 96284d25-c715-4da6-996f-3ba0bae7f9c2

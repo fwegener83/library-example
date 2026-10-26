@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: charge-lost-book-on-loss
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per loan (ADR 11)
+handles:
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-declared-lost
+emits:
+  - boundedContext: fees
+    aggregate: reader-account
+    command: charge-lost-book-fee
+metadata:
+  annotations:
+    studio.id: 1b51b0af-89ad-49ed-8f12-e464c4473b62

@@ -1,6 +1,6 @@
 ---
 name: challenge-context-cut
-description: Challenge the cut into bounded contexts and the context map before anything is built on it. Use at the end of strategic design, before a gate or chapter that builds on the cut, after a context is added, merged or split, after a mapping is turned, or when asked to "challenge", "stress-test" or "review the domain cut / context cut / context map". Produces findings with evidence and alternatives; it never changes the model.
+description: Challenge the cut into bounded contexts and the context map before anything is built on it. Use at the end of strategic design, before a gate or chapter that builds on the cut, after a context is added, merged or split, after a mapping is turned, or when asked to "challenge", "stress-test" or "review the domain cut / context cut / context map"; and, in mode 2, after the flows and contracts across the boundaries are modelled ("challenge the flows", "test the cut with the detailed model"). Produces findings with evidence and alternatives; it never changes the model.
 ---
 
 # Challenge the context cut
@@ -108,9 +108,55 @@ wrong (a cycle, a rule with two owners). **Should fix** means the cut
 holds but a word or mapping is misleading. **Note** means a risk without
 a concrete failure yet.
 
+## Mode 2: with the flows and contracts (phase 5)
+
+Run this mode when the flows across the contexts and the contract on
+each boundary exist in the model. The cut is now tested against the
+processes it has to carry, not against the sources alone. Mode 1 is
+still run at gates; mode 2 adds what only the detailed model shows. The
+rules above apply unchanged.
+
+**Extra inputs.** The flows and their steps, read through the modelling
+tool (`list_flows`, `list_slices`; flows are not in the export), the
+published events, orders and questions with their payload schemas and
+descriptions, the policies with their owners, and the crossing and
+contract tables of the chapter that modelled them.
+
+**Steps.**
+
+1. **Replay every flow** against the abort criteria of the phase model,
+   one by one, and write the result per flow, also when nothing is
+   found: an invariant that needs data of two contexts at the same
+   moment; a policy without a clear owner; a flow that goes back and
+   forth between two contexts; an aggregate that needs the state of
+   another context to decide; a word that needs two meanings inside one
+   context. Where a decision is made from a local copy of another
+   context's facts, say so: the cut holds only because of that copy, and
+   the window in which the copy is stale is a cost to name.
+2. **Rebuild the dependencies** from what is modelled (who handles whose
+   event, who emits a command in which context) and compare them with the
+   mappings and with the records. A cycle is blocking. A dependency with
+   no mapping, or a mapping with no traffic, is a finding.
+3. **Read each contract as the consumer.** Can it act with what it gets,
+   without asking back? What does it do on a repeat, a late, an
+   out-of-order and an unknown-subject case? Is each field needed by
+   some consumer, and is each consumer listed? A field no one uses needs
+   a reason; an event no one consumes is internal and should be marked so.
+4. **Compare words.** Names in payloads and states against the
+   glossaries: a word of one context leaking into another's model, one
+   word with several roles inside one context.
+5. **Look for stale statements.** Descriptions of mappings, glossaries and
+   records that name events or rules the flows no longer use.
+6. **Play three scenarios that the flows do not show** (the late case,
+   the repeat, the rule that changes while a loan or reservation is
+   open) through the contracts.
+
+The report has the same form; add a table "Flow x criterion" to the
+summary. A criterion that is hit is a stop for the maintainer, never a
+repair in the report.
+
 ## Not in scope (yet)
 
-- Sharpening the language *inside* one context while modelling it, and
-  the cut of aggregates (invariants, consistency boundaries). Both come
-  in the detailed modelling phase of the workflow. Add
-  them here as a second mode then, not as guesswork now.
+- The cut of aggregates inside a context (invariants, consistency
+  boundaries) is judged when each context is modelled in detail, not
+  here.

@@ -1,0 +1,31 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: reader
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: member-id
+  source: state
+state:
+  properties:
+    blocked:
+      type: boolean
+    card-valid-until:
+      format: date
+      type: string
+    last-applied-sequence:
+      type: integer
+    member-id:
+      type: string
+    researcher-until:
+      format: date
+      type: string
+  required:
+    - member-id
+    - card-valid-until
+    - blocked
+  type: object
+metadata:
+  annotations:
+    studio.id: 1dcea0be-f8cd-46b2-8cb9-34be3aaf3e6f

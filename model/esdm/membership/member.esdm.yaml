@@ -1,0 +1,54 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: member
+scope:
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: member-id
+  source: state
+state:
+  properties:
+    card-number:
+      type: string
+    card-valid-until:
+      format: date
+      type: string
+    email:
+      type: string
+    holds:
+      items:
+        properties:
+          decided-at:
+            format: date-time
+            type: string
+          placed-by:
+            type: string
+          reason:
+            type: string
+        required:
+          - reason
+          - placed-by
+          - decided-at
+        type: object
+      type: array
+    member-id:
+      type: string
+    name:
+      type: string
+    phone:
+      type: string
+    postal-address:
+      type: string
+    researcher-until:
+      format: date
+      type: string
+  required:
+    - member-id
+    - card-number
+    - card-valid-until
+    - holds
+  type: object
+metadata:
+  annotations:
+    studio.id: f33e61b4-5d85-45f0-ba86-672003e0c6a4

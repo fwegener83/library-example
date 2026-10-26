@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: membership-lending-customer-supplier
-description: 'Lending says what it must know about a member: card valid, not blocked, researcher or not (brief 3.2, 3.3; C-05). Membership decides status and publishes every change; lending keeps the part it needs and never calls back.'
+description: 'Lending says what it must know about a member: the end date of the card, the end date of researcher status, whether the card is blocked (brief 3.2, 3.3; C-05, C-28). Membership decides status and publishes every change (member registered, researcher status granted, card renewed, hold placed, hold lifted), each with the number in order; lending keeps the part it needs, applies the events strictly in order and never calls back (ADR 11). Contact details do not travel: staff pages ask membership (C-31).'
 type: customer-supplier
 supplier:
   domain: millbrook-library-tutorial

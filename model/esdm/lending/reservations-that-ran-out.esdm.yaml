@@ -1,0 +1,37 @@
+apiVersion: schema.esdm.io/core/v1
+kind: read-model
+name: reservations-that-ran-out
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+paradigm: tabular
+schema:
+  items:
+    properties:
+      branch:
+        type: string
+      copy-id:
+        type: string
+      member-id:
+        type: string
+      ran-out-on:
+        format: date
+        type: string
+      reservation-id:
+        type: string
+    required:
+      - reservation-id
+      - member-id
+      - copy-id
+      - branch
+      - ran-out-on
+    type: object
+  type: array
+projections:
+  - boundedContext: lending
+    aggregate: reservation
+    event: reservation-expired
+    rule: One row per expired reservation, for the branch that holds the copy.
+metadata:
+  annotations:
+    studio.id: bdbf7669-f01c-40a7-8640-7bff859e45eb

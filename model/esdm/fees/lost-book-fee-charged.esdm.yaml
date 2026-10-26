@@ -1,0 +1,33 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: lost-book-fee-charged
+scope:
+  aggregate: reader-account
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    amount-owed-cents:
+      type: integer
+    applied-sequence:
+      type: integer
+    fee-cents:
+      type: integer
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+  required:
+    - member-id
+    - loan-id
+    - fee-cents
+    - amount-owed-cents
+    - applied-sequence
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: f766092e-9ca2-41f3-bd96-3228a0b93e3d

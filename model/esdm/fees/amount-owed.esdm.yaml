@@ -1,0 +1,37 @@
+apiVersion: schema.esdm.io/core/v1
+kind: read-model
+name: amount-owed
+scope:
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+paradigm: document
+schema:
+  type: object
+  properties:
+    amount-owed-cents:
+      type: integer
+    member-id:
+      type: string
+  required:
+    - amount-owed-cents
+    - member-id
+projections:
+  - boundedContext: fees
+    aggregate: reader-account
+    event: late-fine-assessed
+    rule: Takes the amount owed carried by the event.
+  - boundedContext: fees
+    aggregate: reader-account
+    event: lost-book-fee-charged
+    rule: Takes the amount owed carried by the event.
+  - boundedContext: fees
+    aggregate: reader-account
+    event: running-fines-counted
+    rule: Takes the amount owed carried by the event.
+  - boundedContext: fees
+    aggregate: reader-account
+    event: payment-received
+    rule: Takes the amount owed carried by the event.
+metadata:
+  annotations:
+    studio.id: 2613b5c7-d146-4526-8c73-2fb7a7cbffce

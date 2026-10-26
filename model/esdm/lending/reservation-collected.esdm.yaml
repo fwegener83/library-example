@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: reservation-collected
+scope:
+  aggregate: reservation
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    branch:
+      type: string
+    copy-id:
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    reservation-id:
+      type: string
+  required:
+    - reservation-id
+    - member-id
+    - copy-id
+    - branch
+    - occurred-on
+  type: object
+metadata:
+  annotations:
+    studio.id: 906febee-33d9-493b-aa4a-8ffcb676e1bc

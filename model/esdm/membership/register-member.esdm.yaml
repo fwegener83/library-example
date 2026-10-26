@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: register-member
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    email:
+      type: string
+    name:
+      type: string
+    phone:
+      type: string
+    postal-address:
+      type: string
+  required:
+    - name
+    - postal-address
+publishes:
+  - member-registered
+  - contact-details-recorded
+actors:
+  - membership-officer
+metadata:
+  annotations:
+    studio.id: e38b04ab-e712-4e49-9d61-72404c61a9ce

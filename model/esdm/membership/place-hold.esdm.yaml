@@ -1,0 +1,29 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: place-hold
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    decided-at:
+      format: date-time
+      type: string
+    member-id:
+      type: string
+    placed-by:
+      type: string
+    reason:
+      type: string
+  required:
+    - member-id
+    - reason
+    - placed-by
+    - decided-at
+  type: object
+publishes:
+  - hold-placed
+metadata:
+  annotations:
+    studio.id: 87845c18-f598-454c-960c-ee23599fb2c5

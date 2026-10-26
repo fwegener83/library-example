@@ -1,0 +1,36 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: title-added
+scope:
+  aggregate: title
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    author:
+      type: string
+    isbn:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    replacement-price-cents:
+      type: integer
+    sequence:
+      type: integer
+    title:
+      type: string
+    title-id:
+      type: string
+  required:
+    - title-id
+    - isbn
+    - title
+    - author
+    - replacement-price-cents
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: 55190319-9693-4960-896e-191a1c63b8b2

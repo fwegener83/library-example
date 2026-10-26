@@ -1,0 +1,37 @@
+apiVersion: schema.esdm.io/core/v1
+kind: query
+name: get-title-details
+scope:
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+readModel: title-details
+result:
+  type: array
+  items:
+    type: object
+    properties:
+      author:
+        type: string
+      isbn:
+        type: string
+      title:
+        type: string
+      title-id:
+        type: string
+    required:
+      - author
+      - isbn
+      - title
+      - title-id
+parameters:
+  type: object
+  properties:
+    title-ids:
+      type: array
+      items:
+        type: string
+  required:
+    - title-ids
+metadata:
+  annotations:
+    studio.id: 7f085535-86a3-4256-be62-6de31b525ed1

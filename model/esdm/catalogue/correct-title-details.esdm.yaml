@@ -1,0 +1,33 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: correct-title-details
+scope:
+  aggregate: title
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    author:
+      type: string
+    isbn:
+      type: string
+    replacement-price-cents:
+      type: integer
+    title:
+      type: string
+    title-id:
+      type: string
+  required:
+    - author
+    - isbn
+    - replacement-price-cents
+    - title
+    - title-id
+publishes:
+  - title-details-corrected
+actors:
+  - head-of-collection
+metadata:
+  annotations:
+    studio.id: b04b33e9-855c-4965-9274-763ea0efb8ca

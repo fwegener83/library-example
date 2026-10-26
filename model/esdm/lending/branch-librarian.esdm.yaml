@@ -1,0 +1,10 @@
+apiVersion: schema.esdm.io/core/v1
+kind: actor
+name: branch-librarian
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+type: human
+metadata:
+  annotations:
+    studio.id: 1ef1a508-c369-4d48-a7d5-ed126ce527cb

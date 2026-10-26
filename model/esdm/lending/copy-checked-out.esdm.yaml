@@ -1,0 +1,37 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-checked-out
+scope:
+  aggregate: loan
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    due-on:
+      format: date
+      type: string
+    loan-id:
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+    title-id:
+      type: string
+  required:
+    - loan-id
+    - member-id
+    - copy-id
+    - title-id
+    - due-on
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: caa349c6-8b5b-407d-9b80-291747d3cfc9

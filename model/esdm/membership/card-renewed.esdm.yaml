@@ -1,0 +1,28 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: card-renewed
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    card-valid-until:
+      format: date
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+  required:
+    - member-id
+    - card-valid-until
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: ad6a26ca-2825-4478-ab45-1b8e586de46b

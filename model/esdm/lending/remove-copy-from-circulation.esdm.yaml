@@ -1,0 +1,22 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: remove-copy-from-circulation
+scope:
+  aggregate: copy
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    applied-sequence:
+      type: integer
+    copy-id:
+      type: string
+  required:
+    - applied-sequence
+    - copy-id
+publishes:
+  - copy-removed-from-circulation
+metadata:
+  annotations:
+    studio.id: a7a0b9d7-0b11-4be2-a956-7d9c1621e818

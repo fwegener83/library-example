@@ -1,0 +1,30 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: copy-found-damaged
+scope:
+  aggregate: copy
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    copy-id:
+      type: string
+    damage-report-id:
+      type: string
+    loan-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+  required:
+    - damage-report-id
+    - copy-id
+    - loan-id
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: b0ac112d-c3f0-4956-b4dc-25a5ec88184e

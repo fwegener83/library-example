@@ -1,0 +1,21 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: collect-reservation
+scope:
+  aggregate: reservation
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    reservation-id:
+      type: string
+  required:
+    - reservation-id
+publishes:
+  - reservation-collected
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: 3f605906-4bc4-4cf1-8fad-d7890dea6ce6

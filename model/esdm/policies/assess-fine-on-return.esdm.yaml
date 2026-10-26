@@ -1,0 +1,20 @@
+apiVersion: schema.esdm.io/core/v1
+kind: policy
+name: assess-fine-on-return
+scope:
+  domain: millbrook-library-tutorial
+deliveryGuarantee: at-least-once
+idempotency:
+  owner: self
+  strategy: keeps the last applied number per loan (ADR 11)
+handles:
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-returned
+emits:
+  - boundedContext: fees
+    aggregate: reader-account
+    command: assess-late-fine
+metadata:
+  annotations:
+    studio.id: e2728839-3f06-4e2e-a363-aac4c120cd81

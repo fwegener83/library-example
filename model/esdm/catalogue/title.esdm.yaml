@@ -1,0 +1,31 @@
+apiVersion: schema.esdm.io/core/v1
+kind: aggregate
+name: title
+scope:
+  boundedContext: catalogue
+  domain: millbrook-library-tutorial
+identifiedBy:
+  field: title-id
+  source: state
+state:
+  type: object
+  properties:
+    author:
+      type: string
+    isbn:
+      type: string
+    replacement-price-cents:
+      type: integer
+    title:
+      type: string
+    title-id:
+      type: string
+  required:
+    - author
+    - isbn
+    - replacement-price-cents
+    - title
+    - title-id
+metadata:
+  annotations:
+    studio.id: a5fca638-8187-40ea-a621-5c1d0e22aac6

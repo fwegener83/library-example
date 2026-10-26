@@ -1,0 +1,48 @@
+apiVersion: schema.esdm.io/core/v1
+kind: read-model
+name: overdue-loans
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+paradigm: tabular
+schema:
+  items:
+    properties:
+      branch:
+        type: string
+      copy-id:
+        type: string
+      due-on:
+        format: date
+        type: string
+      loan-id:
+        type: string
+      member-id:
+        type: string
+      title-id:
+        type: string
+    required:
+      - loan-id
+      - member-id
+      - copy-id
+      - title-id
+      - branch
+      - due-on
+    type: object
+  type: array
+projections:
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-checked-out
+    rule: Adds a row for the open loan with its due date and the branch of checkout.
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-returned
+    rule: Removes the row of the loan.
+  - boundedContext: lending
+    aggregate: loan
+    event: copy-declared-lost
+    rule: Removes the row of the loan.
+metadata:
+  annotations:
+    studio.id: 7ae97199-c672-46c8-8c01-a4fec47e15a3

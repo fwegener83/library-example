@@ -1,0 +1,10 @@
+apiVersion: schema.esdm.io/core/v1
+kind: actor
+name: branch-librarian
+scope:
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+type: human
+metadata:
+  annotations:
+    studio.id: ff362568-ea20-4dae-92a1-5785b96d47b4

@@ -1,0 +1,25 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: record-title-price
+scope:
+  aggregate: title-price
+  boundedContext: fees
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    applied-sequence:
+      type: integer
+    replacement-price-cents:
+      type: integer
+    title-id:
+      type: string
+  required:
+    - applied-sequence
+    - replacement-price-cents
+    - title-id
+publishes:
+  - title-price-recorded
+metadata:
+  annotations:
+    studio.id: 9c3a5917-293e-47aa-bf69-eee1dc4d1283

@@ -1,0 +1,24 @@
+apiVersion: schema.esdm.io/core/v1
+kind: command
+name: mark-copy-damaged
+scope:
+  aggregate: copy
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+data:
+  type: object
+  properties:
+    copy-id:
+      type: string
+    loan-id:
+      type: string
+  required:
+    - copy-id
+    - loan-id
+publishes:
+  - copy-found-damaged
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: 63f6b12b-d8e7-4dee-838c-4696bcc10597

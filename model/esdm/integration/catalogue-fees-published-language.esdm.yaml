@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: catalogue-fees-published-language
-description: The same catalogue events as for lending; fees reads the replacement price of the title and the usage-fee mark of the copy (C-21).
+description: The same catalogue events as for lending, in the same format. In the first increment fees reads only the title events (title added, title details corrected) for the replacement price of the title; the checkout of lending names the title, so fees needs no copy events. The usage-fee mark of the copy (C-21) comes with scenario F, which is left out.
 type: published-language
 publisher:
   domain: millbrook-library-tutorial

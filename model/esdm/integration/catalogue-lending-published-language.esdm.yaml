@@ -1,7 +1,7 @@
 apiVersion: schema.esdm.io/core/v1
 kind: context-mapping
 name: catalogue-lending-published-language
-description: 'Catalogue events are the agreed format lending listens to: title added; copy registered, with circulating or restricted and home branch; copy withdrawn; copy released after repair (C-20, C-24, C-25). The same events carry the usage-fee mark for fees; lending ignores it (C-21).'
+description: 'Catalogue events are the agreed format lending listens to: copy registered (with circulating or restricted and home branch), copy corrected (C-27), copy withdrawn (C-20, C-24). Copy released after repair (C-25) comes with scenario H, which is left out. Lending needs no title events: the copy names its title. The events also carry the usage-fee mark for fees; lending ignores it (C-21). Every event carries the subject, the business day and the number in order (ADR 11).'
 type: published-language
 publisher:
   domain: millbrook-library-tutorial

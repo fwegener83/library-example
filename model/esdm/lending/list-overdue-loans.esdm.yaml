@@ -1,0 +1,48 @@
+apiVersion: schema.esdm.io/core/v1
+kind: query
+name: list-overdue-loans
+scope:
+  boundedContext: lending
+  domain: millbrook-library-tutorial
+readModel: overdue-loans
+result:
+  items:
+    properties:
+      branch:
+        type: string
+      copy-id:
+        type: string
+      due-on:
+        format: date
+        type: string
+      loan-id:
+        type: string
+      member-id:
+        type: string
+      title-id:
+        type: string
+    required:
+      - loan-id
+      - member-id
+      - copy-id
+      - title-id
+      - branch
+      - due-on
+    type: object
+  type: array
+parameters:
+  properties:
+    branch:
+      type: string
+    day:
+      format: date
+      type: string
+  required:
+    - branch
+    - day
+  type: object
+actors:
+  - branch-librarian
+metadata:
+  annotations:
+    studio.id: c7a0850f-1998-4f61-8914-c4d204620987

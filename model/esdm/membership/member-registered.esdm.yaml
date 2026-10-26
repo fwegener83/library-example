@@ -1,0 +1,31 @@
+apiVersion: schema.esdm.io/core/v1
+kind: event
+name: member-registered
+scope:
+  aggregate: member
+  boundedContext: membership
+  domain: millbrook-library-tutorial
+data:
+  properties:
+    card-number:
+      type: string
+    card-valid-until:
+      format: date
+      type: string
+    member-id:
+      type: string
+    occurred-on:
+      format: date
+      type: string
+    sequence:
+      type: integer
+  required:
+    - member-id
+    - card-number
+    - card-valid-until
+    - occurred-on
+    - sequence
+  type: object
+metadata:
+  annotations:
+    studio.id: 08ee67a2-f38d-4534-98ed-7bad12ae26ab
