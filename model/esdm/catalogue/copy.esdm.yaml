@@ -12,11 +12,6 @@ state:
     copy-id:
       type: string
     home-branch:
-      enum:
-        - central
-        - riverside
-        - northgate
-        - old-town
       type: string
     kind:
       enum:

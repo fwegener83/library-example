@@ -20,7 +20,7 @@ for each phase. ADR 10 (REST at the edges) is accepted. The independent review o
 | 4 | [Deployment decision](chapters/04-deployment-decision.md) | done |
 | 5 | [Challenging the cut](chapters/05-challenging-the-cut.md) | done |
 | 6 | [Choosing the first increment](chapters/06-choosing-the-first-increment.md) | done (gate G6 decided: option 3) |
-| 7 | [Flows and contracts across the boundaries](chapters/07-flows-and-contracts.md) | in review (ADR 12 proposed) |
+| 7 | [Flows and contracts across the boundaries](chapters/07-flows-and-contracts.md) | in review (ADR 12 and 13 proposed) |
 
 How decisions are made, and by whom, is described in [`docs/decisions.md`](docs/decisions.md). The working plan (in German) is in [`docs/plan.md`](docs/plan.md).
 

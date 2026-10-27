@@ -18,5 +18,6 @@ Status values: `proposed`, `accepted`, `rejected`, `deprecated`, `superseded by 
 | [10](0010-rest-at-the-edges.md) | Front ends use the modules through REST; between modules there is no REST | accepted |
 | [11](0011-what-every-published-event-carries.md) | Every published event names its subject, its business time and its place in order | accepted |
 | [12](0012-changing-published-events.md) | A published contract changes by addition; anything else is a new fact beside the old one | proposed |
+| [13](0013-gaps-and-repeats.md) | Gaps and repeats: streams that carry the state, a number for every published event, and orders that are remembered | proposed |
 
 The tutorial is written for Java, Spring Boot and Spring Modulith (a premise, see [ADR 1](0001-record-architecture-decisions.md)). Versions, event store, database and user interface technology are decided at gate G2 and are deliberately not part of these records.

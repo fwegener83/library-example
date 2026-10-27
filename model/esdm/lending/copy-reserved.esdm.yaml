@@ -21,10 +21,13 @@ data:
     runs-out-on:
       format: date
       type: string
+    title-id:
+      type: string
   required:
     - reservation-id
     - member-id
     - copy-id
+    - title-id
     - branch
     - runs-out-on
     - occurred-on

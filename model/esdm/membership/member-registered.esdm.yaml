@@ -7,8 +7,6 @@ scope:
   domain: millbrook-library-tutorial
 data:
   properties:
-    card-number:
-      type: string
     card-valid-until:
       format: date
       type: string
@@ -21,7 +19,6 @@ data:
       type: integer
   required:
     - member-id
-    - card-number
     - card-valid-until
     - occurred-on
     - sequence

@@ -18,10 +18,13 @@ data:
       type: string
     reservation-id:
       type: string
+    title-id:
+      type: string
   required:
     - reservation-id
     - member-id
     - copy-id
+    - title-id
     - branch
     - occurred-on
   type: object

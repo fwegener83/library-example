@@ -1,8 +1,8 @@
 # Chapter 7 — Flows and contracts across the boundaries
 
 **Input:** the accepted scope of [chapter 6](06-choosing-the-first-increment.md) (option 3), the cut and map of [chapter 3](03-strategic-design.md), the records [ADR 2 to 11](../docs/adr/README.md), the [clarification log](../requirements/clarifications.md), the [brief](../requirements/brief.md)
-**Tool:** the skills [`model-flows`](../.claude/skills/model-flows/SKILL.md) and [`design-context-contracts`](../.claude/skills/design-context-contracts/SKILL.md), both written for this chapter; DDD Studio, Static View and Flow View (Studio version `ch07-flows-and-contracts-v2`)
-**Result:** ten flows with 51 steps across the four contexts, a contract for every boundary that the scope crosses (thirteen events, two orders, six questions), the test of the cut against the abort criteria of the phase model, and one proposed record on how contracts change over time ([ADR 12](../docs/adr/0012-changing-published-events.md)). **No abort criterion was hit.** Nothing is built.
+**Tool:** the skills [`model-flows`](../.claude/skills/model-flows/SKILL.md) and [`design-context-contracts`](../.claude/skills/design-context-contracts/SKILL.md), both written for this chapter; DDD Studio, Static View and Flow View (Studio version `ch07-flows-and-contracts-v3`); the contract file [`model/contracts.md`](../model/contracts.md)
+**Result:** ten flows with 54 steps across the four contexts, a contract for every boundary that the scope crosses (thirteen events, two orders, six questions), the test of the cut against the abort criteria of the phase model, and two proposed records: how contracts change over time ([ADR 12](../docs/adr/0012-changing-published-events.md)) and how gaps and repeated orders are handled ([ADR 13](../docs/adr/0013-gaps-and-repeats.md)). **No abort criterion was hit.** An independent review ([report](../docs/reviews/ch07-flows-and-contracts.md)) found no blocking point and twelve to fix; the chapter answers them below. Nothing is built.
 
 ## What this chapter is, and what it is not
 
@@ -23,8 +23,8 @@ For each scenario of option 3 there is a flow, in the order of the build (A and 
 | B. Register a member, grant researcher status, renew the card | B | 6 | membership → lending |
 | C. Check out and return a copy, also a damaged one | C | 4 | none (inside `lending`) |
 | D. Reserve a copy, collect it, cancel it or let it run out | D | 5 | none (inside `lending`) |
-| E1. A late return: the fine is assessed | E1 | 4 | lending → fees |
-| E2–E3. The running fine blocks the card, payment unblocks it | E2, E3 | 8 | lending → fees, fees → membership, membership → lending |
+| E1. A late return: the fine is assessed, also capped at the price | E1 | 6 | lending → fees |
+| E2–E3. The running fine blocks the card, payment unblocks it | E2, E3 | 9 | lending → fees, fees → membership, membership → lending |
 | E2b. The return reaches fees after the morning run and takes the hold back | E2 (late case) | 6 | the same |
 | G1. A copy is declared lost at the desk | G1 | 6 | lending → fees, fees → membership, catalogue → lending |
 | J1. The morning lists | J1 | 4 | questions to lending, membership, catalogue |
@@ -57,16 +57,16 @@ Two mappings of the context map carry no traffic in this increment: CityPay → 
 
 Every published event carries the envelope of [ADR 11](../docs/adr/0011-what-every-published-event-carries.md): the identity of its subject, the business day (`occurred-on`) and its place in order for the subject (`sequence`). The names of the fields are an agent's decision of this chapter (see the box at the end). An order carries `decided-at`, the moment of the decision, as ADR 5 asks.
 
-The contract of an event is its schema, its owner, who uses what, and what the consumer does when it arrives twice, late, out of order or about something it does not know yet. The first three are in the table; the last is the same rule for all events, with the exceptions below it.
+The schemas are in the model and its export. The owner of each policy, who uses what and the rules for late and repeated events are in [`model/contracts.md`](../model/contracts.md), because Studio returns and exports no descriptions of elements (tool gap 23; the first version of this chapter wrote them there and the review could not find them). `scripts/check_repo.py` compares the file with the export. The contract of an event is its schema, its owner, who uses what, and what the consumer does when it arrives twice, late, out of order or about something it does not know yet. The first three are in the table; the last is the same rule for all events, with the exceptions below it.
 
 | Event | Owner | Subject | What the consumers use | Carried, not used yet |
 |---|---|---|---|---|
 | copy registered | catalogue | the copy | lending: copy, title, kind, home branch | usage-fee mark (scenario F) |
 | copy corrected | catalogue | the copy | lending: kind, home branch (all three values travel, so the event replaces the earlier ones) | usage-fee mark |
 | copy withdrawn | catalogue | the copy | lending: the fact | reason (lists of the Head of Collection) |
-| title added | catalogue | the title | fees: title, replacement price | ISBN, title, author (the catalogue's own page) |
+| title added | catalogue | the title | fees: title, replacement price | ISBN, title, author (for the catalogue's own page; not promised to fees) |
 | title details corrected | catalogue | the title | fees: replacement price (the whole record travels) | as above |
-| member registered | membership | the member | lending: end date of the card | card number |
+| member registered | membership | the member | lending: end date of the card | |
 | researcher status granted | membership | the member | lending: end date of the status | |
 | card renewed | membership | the member | lending: new end date of the card | |
 | hold placed | membership | the member | lending: whether the card is now blocked | reason |
@@ -93,23 +93,30 @@ The six questions are asked by a staff page and answered by one module each: the
 
 The skills ask for the five abort criteria of the phase model on every flow, with the result written down also when nothing is found.
 
-| Criterion | Result |
-|---|---|
-| An invariant needs data from two contexts at the same moment | Not hit, but it is the main thing the test showed (finding 1). |
-| A policy has no clear owner | Not hit. All ten policies have one, written at the start of the description. |
-| A flow goes back and forth between two contexts | Not hit (finding 3). Between no two contexts does traffic run in both directions. |
-| An aggregate needs the state of another context to decide | Not hit, with the same remark as the first criterion. |
-| A word needs two meanings inside one context | Not hit. One word, *branch*, has several roles in `lending` (finding 5). |
+The result per flow (the review asked for this form). "no" is not hit; "(copy)" is not hit only because the decision is taken from a local copy of another context's facts (finding 1).
+
+| Flow | Invariant, two contexts at once | Policy without owner | Back and forth between two contexts | Aggregate needs foreign state | One word, two meanings |
+|---|---|---|---|---|---|
+| A | no | no | no | no | no |
+| A2 | no | no | no | no | no |
+| B | no | no | no | no | no |
+| C | no (copy) | no | no | no (copy) | *branch* has several roles (finding 5) |
+| D | no (copy) | no | no | no (copy) | *branch* |
+| E1 | no (copy) | no | no | no (copy) | no |
+| E2–E3 | no (copy) | no | no: three hops, but no pair has traffic both ways | no (copy) | no |
+| E2b | no (copy, business time) | no | no | no (copy) | no |
+| G1 | no (copy) | no | no | no (copy) | no |
+| J1 | no | no policies: questions | no | no | no |
 
 **The cut holds. Seven findings, none of which is a stop.**
 
-1. **Lending decides from local copies, and that is the cost of this cut.** A checkout needs the end date of the card and the researcher status (membership), the kind of the copy (catalogue) and the shelf state (lending itself). Read as an invariant, that is data of three contexts at the same moment. The answer in ADR 4 and ADR 11 is that `lending` keeps what it needs as facts of its own and never asks back. The flows show that this works: every command of `lending` that lends or reserves is decided from `reader` and `copy`, which are kept up to date by two policies. The price is a window of staleness. A reader who has just renewed may be refused until the renewal arrives; a copy that was corrected a minute ago is lent under its old kind until then. Both are on the safe side and ADR 11 already names the renewal case. **The cut holds only if this reading of ADR 4 is accepted.** The maintainer should be aware that it is the case.
+1. **Lending decides from local copies, and that is the cost of this cut.** A checkout needs the end date of the card and the researcher status (membership), the kind of the copy (catalogue) and the shelf state (lending itself). Read as an invariant, that is data of three contexts at the same moment. The answer in ADR 4 and ADR 11 is that `lending` keeps what it needs as facts of its own and never asks back. The flows show that this works: every command of `lending` that lends or reserves is decided from `reader` and `copy`, which are kept up to date by two policies. The price is a window of staleness. A reader who has just renewed may be refused until the renewal arrives; a copy that was corrected a minute ago is lent under its old kind until then. Both are on the safe side and ADR 11 already names the renewal case. **The cut holds only if this reading of ADR 4 is accepted.** The review adds that the safe direction is not guaranteed: the card events are changes, so a lost renewal holds back a later *hold placed* and `lending` keeps lending to a blocked reader (review F1). [ADR 13](../docs/adr/0013-gaps-and-repeats.md) proposes status events that carry the whole status, so that no gap holds a block back.
 2. **An event that nobody needs was removed.** The context map (ADR 9, mapping `lending-fees`) and the Big Picture name *Loan Became Overdue*. In the flows nothing consumes it: `fees` counts from the due date it holds, and the morning list of overdue loans is a comparison of the due date with the day. The wording of ADR 9 and of the mapping is corrected; the decision of ADR 9 (customer–supplier) is unchanged.
 3. **Three hops, no circle.** A payment at the desk is a fact of `fees`, which orders `membership` to lift the hold, which publishes a fact that `lending` applies. The flow touches three contexts and returns to the one it started from, but the dependencies are `fees → lending`, `fees → membership` and `lending → membership`, which is acyclic, as ADR 5 wants. Delivery costs time: in the moment between the payment and the arrival of the fact the desk of `lending` still sees the card as blocked. With one deployable unit this may be a matter of milliseconds, but the contract does not rely on it; the technology is decided at G2.
 4. **A fee that crosses ten euros by one day.** The case E2b above is what ADR 11 did for the first time on a real flow. It works because the hold order carries the time of the decision and the policy is stateless: the aggregate in `fees` decides, the policy turns the decision into an order (tool gap 15 describes this pattern).
 5. **The word *branch* has several roles in `lending`:** the home branch from the catalogue, the branch where a copy stands now, the branch where it was checked out and the branch where it was returned. C-14 (which branch counts for the overdue limit) is exactly the question which of them is meant. The model keeps them apart by field name today (`home-branch`, `current-branch`, `branch`); chapter 8 names the roles properly when it decides C-14.
-6. **Some fields are carried that no consumer uses yet.** The usage-fee mark travels in the copy events and the reason in the hold events. By the rule "a field that no consumer needs is removed" they would be gone. They stay, because the first driver of ADR 11 says that a field added later is missing from every event already published. This is an exception with a reason, and ADR 12 says so.
-7. **Identifiers keep the name of the owner.** The aggregates are called `reader` and `reader-account` (the words of `lending` and `fees`, C-07), but the identifier is `member-id`, as membership issues it (ADR 7). A word of one context therefore appears in the payloads of two others. It is the identifier, not a concept, and it is kept so that a reader of two contracts sees at once that they speak of the same thing.
+6. **Some fields are carried that no consumer uses yet.** The usage-fee mark travels in the copy events and the reason in the hold events. By the rule "a field that no consumer needs is removed" they would be gone. They stay, because the first driver of ADR 11 says that a field added later is missing from every event already published. The honest list is longer than two: the usage-fee mark, the reason of a hold and the reason of a withdrawal; the copy in the three loan events (the morning list needs it); ISBN, title and author in the title events (the catalogue's own page needs them). `contracts.md` lists each as "not promised": a consumer must not rely on them. The card number, which no consumer needs, was removed.
+7. **Identifiers keep the name of the owner.** The aggregates are called `reader` and `reader-account` (the words of `lending` and `fees`, C-07), but the identifier is `member-id`, as membership issues it (ADR 7). A word of one context therefore appears in the payloads of two others. It is the identifier, not a concept, and it is kept so that a reader of two contracts sees at once that they speak of the same thing. Both glossaries now say so (entry *member identifier*).
 
 **What the flows could not test**, and nobody should believe they did: the anti-corruption layers to CityPay and to the ISBN service (E4 and the lookup are left out); the release of a damaged copy, which ADR 11 wants to name the damage report that it answers (H is left out; `lending` already issues the damage report and lists it); keeps and the end of researcher status (I); the rules inside `lending`, among them the five reservations, the overdue limit per branch and the restricted copy for a researcher on the day, which are rules of an aggregate and are tested in chapter 8.
 
@@ -125,31 +132,32 @@ C-31 left one question for this chapter: how a notice from `lending` reaches an 
 * **(b) A notice adapter outside the modules** listens to the facts of `lending` and asks `membership` for the address. One copy of the data. Cost: a new kind of element that listens to events from outside, which ADR 8 does not provide for.
 * **(c) Membership sends.** It would have to listen to `lending`, which closes a circle with the existing arrow. ADR 5 rules this out.
 
-**Recommendation for J2: (a).** It is the option that keeps within the rules we have.
+**Recommendation for J2: (a).** It keeps within ADR 4 and ADR 5. Note that (a) is option 2 of C-31 for one attribute and so partly undoes that entry; the maintainer decides it when J2 comes into scope, not now.
 
 ## What we take with us
 
 * **The cut survived the first test with the inside of the contexts.** Seven of the nine mappings were used by the flows; two were not, and the chapter says which.
 * The skills `model-flows` and `design-context-contracts` exist and were used for real. The second mode of `challenge-context-cut` (flows and contracts) was added and is used for the review of this chapter.
-* The model in Studio is the source of the contracts. The tables above are made from it, and the export in [`model/esdm/`](../model/esdm/) holds the events, commands, queries and policies as files. The flows are in Studio only, because ESDM does not export them (tool gap 16).
+* The schemas are in the model and its export ([`model/esdm/`](../model/esdm/)); owners, consumers and rules are in [`model/contracts.md`](../model/contracts.md), checked against the export. The flows are in Studio only, because ESDM does not export them (tool gap 16), so a reader without Studio sees the crossings in the tables here, not the example runs.
 * Chapter 8 starts with `lending` and takes the questions that this chapter left: which aggregate decides a checkout, the roles of the branch, and C-11 to C-14.
 
 ## Decisions in this chapter
 
-* **Business — decided by the agent (delegated by the maintainer), one entry:** C-33. A late fine is charged also for a damaged copy; the damage costs the reader nothing (C-06). Recorded in the [clarification log](../requirements/clarifications.md), where the maintainer can overturn it.
-* **Architecture — one proposal, for the maintainer to decide:** [ADR 12](../docs/adr/0012-changing-published-events.md), how a contract changes. Status `proposed`; the recommended option is "additions only; anything else is a new fact beside the old one". Until it is decided, ADR 4 ("changed only by adding to it") stands.
+* **Business — decided by the agent (delegated by the maintainer):** C-33 (a late fine is charged also for a damaged copy; the damage costs the reader nothing, C-06), C-34 (a renewal runs from the old end while the card is valid, otherwise from the day of renewal) and C-35 (a reservation of a copy that becomes restricted ends unless the reader is a researcher), and an amendment of C-28 (the events *Card Expired* and *Researcher Status Expired* are not modelled until someone needs them). Recorded in the [clarification log](../requirements/clarifications.md), where the maintainer can overturn them.
+* **Architecture — two proposals, for the maintainer to decide:** [ADR 12](../docs/adr/0012-changing-published-events.md), how a contract changes (recommended: additions only; anything else is a new fact beside the old one; amended after the review for enumerations and a fourth option), and [ADR 13](../docs/adr/0013-gaps-and-repeats.md), how gaps and repeated orders are handled (recommended: status events that carry the whole status, a number for every published event, orders that are remembered). Both are `proposed`. Until they are decided, ADR 4 and ADR 11 stand as accepted, with the weak spots named in finding 1.
 * **Open for the maintainer, later:** the recommendation for C-31 (the address of a notice) is made for J2 and not for this increment.
-* **Way of working:** the skills `model-flows` and `design-context-contracts` are used from now on; mode 2 of `challenge-context-cut` is part of phase 5. The contract lives in the model in Studio; this repository has no second copy of it.
+* **Way of working:** the skills `model-flows` and `design-context-contracts` are used from now on; mode 2 of `challenge-context-cut` is part of phase 5. The contract is the schemas in the model plus `model/contracts.md`; a script compares the two.
 * **Decided by the agent, listed so that the maintainer can object** (detail of the model, not decisions between options):
   * The envelope fields are `<subject>-id`, `occurred-on` (the business day, a date) and `sequence`; an order carries `decided-at` (a moment). Money is whole cents.
   * *Card Blocked* and *Card Unblocked* of the Big Picture are the events *hold placed* and *hold lifted*, each with the field `blocked` for the state after the change. The reason is why the card is blocked; lending needs only the state.
-  * *Loan Became Overdue* is not an event (finding 2). *Card Expired* and *Researcher Status Expired* have no consumer and are not modelled (C-28).
+  * *Loan Became Overdue* is not an event (finding 2). *Card Expired* and *Researcher Status Expired* have no consumer and are not modelled; C-28 is amended to say so (the decision, dates instead of events, is unchanged).
   * The checkout names the title, so that `fees` needs no copy events in this increment.
   * `fees` keeps one aggregate per reader (`reader-account`), because the EUR 10 rule adds up all charges of a reader (C-19). `lending` keeps a `reader` and a `copy` of its own.
   * *Reservation collected* is an event of this model, inferred; the checkout of a collected reservation follows from it in a policy of `lending`.
   * Flow E2b was added for the late case; the questions for people and titles take lists.
-  * A published event is marked in the description by its first words, "Published to …" or "Internal to …" (tool gap 19).
+  * Whether an event is published or internal is derived from the policies (a policy of another context handles it) and written in `model/contracts.md`; the descriptions written in Studio are not visible (tool gap 23).
+  * Replies to the review: the reservation question returns the title; example ids are per flow (the same id in two flows is not the same run); `decided-at` is a UTC instant and the business day is the library's calendar day, the time zone is not stated in the sources and is left to G2.
 
 ---
 
-*Boards: no Domain Story or sketch board was changed. Studio versions: `ch07-flows-and-contracts` and `ch07-flows-and-contracts-v2` (workspace "Millbrook Library (tutorial)"). Sources: [`model/esdm/`](../model/esdm/), [`docs/adr/`](../docs/adr/README.md), [`requirements/clarifications.md`](../requirements/clarifications.md), [`docs/tool-gaps.md`](../docs/tool-gaps.md).*
+*Boards: no Domain Story or sketch board was changed. Studio versions: `ch07-flows-and-contracts`, `-v2` and `-v3` (workspace "Millbrook Library (tutorial)"). Sources: [`model/esdm/`](../model/esdm/), [`docs/adr/`](../docs/adr/README.md), [`requirements/clarifications.md`](../requirements/clarifications.md), [`docs/tool-gaps.md`](../docs/tool-gaps.md).*

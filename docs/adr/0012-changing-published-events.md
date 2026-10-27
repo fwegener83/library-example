@@ -19,7 +19,7 @@ The technology decides how events are delivered and kept (gate G2). This record 
 ## Decision Drivers
 
 * A module is worth having only if one can change it without touching the others. A contract that can be changed freely makes every consumer a co-owner.
-* ADR 9 says the supplier "tells the customer before it changes" an event. That needs a place where the consumers are listed. The model has one: the descriptions of events and mappings, and the contract table of chapter 7.
+* ADR 9 says the supplier "tells the customer before it changes" an event. That needs a place where the consumers are listed. The model and its export hold the schemas but not the consumers (Studio does not return descriptions, tool gap 23), so the list is `model/contracts.md`, which `scripts/check_repo.py` compares with the export.
 * There is one deployable unit (ADR 2). Publisher and consumer can be changed in one commit, but that is a convenience of the day, not a rule worth building the modules on.
 * Whether events are stored, and for how long, is not known before G2. A rule that only works while no event is stored would have to be redone.
 * Few rules. A rule the team has to look up for each change is not followed.
@@ -29,6 +29,7 @@ The technology decides how events are delivered and kept (gate G2). This record 
 1. Additions only; anything else is a new fact beside the old one
 2. A version in every event, and the consumer converts old versions
 3. Change publisher and consumers together; no compatibility
+4. Additions only, and an incompatible change in one commit while there is one unit and nothing is stored
 
 ## Decision Outcome
 
@@ -40,19 +41,19 @@ Recommended option: "Additions only; anything else is a new fact beside the old 
 * a new published event for a situation that had none. Consumers ignore events they do not know;
 * a new optional field in an order or a query parameter.
 
-**All other changes** are not compatible. They are: removing, renaming or retyping a field; changing what a field means, its unit or its format; adding a value to an enumeration that a consumer decides on; making an optional field required; splitting or merging events; changing the envelope of ADR 11. For these:
+**All other changes** are not compatible. They are: removing, renaming or retyping a field; changing what a field means, its unit or its format; making an optional field required; splitting or merging events; changing the envelope of ADR 11; and adding a value to an enumeration, unless the contract names the safe default of every consumer that decides on it (see below). For these:
 
 * the owner publishes a **new fact under a new name** (not a version suffix; a name that says what happened, as with any event) beside the old one, and keeps publishing both;
 * the owner updates the contract in the model first (the event, the mapping, the contract table), naming each consumer that has to move, and tells them (ADR 9);
 * when the last named consumer has moved and its change is released, the owner stops publishing the old fact and removes it from the model.
 
-**Enumerations.** A consumer that decides on a value says in the contract what it does with a value it does not know, and it chooses the safe side: an unknown copy kind is not lendable; an unknown reason for a hold still blocks. Adding a value is therefore compatible only where the contract names that safe default.
+**Enumerations.** A consumer that decides on a value says in the contract what it does with a value it does not know, and it chooses the safe side: an unknown copy kind is not lendable. Adding a value is compatible if the contract names that default for every consumer that decides on the value; otherwise it is incompatible. A list that changes for business reasons (the four branches) is not made an enumeration of the contract: the events carry the branch as text, and the owner of the list is named when it first changes.
 
 **Orders and questions** follow the same rules, with callers in place of consumers.
 
 **Stored events.** If events are stored (gate G2), each stored event stays readable under these rules. Nothing here lets an owner rewrite stored events; how stored events are read after an incompatible change is decided with the storage.
 
-**Where the contract lives.** The model in DDD Studio is the source of the contract (schema, owner, consumers). The check that the code still matches it belongs to the build phase (`check-model-code`).
+**Where the contract lives.** The schema is in the model in DDD Studio and in its export. The owner, the consumers and the rules for late and repeated events are in `model/contracts.md`, checked against the export by `scripts/check_repo.py`. The check that the code still matches both belongs to the build phase (`check-model-code`).
 
 Not decided here: the format and transport of events, how long both facts are published, and how stored events are migrated (gate G2).
 
@@ -62,9 +63,9 @@ Not decided here: the format and transport of events, how long both facts are pu
 * Good, because an incompatible change is visible in the model as a second fact with a named list of consumers, instead of a surprise in someone else's tests.
 * Good, because every change starts in the model (the rule of this repo: Studio first).
 * Bad, because during a transition two facts are published for one thing, and a consumer that listens to both must not count twice. The contract says which one a consumer follows; it follows one of them.
-* Bad, because "the last consumer has moved" needs an up-to-date list of consumers. The model has it only if it is kept; the contract table is where it is kept.
+* Bad, because "the last consumer has moved" needs an up-to-date list of consumers. `model/contracts.md` holds it; the check finds a missing row, not a wrong one.
 * Bad, because a field that is carried "for later" (the usage-fee mark and the reason of a hold travel today although no consumer uses them yet) costs a little in every event. The first driver of ADR 11 pays for it: a field added later is missing from every event already published.
-* Neutral, because it does not forbid the simple case. While both module and consumer are in the same commit and nothing is stored, nothing stops the team from changing both at once; the rule says what is owed when it cannot.
+* Neutral, because the cheaper rule of option 4 is the same rule with one exception that can be added later. The record recommends not to start with the exception: it works only while nothing is stored and only one unit exists, and it is the exception that gets used.
 
 ## Pros and Cons of the Options
 
@@ -86,3 +87,10 @@ Not decided here: the format and transport of events, how long both facts are pu
 * Good, because it is the cheapest rule while there is one unit, nothing is stored and every change is small.
 * Bad, because it makes the modules co-owned in practice: a change in `lending` has to be released with `fees`, and the supplier no longer "tells the customer before" but changes the customer's code.
 * Bad, because it fails at the first stored event, and the rule would have to be replaced with another then.
+
+### Additions only, and an incompatible change in one commit while there is one unit and nothing is stored
+
+* Good, because the common change costs nothing and the rare incompatible one costs a commit, not a transition.
+* Good, because nothing in it has to be unlearned when a second unit or a stored event comes: the rule of option 1 then applies unchanged.
+* Bad, because it makes "tells the customer before it changes" a review comment. It turns the supplier into the author of the customer's change.
+* Bad, because the moment at which the exception ends (the first stored event, the second deployable) has to be noticed by someone; the check does not see it.

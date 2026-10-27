@@ -13,6 +13,7 @@ real numbers are given when a question goes into the log.
 | [ch04-context-cut.md](ch04-context-cut.md) | `9e404d9`, after chapter 4 | The real run on the current cut |
 | [ch05-context-cut.md](ch05-context-cut.md) | chapter 5 branch, after the answers to the chapter 4 report | Did the answers hold, or did they bring new problems? |
 | [pre-g6-context-cut.md](pre-g6-context-cut.md) | `b911252`, after ADR 10, before gate G6 | Does the cut hold for choosing the delivery scope and for the detailed modelling? |
+| [ch07-flows-and-contracts.md](ch07-flows-and-contracts.md) | `5f06028`, chapter 7 branch (mode 2: flows and contracts) | Does the cut hold against the processes of the first increment, and are the contracts complete? 0 blocking, 12 should fix, 4 notes; answered in the chapter 7 pull request |
 
 ## Test of the skill (2026-10-23)
 

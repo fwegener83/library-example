@@ -30,10 +30,13 @@ state:
         - cancelled
         - expired
       type: string
+    title-id:
+      type: string
   required:
     - reservation-id
     - member-id
     - copy-id
+    - title-id
     - branch
     - reserved-on
     - runs-out-on

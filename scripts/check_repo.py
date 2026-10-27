@@ -232,6 +232,67 @@ for f in [root / "CLAUDE.md", *(root / ".claude" / "skills").rglob("SKILL.md")]:
         if not (root / path).exists():
             err(f"{f.relative_to(root)}: names {path}, which does not exist")
 
+# the contracts across the boundaries (model/contracts.md) must match the export:
+# the model cannot hold owner, consumers or rules (tool gap 23), so the file does.
+contracts_file = root / "model" / "contracts.md"
+esdm = root / "model" / "esdm"
+if contracts_file.exists() and (esdm / "policies").exists():
+    ctext = contracts_file.read_text()
+
+    def table_names(heading):
+        """First-cell names in backticks of the table under '## heading'."""
+        if f"\n## {heading}" not in ctext:
+            err(f"model/contracts.md has no section '{heading}'")
+            return {}
+        block = ctext.split(f"\n## {heading}", 1)[1].split("\n## ", 1)[0]
+        rows = {}
+        for line in block.splitlines():
+            m = re.match(r"\| `([a-z0-9-]+)` \|(.*)", line)
+            if m:
+                rows[m.group(1)] = [c.strip() for c in m.group(2).split("|")]
+        return rows
+
+    policies = table_names("Policies and their owners")
+    events = table_names("Published events")
+    orders = table_names("Orders")
+    questions = table_names("Questions")
+    files = {}
+    for f in esdm.rglob("*.esdm.yaml"):
+        kind = re.search(r"^kind: (\S+)", f.read_text(), re.M)
+        if kind:
+            files.setdefault(kind.group(1), set()).add(f.name[: -len(".esdm.yaml")])
+    for table, kind, label in ((events, "event", "event"), (orders, "command", "order"),
+                               (questions, "query", "question"), (policies, "policy", "policy")):
+        for name in table:
+            if name not in files.get(kind, set()):
+                err(f"model/contracts.md: {label} '{name}' is not in the model export")
+    crossing_events, crossing_orders = set(), set()
+    for f in sorted((esdm / "policies").glob("*.esdm.yaml")):
+        name = f.name[: -len(".esdm.yaml")]
+        text = f.read_text()
+        handled = re.findall(r"boundedContext: (\S+)\n    aggregate: \S+\n    event: (\S+)", text)
+        emitted = re.findall(r"boundedContext: (\S+)\n    aggregate: \S+\n    command: (\S+)", text)
+        if name not in policies:
+            err(f"model/contracts.md: policy '{name}' has no row (owner missing)")
+            continue
+        owner = policies[name][0]
+        if owner not in {bc for bc, _ in handled} | {bc for bc, _ in emitted}:
+            err(f"model/contracts.md: owner '{owner}' of policy '{name}' is none of the contexts it touches")
+        for bc, ev in handled:
+            if bc != owner:
+                crossing_events.add(ev)
+        for bc, cmd in emitted:
+            if bc != owner:
+                crossing_orders.add(cmd)
+    for ev in sorted(crossing_events - set(events)):
+        err(f"model/contracts.md: event '{ev}' crosses a boundary (a policy of another context handles it) and has no row")
+    for ev in sorted(set(events) - crossing_events):
+        warn(f"model/contracts.md: event '{ev}' is listed as published but no policy of another context handles it")
+    for cmd in sorted(crossing_orders - set(orders)):
+        err(f"model/contracts.md: order '{cmd}' crosses a boundary and has no row")
+    for q in sorted(files.get("query", set()) - set(questions)):
+        err(f"model/contracts.md: question '{q}' has no row")
+
 if warnings:
     print("\n".join(f"WARN {w}" for w in warnings))
 if errors:

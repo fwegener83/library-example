@@ -147,7 +147,12 @@ contract tables of the chapter that modelled them.
    word with several roles inside one context.
 5. **Look for stale statements.** Descriptions of mappings, glossaries and
    records that name events or rules the flows no longer use.
-6. **Play three scenarios that the flows do not show** (the late case,
+6. **Check that the record of the contract can be read** by a reviewer
+   without the modelling tool: owners, consumers and rules must be in the
+   exports or in a file that a script compares with them. A claim that
+   "the model is the source" is tested by looking for the fact in the
+   export.
+7. **Play three scenarios that the flows do not show** (the late case,
    the repeat, the rule that changes while a loan or reservation is
    open) through the contracts.
 

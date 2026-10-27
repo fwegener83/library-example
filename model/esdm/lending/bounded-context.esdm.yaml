@@ -33,13 +33,15 @@ ubiquitousLanguage:
   - term: researcher
     definition: 'A reader whom membership reports as a researcher, up to the end date of the status (C-28): may borrow restricted copies, may ask for keeps and has no reservation limit.'
   - term: branch
-    definition: 'One of the four library sites: Central, Riverside, Northgate, Old Town. A copy is on the shelf at one branch at a time; its home branch comes from the catalogue (C-24).'
+    definition: 'One of the four library sites: Central, Riverside, Northgate, Old Town. A copy is on the shelf at one branch at a time; its home branch comes from the catalogue (C-24). In this context the word has four roles, kept apart by the field names: the home branch (from the catalogue), the branch where the copy stands now (`current-branch`), the branch of a checkout or reservation, and the branch of a return. Which of them counts for the overdue limit is open (C-14).'
   - term: lost copy
     definition: A copy the reader reports lost at the desk. The loan ends and the copy is listed for the Head of Collection, who withdraws it in the catalogue (C-04, C-20). If it comes back, it is taken in as found and listed for the Head of Collection again (C-30).
   - term: damaged copy
     definition: A copy found damaged at check-in. Not lendable and listed for the Head of Collection, who withdraws it or, after repair, releases it in the catalogue (C-06, C-25).
   - term: morning list
     definition: 'The two lists a branch gets every morning: reservations that ran out and loans that are overdue. Lending supplies the loans and reservations; the staff page adds names and phone numbers from membership and titles from the catalogue (C-31).'
+  - term: member identifier
+    definition: 'The identifier that membership issues for a person (ADR 7). It keeps its name in the fields of this context, `member-id`, although the person is called a reader here (C-07): it is the name of the key, not a concept of this context.'
 metadata:
   labels:
     src: brief-3.2

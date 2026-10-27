@@ -424,7 +424,14 @@ can still overturn any of them in the review of the pull request.
   `membership` → `lending` (chapter 7). C-09 stays true: time causes the
   end; the event only reports it.
 - **Status:** decided 2026-10-25 by the agent (delegated by the
-  maintainer).
+  maintainer). *Amended 2026-10-26 (chapter 7, the agent, delegated):*
+  "The events stay, for information" is read as "the Big Picture keeps
+  them as facts of the story". The events *Card Expired* and *Researcher
+  Status Expired* are not modelled in the first increment, because nobody
+  consumes them: `lending` compares the dates with the day. The daily
+  check that C-32 needs (keeps become normal reservations) is
+  `lending`'s own and needs no event. The decision, dates instead of
+  events, is unchanged.
 
 ### C-29 Who decides who may borrow a restricted copy?
 
@@ -584,6 +591,49 @@ can still overturn any of them in the review of the pull request.
   the three weeks.
 - **Consequence:** `lending` publishes the same return fact for a damaged
   and an undamaged copy; `fees` does not need to know about the damage.
+- **Status:** decided 2026-10-26 by the agent (delegated by the
+  maintainer).
+
+### C-34 From when does a renewed card or researcher status run?
+
+- **Source:** brief §3.3 ("The card is valid for a year and has to be
+  renewed", "you're a researcher for twelve months. Then you need a new
+  letter"); C-28 (the end is a date). Review of chapter 7, F11.
+- **Why now:** the event *card renewed* carries the new end date, and
+  `lending` compares it literally. The brief does not say whether a card
+  renewed early runs from the old end or from the day of renewal.
+- **Options:**
+  1. **From the old end while the card is valid, from the day of renewal
+     if it has run out.** A member who renews early loses nothing.
+  2. Always from the day of renewal. Simple; early renewal wastes days.
+  3. Always from the old end. A long-expired card would be renewed into
+     the past.
+- **Decision:** option 1. The same for researcher status when a new
+  letter arrives. A card ending on 1 November 2027 and renewed in
+  October runs up to and including 1 November 2028.
+- **Status:** decided 2026-10-26 by the agent (delegated by the
+  maintainer).
+
+### C-35 What happens to a reservation when its copy is corrected to restricted?
+
+- **Source:** C-27 (the Head of Collection may correct the kind of a copy;
+  "a copy that is out stays out"), C-29 (only a researcher may borrow or
+  reserve a restricted copy), C-32 (what happens to reservations when
+  researcher status ends). Review of chapter 7, F15.
+- **Why now:** the flow "correct a copy" changes the kind of a copy that a
+  reader may have reserved. C-27 settles loans, not reservations.
+- **Options:**
+  1. **As in C-32:** a reservation of a copy that becomes restricted ends
+     on the day of the correction unless the reader is a researcher on
+     that day; the reader is told through the normal notice.
+  2. Reservations stay until collected or run out, and the checkout
+     is refused at the desk if the reader is not a researcher.
+  3. The correction is refused while the copy is reserved.
+- **Decision:** option 1. It is the rule C-32 already applies to the same
+  situation from the other side, and it avoids a reader who comes to the
+  desk for a copy that cannot be handed over.
+- **Consequence:** `lending` reacts to a correction by ending the
+  affected reservations (a rule of `lending`, modelled in chapter 8).
 - **Status:** decided 2026-10-26 by the agent (delegated by the
   maintainer).
 

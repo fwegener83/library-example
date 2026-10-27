@@ -56,9 +56,16 @@ turns each crossing into a contract.
 4. **Fill the crossing table** (one row per crossing, kept in the
    chapter): scenario, step, from context, to context, kind (fact, order,
    question), the name, who reacts, and whether the reaction may arrive
-   late or twice.
+   late or twice. A row may group several facts of one kind between the
+   same two contexts; the contract of each one is made in
+   `design-context-contracts`, so the table says how many.
+   Cover each contract in at least one flow: a contract that no flow
+   exercises is either not needed or the flow is missing. Play the rule
+   that combines facts of two contexts in one number (a cap, a limit) with
+   data that reaches it.
 5. **Test the cut.** Check the abort criteria of the phase model on every
-   flow and write down the result per flow, also when nothing was found:
+   flow and write down the result per flow, as a table of flows against
+   criteria, also when nothing was found:
    an invariant that needs data of two contexts at the same moment; a
    policy without a clear owner; a flow that goes back and forth between
    two contexts; an aggregate that needs the state of another context to

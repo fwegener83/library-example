@@ -23,13 +23,18 @@ The flows show where something crosses; this skill states what.
 - **Small and complete.** A payload carries what the consumer needs to
   act without asking back, and nothing that only the publisher's inside
   needs. Anything the consumer would have to ask back for is a finding.
+  A field that no consumer uses may travel only for a reason the contract
+  names: a later scenario, or a rule of the architecture records about
+  fields that cannot be added afterwards. Such a field is listed as "not
+  promised"; a consumer does not rely on it. Personal data that no
+  consumer needs does not travel.
 - **Say what late and twice means.** Every contract states what the
   consumer does when the event arrives twice, late, out of order, or
   names something the consumer does not know yet. The architecture
   records set the common envelope; a contract adds only what is specific.
-- **Evolution is part of the contract.** Fields are added, not changed
-  or removed; the rule for anything else is written once, in an
-  architecture record, and every contract points to it.
+- **Evolution is part of the contract.** The rule for changing a
+  contract is written once, in an architecture record, and every contract
+  follows it. Do not restate the rule here and do not invent one.
 - **No hidden second contract.** Everything a consumer relies on is in
   the contract: the payload, its meaning, the business time of the fact.
 - **Business before technology.** No transport, format or storage here.
@@ -49,12 +54,20 @@ The flows show where something crosses; this skill states what.
    example from the sources, and which consumer rule needs it. Fields
    that no consumer rule needs are removed.
 3. **Behaviour.** Per consumer: what it does on the event, what on a
-   repeat, what on a late one, what on an unknown reference. Where a
-   reaction can fail, say what the owner of the order sees.
-4. **Record it in the model.** Payload schemas on the event or command
-   nodes; the reason, the kind and the consumer reactions in the
-   description of the node and of the mapping. The model is the source;
-   the chapter shows a table made from it.
+   repeat, what on a late one, what on an unknown reference, and what it
+   does with an event it has no use for (does the gap rule see a hole?).
+   Where a reaction can fail, say what the owner of the order sees and
+   what it does next. Check the direction of every failure: a late or
+   lost event must not lead to the unsafe outcome.
+   For an order, say what the receiver remembers after it has been
+   undone, or a repeated old order does the work again.
+4. **Record it.** Payload schemas on the event, command and query nodes
+   in the model. What the model cannot hold (the owner of a reaction, the
+   consumers and what each one uses, the rules for late and repeated
+   events) goes in one contract file next to the model, with a check that
+   compares it with the export. Try first whether the modelling tool
+   returns and exports descriptions; if it does not, say so and keep the
+   file. The chapter shows tables made from both.
 5. **Write the evolution rule** as an architecture record if none exists,
    and check each contract against it.
 6. **Test the cut.** Per contract: can the consumer act with what it
