@@ -16,9 +16,11 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   never an approval.
 - **Decisions have levels** (business, architecture, way of working;
   see `docs/decisions.md`). Business questions are delegated (maintainer,
-  2026-10-25): decide them yourself where a sensible behaviour exists,
-  mark them "decided by the agent (delegated)" in the clarification log,
-  and ask only when you find none. Stop and ask at a gate, when a choice is hard to reverse *and* has
+  2026-10-25, widened 2026-10-28): decide them yourself where there is a
+  business favourite, and also where several options are sensible and
+  none has a notable problem; mark them "decided by the agent
+  (delegated)" in the clarification log with the options and the reason.
+  Ask only when every option is bad. Stop and ask at a gate, when a choice is hard to reverse *and* has
   real alternatives, or when it would undo an earlier decision. Record who
   decided, when, and what was rejected.
 - **Otherwise decide yourself** when a sensible solution exists, and list
@@ -33,6 +35,15 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   found while building is closed in Studio first, never only in code.
 - **Skills of the workflow are generic.** No Millbrook detail in a skill's
   text; what is specific to this repo goes into a conventions file.
+- **Skills are written in hindsight** (from phase 5 on, maintainer
+  2026-10-28). A chapter runs with the working checklist of `docs/plan.md`
+  and a log of what was done, what failed and why. After the maintainer's
+  review the skill is written from the log, then a fresh agent tests it
+  with a small input in a new throw-away workspace; the result goes into
+  the PR.
+- **No technology in the modelling.** Phase 5 models business only: no
+  REST, no API specification, no rule for delivery or versions of events.
+  Those are decided in phase 6 (gate G2).
 - **Do not change `ddd-studio` itself** before gate G4. Collect tool gaps
   in `docs/tool-gaps.md` instead of fixing them on the side.
 - **Be critical, not over-critical.** Say so when something is wrong or a

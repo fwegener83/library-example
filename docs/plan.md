@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-26 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`); ADR 10 (REST an den Außenkanten) angenommen und gemergt (2026-10-25); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`, 0 blockierend, 8 sollten behoben werden); die fachlichen Funde hat der Agent im Auftrag entschieden (C-27 bis C-32), ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); als Nächstes Kapitel 7 (Flows und Verträge)*
+*Stand: 2026-10-28 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`), am 2026-10-28 für Phase 5 geändert (§5, „Phase 5 im Detail“); ADR 10 (REST an den Außenkanten) am 2026-10-28 wieder geöffnet, entschieden wird in Phase 6 (G2); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`); C-27 bis C-32 vom Agenten im Auftrag entschieden, ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); Plan für Phase 5 am 2026-10-28 freigegeben (#21); fachliche Delegation erweitert; als Nächstes Kapitel 7 (Example Mapping), dann Kapitel 8 (den Scope modellieren)*
 
 ---
 
@@ -22,9 +22,9 @@ nichts, was ins Tutorial oder in den Code eingeht.
 | Gate | Wann | Was geklärt wird | Status |
 |---|---|---|---|
 | **G0** | nach Kapitel 0 | Review des Anforderungsdokuments — alles Weitere baut darauf auf | erledigt |
-| **G1 — Vom Modell zum Code** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Das Phasenmodell 0–7 mit Skills, Rücksprüngen und starken Defaults (§6) | **entschieden** 2026-10-25 (Maintainer, im Gespräch: alle Empfehlungen angenommen); schriftliche Fassung `docs/gates/g1-model-to-code.md` |
+| **G1 — Vom Modell zum Code** | nach Kapitel 5 (Challenging the cut), **vor jeder Arbeit pro Bounded Context** | Das Phasenmodell 0–7 mit Skills, Rücksprüngen und starken Defaults (§6) | **entschieden** 2026-10-25 (Maintainer, im Gespräch: alle Empfehlungen angenommen); schriftliche Fassung `docs/gates/g1-model-to-code.md`; **geändert** 2026-10-28 (Maintainer): Phase 5 ohne Verträge und REST, Skills im Rückblick mit Probelauf |
 | **G6 — Liefer-Scope** | nach G1, **vor der Feinmodellierung** (Phase 4, Kapitel 6) | Welche Szenarien jetzt fein modelliert und gebaut werden; fachliche Entscheidung | **entschieden** 2026-10-26 (Maintainer): Option 3 aus Kapitel 6 |
-| **G2 — Technik** | nach der Feinmodellierung (Phase 6), vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, Frontend-Technik (REST gesetzt), Datenbank, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) (§7) | offen |
+| **G2 — Technik** | nach der Feinmodellierung (Phase 6), vor dem Projekt-Skelett | Versionen, Event-Store-Ansatz, wie Frontends die Module erreichen (REST ja/nein, ADR 10 als Vorlage), Frontend-Technik, API-Spezifikation, Weiterentwicklung der Events, Zustellung (spät, doppelt), Datenbank, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) (§7) | offen |
 | **G3 — F2** | bevor `lending` im Detail modelliert wird | Woher `lending` weiß, ob ein Exemplar „restricted" ist (§11) | **entschieden** 2026-10-25 (Maintainer): der Katalog meldet es, `lending` prüft gegen die eigene Kopie. Im Modell seit Kapitel 3 so angelegt, vor der Freigabe; siehe §11 |
 | **G4 — In-App-Beispiel** | bevor irgendetwas in `ddd-studio` geändert wird | Ersetzen des Library-Beispiels (§10) | offen |
 | **G5 — Erweiterungen** | nach fertiger Basis | Process-Manager-Kapitel (F1), Evolutionskapitel (F4) | offen |
@@ -119,9 +119,9 @@ Partnership).
 | Vorgehen insgesamt | Phasenmodell 0–7 mit Skills, kleinem und großem Rücksprung (G1, Maintainer, 2026-10-25) |
 | Scope | breit erschließen, eng bauen: Problem-Scope in Phase 0, Liefer-Scope nach dem Schnitt (G6) (Maintainer, 2026-10-25) |
 | Modulith zuerst | starker Default: eine Einheit, bis der Schnitt getragen hat; Herauslösen später mit eigenem Skill (Maintainer, 2026-10-25) |
-| Schnittstellen | **REST für alle Frontends**, Endpunkte im jeweiligen Modul, OpenAPI vor dem Code; zwischen Modulen Events und Aufträge (ADR 4), kein REST (Maintainer, 2026-10-25; ADR 10) |
-| Skills | im Repo unter `.claude/skills/`, generisch formuliert, je Phase beim ersten echten Einsatz; Phasen 0–3 später herausgelöst und per frischem Durchlauf getestet (Maintainer, 2026-10-25) |
-| UI | **kleine, minimale UI** über REST — macht das Ergebnis greifbar (Technik: G2) |
+| Schnittstellen | zwischen Modulen Events und Aufträge (ADR 4). Wie Frontends die Module erreichen, entscheidet Phase 6 (G2); ADR 10 (REST) ist dafür die Vorlage. Am 2026-10-25 angenommen, am 2026-10-28 vom Maintainer wieder geöffnet: REST ist Technik und kein Vorgriff in Phase 3 oder 5 |
+| Skills | im Repo unter `.claude/skills/`, generisch formuliert; ab Phase 5 **im Rückblick** geschrieben (aus dem Arbeitsprotokoll des Kapitels, nach dem Review des Maintainers) und mit einem **Probelauf** eines frischen Agenten getestet (Maintainer, 2026-10-28); Phasen 0–3 später herausgelöst und per frischem Durchlauf getestet (2026-10-25) |
+| UI | **kleine, minimale UI** — macht das Ergebnis greifbar (Technik und Anbindung: G2) |
 | Format | Markdown-Kapitel im Repo; später Übernahme auf die DDD-Studio-Homepage |
 | F1 Process Manager | vorerst **ohne**; ggf. später eigener Abschnitt (G5) |
 | F4 Evolution | erst die Basis; danach als Erweiterung (G5) |
@@ -203,10 +203,10 @@ ersten echten Einsatz.
 | 0 Wissen sammeln | Quellen einordnen, Wissensdokument, Problem-Scope | `gather-knowledge` | Kap. 0 (dünn: der Brief ist schon ein Dokument) |
 | 1 Domäne erschließen | genug verstehen, um zu schneiden | `prepare-event-storming`, `digitize-board`, `draw-domain-story`, `discovery-readiness` | Kap. 1, 2 |
 | 2 Schneiden | Kontexte, Context Map, Glossare | `derive-contexts`, `challenge-context-cut` | Kap. 3, 5 |
-| 3 Modulith-Regeln | eine Einheit, Integrationsregeln, REST nach außen | `set-modulith-rules` | Kap. 4, ADR 10 |
+| 3 Modulith-Regeln | eine Einheit, Integrationsregeln (ohne Technik der Frontends) | `set-modulith-rules` | Kap. 4 |
 | 4 Liefer-Scope | was jetzt modelliert und gebaut wird | `plan-scope` | Kap. 6 → G6 |
-| 5 Feinmodellieren = Schnitt testen | statisches Modell für den Scope | `model-flows`, `design-context-contracts`, `example-mapping`, `model-context`, `challenge-context-cut` (Modus 2) | Kap. 7 ff. |
-| 6 Technik | Technik, Tiefe, Deployment-Einheiten | `decide-technology` | → G2 |
+| 5 Feinmodellieren = Schnitt testen | sauberes Modell in Studio für den Scope (ESDM, nicht draft), Flows über die Kontexte, wo sie tragen | `example-mapping`, `model-scope`, `challenge-context-cut` (Modus 2) | Kap. 7–9 |
+| 6 Technik | Technik, Anbindung der Frontends (REST?), API-Spezifikation, Event-Evolution, Tiefe, Deployment-Einheiten | `decide-technology` | Kap. 10 → G2 |
 | 7 Bauen | Plan und Code aus dem Modell | `plan-implementation`, `implement-slice`, `check-model-code` | danach |
 | später | Modul herauslösen | `extract-module` | offen |
 
@@ -214,27 +214,319 @@ Darüber `ddd-workflow` als Einstieg (welche Phase, welcher Halt, welcher
 Skill als Nächstes). Rücksprünge: klein 7 → 5 (Lücke im Modell), groß
 5/7 → 2 (Schnitt trägt nicht, Halt).
 
-### Teil B — nach G1
+**Änderung vom 2026-10-28 (Maintainer).** Phase 5 enthält keinen eigenen
+Schritt mehr für Verträge an den Kanten und nichts zu REST oder OpenAPI.
+Die Skills `model-flows`, `design-context-contracts` und `model-context`
+entfallen; an ihre Stelle tritt `model-scope`, der den ganzen Scope über
+alle berührten Kontexte modelliert. Events, die eine Grenze überqueren,
+werden darin ganz normal mit Payload modelliert: Sie sind Fachlichkeit,
+und ohne sie ist das Modell nicht vollständig. Was Technik ist, geht nach
+Phase 6: wie Frontends die Module erreichen (ADR 10 wieder geöffnet), eine
+API-Spezifikation, wie Events weiterentwickelt werden (von ADR 4
+angekündigt) und wie die Module mit späten oder doppelten Events umgehen.
+Ab Phase 5 entsteht jeder Skill im Rückblick und wird mit einem Probelauf
+getestet (Abschnitt „Wie ein Skill entsteht“).
 
-Die Kapitelnummern ab 7 sind vorläufig: Wie viele Kapitel die
-Feinmodellierung braucht, zeigt Kapitel 6 (Liefer-Scope).
+### Teil B — nach G1
 
 | # | Kapitel (Arbeitstitel) | Phase | Neuer Skill | Werkzeug | Halt |
 |---|---|---|---|---|---|
-| — | **ADR 10: REST at the edges** — Nachtrag zu Kapitel 4, eigener PR, Branch von `g1-phase-model` (verweist auf das G1-Dokument); Status `proposed` bei Vorlage, am 2026-10-25 angenommen; abgelehnt: Thymeleaf + htmx ohne REST. Im selben PR die Korrekturen an Kapitel 4: ADR 4 zählt „ten mappings“ (nach ADR 9 sind es neun) und verweist nicht auf ADR 9; ADR 2–8 nennen die Entscheidung doppelt („Chosen option“ und „We will …“); ADR-Index aktualisieren | 3 | — | ADR | Annahme durch dich |
-| — | **Unabhängige Prüfung des Schnitts** vor G6 — `challenge-context-cut` in frischem Agenten (CLAUDE.md, „Challenging the cut“); Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | du entscheidest über die Funde |
-| 6 | **Choosing the first increment** — Kandidaten-Szenarien aus Stories und Big Picture, je Szenario berührte Kontexte und Kanten, Kosten; du wählst als Bibliothek. **Vorlage liegt vor** (18 Kandidaten, vier Optionen, Empfehlung Option 3 = Ausleihe, Mahngebühr, Sperre, Verlustmeldung und Morgenlisten; Skill `plan-scope` geschrieben) | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6 entschieden** 2026-10-26: Option 3 |
-| 7 | **Flows and contracts across the boundaries** — Flows über die Kontexte für den Scope, Vertrag pro Kante (Art, Payload-Schema, Owner, spät/doppelt), Policy-Owner in der Beschreibung, ADR zur Event-Evolution (von ADR 4 angekündigt; ADR 11 regelt nur den Umschlag, die Versionierung der Events bleibt für dieses Kapitel; Freigabe einer Kopie nennt den Schadensfall, den sie beantwortet). Aus der Prüfung vor G6: Enddaten von Karte und Researcher-Status im Vertrag membership → lending (C-28), Korrektur einer Kopie im Published Language des Katalogs (C-27), wie ein Hinweis von `lending` die E-Mail-Adresse aus `membership` erreicht (C-31) | 5 | `model-flows`, `design-context-contracts` | Flow View, Static View | Review; Rücksprung nach 2 möglich |
-| 8 | **Modelling `lending`** — Example Mapping, Aggregate, Invarianten, GWT, REST-API; G3-Folgefrage (Kopie noch unbekannt); `challenge-context-cut` Modus 2 | 5 | `example-mapping`, `model-context` | Sketch Board, Static View, Features | Review; Rücksprung nach 2 möglich |
-| 9 | **Modelling `fees`** — laufende Summe und €10-Regel (C-03, C-18, C-19), Muster aus Tool-Gap 15 | 5 | — (Skills aus 8) | wie 8 | wie 8 |
-| 10 | **Modelling `catalogue` and `membership`** — schlank, vor allem API und Published Language | 5 | — | wie 8 | wie 8 |
-| 11 | **Choosing the technology** — Versionen, Event Store, DB, Frontend-Technik, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) | 6 | `decide-technology` | ADRs | **G2** |
-| 12 ff. | **Building** — Implementierungsplan, Skelett, dann `catalogue` und `membership`, `lending`, `fees`, minimale UI über REST | 7 | `plan-implementation`, `implement-slice`, `check-model-code` | Code, Spring Modulith, DDD-Studio-MCP | Review je Kontext; Rücksprünge |
+| — | **ADR 10: REST at the edges**: Nachtrag zu Kapitel 4, eigener PR; am 2026-10-25 angenommen, **am 2026-10-28 wieder geöffnet** (Entscheidung in G2). Im selben PR die Korrekturen an ADR 2–8 | 3 | — | ADR | erledigt (#17); wieder offen bis G2 |
+| — | **Unabhängige Prüfung des Schnitts** vor G6: `challenge-context-cut` in frischem Agenten; Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | erledigt (#18) |
+| 6 | **Choosing the first increment**: 18 Kandidaten, vier Optionen, Skill `plan-scope` | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6 entschieden** 2026-10-26: Option 3 |
+| — | **Plan für Phase 5** (#21): Phase 5 ohne Verträge und REST, ADR 10 wieder offen, Skills im Rückblick, Detailplan | 5 | — | Plan | **freigegeben** 2026-10-28 |
+| 7 | **Example Mapping**: je Szenario des Scopes Regeln, Beispiele und Fragen auf einem Sketch Board; Fragen als `C-nn` (u. a. C-11, C-12, C-14, G3-Folgefrage); durchgehende Beispielfiguren für die Flows. Danach Rückblick und, nach deinem Review, Skill `example-mapping` mit Probelauf | 5 | `example-mapping` | Sketch Board | Review |
+| 8 | **Modelling the scope**: Flows über die Kontexte (Rückgrat vom Regal zur Sperre und zurück, Vormerkung, Verlust, Researcher, Varianten), sonst direkt im Static View; GWT aus den Beispielen; Rückwärtsprüfung jedes Flows; Übersicht der Grenzen; Modell sauber (validiert, nichts draft, Export). Danach der **Rückblick** mit der Passung in DDD Studio (abgebildet, nur statisch, verbogen, nicht abbildbar) und, nach deinem Review, der Skill `model-scope` mit Probelauf | 5 | `model-scope` | Flows, Static View, Features | Review; Rücksprung nach 2 möglich (Halt) |
+| 9 | **Challenging the cut in the model**: `challenge-context-cut` Modus 2 in frischem Agenten gegen das Modell aus Kapitel 8 (Abbruchkriterien aus G1, Übersicht der Grenzen); danach Modus 2 im Skill mit Probelauf. **Ende von Phase 5:** du nimmst das Modell für den Scope ab | 5 | `challenge-context-cut` (Modus 2) | Skill, DDD Studio lesend | du entscheidest über die Funde; Rücksprung nach 2 möglich; Abnahme Phase 5 |
+| 10 | **Choosing the technology**: Versionen, Event Store, DB, Anbindung der Frontends (REST? ADR 10 als Vorlage), Frontend-Technik, API-Spezifikation, Event-Evolution und Zustellung, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) | 6 | `decide-technology` | ADRs | **G2** |
+| 11 ff. | **Building**: Implementierungsplan, Skelett, dann `catalogue` und `membership`, `lending`, `fees`, minimale UI | 7 | `plan-implementation`, `implement-slice`, `check-model-code` | Code, Spring Modulith, DDD-Studio-MCP | Review je Kontext; Rücksprünge |
 | — | **Skills der Phasen 0–3 herauslösen** und mit frischem Durchlauf testen (neuer Wegwerf-Workspace, nur der Brief); `ddd-workflow`, `close-step` | 0–3 | `gather-knowledge` … `set-modulith-rules` | Skills | Review |
 
 Umsetzungstiefe im Code (Vorschlag, entschieden in G2): voll — `lending`,
 `fees` + ACL; schlicht — `catalogue`, `membership` (CRUD); Hinweise an
 Leser als schlichter Versand über das Mail-Gateway.
+
+### Wie ein Skill entsteht (ab Phase 5)
+
+Entschieden vom Maintainer am 2026-10-28.
+
+1. **Das Kapitel läuft ohne Skill**, mit einer kurzen Arbeitscheckliste in
+   diesem Plan und einem **Arbeitsprotokoll**: was gemacht wurde, was
+   nicht ging, welche Umwege es gab, welche Entscheidung warum fiel.
+2. **Rückblick** am Kapitelende (`docs/reviews/chNN-…-retrospective.md`):
+   was gut lief, was schlecht lief, was an DDD Studio fehlt
+   (`docs/tool-gaps.md`).
+3. **Dein Review** des Kapitels und des Rückblicks.
+4. **Skill aus dem Protokoll**, generisch formuliert (keine
+   Millbrook-Details), mit deinen Korrekturen.
+5. **Probelauf:** ein frischer Agent bekommt nur den Skill und eine kleine
+   Eingabe und arbeitet in einem neuen Wegwerf-Workspace (nie im
+   Tutorial-Workspace, nie im alten „Library Tutorial“). Sein Ergebnis wird
+   mit dem Kapitel verglichen; wo er abweicht oder hängen bleibt, wird der
+   Skill angepasst. Der Befund steht im PR.
+
+Schritte 4 und 5 laufen im selben PR wie das Kapitel, nach deinem Review.
+
+### Phase 5 im Detail
+
+**Eingabe:** der entschiedene Scope (G6, Option 3: A, B, C, D, E1, E2, E3,
+G1, J1; Kapitel 6), das Klärungsprotokoll, ADR 2–9 und 11, die Context Map
+mit Glossaren in Studio, die Domain Stories und das Big Picture.
+
+**Ergebnis am Ende von Phase 5:** ein Modell in Studio, das jedes
+Szenario des Scopes abdeckt; `validate_model` ohne Befund, kein Knoten im
+Status draft, GWT-Features für die Regeln, Export nach `model/esdm/`; der
+Schnitt ist gegen dieses Modell geprüft. Kein REST, keine OpenAPI, keine
+Entscheidung zu Zustellung oder Versionierung.
+
+**Reihenfolge (Empfehlung des Agenten, vom Maintainer am 2026-10-28
+angenommen, mit GWT aus den Beispielen und Flows über die Kontexte):** Example Mapping (Kapitel 7) → den Scope modellieren
+(Kapitel 8) → den Schnitt im Modell prüfen (Kapitel 9).
+
+*Warum Example Mapping zuerst:* Example Mapping ist eine Technik, um Regeln
+und Lücken zu finden, bevor Struktur entsteht. Auch hier gibt es offene
+Regeln, die die Struktur bestimmen: die geparkten C-11, C-12 und C-14, die
+Folgefrage aus G3 (eine Ausleihe für ein Exemplar, das `lending` noch
+nicht kennt), wann eine Ausleihe überfällig wird, wann eine Vormerkung
+abläuft. Mit Example Mapping danach würden sie erst entschieden, wenn die
+Flows schon stehen, und Flows müssten umgebaut werden. Zweiter Gewinn: Die
+Beispiele (ein Leser, ein Exemplar, konkrete Beträge und Tage) werden die
+`exampleData` der Flows und danach die GWT-Szenarien. So prüft die
+Rückwärtsprüfung echte Zahlen, und das Modell ist am Ende von Kapitel 8
+vollständig, mit Features. *Was dagegen spricht:* Der Probelauf des
+Feinmodellierens rückt ein Kapitel nach hinten; und die meisten Regeln
+sind schon geklärt (C-01 bis C-32). Darum bleibt Example Mapping schlank
+(siehe unten). *Verworfen:* Example Mapping nach dem Modell (der erste
+Entwurf dieses Plans) — Regeln würden spät entschieden, GWT erst ein
+Kapitel später.
+
+*Warum die Prüfung des Schnitts zuletzt:* Die Abbruchkriterien werden
+schon beim Modellieren beobachtet (Kapitel 8, Schritt 6). Der frische
+Agent prüft danach das fertige Modell, mit Flows, Invarianten und
+Szenarien; das ist die vollständigste Grundlage.
+
+#### Kapitel 7 — Example Mapping
+
+Ein Sketch Board für den Scope; je Szenario (A, B, C, D, E1–E3, G1, J1)
+eine gelbe Karte für die Geschichte, blaue für die Regeln, grüne für die
+Beispiele je Regel, rote für Fragen.
+
+- **Schlank:** Beispiele nur für Regeln, die etwas entscheiden (eine
+  Ablehnung, einen Betrag, eine Frist, einen Übergang zwischen Kontexten),
+  je Regel das typische Beispiel und die Grenzfälle. Regeln, die nur
+  Daten erfassen, bekommen keine Beispiele.
+- **Quellen:** jede Regel mit Brief §, Satz der Story oder `C-nn`.
+- **Fragen** werden `C-nn`: der Agent entscheidet im Auftrag, wenn es
+  einen fachlichen Favoriten gibt oder mehrere sinnvolle Optionen ohne
+  nennenswertes Problem; er fragt nur, wenn alle Optionen schlecht sind
+  (Maintainer, 2026-10-28). Erwartet: C-11, C-12,
+  C-14, die G3-Folgefrage, der Zeitpunkt von „überfällig“ und „abgelaufen“.
+- **Durchgehende Beispielfiguren**, die in mehreren Szenarien vorkommen
+  (dieselbe Leserin, dasselbe Exemplar), damit die Flows in Kapitel 8
+  eine Geschichte über die Kontexte erzählen können.
+- **Ergebnis:** Board als Snapshot in `model/sketch/`, Version
+  `ch07-example-mapping`; Kapiteltext; Rückblick; nach deinem Review Skill
+  `example-mapping` mit Probelauf. Der Skill sagt, wann Example Mapping
+  vor und wann nach dem Feinmodell steht.
+
+Das Board ist Material, kein Modell (laut Studio werden Sketch Boards nie
+selbst Modellelemente). Ins Modell gehen die Beispiele in Kapitel 8.
+
+#### Kapitel 8 — den Scope modellieren
+
+**Arbeitsweise: Flow zuerst, wo er trägt; nie verbiegen.**
+
+- *Was die MCP-Werkzeuge können:* Eine Slice gruppiert nur Knoten, die
+  schon im Static View stehen; sie erzeugt keine (`explain_model`,
+  flows-and-slices). In der Web-App entsteht der Static View laut dir beim
+  Zeichnen des Flows mit, über MCP nicht. „Flow zuerst“ heißt für den
+  Agenten deshalb: erst die Geschichte als Folge von Schritten aufschreiben
+  (sehen → entscheiden → Command → Event oder Ablehnung → neue Sicht,
+  dazwischen Automatik), dann Schritt für Schritt die Knoten anlegen, die
+  der Schritt braucht, und sofort die Slice dazu.
+- *Was ein Flow nicht zeigen kann* (laut Studio): den Zustand, die Timer
+  und das Ende eines Process Managers, Invarianten, Domain Services, die
+  übrigen Ergebnisse eines Commands, Verzweigungen. Das wird direkt im
+  Static View modelliert; der Agent „denkt“ den Flow dabei mit. Ein Process
+  Manager steht im Flow nur als Auslöser der Slice, deren Command er
+  auslöst.
+- *Nie verbiegen:* Ein Element bekommt die Art, die es fachlich ist
+  (`explain_concept` vor jeder Art, deren Form offen ist), nicht die, die in
+  eine Slice passt. Kein erfundenes Command oder Event als Brücke zwischen
+  zwei Slices. Eine Alternative ist ein eigener Flow, eine Ablehnung ein
+  Schritt mit Verweis auf eine Invariante.
+
+**Flows über die Kontexte, nicht pro Kontext.** Ein Flow erzählt eine
+Geschichte, wie sie in der Bibliothek passiert, und geht dabei durch alle
+Kontexte, die sie berührt. Jede Slice nennt ihren Kontext; jeder Übergang
+zwischen zwei Slices in verschiedenen Kontexten ist eine Überquerung einer
+Grenze und zeigt, ob der Schnitt trägt. Studio lässt das zu (eine Slice
+hat ihren eigenen Kontext, ein Flow keinen); ob die Web-App es gut
+darstellt, zeigt der erste Flow. Vorschlag (endgültig nach Kapitel 7):
+
+1. **Rückgrat: vom Regal zur Sperre und zurück** (A, B, C, E1, E2, E3,
+   halb J1). Der Katalog registriert ein Exemplar → `lending` kennt es;
+   die Mitgliederverwaltung registriert eine Leserin mit Karte → `lending`
+   kennt sie; sie leiht aus → die Ausleihe wird überfällig → die
+   Überfällig-Liste am Morgen zeigt sie mit Telefonnummer und Titel (drei
+   Kontexte) → sie gibt zu spät zurück → `fees` setzt die Mahngebühr fest →
+   der Morgenlauf zählt über €10 → `membership` sperrt die Karte →
+   `lending` lehnt die nächste Ausleihe ab (Ablehnung als Schritt) → sie
+   zahlt an der Theke → `membership` hebt die Sperre auf → sie leiht
+   wieder aus. Berührt alle vier Kontexte und die Grenzen aus ADR 5, ADR 9
+   und ADR 11.
+2. **Eine Vormerkung läuft ab** (D, halb J1): vormerken → nicht abgeholt
+   → Vormerkung läuft ab → die Liste der abgelaufenen Vormerkungen am
+   Morgen (drei Kontexte).
+3. **Ein Exemplar geht verloren** (G1): ausleihen → als verloren gemeldet
+   → `fees` setzt die Verlustgebühr fest, keine Mahngebühr obendrauf
+   (C-04) → die Leitung des Bestands nimmt das Exemplar im Katalog ab
+   (C-20) → `lending` führt es nicht mehr.
+4. **Restricted für Researcher** (B, C): Katalog registriert ein
+   restricted Exemplar → Researcher-Status gewährt → Ausleihe gelingt; als
+   Variante (eigener kurzer Flow) die Ablehnung ohne Status (C-29).
+5. **Varianten**, je ein kurzer Flow, meist in einem Kontext: Ausleihe
+   abgelehnt (gesperrte oder abgelaufene Karte), Vormerkung abgelehnt
+   (fünf Vormerkungen, Überziehungslimit, C-14), Vormerkung abholen oder
+   stornieren, Rückgabe mit Schaden (C-06), Exemplar korrigiert (C-27),
+   Karte verlängert. Sie zeigen lokale Regeln; die Geschichte über die
+   Kontexte steht in 1 bis 4.
+
+**Übersicht der Grenzen.** Zu den Flows gehört eine Tabelle im Kapitel,
+abgeleitet aus dem Modell: je Mapping der Context Map im Scope die
+Schritte, die es überqueren, die Art (Fakt als Event, Auftrag an den
+Owner, Frage einer Seite an mehrere Module), in welchem Flow, und ob das
+Muster der Context Map gehalten hat. Ein Mapping, das kein Flow
+überquert, oder eine Überquerung ohne Mapping ist ein Befund. Diese
+Tabelle beantwortet „wie interagieren die Kontexte, und trägt der
+Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
+
+**Schritte**
+
+1. **Vorbereitung.** `explain_model` (Übersicht, static-view,
+   flows-and-slices, features-and-scenarios, fields-and-validation);
+   `explain_concept` für aggregate, policy, process-manager, read-model,
+   event-handler, domain-service. Arbeitsprotokoll anlegen, mit einer
+   Spalte „Passung“ je Schritt (siehe Schritt 10).
+2. **Storylines schreiben**, vor jedem Knoten: je Flow die Schritte mit
+   Quelle (Brief §, Satz der Story, `C-nn`, Beispiel aus Kapitel 7),
+   Kontext und Art des Schritts.
+3. **Flows modellieren**, Rückgrat zuerst (die meisten Grenzen, das
+   größte Risiko), dann 3, 2, 4, dann die Varianten. Je Schritt: Knoten
+   anlegen oder wiederverwenden (Aggregat, Command, Event, Akteur, Read
+   Model, Query, Policy, Process Manager), Referenzen setzen (publishes,
+   actors, projections, handles/emits), dann die Slice mit den
+   `exampleData` aus Kapitel 7. `draftReasons` jeder Antwort sofort lesen
+   und beheben. Bekannte Stellen, an denen der Flow nicht reicht oder die
+   Form offen ist, jeweils mit `explain_concept` und Abwägung im Protokoll:
+   - *Wie `lending` von Exemplaren und Lesern erfährt* (ADR 4: es behält
+     seine eigene Kopie): eine Policy, die das Event des Upstream in ein
+     Command von `lending` übersetzt, oder ein Read Model in `lending`,
+     das auf das fremde Event projiziert? Das Aggregat, das über eine
+     Ausleihe entscheidet, braucht die Angaben (G3).
+   - *Überfällig werden* einer Ausleihe und *Ablauf* einer Vormerkung: ein
+     Process Manager mit Timer pro Ausleihe oder Vormerkung, oder ein
+     täglicher Lauf eines System-Akteurs (Tagesblatt, ADR 6)?
+   - *Die €10-Regel* (Tool-Gap 15): Entscheidung im Aggregat von `fees`,
+     das ein Event veröffentlicht, das eine zustandslose Policy in „Sperre
+     setzen“ in `membership` übersetzt (ADR 5); oder ein Process Manager
+     mit laufender Summe. Wem die Regel gehört, steht in der Beschreibung
+     der Policy (Tool-Gap 14).
+   - *Die Morgenlisten* (J1): eine Seite, die Read Models aus drei
+     Kontexten nebeneinander zeigt; im Flow nacheinander als
+     Read-Model-Slices (laut Studio die vorgesehene Form).
+   - *Invarianten* am Aggregat; eine Ablehnung im Flow verweist nur
+     darauf.
+   - *Policies über Kontextgrenzen:* Zustellung „at-least-once“ mit
+     Idempotenz beim Empfänger, weil ADR 4 späte und doppelte Kopien schon
+     annimmt; der Mechanismus (`strategy`) bleibt offen für Phase 6.
+4. **GWT-Features** aus den Beispielen von Kapitel 7: je Regel, die ein
+   Beispiel hat, ein Szenario am Aggregat oder Read Model; Ablehnungen mit
+   `invariantId`. Neue Lücken: kleine Schleife (`C-nn`, dann Modell).
+5. **Rückwärtsprüfung jedes Flows** (aus dem Event Modeling: die
+   Geschichte rückwärts lesen, ob jede Information erklärt ist). Von der
+   letzten Slice zur ersten:
+   - jedes Feld eines Read Models stammt aus einem Event, auf das es
+     projiziert (oder die Regel der Projektion sagt, wie es berechnet wird);
+   - jedes Feld eines Events stammt aus dem Command, dem Zustand des
+     Aggregats oder einer benannten Quelle (Uhr, Kennung vom Owner,
+     ADR 7, ADR 11);
+   - jedes Feld eines Commands stammt aus dem, was der Akteur vorher
+     gesehen hat (ein Read Model früher im Flow), aus dem auslösenden
+     Event (Policy, Process Manager) oder ist eine benannte Eingabe des
+     Akteurs (etwa die gescannte Kartennummer);
+   - die `exampleData` bleiben über den Flow gleich, auch über die
+     Kontextgrenzen (dieselbe Leserin, dieselbe Ausleihe, Beträge
+     nachrechenbar: €0.50 × Tage, gedeckelt);
+   - kein Feld ohne Quelle im Brief, in einer Klärung oder im Example
+     Mapping.
+   Funde werden im Modell behoben und im Protokoll gezählt. Der statische
+   Teil der Prüfung wird ein Skript `scripts/check_model.py` auf dem
+   Export (Felder von Read Models gegen projizierte Events, Events gegen
+   Command und Zustand, Commands einer Policy gegen das behandelte Event).
+   Die `exampleData` stehen nicht im Export (Tool-Gap 16); die prüft der
+   Agent über MCP.
+6. **Abbruchkriterien beobachten** (G1 §3, Phase 5): eine Invariante
+   braucht Daten aus zwei Kontexten zugleich, eine Policy ohne klaren
+   Owner, ein Flow pendelt zwischen zwei Kontexten, ein Aggregat braucht
+   fremden Zustand, ein Begriff hat zwei Bedeutungen in einem Kontext.
+   Trifft eins zu: **Halt**, Befund vorbereiten, nicht selbst nach Phase 2.
+7. **Übersicht der Grenzen** aus dem Modell erstellen (siehe oben).
+8. **Modell sauber machen:** `validate_model` ohne Befund, kein Knoten
+   draft; `export_esdm` nach `model/esdm/`; `esdm lint` auf den Export, wenn
+   das Werkzeug verfügbar ist (offen, siehe unten);
+   `scripts/check_model.py`; `save_version` `ch08-model-scope`.
+9. **Kapiteltext** `chapters/08-modelling-the-scope.md`, geschrieben mit
+   Flows und Export offen, jeder Satz gegen den Brief geprüft; dann
+   `close-chapter` mit unabhängigem Review.
+10. **Rückblick** `docs/reviews/ch08-modelling-retrospective.md`, mit einem
+    eigenen Abschnitt **„Passung: wie gut passte der Scope in DDD Studio?“**:
+    - eine Tabelle über jeden Schritt jedes Flows und jedes Element, das
+      nur im Static View steht, mit einer von vier Einstufungen: *im Flow
+      abgebildet* · *nur statisch, wie Studio es vorsieht* · *verbogen*
+      (es ging nur mit einem Umweg; welcher, und was richtig wäre) ·
+      *nicht abbildbar* (was fehlt, wo es jetzt steht, etwa in einer
+      Beschreibung);
+    - die Zahlen je Einstufung und ein Urteil in wenigen Sätzen;
+    - jedes „verbogen“ und „nicht abbildbar“ wird eine Zeile in
+      `docs/tool-gaps.md`; daraus eine priorisierte Liste von
+      Änderungswünschen an DDD Studio (Umsetzung erst nach G4);
+    - dazu was im Vorgehen gut und schlecht lief, wo MCP oder Studio
+      gebremst haben, wo der Agent unsicher war.
+    **Halt: dein Review.**
+11. **Skill `model-scope`** aus dem Protokoll und deinem Review, dann der
+    Probelauf (siehe oben; Eingabe für den frischen Agenten: ein
+    Scope-Dokument mit einem kleinen Szenario über zwei Kontexte, etwa G1).
+    Der Skill verlangt einen entschiedenen Scope als Eingabe; fehlt er,
+    bricht er ab und verweist auf `plan-scope` oder fordert ein Dokument
+    mit den Szenarien und der Entscheidung an. Ein Example Mapping nimmt
+    er, wenn es da ist. Die Rückwärtsprüfung, die Übersicht der Grenzen
+    und die Einstufung der Passung sind Teil des Skills.
+
+**Was Kapitel 8 nicht macht:** keine REST-Endpunkte, keine OpenAPI, keine
+Verträge als eigenes Artefakt, keine Entscheidung zu Zustellung,
+Reihenfolge oder Versionierung über die Annahmen von ADR 4 und ADR 11
+hinaus.
+
+#### Kapitel 9 — den Schnitt im Modell prüfen
+
+`challenge-context-cut` in einem frischen Agenten gegen das Modell aus
+Kapitel 8, mit den Abbruchkriterien aus G1 und der Übersicht der Grenzen
+als Auftrag (Modus 2 ist im Skill angekündigt, aber noch nicht
+geschrieben; der erste Lauf bekommt den Auftrag als Text, der Skill folgt
+im Rückblick). Bericht nach `docs/reviews/`; du entscheidest über die
+Funde. Danach Modus 2 im Skill, mit einem Probelauf: dieselbe Prüfung
+gegen eine Kopie des Modells in einem Wegwerf-Workspace mit einem
+absichtlich eingebauten Fehler (etwa eine Invariante, die Daten aus zwei
+Kontexten braucht). Findet der Agent ihn?
+
+**Ende von Phase 5:** du nimmst das Modell für den Scope ab; danach
+Kapitel 10 (Technik, G2).
+
+**Offen für dich (blockiert nichts vor Kapitel 8, Schritt 8):** Wo liegt
+`esdm lint`? Studio nennt es, ein Paket dafür habe ich weder in npm noch
+in PyPI gefunden. Ohne das Werkzeug heißt „sauber gelintet“:
+`validate_model` ohne Befund, nichts draft, `scripts/check_model.py` grün.
 
 ### Erweiterungen — nach G5
 
@@ -272,11 +564,17 @@ Anforderungen zu laufender Software führt. Die Antwort in Kürze:
 5. **Modulith zuerst**, stark: „Verhandeln wie getrennte Teams, ändern wie
    ein Repo.“ Deployment-Einheiten werden erst in Phase 6 gefragt, mit dem
    Default „eine“.
-6. **REST an den Außenkanten, API first** (OpenAPI vor dem Code, Endpunkte
-   im Modul); zwischen den Modulen Events und Aufträge, kein REST.
-7. **Skills im Repo**, generisch, je Phase beim ersten Einsatz; die
-   Phasen 0–3 werden später herausgelöst und mit einem frischen Durchlauf
-   getestet.
+6. ~~**REST an den Außenkanten, API first**~~ (am 2026-10-28 wieder
+   geöffnet, Entscheidung in Phase 6); zwischen den Modulen Events und
+   Aufträge (ADR 4).
+7. **Skills im Repo**, generisch; ab Phase 5 im Rückblick mit Probelauf
+   (2026-10-28); die Phasen 0–3 werden später herausgelöst und mit einem
+   frischen Durchlauf getestet.
+
+**Änderung vom 2026-10-28** (Maintainer): Phase 5 ohne eigenen
+Vertragsschritt und ohne REST/OpenAPI, `model-scope` statt `model-flows`,
+`design-context-contracts` und `model-context`; ADR 10 wieder offen. Im
+G1-Dokument als Nachtrag festgehalten.
 
 Offen und mit festem Zeitpunkt: die genaue Einheit eines Inkrements und
 die Namenskonvention Szenario → Test (`plan-implementation`,
@@ -299,20 +597,26 @@ die Namenskonvention Szenario → Test (`plan-implementation`,
   14 und 15). Wem eine Regel gehört (z. B. die €10-Regel `fees`, C-19),
   steht bis dahin in der Beschreibung der Policy (G1, §8 der Vorlage).
 - System-Commands aus dem Tagesblatt per Scheduler.
-- **REST an den Außenkanten** (entschieden, Maintainer 2026-10-25; ADR 10): Jedes Modul hat seine REST-Endpunkte als Web-Adapter; die
-  OpenAPI-Spezifikation entsteht vor dem Code aus Commands, Queries und
-  Read Models in Studio, der Code wird im Test dagegen geprüft. Zwischen
-  den Modulen kein REST. Verworfen: Thymeleaf + htmx (serverseitig, ohne
-  REST).
-- **Minimale UI** als eigener REST-Client (Technik in G2, z. B. eine kleine
-  SPA); Seiten etwa Katalogsuche, Leserkonto, Ausleihtheke, Tagesblatt.
+- **Anbindung der Frontends** (offen für G2; ADR 10 ist die Vorlage,
+  am 2026-10-25 angenommen und am 2026-10-28 wieder geöffnet): Vorschlag
+  REST, Endpunkte als Web-Adapter im Modul, OpenAPI-Spezifikation vor dem
+  Code aus Commands, Queries und Read Models in Studio. Gegenoption:
+  Thymeleaf + htmx (serverseitig, ohne REST). Zwischen den Modulen kein
+  REST (ADR 4).
+- **Weiterentwicklung der Events und Zustellung** (G2): wie ein Event
+  geändert wird (von ADR 4 angekündigt), Mechanismus der Idempotenz beim
+  Empfänger.
+- **Minimale UI** (Technik in G2, z. B. eine kleine SPA als
+  REST-Client); Seiten etwa Katalogsuche, Leserkonto, Ausleihtheke,
+  Tagesblatt.
   Die UI setzt Seiten aus mehreren Modulen zusammen (ADR 8); ein Backend
   for Frontend bleibt der Ausweg.
 - **Deployment-Einheiten:** Default eine (Phase 6, G2); Herauslösen erst,
   wenn der Schnitt getragen hat.
 - Tests: Decider-Unit-Tests aus Szenarien, Modulith-Scenario-Tests,
   Akzeptanztests aus Flows, Prüfung gegen die OpenAPI-Spezifikation,
-  Testcontainers, WireMock.
+  Testcontainers, WireMock (die Prüfung gegen eine API-Spezifikation nur,
+  wenn G2 sie beschließt).
 
 ---
 
@@ -339,7 +643,7 @@ library-example/
 │   ├── adr/                     # Architekturentscheidungen (MADR)
 │   ├── reviews/                 # Berichte von challenge-context-cut
 │   └── tool-gaps.md             # Lücken in DDD Studio
-├── api/                         # OpenAPI-Spezifikationen je Modul (Phase 5)
+├── api/                         # API-Spezifikationen je Modul, falls G2 sie beschließt
 └── src/…                        # nach G2
 ```
 
@@ -359,8 +663,8 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | M4 | G1: Phasenmodell (erledigt) | — |
 | M5 | ADR 10 (mit Korrekturen an Kapitel 4), unabhängige Prüfung des Schnitts, Kapitel 6: Liefer-Scope | G1 |
 | — | **G6** | |
-| M6 | Kapitel 7–10: Feinmodellierung, Schnitt im Modell getestet | G6 |
-| — | **G2** (Kapitel 11) | |
+| M6 | Kapitel 7–9: Example Mapping, Scope modelliert, Schnitt im Modell geprüft; Skills `example-mapping`, `model-scope`, `challenge-context-cut` Modus 2 | G6, Freigabe des Plans für Phase 5 |
+| — | **G2** (Kapitel 10) | |
 | M7 | Bauen, Kontext für Kontext | G2 |
 | M8 | Skills der Phasen 0–3 herauslösen, frischer Durchlauf | nach dem ersten gebauten Kontext |
 | — | **G4, G5** | |
@@ -386,10 +690,13 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 |---|---|---|---|
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | **entschieden** 2026-10-26: Option 3 (A, B, C, D, E1–E3, G1, J1), kein Go-live neben LibTrack, CityPay später, C-15 draußen |
-| A1 | REST an den Außenkanten als ADR 10 festhalten | — | **entschieden** 2026-10-25; ADR 10 `accepted`, gemergt (#17, `b911252`) |
+| A1 | REST an den Außenkanten (ADR 10) | G2 | am 2026-10-25 angenommen (#17); **wieder offen** seit 2026-10-28 (Maintainer: Technik, kein Vorgriff); ADR 10 `proposed` als Vorlage |
+| P5 | Detailplan Phase 5 (§5) | — | **entschieden** 2026-10-28 (Maintainer, im Gespräch; PR #21) |
+| L1 | Wo liegt `esdm lint`? | — | offen, Frage an den Maintainer; bis dahin `validate_model` und `scripts/check_model.py` |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
-| T3 | Frontend-Technik (REST gesetzt; Thymeleaf + htmx verworfen) | G2 | offen |
+| T3 | Anbindung und Technik der Frontends (Vorschlag REST, ADR 10; Gegenoption Thymeleaf + htmx) | G2 | offen |
+| T5 | Weiterentwicklung der Events, Mechanismus der Idempotenz | G2 | offen |
 | T4 | Deployment-Einheiten (Default: eine) | G2 | offen |
 | F1 | Process Manager | G5 | vorerst ohne |
 | F2 | Woher kennt `lending` den Exemplartyp? (siehe unten) | G3 | **entschieden** 2026-10-25: aus den Ereignissen des Katalogs |
@@ -434,13 +741,15 @@ Spalte „Danach“.
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
 | 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: ADR 10 samt Korrekturen an ADR 2–8: #17 (`b911252`, 2026-10-25) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
-| 06 | Choosing the first increment | `chapter-06-first-increment` (#19) | (Merge durch den Maintainer) | — | — |
+| 06 | Choosing the first increment | `chapter-06-first-increment` (#19) | `9d4a438` | Verweis auf ADR 10 angepasst (`plan-phase-5-revision`) | — |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
 (`docs/gates/g1-model-to-code.md`). Unabhängige Prüfung des Schnitts vor
 G6 — `cut-review-before-g6` (#18): Bericht, C-27 bis C-32 (vom Agenten
 entschieden, delegiert), ADR 11 `accepted` (2026-10-26), Glossare nachgezogen
-(Studio-Version `pre-g6-glossaries-after-review`).
+(Studio-Version `pre-g6-glossaries-after-review`). Plan für Phase 5 —
+`plan-phase-5-revision`: Phase 5 ohne Verträge und REST, ADR 10 wieder
+offen, Skills im Rückblick mit Probelauf, Detailplan (2026-10-28).
 
 ## 13. Regeln für die Arbeit mit Claude Code
 
@@ -490,9 +799,10 @@ muss. Beschrieben in `docs/decisions.md`; in Kürze:
   hält nach der Antwort fest, **wer wann entschieden hat und was verworfen
   wurde**, und zieht alles nach, was davon abhängt.
 - Stopp-Kriterien: eine fachliche Regel steht nicht in der Quelle **und**
-  der Agent findet kein sinnvolles Verhalten (fachliche Fragen sind seit
-  2026-10-25 an den Agenten delegiert, Einträge „decided by the agent
-  (delegated)“, Maintainer kann im PR widersprechen); ein Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
+  alle Optionen sind schlecht (fachliche Fragen sind seit 2026-10-25 an
+  den Agenten delegiert, seit 2026-10-28 auch, wenn mehrere Optionen
+  sinnvoll sind; Einträge „decided by the agent (delegated)“, Maintainer
+  kann im PR widersprechen); ein Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
   frühere Entscheidung rückgängig (dann offen sagen, nicht selbst ändern).
 - Alles andere entscheidet der Agent selbst, wenn es eine vernünftige
   Lösung gibt, und meldet es im PR („vom Agenten entschieden“). Dazu
