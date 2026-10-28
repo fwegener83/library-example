@@ -564,6 +564,151 @@ can still overturn any of them in the review of the pull request.
 - **Status:** decided 2026-10-25 by the agent (delegated by the
   maintainer). The entry in section C is moved here.
 
+## A5. Questions from Example Mapping (chapter 7)
+
+Raised while the examples for the scope of gate G6 were written
+(`model/sketch/example-mapping.json`). On 2026-10-28 the maintainer widened
+the delegation: the agent decides where there is a business favourite or
+several sensible options without a notable problem, and asks only when
+every option is bad. All entries below, and the parked C-11 to C-14 that
+are decided here, are therefore **decided by the agent (delegated)**. The
+maintainer can overturn any of them in the review of the pull request.
+
+### C-11 Blocked card: may a reservation made before the block be collected? (was parked)
+
+- **Source:** brief §3.3 ("What nobody ever decided …"), §6; C-05, C-22.
+- **Options:** 1. Yes, collecting completes a reservation that was made in
+  time. 2. No: collecting is a new loan, and a blocked or expired card has
+  no new loans; the reservation stays and runs out as usual.
+- **Decision:** option 2. "Blocked means: no new loans" (§3.3) is the
+  rule the brief states, collecting is a loan, and the same rule then
+  holds for an expired card (C-05). The cost is small: a payment at the
+  desk unblocks at once (C-22), so a reader who pays can collect on the
+  same visit. Option 1 makes the block depend on when a reservation was
+  made, which is the "every branch does it differently" the brief names.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-12 How many days is a reservation kept? (was parked)
+
+- **Source:** brief §3.2 ("three days … Northgate keeps them for five
+  days, I think"), §6, §2 ("One system for all four branches").
+- **Options:** 1. Three days everywhere. 2. Five days everywhere. 3. Per
+  branch.
+- **Decision:** option 1, as a setting of `lending`. Three is what the
+  branch librarian states; five is a guess ("I think") and a per-branch
+  value is one of the "little habits" the director wants gone. The
+  counting is in C-34.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-13 Loan period (was parked)
+
+- **Decision:** the loan runs 60 days, the same for every title, a
+  setting of `lending`. A shorter period for new releases is "nothing
+  decided" (§3.4) and not part of the first increment.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-14 The overdue limit per branch and the return at another branch (was parked)
+
+- **Source:** brief §3.2 ("more than two overdue books from *our* branch
+  … every branch keeps its own count. That's how it's always been"), §3.5
+  (a researcher asks why Riverside refuses and Central does not); C-24.
+- **Options:** 1. Keep the limit per branch and show the reason on every
+  refusal. 2. One limit for all branches. 3. Drop it.
+- **Decision:** option 1. It is a rule the staff state, option 2 and 3
+  change a rule nobody asked to change, and the researcher's complaint is
+  about not being told why, which the reason on the refusal answers.
+  Details:
+  - **Counted** are the loans that were checked out at that branch and
+    are overdue now. "More than two" means three or more. The limit stops
+    new *reservations* at that branch, researchers included (§3.2); it
+    does not stop checkouts, because the brief does not say so.
+  - **A reservation** is made for a copy that is on the shelf of a branch
+    and is collected at that branch; the count that applies is that
+    branch's.
+  - **A copy may be returned at any branch.** It then stands on the shelf
+    of the branch where it was returned; its home branch (C-24) does not
+    change. The overdue call list belongs to the branch that lent it.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-33 A checkout for a copy that `lending` does not know yet
+
+- **Source:** gate G3 follow-up (ADR 3, 4): `lending` learns of a copy from
+  the event *Copy Registered*, which arrives some time after the copy was
+  registered; brief §3.1 ("You can't register a copy of a book that isn't
+  in the catalogue").
+- **Options:** 1. `lending` refuses and says the copy is not known yet;
+  the desk tries again in a moment. 2. `lending` asks `catalogue` on the
+  spot. 3. `lending` accepts the checkout and settles it later.
+- **Decision:** option 1. Option 2 makes `lending` depend on `catalogue`
+  at run time (ADR 3), option 3 lends something that may be restricted or
+  withdrawn. The window is short and a retry is cheap.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-34 When is a loan overdue and a reservation run out?
+
+- **Source:** brief §3.4 ("starting the day after the book was due"),
+  §3.2 ("reservations that ran out yesterday"); C-03, C-28; ADR 11
+  (business time).
+- **Options:** 1. Dates, as for cards (C-28), and a morning run that
+  applies them. 2. A timer per loan and per reservation.
+- **Decision:** option 1. The **due date** is the day of checkout plus 60
+  days. A loan is overdue from the day after the due date. A reservation
+  made on day *d* is kept **through day d+3**; it has run out from day
+  d+4. A day is a day of the library's calendar (one time zone for all
+  branches). The **morning run** (actor *Clock*, once a day, before the
+  desks open) marks what became overdue or ran out and counts the running
+  amounts (C-03); a run twice in a day changes nothing. Rules that
+  compare a date with today (a checkout, a collection) do not wait for the
+  run. One run is simpler than thousands of timers and is what the
+  librarian does by hand today.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-35 Payments at the desk: partial, and how much
+
+- **Source:** brief §3.4 (no word on partial payments), §3.3 ("When they
+  pay, we unblock"); C-22.
+- **Options:** 1. Any amount from one cent up to the amount owed.
+  2. Only the full amount.
+- **Decision:** option 1. Cash at a desk is paid in the amount the reader
+  has; the €10 rule (C-01) already works on the amount owed and lifts the
+  hold as soon as it is €10 or less. A payment above the amount owed is
+  refused. The payment is not assigned to a single charge in the first
+  increment.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-36 What is the new end date of a renewed card?
+
+- **Source:** brief §3.3 ("valid for a year and has to be renewed");
+  C-28.
+- **Options:** 1. One year from the old end date if the card is still
+  valid, otherwise one year from the day of renewal. 2. Always one year
+  from the day of renewal.
+- **Decision:** option 1. Early renewal does not cost the member days;
+  a lapsed card starts again. The same for renewing researcher status
+  with a new letter.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-37 May researcher status be granted to a member whose card has expired?
+
+- **Source:** brief §3.3; C-05, C-28.
+- **Options:** 1. Only for a valid card (renew first). 2. Always.
+- **Decision:** option 1. Status without a card is of no use, and the
+  renewal is one more step at the same desk. The two end dates are
+  independent after that.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
+### C-38 Which replacement price applies when the price of a title is corrected?
+
+- **Source:** brief §3.1 ("we need the price because that's what we
+  charge if a book is lost"), §3.4; C-27.
+- **Options:** 1. The price in force when a charge is fixed; a charge
+  already fixed does not change. 2. Recalculate every open charge.
+- **Decision:** option 1. A running fine is capped at the price in
+  force on the day of the run, a fixed late fine and a lost-book fee keep
+  the amount they were fixed with. Recalculating would change what a
+  reader was already told to pay.
+- **Status:** decided 2026-10-28 by the agent (delegated by the maintainer).
+
 ---
 
 ## B. Answered by the brief (confirm only)
@@ -580,10 +725,10 @@ can still overturn any of them in the review of the pull request.
 
 | ID | Question | Source | Decide when |
 |---|---|---|---|
-| C-11 | Blocked card: collect a reservation made before the block? | brief §3.3, §6 | Modelling lending (rule, not a boundary) |
-| C-12 | Reservation kept 3 or 5 days? | brief §3.2, §6 | Modelling lending (a setting) |
-| C-13 | 28-day loans for new releases? | brief §3.4, §6 | Modelling lending (a setting) |
-| C-14 | Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? Which branch counts for the limit: where the copy was checked out, or its home branch (C-24)? | brief §3.2, §3.5 | Modelling lending (rule) |
+| C-11 | Blocked card: collect a reservation made before the block? **Decided 2026-10-28 (agent): no, see A5.** | brief §3.3, §6 | Decided in chapter 7 |
+| C-12 | Reservation kept 3 or 5 days? **Decided 2026-10-28 (agent): 3, see A5.** | brief §3.2, §6 | Decided in chapter 7 |
+| C-13 | 28-day loans for new releases? **Decided 2026-10-28 (agent): 60 days, see A5.** | brief §3.4, §6 | Decided in chapter 7 |
+| C-14 | **Decided 2026-10-28 (agent), see A5.** Overdue limit per branch: intended or habit? And where does a copy returned at another branch go (C-24)? Which branch counts for the limit: where the copy was checked out, or its home branch (C-24)? | brief §3.2, §3.5 | Decided in chapter 7 |
 | C-15 | Waiting line for books that are out? **Decided 2026-10-26 (G6, maintainer): not in the first increment.** It would become part of reservations (chapter 6, D) if it ever comes. | brief §3.2 | Decided with the scope |
 | C-16 | Who may waive a fine, and why? | brief §3.4 ("waived" in the report only) | Modelling fees |
 | C-26 | Monthly report: does "paid" mean received or confirmed by CityPay (C-22)? Does "outstanding" include running fines? | brief §3.4, C-22, C-23; report ch05 F2 | Modelling fees |
