@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-28 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`), am 2026-10-28 für Phase 5 geändert (§5, „Phase 5 im Detail“); ADR 10 (REST an den Außenkanten) am 2026-10-28 wieder geöffnet, entschieden wird in Phase 6 (G2); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`); C-27 bis C-32 vom Agenten im Auftrag entschieden, ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); Plan für Phase 5 am 2026-10-28 freigegeben (#21); fachliche Delegation erweitert; als Nächstes Kapitel 7 (Example Mapping), dann Kapitel 8 (den Scope modellieren)*
+*Stand: 2026-10-28 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`), am 2026-10-28 für Phase 5 geändert (§5, „Phase 5 im Detail“); ADR 10 (REST an den Außenkanten) am 2026-10-28 wieder geöffnet, entschieden wird in Phase 6 (G2); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`); C-27 bis C-32 vom Agenten im Auftrag entschieden, ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); Plan für Phase 5 am 2026-10-28 freigegeben (#21); fachliche Delegation erweitert; Example Mapping als eigenes Kapitel am 2026-10-28 gestrichen; als Nächstes Kapitel 7 (den Scope modellieren)*
 
 ---
 
@@ -205,8 +205,8 @@ ersten echten Einsatz.
 | 2 Schneiden | Kontexte, Context Map, Glossare | `derive-contexts`, `challenge-context-cut` | Kap. 3, 5 |
 | 3 Modulith-Regeln | eine Einheit, Integrationsregeln (ohne Technik der Frontends) | `set-modulith-rules` | Kap. 4 |
 | 4 Liefer-Scope | was jetzt modelliert und gebaut wird | `plan-scope` | Kap. 6 → G6 |
-| 5 Feinmodellieren = Schnitt testen | sauberes Modell in Studio für den Scope (ESDM, nicht draft), Flows über die Kontexte, wo sie tragen | `example-mapping`, `model-scope`, `challenge-context-cut` (Modus 2) | Kap. 7–9 |
-| 6 Technik | Technik, Anbindung der Frontends (REST?), API-Spezifikation, Event-Evolution, Tiefe, Deployment-Einheiten | `decide-technology` | Kap. 10 → G2 |
+| 5 Feinmodellieren = Schnitt testen | sauberes Modell in Studio für den Scope (ESDM, nicht draft), Flows über die Kontexte, wo sie tragen | `model-scope`, `challenge-context-cut` (Modus 2) | Kap. 7–8 |
+| 6 Technik | Technik, Anbindung der Frontends (REST?), API-Spezifikation, Event-Evolution, Tiefe, Deployment-Einheiten | `decide-technology` | Kap. 9 → G2 |
 | 7 Bauen | Plan und Code aus dem Modell | `plan-implementation`, `implement-slice`, `check-model-code` | danach |
 | später | Modul herauslösen | `extract-module` | offen |
 
@@ -225,7 +225,9 @@ Phase 6: wie Frontends die Module erreichen (ADR 10 wieder geöffnet), eine
 API-Spezifikation, wie Events weiterentwickelt werden (von ADR 4
 angekündigt) und wie die Module mit späten oder doppelten Events umgehen.
 Ab Phase 5 entsteht jeder Skill im Rückblick und wird mit einem Probelauf
-getestet (Abschnitt „Wie ein Skill entsteht“).
+getestet (Abschnitt „Wie ein Skill entsteht“). Am selben Tag gestrichen:
+Example Mapping als eigenes Kapitel mit eigenem Skill (Abschnitt „Phase 5
+im Detail“).
 
 ### Teil B — nach G1
 
@@ -235,11 +237,10 @@ getestet (Abschnitt „Wie ein Skill entsteht“).
 | — | **Unabhängige Prüfung des Schnitts** vor G6: `challenge-context-cut` in frischem Agenten; Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | erledigt (#18) |
 | 6 | **Choosing the first increment**: 18 Kandidaten, vier Optionen, Skill `plan-scope` | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6 entschieden** 2026-10-26: Option 3 |
 | — | **Plan für Phase 5** (#21): Phase 5 ohne Verträge und REST, ADR 10 wieder offen, Skills im Rückblick, Detailplan | 5 | — | Plan | **freigegeben** 2026-10-28 |
-| 7 | **Example Mapping**: je Szenario des Scopes Regeln, Beispiele und Fragen auf einem Sketch Board; Fragen als `C-nn` (u. a. C-11, C-12, C-14, G3-Folgefrage); durchgehende Beispielfiguren für die Flows. Danach Rückblick und, nach deinem Review, Skill `example-mapping` mit Probelauf | 5 | `example-mapping` | Sketch Board | Review |
-| 8 | **Modelling the scope**: Flows über die Kontexte (Rückgrat vom Regal zur Sperre und zurück, Vormerkung, Verlust, Researcher, Varianten), sonst direkt im Static View; GWT aus den Beispielen; Rückwärtsprüfung jedes Flows; Übersicht der Grenzen; Modell sauber (validiert, nichts draft, Export). Danach der **Rückblick** mit der Passung in DDD Studio (abgebildet, nur statisch, verbogen, nicht abbildbar) und, nach deinem Review, der Skill `model-scope` mit Probelauf | 5 | `model-scope` | Flows, Static View, Features | Review; Rücksprung nach 2 möglich (Halt) |
-| 9 | **Challenging the cut in the model**: `challenge-context-cut` Modus 2 in frischem Agenten gegen das Modell aus Kapitel 8 (Abbruchkriterien aus G1, Übersicht der Grenzen); danach Modus 2 im Skill mit Probelauf. **Ende von Phase 5:** du nimmst das Modell für den Scope ab | 5 | `challenge-context-cut` (Modus 2) | Skill, DDD Studio lesend | du entscheidest über die Funde; Rücksprung nach 2 möglich; Abnahme Phase 5 |
-| 10 | **Choosing the technology**: Versionen, Event Store, DB, Anbindung der Frontends (REST? ADR 10 als Vorlage), Frontend-Technik, API-Spezifikation, Event-Evolution und Zustellung, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) | 6 | `decide-technology` | ADRs | **G2** |
-| 11 ff. | **Building**: Implementierungsplan, Skelett, dann `catalogue` und `membership`, `lending`, `fees`, minimale UI | 7 | `plan-implementation`, `implement-slice`, `check-model-code` | Code, Spring Modulith, DDD-Studio-MCP | Review je Kontext; Rücksprünge |
+| 7 | **Modelling the scope**: Flows über die Kontexte (Rückgrat vom Regal zur Sperre und zurück, Vormerkung, Verlust, Researcher, Varianten), sonst direkt im Static View; offene Regeln als `C-nn`; GWT-Szenarien aus den Regeln; Rückwärtsprüfung jedes Flows; Übersicht der Grenzen; Modell sauber (validiert, nichts draft, Export). Danach der **Rückblick** mit der Passung in DDD Studio (abgebildet, nur statisch, verbogen, nicht abbildbar) und, nach deinem Review, der Skill `model-scope` mit Probelauf | 5 | `model-scope` | Flows, Static View, Features | Review; Rücksprung nach 2 möglich (Halt) |
+| 8 | **Challenging the cut in the model**: `challenge-context-cut` Modus 2 in frischem Agenten gegen das Modell aus Kapitel 7 (Abbruchkriterien aus G1, Übersicht der Grenzen); danach Modus 2 im Skill mit Probelauf. **Ende von Phase 5:** du nimmst das Modell für den Scope ab | 5 | `challenge-context-cut` (Modus 2) | Skill, DDD Studio lesend | du entscheidest über die Funde; Rücksprung nach 2 möglich; Abnahme Phase 5 |
+| 9 | **Choosing the technology**: Versionen, Event Store, DB, Anbindung der Frontends (REST? ADR 10 als Vorlage), Frontend-Technik, API-Spezifikation, Event-Evolution und Zustellung, Tiefe pro Kontext, Deployment-Einheiten (Default: eine) | 6 | `decide-technology` | ADRs | **G2** |
+| 10 ff. | **Building**: Implementierungsplan, Skelett, dann `catalogue` und `membership`, `lending`, `fees`, minimale UI | 7 | `plan-implementation`, `implement-slice`, `check-model-code` | Code, Spring Modulith, DDD-Studio-MCP | Review je Kontext; Rücksprünge |
 | — | **Skills der Phasen 0–3 herauslösen** und mit frischem Durchlauf testen (neuer Wegwerf-Workspace, nur der Brief); `ddd-workflow`, `close-step` | 0–3 | `gather-knowledge` … `set-modulith-rules` | Skills | Review |
 
 Umsetzungstiefe im Code (Vorschlag, entschieden in G2): voll — `lending`,
@@ -279,60 +280,28 @@ Status draft, GWT-Features für die Regeln, Export nach `model/esdm/`; der
 Schnitt ist gegen dieses Modell geprüft. Kein REST, keine OpenAPI, keine
 Entscheidung zu Zustellung oder Versionierung.
 
-**Reihenfolge (Empfehlung des Agenten, vom Maintainer am 2026-10-28
-angenommen, mit GWT aus den Beispielen und Flows über die Kontexte):** Example Mapping (Kapitel 7) → den Scope modellieren
-(Kapitel 8) → den Schnitt im Modell prüfen (Kapitel 9).
+**Reihenfolge:** den Scope modellieren (Kapitel 7) → den Schnitt im Modell
+prüfen (Kapitel 8).
 
-*Warum Example Mapping zuerst:* Example Mapping ist eine Technik, um Regeln
-und Lücken zu finden, bevor Struktur entsteht. Auch hier gibt es offene
-Regeln, die die Struktur bestimmen: die geparkten C-11, C-12 und C-14, die
-Folgefrage aus G3 (eine Ausleihe für ein Exemplar, das `lending` noch
-nicht kennt), wann eine Ausleihe überfällig wird, wann eine Vormerkung
-abläuft. Mit Example Mapping danach würden sie erst entschieden, wenn die
-Flows schon stehen, und Flows müssten umgebaut werden. Zweiter Gewinn: Die
-Beispiele (ein Leser, ein Exemplar, konkrete Beträge und Tage) werden die
-`exampleData` der Flows und danach die GWT-Szenarien. So prüft die
-Rückwärtsprüfung echte Zahlen, und das Modell ist am Ende von Kapitel 8
-vollständig, mit Features. *Was dagegen spricht:* Der Probelauf des
-Feinmodellierens rückt ein Kapitel nach hinten; und die meisten Regeln
-sind schon geklärt (C-01 bis C-32). Darum bleibt Example Mapping schlank
-(siehe unten). *Verworfen:* Example Mapping nach dem Modell (der erste
-Entwurf dieses Plans) — Regeln würden spät entschieden, GWT erst ein
-Kapitel später.
+**Kein Example Mapping als eigenes Kapitel** (Maintainer, 2026-10-28,
+nachdem Kapitel 7 als Example Mapping begonnen hatte). Der erste
+Detailplan sah ein Kapitel Example Mapping auf einem Sketch Board vor,
+mit eigenem Skill. Gestrichen: Die meisten Regeln sind schon geklärt
+(C-01 bis C-32); Example Mapping ist ein Format für einen Workshop mit
+Menschen am Tisch, kein Zwischenprodukt für einen Agenten; Studio hat
+dafür keine Karten. Was davon gebraucht wird, steckt jetzt in Kapitel 7:
+die offenen Regeln werden entschieden, wenn eine Storyline sie braucht
+(Schritt 2, Delegation), die durchgehenden Beispielfiguren werden mit den
+Storylines festgelegt, und die GWT-Szenarien entstehen aus den Regeln
+(Schritt 4). Die Entscheidungen, die im abgebrochenen Start schon fielen
+(C-11 bis C-14, C-33 bis C-38), gehen in Kapitel 7 mit.
 
 *Warum die Prüfung des Schnitts zuletzt:* Die Abbruchkriterien werden
-schon beim Modellieren beobachtet (Kapitel 8, Schritt 6). Der frische
+schon beim Modellieren beobachtet (Kapitel 7, Schritt 6). Der frische
 Agent prüft danach das fertige Modell, mit Flows, Invarianten und
 Szenarien; das ist die vollständigste Grundlage.
 
-#### Kapitel 7 — Example Mapping
-
-Ein Sketch Board für den Scope; je Szenario (A, B, C, D, E1–E3, G1, J1)
-eine gelbe Karte für die Geschichte, blaue für die Regeln, grüne für die
-Beispiele je Regel, rote für Fragen.
-
-- **Schlank:** Beispiele nur für Regeln, die etwas entscheiden (eine
-  Ablehnung, einen Betrag, eine Frist, einen Übergang zwischen Kontexten),
-  je Regel das typische Beispiel und die Grenzfälle. Regeln, die nur
-  Daten erfassen, bekommen keine Beispiele.
-- **Quellen:** jede Regel mit Brief §, Satz der Story oder `C-nn`.
-- **Fragen** werden `C-nn`: der Agent entscheidet im Auftrag, wenn es
-  einen fachlichen Favoriten gibt oder mehrere sinnvolle Optionen ohne
-  nennenswertes Problem; er fragt nur, wenn alle Optionen schlecht sind
-  (Maintainer, 2026-10-28). Erwartet: C-11, C-12,
-  C-14, die G3-Folgefrage, der Zeitpunkt von „überfällig“ und „abgelaufen“.
-- **Durchgehende Beispielfiguren**, die in mehreren Szenarien vorkommen
-  (dieselbe Leserin, dasselbe Exemplar), damit die Flows in Kapitel 8
-  eine Geschichte über die Kontexte erzählen können.
-- **Ergebnis:** Board als Snapshot in `model/sketch/`, Version
-  `ch07-example-mapping`; Kapiteltext; Rückblick; nach deinem Review Skill
-  `example-mapping` mit Probelauf. Der Skill sagt, wann Example Mapping
-  vor und wann nach dem Feinmodell steht.
-
-Das Board ist Material, kein Modell (laut Studio werden Sketch Boards nie
-selbst Modellelemente). Ins Modell gehen die Beispiele in Kapitel 8.
-
-#### Kapitel 8 — den Scope modellieren
+#### Kapitel 7 — den Scope modellieren
 
 **Arbeitsweise: Flow zuerst, wo er trägt; nie verbiegen.**
 
@@ -362,7 +331,7 @@ Kontexte, die sie berührt. Jede Slice nennt ihren Kontext; jeder Übergang
 zwischen zwei Slices in verschiedenen Kontexten ist eine Überquerung einer
 Grenze und zeigt, ob der Schnitt trägt. Studio lässt das zu (eine Slice
 hat ihren eigenen Kontext, ein Flow keinen); ob die Web-App es gut
-darstellt, zeigt der erste Flow. Vorschlag (endgültig nach Kapitel 7):
+darstellt, zeigt der erste Flow. Vorschlag (endgültig mit den Storylines, Schritt 2):
 
 1. **Rückgrat: vom Regal zur Sperre und zurück** (A, B, C, E1, E2, E3,
    halb J1). Der Katalog registriert ein Exemplar → `lending` kennt es;
@@ -409,14 +378,22 @@ Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
    event-handler, domain-service. Arbeitsprotokoll anlegen, mit einer
    Spalte „Passung“ je Schritt (siehe Schritt 10).
 2. **Storylines schreiben**, vor jedem Knoten: je Flow die Schritte mit
-   Quelle (Brief §, Satz der Story, `C-nn`, Beispiel aus Kapitel 7),
-   Kontext und Art des Schritts.
+   Quelle (Brief §, Satz der Story, `C-nn`), Kontext und Art des Schritts.
+   Dazu die **durchgehenden Beispielfiguren**, die in mehreren Flows
+   vorkommen (dieselbe Leserin, dasselbe Exemplar, konkrete Tage und
+   Beträge), damit die Flows eine Geschichte über die Kontexte erzählen.
+   Braucht eine Storyline eine Regel, die nicht geklärt ist, wird sie hier
+   ein `C-nn`: der Agent entscheidet im Auftrag, wenn es einen fachlichen
+   Favoriten gibt oder mehrere sinnvolle Optionen ohne nennenswertes
+   Problem, und fragt nur, wenn alle Optionen schlecht sind. Erwartet:
+   C-11, C-12, C-14, die G3-Folgefrage, der Zeitpunkt von „überfällig“ und
+   „abgelaufen“ (im abgebrochenen Start schon entschieden, siehe oben).
 3. **Flows modellieren**, Rückgrat zuerst (die meisten Grenzen, das
    größte Risiko), dann 3, 2, 4, dann die Varianten. Je Schritt: Knoten
    anlegen oder wiederverwenden (Aggregat, Command, Event, Akteur, Read
    Model, Query, Policy, Process Manager), Referenzen setzen (publishes,
    actors, projections, handles/emits), dann die Slice mit den
-   `exampleData` aus Kapitel 7. `draftReasons` jeder Antwort sofort lesen
+   `exampleData` mit den Beispielfiguren aus Schritt 2. `draftReasons` jeder Antwort sofort lesen
    und beheben. Bekannte Stellen, an denen der Flow nicht reicht oder die
    Form offen ist, jeweils mit `explain_concept` und Abwägung im Protokoll:
    - *Wie `lending` von Exemplaren und Lesern erfährt* (ADR 4: es behält
@@ -440,8 +417,11 @@ Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
    - *Policies über Kontextgrenzen:* Zustellung „at-least-once“ mit
      Idempotenz beim Empfänger, weil ADR 4 späte und doppelte Kopien schon
      annimmt; der Mechanismus (`strategy`) bleibt offen für Phase 6.
-4. **GWT-Features** aus den Beispielen von Kapitel 7: je Regel, die ein
-   Beispiel hat, ein Szenario am Aggregat oder Read Model; Ablehnungen mit
+4. **GWT-Features** aus den Regeln: je Regel, die etwas entscheidet (eine
+   Ablehnung, einen Betrag, eine Frist, einen Übergang zwischen
+   Kontexten), das typische Beispiel und die Grenzfälle als Szenario am
+   Aggregat oder Read Model, mit den Beispielfiguren; Regeln, die nur
+   Daten erfassen, bekommen keine Szenarien; Ablehnungen mit
    `invariantId`. Neue Lücken: kleine Schleife (`C-nn`, dann Modell).
 5. **Rückwärtsprüfung jedes Flows** (aus dem Event Modeling: die
    Geschichte rückwärts lesen, ob jede Information erklärt ist). Von der
@@ -458,8 +438,7 @@ Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
    - die `exampleData` bleiben über den Flow gleich, auch über die
      Kontextgrenzen (dieselbe Leserin, dieselbe Ausleihe, Beträge
      nachrechenbar: €0.50 × Tage, gedeckelt);
-   - kein Feld ohne Quelle im Brief, in einer Klärung oder im Example
-     Mapping.
+   - kein Feld ohne Quelle im Brief oder in einer Klärung.
    Funde werden im Modell behoben und im Protokoll gezählt. Der statische
    Teil der Prüfung wird ein Skript `scripts/check_model.py` auf dem
    Export (Felder von Read Models gegen projizierte Events, Events gegen
@@ -475,11 +454,11 @@ Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
 8. **Modell sauber machen:** `validate_model` ohne Befund, kein Knoten
    draft; `export_esdm` nach `model/esdm/`; `esdm lint` auf den Export, wenn
    das Werkzeug verfügbar ist (offen, siehe unten);
-   `scripts/check_model.py`; `save_version` `ch08-model-scope`.
-9. **Kapiteltext** `chapters/08-modelling-the-scope.md`, geschrieben mit
+   `scripts/check_model.py`; `save_version` `ch07-model-scope`.
+9. **Kapiteltext** `chapters/07-modelling-the-scope.md`, geschrieben mit
    Flows und Export offen, jeder Satz gegen den Brief geprüft; dann
    `close-chapter` mit unabhängigem Review.
-10. **Rückblick** `docs/reviews/ch08-modelling-retrospective.md`, mit einem
+10. **Rückblick** `docs/reviews/ch07-modelling-retrospective.md`, mit einem
     eigenen Abschnitt **„Passung: wie gut passte der Scope in DDD Studio?“**:
     - eine Tabelle über jeden Schritt jedes Flows und jedes Element, das
       nur im Static View steht, mit einer von vier Einstufungen: *im Flow
@@ -499,19 +478,19 @@ Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
     Scope-Dokument mit einem kleinen Szenario über zwei Kontexte, etwa G1).
     Der Skill verlangt einen entschiedenen Scope als Eingabe; fehlt er,
     bricht er ab und verweist auf `plan-scope` oder fordert ein Dokument
-    mit den Szenarien und der Entscheidung an. Ein Example Mapping nimmt
-    er, wenn es da ist. Die Rückwärtsprüfung, die Übersicht der Grenzen
+    mit den Szenarien und der Entscheidung an. Beispiele oder ein Example
+    Mapping nimmt er, wenn sie da sind. Die Rückwärtsprüfung, die Übersicht der Grenzen
     und die Einstufung der Passung sind Teil des Skills.
 
-**Was Kapitel 8 nicht macht:** keine REST-Endpunkte, keine OpenAPI, keine
+**Was Kapitel 7 nicht macht:** keine REST-Endpunkte, keine OpenAPI, keine
 Verträge als eigenes Artefakt, keine Entscheidung zu Zustellung,
 Reihenfolge oder Versionierung über die Annahmen von ADR 4 und ADR 11
 hinaus.
 
-#### Kapitel 9 — den Schnitt im Modell prüfen
+#### Kapitel 8 — den Schnitt im Modell prüfen
 
 `challenge-context-cut` in einem frischen Agenten gegen das Modell aus
-Kapitel 8, mit den Abbruchkriterien aus G1 und der Übersicht der Grenzen
+Kapitel 7, mit den Abbruchkriterien aus G1 und der Übersicht der Grenzen
 als Auftrag (Modus 2 ist im Skill angekündigt, aber noch nicht
 geschrieben; der erste Lauf bekommt den Auftrag als Text, der Skill folgt
 im Rückblick). Bericht nach `docs/reviews/`; du entscheidest über die
@@ -521,9 +500,9 @@ absichtlich eingebauten Fehler (etwa eine Invariante, die Daten aus zwei
 Kontexten braucht). Findet der Agent ihn?
 
 **Ende von Phase 5:** du nimmst das Modell für den Scope ab; danach
-Kapitel 10 (Technik, G2).
+Kapitel 9 (Technik, G2).
 
-**Offen für dich (blockiert nichts vor Kapitel 8, Schritt 8):** Wo liegt
+**Offen für dich (blockiert nichts vor Kapitel 7, Schritt 8):** Wo liegt
 `esdm lint`? Studio nennt es, ein Paket dafür habe ich weder in npm noch
 in PyPI gefunden. Ohne das Werkzeug heißt „sauber gelintet“:
 `validate_model` ohne Befund, nichts draft, `scripts/check_model.py` grün.
@@ -663,8 +642,8 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | M4 | G1: Phasenmodell (erledigt) | — |
 | M5 | ADR 10 (mit Korrekturen an Kapitel 4), unabhängige Prüfung des Schnitts, Kapitel 6: Liefer-Scope | G1 |
 | — | **G6** | |
-| M6 | Kapitel 7–9: Example Mapping, Scope modelliert, Schnitt im Modell geprüft; Skills `example-mapping`, `model-scope`, `challenge-context-cut` Modus 2 | G6, Freigabe des Plans für Phase 5 |
-| — | **G2** (Kapitel 10) | |
+| M6 | Kapitel 7–8: Scope modelliert, Schnitt im Modell geprüft; Skills `model-scope`, `challenge-context-cut` Modus 2 | G6, Freigabe des Plans für Phase 5 |
+| — | **G2** (Kapitel 9) | |
 | M7 | Bauen, Kontext für Kontext | G2 |
 | M8 | Skills der Phasen 0–3 herauslösen, frischer Durchlauf | nach dem ersten gebauten Kontext |
 | — | **G4, G5** | |
@@ -691,7 +670,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | **entschieden** 2026-10-26: Option 3 (A, B, C, D, E1–E3, G1, J1), kein Go-live neben LibTrack, CityPay später, C-15 draußen |
 | A1 | REST an den Außenkanten (ADR 10) | G2 | am 2026-10-25 angenommen (#17); **wieder offen** seit 2026-10-28 (Maintainer: Technik, kein Vorgriff); ADR 10 `proposed` als Vorlage |
-| P5 | Detailplan Phase 5 (§5) | — | **entschieden** 2026-10-28 (Maintainer, im Gespräch; PR #21) |
+| P5 | Detailplan Phase 5 (§5) | — | **entschieden** 2026-10-28 (Maintainer, im Gespräch; PR #21); Example Mapping am selben Tag gestrichen |
 | L1 | Wo liegt `esdm lint`? | — | offen, Frage an den Maintainer; bis dahin `validate_model` und `scripts/check_model.py` |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
@@ -741,7 +720,7 @@ Spalte „Danach“.
 | 03 | Strategic design | `chapter-03-strategic-design` (#6) | `6547c0c` | — | `ch3-before-clarifications`, `ch3-context-cut-v3`, `ch3-context-map-v3` |
 | 04 | Deployment decision | `chapter-04-deployment` (#8) | `9e404d9` | ADRs angenommen #9; MADR-Format #12 (`e065915`); Vorgehen allein aus dem Modell #15; ADR 10 samt Korrekturen an ADR 2–8: ADR 10 samt Korrekturen an ADR 2–8: #17 (`b911252`, 2026-10-25) | `ch4-context-map-circle-noted`, `ch4-context-map-holds` |
 | 05 | Challenging the cut | `chapter-05-challenging-the-cut` (#11) | `71b79cd` | Konsistenzprüfung `consistency-after-ch05`; Vorgehen allein aus dem Modell #15 | `ch5-big-picture-after-challenge(-v2 … -v5)`, `ch5-context-map-after-challenge(-v2 … -v4)` |
-| 06 | Choosing the first increment | `chapter-06-first-increment` (#19) | `9d4a438` | Verweis auf ADR 10 angepasst (`plan-phase-5-revision`) | — |
+| 06 | Choosing the first increment | `chapter-06-first-increment` (#19) | `9d4a438` | Verweis auf ADR 10 angepasst (`plan-phase-5-revision`); Kapitelnummern nach Streichung des Example Mapping (`plan-phase-5-without-example-mapping`) | — |
 
 Außerhalb der Kapitel: Gate G1, Phasenmodell — `g1-phase-model`
 (`docs/gates/g1-model-to-code.md`). Unabhängige Prüfung des Schnitts vor
@@ -749,7 +728,10 @@ G6 — `cut-review-before-g6` (#18): Bericht, C-27 bis C-32 (vom Agenten
 entschieden, delegiert), ADR 11 `accepted` (2026-10-26), Glossare nachgezogen
 (Studio-Version `pre-g6-glossaries-after-review`). Plan für Phase 5 —
 `plan-phase-5-revision`: Phase 5 ohne Verträge und REST, ADR 10 wieder
-offen, Skills im Rückblick mit Probelauf, Detailplan (2026-10-28).
+offen, Skills im Rückblick mit Probelauf, Detailplan (2026-10-28). Example Mapping
+als eigenes Kapitel gestrichen — `plan-phase-5-without-example-mapping`
+(2026-10-28); der begonnene Branch `chapter-07-example-mapping` (#22) wird
+geschlossen, seine Klärungen gehen in Kapitel 7 (den Scope modellieren).
 
 ## 13. Regeln für die Arbeit mit Claude Code
 
