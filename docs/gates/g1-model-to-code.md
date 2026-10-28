@@ -9,6 +9,34 @@ it is settled.
 
 **Level:** way of working (`docs/decisions.md`).
 
+**Amended by the maintainer on 2026-10-28.** Three changes, written into
+the text below:
+
+1. **Phase 5 has no step of its own for contracts on the boundaries, and
+   nothing about REST or OpenAPI.** The skills `model-flows`,
+   `design-context-contracts` and `model-context` are replaced by one
+   skill, `model-scope`, that models the whole delivery scope across the
+   contexts it touches. Events that cross a boundary are modelled like any
+   other event, with their payload: they are business facts, and the model
+   is not complete without them. What is technology moves to phase 6: how
+   front ends reach the modules, an API specification, how events are
+   changed over time (announced by ADR 4), and how modules deal with
+   late or repeated events.
+2. **REST at the edges is reopened.** ADR 10 (accepted 2026-10-25) is
+   `proposed` again and is decided at gate G2 in phase 6. Deciding it in
+   phase 3 anticipated the technology. Between modules nothing changes:
+   facts travel as events and orders go through the owner (ADR 4).
+3. **Skills are written in hindsight and tested.** From phase 5 on, a
+   chapter runs without its skill, with a short working checklist and a
+   log. After the maintainer's review the skill is written from the log
+   and tested by a fresh agent in a throw-away workspace.
+
+Rejected on 2026-10-28: keeping a separate contract step in phase 5
+(contracts here are mostly technology: delivery, versions, API style);
+keeping ADR 10 accepted and only moving the OpenAPI work (then REST would
+still be decided before phase 6); writing skills before their first use
+without a test.
+
 ## 1. The question
 
 After chapter 5 we have bounded contexts, a context map challenged twice
@@ -36,16 +64,17 @@ model, not only the last step.
 4. **Modulith first, strongly.** One deployable unit, one module per
    context, until the cut has proved itself. Pulling a module out is a
    later step with a skill of its own.
-5. **REST at the edges, events inside.** All front ends use the modules
-   through REST APIs; between modules, facts travel as events and orders
-   go through the owner's public API (ADR 4). API first: the OpenAPI
-   specification of a module is written before its code.
+5. **Events inside.** Between modules, facts travel as events and orders
+   go through the owner's public API (ADR 4). How front ends reach the
+   modules is technology and is decided in phase 6 (ADR 10 is the
+   proposal; amended 2026-10-28).
 6. **Phase 7 builds, it does not model.** A gap found while building is
    closed in Studio first (small loop to phase 5). A cut that does not
    hold is a stop (big loop to phase 2).
-7. **Skills are built in this repo**, generic in their wording, each one
-   while its phase runs in the tutorial. They are pulled out as a plugin
-   later.
+7. **Skills are built in this repo**, generic in their wording. From
+   phase 5 on, each one is written after its chapter, from the log of
+   that chapter, and tested by a fresh agent (amended 2026-10-28). They
+   are pulled out as a plugin later.
 
 ## 3. The phases
 
@@ -54,10 +83,10 @@ model, not only the last step.
 | **0 Gather knowledge** | Bring in documents of any kind, rate them, merge them into one knowledge document; set the problem scope | The agent collects and rates, a human confirms | `gather-knowledge` | Knowledge document and problem scope confirmed |
 | **1 Explore the domain** | Understand enough to see a cut | Big Picture: people. Domain Stories: the agent draws, a human checks | `prepare-event-storming`, `digitize-board`, `draw-domain-story`, `discovery-readiness` | "Enough to cut" |
 | **2 Cut** | Subdomains, bounded contexts, context map, glossaries | The agent proposes, a fresh agent challenges | `derive-contexts`, `challenge-context-cut` | Cut accepted |
-| **3 Rules of the modulith** | One unit, module = context, integration rules, REST at the edges | The agent, opinionated | `set-modulith-rules` | Rules accepted |
+| **3 Rules of the modulith** | One unit, module = context, integration rules | The agent, opinionated | `set-modulith-rules` | Rules accepted |
 | **4 Delivery scope** | Which scenarios are modelled in detail and built now | A human decides, the agent prepares | `plan-scope` | Scope accepted |
-| **5 Model in detail = test the cut** | A static model in Studio for the scope: contracts, aggregates, invariants, GWT scenarios; flows where they help | Agent and human | `model-flows`, `design-context-contracts`, `example-mapping`, `model-context`, `challenge-context-cut` (mode 2) | Model complete for the scope, **or** back to phase 2 |
-| **6 Technology** | Versions, event store, database, front-end technology, depth per context, deployment units (default: one) | The agent, opinionated | `decide-technology` | Gate G2 |
+| **5 Model in detail = test the cut** | A clean model in Studio for the scope (validated, nothing in draft, exported): aggregates, commands, events with payloads, policies, process managers, read models, invariants, GWT scenarios; flows where they carry the story | Agent and human | `model-scope`, `challenge-context-cut` (mode 2), `example-mapping` | Model complete for the scope, **or** back to phase 2 |
+| **6 Technology** | Versions, event store, database, how front ends reach the modules, front-end technology, API specification, evolution of events, delivery of late or repeated events, depth per context, deployment units (default: one) | The agent, opinionated | `decide-technology` | Gate G2 |
 | **7 Build** | Implementation plan and code from the model; no business modelling | The agent | `plan-implementation`, `implement-slice`, `check-model-code` | Scope runs, **or** a loop back |
 | *later* | Pull a module out once the cut is stable | The agent; a human decides | `extract-module` | — |
 
@@ -119,9 +148,10 @@ clarifications `C-nn`.
 
 Phase 3 no longer asks how many deployment units there are. It sets the
 rules of the one unit: module = context, public API only, facts as
-events, orders through the owner, each module owns its data, REST at the
-edges (ADR 2 to 9; REST at the edges was decided by the maintainer on 2026-10-25 and is recorded as ADR 10). The skill is opinionated
-(§5).
+events, orders through the owner, each module owns its data (ADR 2 to 9).
+How front ends reach the modules is not a rule of the modulith but
+technology; it was decided here as ADR 10 on 2026-10-25 and reopened for
+phase 6 on 2026-10-28. The skill is opinionated (§5).
 
 ### Phase 4: delivery scope
 
@@ -133,30 +163,31 @@ a business decision and a stop of its own (gate G6 in the plan).
 
 ### Phase 5: model in detail, test the cut
 
-The result is a **static model in Studio that covers the delivery
-scope**: aggregates, commands, events, policies, read models, invariants,
-GWT scenarios, and the contract on every boundary the scope crosses.
+The result is a **clean model in Studio that covers the delivery scope**:
+aggregates, commands, events with their payloads, policies, process
+managers, read models, invariants and GWT scenarios. Clean means:
+validated without findings, no element in draft, exported as ESDM.
+(Amended 2026-10-28: no separate contracts, no REST API.)
 
-- **First the boundaries, then the inside.** The flows across contexts
-  and the contracts on each boundary (`model-flows`,
-  `design-context-contracts`): which scenario crosses which boundary, in
-  which direction, with which kind of contract (fact → event, order →
-  public command of the owner, question → query for the front end), the
-  payload schema, and what the downstream does when an event comes late
-  or twice (ADR 4). The rule for changing events that ADR 4 announced is
-  written here.
-- **Flows are optional.** A flow is like a sequence diagram: one example
-  run. The static view is like a class diagram, and drawing a flow fills
-  it. Flows help where a process crosses several boundaries; everything
-  can also be modelled without them.
-- **Example Mapping** (`example-mapping`) per story: cards for story,
-  rules, examples and questions on a sketch board. Examples become GWT
-  scenarios, questions become clarifications `C-nn`.
-- **The inside of each context** (`model-context`), including its REST
-  API, which follows from its commands, read models and the pages that
-  need them.
+- **Model the scope, story by story** (`model-scope`). Every scenario of
+  the scope is told as a flow where a flow can carry it, across all the
+  contexts it touches. A flow is like a sequence diagram: one example
+  run. The static view is like a class diagram, and the flow is built
+  from it. What a flow cannot show (the state, timers and end of a
+  process manager, invariants, domain services, other outcomes of a
+  command) is modelled directly in the static view, with the flow in
+  mind. Nothing is bent to fit a slice.
+- **Read every flow backwards.** From the last step to the first: every
+  field of a read model comes from an event, every field of an event from
+  its command, the aggregate's state or a named source, every field of a
+  command from what the actor saw, from the triggering event or from a
+  named input. A field that appears from nowhere is a gap in the story.
+- **Example Mapping** (`example-mapping`) per rule of the model: cards
+  for story, rules, examples and questions on a sketch board. Examples
+  become GWT scenarios, questions become clarifications `C-nn`.
 - **The cut is under test the whole time.** `challenge-context-cut` gets
-  a second mode for this phase (its own file already announces it).
+  a second mode for this phase (its own file already announces it); it
+  runs on the model of `model-scope`, before Example Mapping.
   Abort criteria, each one a reason to go back to phase 2:
   - an invariant needs data from two contexts at the same moment,
   - a policy has no clear owner,
@@ -168,8 +199,10 @@ GWT scenarios, and the contract on every boundary the scope crosses.
 
 The first time the question of deployment units is asked, with a strong
 default: one unit, a fast and cheap prototype whose cut holds; splitting
-comes later. Further: versions, event store, database, front-end
-technology (REST is set; the front end is a separate client), depth per
+comes later. Further: versions, event store, database, how front ends
+reach the modules (ADR 10 proposes REST with an API specification
+written before the code), front-end technology, how events are changed
+over time, how a module deals with late or repeated events, depth per
 context (CRUD or event-sourced). This is gate G2.
 
 ### Phase 7: build
@@ -208,19 +241,15 @@ events changed only by adding to them (events can be in transit even in
 a modulith: the event publication registry keeps them serialised). What
 differs is the technology and the cost of a change: an event is a Java
 record in the module's API, an order is a call on the owner's public
-interface. There is **no REST between modules** in one process.
+interface. There is **no REST between modules** in one process. In the
+model, the payload of each event is the contract; how it evolves is
+decided in phase 6.
 
-**REST at the edges, API first.** Every front end uses the modules
-through REST. The endpoints sit inside each module as its web adapter
-(as ADR 6 does for the adapters to external systems); the front end composes pages from
-several modules (ADR 8). A backend for frontend stays the way out if a
-page needs too many calls. The OpenAPI specification of a module is
-written before its code, derived from its commands, queries and read
-models in Studio, and the code is tested against it. Here a second
-artefact is worth its cost: the consumer is a front end in other
-technology and needs a language-neutral contract. Between modules the
-payload schemas in Studio are the contract; AsyncAPI or OpenAPI for them
-only when a module is pulled out.
+**How front ends reach the modules** is decided in phase 6 (amended
+2026-10-28). ADR 10 is the proposal: REST, endpoints inside each module
+as its web adapter, the OpenAPI specification written before the code
+from the commands, queries and read models in Studio. The front end
+composes pages from several modules either way (ADR 8).
 
 ## 6. Rejected alternatives
 
@@ -233,9 +262,11 @@ only when a module is pulled out.
 | Process-level Event Storming as a sketch board in phase 1 and as the source of flows | Two artefacts for one process drift apart. Studio flows are the source; a sketch board only as a throw-away for a tangled process. |
 | The agent drawing the Big Picture | It mirrors the documents. The agent prepares, transfers and checks. |
 | "No modelling in phase 7" without a small loop | Forces a big design up front. Building always finds gaps. |
-| Thymeleaf and htmx for the front end (plan §7) | The maintainer wants REST for every front end (conversation of 2026-10-25; ADR 10). |
-| Generating the OpenAPI specification from the code | Then the code defines the contract, not the model. |
+| Thymeleaf and htmx for the front end (plan §7) | Rejected on 2026-10-25 in favour of REST (ADR 10). Since ADR 10 was reopened on 2026-10-28, it is the counter-option at G2 again. |
+| Generating an API specification from the code | Then the code defines the contract, not the model. Stays the guidance for G2. |
 | Skills straight into a plugin or into `ddd-studio` | `ddd-studio` is behind gate G4, and skills never used once are guesswork. |
+| A step of its own for the contracts on the boundaries in phase 5 (`design-context-contracts`) | Rejected 2026-10-28: the payloads are modelled with the events anyway; the rest (delivery, versions, API style) is technology for phase 6. |
+| Writing a skill before its phase runs | Rejected 2026-10-28: a skill written from experience is better; a fresh agent tests it. |
 
 ## 7. Skills
 
@@ -245,13 +276,16 @@ log, ADRs, reviews, the Studio workspace) goes into one conventions file
 that each skill reads. The general rules of `CLAUDE.md` (stops, decision
 levels, evidence) belong to the framework as well.
 
-**When:** each skill from phase 4 on is written while its phase runs in
-the tutorial and is used there for real. The skills for phases 0 to 3 are
+**When:** `plan-scope` (phase 4) was written while its chapter ran. From
+phase 5 on (amended 2026-10-28), a chapter runs with a short working
+checklist and a log, the maintainer reviews it, and only then is the
+skill written from the log and tested by a fresh agent with a small
+input in a throw-away workspace. The skills for phases 0 to 3 are
 pulled out of chapters 0 to 5, `checks.md` and the heuristics *after* the
 first context is built, and tested like a regression: a fresh agent gets
 only the brief in a new throw-away workspace. Does it reach a comparable
 cut? Only that run shows whether the framework carries. The same test for
-`set-modulith-rules`: does a fresh agent reach ADR 2 to 10?
+`set-modulith-rules`: does a fresh agent reach ADR 2 to 9 and 11?
 
 | Skill | Phase | Status |
 |---|---|---|
@@ -259,11 +293,11 @@ cut? Only that run shows whether the framework carries. The same test for
 | `gather-knowledge` | 0 | extracted later |
 | `prepare-event-storming`, `digitize-board`, `draw-domain-story`, `discovery-readiness` | 1 | extracted later |
 | `derive-contexts` | 2 | extracted later |
-| `challenge-context-cut` | 2, 5 | exists; mode 2 added in phase 5 |
-| `set-modulith-rules` | 3 | extracted later, tested against ADR 2 to 10 |
+| `challenge-context-cut` | 2, 5 | exists; mode 2 written after chapter 8 |
+| `set-modulith-rules` | 3 | extracted later, tested against ADR 2 to 9 and 11 |
 | `plan-scope` | 4 | chapter 6 |
-| `model-flows`, `design-context-contracts` | 5 | chapter 7 |
-| `example-mapping`, `model-context` | 5 | chapter 8 |
+| `model-scope` | 5 | written after chapter 7 |
+| `example-mapping` | 5 | written after chapter 9 |
 | `decide-technology` | 6 | gate G2 |
 | `plan-implementation`, `implement-slice`, `check-model-code` | 7 | first build chapter |
 | `extract-module` | later | after a stable cut |
@@ -273,12 +307,12 @@ cut? Only that run shows whether the framework carries. The same test for
 
 | Question (plan §6) | Answer |
 |---|---|
-| Order | Boundaries before inside; all contexts in scope modelled (phase 5) before any is built (phase 7). Modelling order by risk (`lending` first), build order by dependencies (`catalogue` and `membership` first, chapter 4). |
+| Order | All contexts in scope modelled (phase 5) before any is built (phase 7); in phase 5 story by story across the contexts (amended 2026-10-28), stories of the riskiest context (`lending`) first. Build order by dependencies (`catalogue` and `membership` first, chapter 4). |
 | Unit of an increment | In phase 7: one slice with the GWT feature that specifies it. *Settled in detail by `plan-implementation` in the first build chapter.* |
-| Flows across contexts | Modelled first in phase 5, together with the contract on each boundary. |
+| Flows across contexts | Modelled in phase 5 by `model-scope`, where a flow can carry the story; no separate contract step (amended 2026-10-28). |
 | Reading the model: MCP or export | Studio is the source and is read through MCP; flows are only there, they are not in the ESDM export. The exports are the reviewable record and are refreshed at the end of each step; if they differ, Studio wins and the export is refreshed. |
 | Scenarios → tests | Every GWT scenario becomes one test; flows can become acceptance tests across contexts, specified outside Studio (tool gap 17). *Naming and the check that every scenario has a test: `check-model-code`, first build chapter.* |
-| Model and code in step | `check-model-code`: modules = contexts, events = published language, every scenario has a test, the code matches the OpenAPI specification. |
+| Model and code in step | `check-model-code`: modules = contexts, events = published language, every scenario has a test, and, if G2 decides on one, the code matches the API specification. |
 | Who owns a rule | Every policy that crosses a boundary names its owning context in its description until Studio has a field for it (tool gap 14). `challenge-context-cut` mode 2 checks it. |
 | Skills | §7. |
 
@@ -286,10 +320,10 @@ cut? Only that run shows whether the framework carries. The same test for
 
 | Phase | Chapter |
 |---|---|
-| 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) follows chapter 4 in a pull request of its own (accepted 2026-10-25). |
+| 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) followed chapter 4 in a pull request of its own (accepted 2026-10-25, reopened 2026-10-28). |
 | 4 Delivery scope | Chapter 6, gate G6 |
-| 5 Model in detail | Chapter 7 (boundaries and flows), then the inside of the contexts, `lending` first |
-| 6 Technology | After phase 5, gate G2 |
+| 5 Model in detail | Chapter 7 (modelling the scope), chapter 8 (challenging the cut in the model), chapter 9 (Example Mapping) |
+| 6 Technology | Chapter 10, gate G2 |
 | 7 Build | After G2; `catalogue` and `membership` first |
 
 The working plan (`docs/plan.md`, §5) has the chapters in detail.

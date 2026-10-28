@@ -15,7 +15,7 @@ Status values: `proposed`, `accepted`, `rejected`, `deprecated`, `superseded by 
 | [7](0007-identifiers-across-contexts.md) | Identifiers across contexts are issued by the owner | accepted |
 | [8](0008-user-interfaces-outside-the-modules.md) | User interfaces sit outside the modules and use only public APIs | accepted |
 | [9](0009-lending-fees-customer-supplier.md) | Lending supplies fees as customer and supplier, not as an open host | accepted |
-| [10](0010-rest-at-the-edges.md) | Front ends use the modules through REST; between modules there is no REST | accepted |
+| [10](0010-rest-at-the-edges.md) | Front ends use the modules through REST; between modules there is no REST (accepted 2026-10-25, reopened 2026-10-28, decided at G2) | proposed |
 | [11](0011-what-every-published-event-carries.md) | Every published event names its subject, its business time and its place in order | accepted |
 
 The tutorial is written for Java, Spring Boot and Spring Modulith (a premise, see [ADR 1](0001-record-architecture-decisions.md)). Versions, event store, database and user interface technology are decided at gate G2 and are deliberately not part of these records.

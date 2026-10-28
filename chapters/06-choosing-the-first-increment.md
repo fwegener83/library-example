@@ -16,7 +16,7 @@ The choice of what the library needs first is a business decision, so it is the 
 
 Each candidate is a business capability that a person in the brief relies on or asks for. The sources are the list of what people rely on (brief §4), the two stories of chapter 2, and the events on the Big Picture board. A candidate is split where its parts have different owners or open rules: the fine at return, the daily running amount and the payment at the desk are three; the morning lists and the notices are two.
 
-For each candidate the table names the contexts it touches, the boundaries it crosses and what it needs. The contracts are those of the context map and the records: a fact travels as an event, an order goes through the owner's public API (ADR 4, ADR 5), a question comes from a front end over REST (ADR 8, ADR 10), and every event carries the envelope of ADR 11.
+For each candidate the table names the contexts it touches, the boundaries it crosses and what it needs. The contracts are those of the context map and the records: a fact travels as an event, an order goes through the owner's public API (ADR 4, ADR 5), a question comes from a front end through the module's public queries (ADR 8)[^adr10], and every event carries the envelope of ADR 11.
 
 **Size.** **S**: one context, at most one boundary, no parked rule. **M**: two boundaries, or a parked rule, or a page that composes several modules. **L**: three or more boundaries, a boundary whose interface we do not know, or a path to or from an external payment system, or a refund. The sizes are a judgement, not a measurement.
 
@@ -37,9 +37,9 @@ For each candidate the table names the contexts it touches, the boundaries it cr
 | G2 | A lost copy comes back | brief §3.4 (no sentence about it); C-30 | lending, catalogue, fees | lending → fees, catalogue → lending | the replacement price is cancelled or refunded, by hand until CityPay is known (C-30) | G1, E3 | L |
 | H | A damaged copy is withdrawn or released by the Head of Collection | brief §3.2 ("then it goes to Tom"); *Book Found Damaged*, *Copy Withdrawn*, *Copy Released*; C-06, C-25 | lending, catalogue | catalogue → lending | the release names the damage report (ADR 11) | A, C | M |
 | I | A researcher's keeps; the status ends | brief §3.2, §3.3; *Book Kept for Researcher*; C-05, C-28, C-32 | lending, membership | membership → lending | end dates travel as dates (C-28); the member is told "through the normal notice" (C-32), which is J2 and can wait | B, D | M |
-| J1 | The morning lists: reservations that ran out, loans that are overdue, with names, phone numbers and titles | brief §3.2, §4, §2 ("Staff spend an hour a day calling people"); *Loan Became Overdue*, *Reader Reminded by Phone*; C-31, finding F7 of the report | lending, membership, catalogue | questions over REST, composed by a staff page (ADR 8, ADR 10); no event | contact details in membership (C-31, decided) | A, B, C, D | M |
+| J1 | The morning lists: reservations that ran out, loans that are overdue, with names, phone numbers and titles | brief §3.2, §4, §2 ("Staff spend an hour a day calling people"); *Loan Became Overdue*, *Reader Reminded by Phone*; C-31, finding F7 of the report | lending, membership, catalogue | questions from a front end, composed by a staff page (ADR 8); no event | contact details in membership (C-31, decided) | A, B, C, D | M |
 | J2 | The notices by email: reservation ready, due soon, reservation expiring | brief §3.5, §3.6; *Reservation-Ready Notice Sent*, *Due Reminder Sent*, *Reservation-Expiring Reminder Sent* | lending, membership, mail gateway | the mail gateway has no mapping yet | how a notice from lending reaches an address kept in membership (open, C-31) | B, C, D | L |
-| K | Search the catalogue; the reader's account online | brief §4, §2 ("see their own account online"), §3.5 ("see online what I have at home"); ADR 8 | catalogue, lending, fees | questions over REST, composed by the page | availability per branch (finding F11 of the report) | A, B, C, D, E1 | M |
+| K | Search the catalogue; the reader's account online | brief §4, §2 ("see their own account online"), §3.5 ("see online what I have at home"); ADR 8 | catalogue, lending, fees | questions from a front end, composed by the page | availability per branch (finding F11 of the report) | A, B, C, D, E1 | M |
 | L1 | The monthly report | brief §3.4; C-23, C-26 | fees | none | "paid" received or confirmed, "outstanding" with or without running fines (C-26); it reports every kind of charge that exists in the increment | E1 | M |
 | L2 | Waive a fine | brief §3.4 ("waived" in the report); C-16 | fees | none | who may waive, and why (C-16, not answered) | E1 | M |
 
@@ -77,7 +77,7 @@ A, B, C, D, E1, E2, E3, G1. All four contexts, `fees` only as far as the story o
 A, B, C, D, E1, E2, E3, G1, J1.
 
 * **Delivers:** option 2, and the two lists of the morning, per branch, with names, phone numbers and titles. With them the story `overdue-book-fine-and-blocked-card` runs from its first sentence (the list) to the unblock, except for the telephone call and the keying into CityPay, which are done by people.
-* **Tests of the cut:** option 2, and the case that no event covers: a staff page that composes `lending`, `membership` and `catalogue` through their public queries (ADR 8, ADR 10; finding F7 of the report).
+* **Tests of the cut:** option 2, and the case that no event covers: a staff page that composes `lending`, `membership` and `catalogue` through their public queries (ADR 8; finding F7 of the report).
 * **Costs:** option 2, and a page with the public questions of three modules. The contact details of C-31 are decided, so there is no open interface.
 * **Leaves out:** E4, F, G2, H, I, J2, K, L. The gaps named under option 2 (usage fee, damaged copy, lost copy that comes back) stay.
 * **LibTrack:** cannot be retired. The search, the reader's account, the report and CityPay still need it or a manual step.
@@ -129,6 +129,8 @@ Option 3 and F, G2, H, I, K.
   * **C-15** (the waiting line for books that are out): not in the first increment (recorded in the [clarification log](../requirements/clarifications.md)).
 * **Business:** C-15 as above. The parked C-11, C-12 and C-14 are decided when `lending` is modelled (chapter 8).
 * **Architecture:** none.
+
+[^adr10]: When this chapter was written, ADR 10 had settled that a front end asks over REST. The maintainer reopened ADR 10 on 2026-10-28; how a front end reaches a module is decided at gate G2. The candidates and options of this chapter do not depend on it.
 
 ---
 

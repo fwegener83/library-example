@@ -47,7 +47,7 @@ The modules are connected as follows.
 ### Consequences
 
 * Bad, because a downstream module keeps its own copy of what it needs (lending keeps the member status). Copies can be late; the rules of each context must say what happens then. That is a question for the modelling of each context.
-* Bad, because published events are contracts. Changing one is a change to the upstream's API and is negotiated with its consumers. Events can still be in transit, late or repeated, when a new version is released, so an event should be changed only by adding to it. A record of its own follows when the first event is specified or gate G2 decides how events are kept.
+* Bad, because published events are contracts. Changing one is a change to the upstream's API and is negotiated with its consumers. Events can still be in transit, late or repeated, when a new version is released, so an event should be changed only by adding to it. A record of its own follows at gate G2, together with how events are kept. (Until 2026-10-28 this said "when the first event is specified"; the first events are modelled in phase 5, but how they are changed is technology and belongs to phase 6, see [G1, amended](../gates/g1-model-to-code.md).)
 * Neutral, because how events are delivered and kept is decided at gate G2. The rule that a reaction tolerates repeated and late events holds in any case.
 
 ## Pros and Cons of the Options

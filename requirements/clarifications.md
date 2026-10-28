@@ -503,11 +503,14 @@ can still overturn any of them in the review of the pull request.
   Phone and email are optional: a member without email gets no email
   notices, and staff call instead. The morning lists are a staff page
   that puts together loans and reservations from `lending`, people from
-  `membership` and titles from `catalogue` (ADR 8, ADR 10), not a list
+  `membership` and titles from `catalogue` (ADR 8), not a list
   that `lending` prints alone.
-- **Open, for chapter 7:** how a notice from `lending` reaches an email
+- **Open, for the increment with the email notices (J2, not in the
+  first increment):** how a notice from `lending` reaches an email
   address that `membership` keeps (a copy in `lending`, or `membership`
-  sends). That is a question of the contract, not of the business.
+  sends). It is modelled with the notices. (Until 2026-10-28 this said
+  "for chapter 7"; chapter 7 no longer has a step for contracts, and J2
+  is outside the scope of gate G6.)
 - **Status:** decided 2026-10-25 by the agent (delegated by the
   maintainer).
 

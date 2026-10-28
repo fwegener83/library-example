@@ -9,7 +9,7 @@ modelled in detail and built from the model — with [DDD Studio](https://ddd-st
 **Status:** work in progress. Chapters 0 to 6 are done; gate G6 is decided (option 3). Gate G1 is
 decided: the tutorial follows a [phase model](docs/gates/g1-model-to-code.md)
 from a few documents with requirements to running software, with a skill
-for each phase. ADR 10 (REST at the edges) is accepted. The independent review of the cut before gate G6 and its answers (C-27 to C-32, ADR 11) are done. Next is chapter 7, the flows and contracts across the boundaries.
+for each phase; on 2026-10-28 it was amended for phase 5 (no separate contract step, no REST in the modelling; skills written after their chapter and tested). ADR 10 (REST at the edges) is reopened and is decided with the technology at gate G2. The independent review of the cut before gate G6 and its answers (C-27 to C-32, ADR 11) are done. Next is chapter 7, modelling the first increment in DDD Studio.
 
 | Chapter | Topic | Status |
 |---|---|---|
