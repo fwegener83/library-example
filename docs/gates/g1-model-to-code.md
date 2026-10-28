@@ -9,7 +9,7 @@ it is settled.
 
 **Level:** way of working (`docs/decisions.md`).
 
-**Amended by the maintainer on 2026-10-28.** Three changes, written into
+**Amended by the maintainer on 2026-10-28.** Four changes, written into
 the text below:
 
 1. **Phase 5 has no step of its own for contracts on the boundaries, and
@@ -31,7 +31,16 @@ the text below:
    log. After the maintainer's review the skill is written from the log
    and tested by a fresh agent in a throw-away workspace.
 
-Rejected on 2026-10-28: keeping a separate contract step in phase 5
+4. **Order and shape of phase 5** (recommended by the agent at the
+   maintainer's request, approved with the plan): Example Mapping first,
+   then the scope modelled as flows across the contexts, then the cut
+   challenged against the finished model. The retrospective of the
+   modelling rates how well each step fitted DDD Studio (in a flow, static
+   as Studio intends, bent, not representable).
+
+Rejected on 2026-10-28: Example Mapping after the model (rules would be
+decided after the flows stand); one flow per context (it hides how the
+contexts work together); keeping a separate contract step in phase 5
 (contracts here are mostly technology: delivery, versions, API style);
 keeping ADR 10 accepted and only moving the OpenAPI work (then REST would
 still be decided before phase 6); writing skills before their first use
@@ -85,7 +94,7 @@ model, not only the last step.
 | **2 Cut** | Subdomains, bounded contexts, context map, glossaries | The agent proposes, a fresh agent challenges | `derive-contexts`, `challenge-context-cut` | Cut accepted |
 | **3 Rules of the modulith** | One unit, module = context, integration rules | The agent, opinionated | `set-modulith-rules` | Rules accepted |
 | **4 Delivery scope** | Which scenarios are modelled in detail and built now | A human decides, the agent prepares | `plan-scope` | Scope accepted |
-| **5 Model in detail = test the cut** | A clean model in Studio for the scope (validated, nothing in draft, exported): aggregates, commands, events with payloads, policies, process managers, read models, invariants, GWT scenarios; flows where they carry the story | Agent and human | `model-scope`, `challenge-context-cut` (mode 2), `example-mapping` | Model complete for the scope, **or** back to phase 2 |
+| **5 Model in detail = test the cut** | A clean model in Studio for the scope (validated, nothing in draft, exported): aggregates, commands, events with payloads, policies, process managers, read models, invariants, GWT scenarios; flows across the contexts where they carry the story | Agent and human | `example-mapping`, `model-scope`, `challenge-context-cut` (mode 2) | Model complete for the scope, **or** back to phase 2 |
 | **6 Technology** | Versions, event store, database, how front ends reach the modules, front-end technology, API specification, evolution of events, delivery of late or repeated events, depth per context, deployment units (default: one) | The agent, opinionated | `decide-technology` | Gate G2 |
 | **7 Build** | Implementation plan and code from the model; no business modelling | The agent | `plan-implementation`, `implement-slice`, `check-model-code` | Scope runs, **or** a loop back |
 | *later* | Pull a module out once the cut is stable | The agent; a human decides | `extract-module` | — |
@@ -169,9 +178,19 @@ managers, read models, invariants and GWT scenarios. Clean means:
 validated without findings, no element in draft, exported as ESDM.
 (Amended 2026-10-28: no separate contracts, no REST API.)
 
-- **Model the scope, story by story** (`model-scope`). Every scenario of
-  the scope is told as a flow where a flow can carry it, across all the
-  contexts it touches. A flow is like a sequence diagram: one example
+- **Example Mapping first** (`example-mapping`): per scenario of the
+  scope, cards for story, rules, examples and questions on a sketch
+  board. Questions become clarifications `C-nn` before any structure
+  exists; the examples become the example data of the flows and later
+  the GWT scenarios. Where most rules are already clarified, it stays
+  lean.
+- **Model the scope, story by story** (`model-scope`). The scenarios of
+  the scope are told as flows that run across all the contexts they
+  touch, as the story happens in the business, not one flow per context;
+  every step names its context, and every change of context is a
+  boundary under test. An overview of the boundaries, derived from the
+  flows, shows which mapping each step crosses and whether its pattern
+  held. A flow is like a sequence diagram: one example
   run. The static view is like a class diagram, and the flow is built
   from it. What a flow cannot show (the state, timers and end of a
   process manager, invariants, domain services, other outcomes of a
@@ -182,12 +201,9 @@ validated without findings, no element in draft, exported as ESDM.
   its command, the aggregate's state or a named source, every field of a
   command from what the actor saw, from the triggering event or from a
   named input. A field that appears from nowhere is a gap in the story.
-- **Example Mapping** (`example-mapping`) per rule of the model: cards
-  for story, rules, examples and questions on a sketch board. Examples
-  become GWT scenarios, questions become clarifications `C-nn`.
 - **The cut is under test the whole time.** `challenge-context-cut` gets
   a second mode for this phase (its own file already announces it); it
-  runs on the model of `model-scope`, before Example Mapping.
+  runs on the finished model of `model-scope` (amended 2026-10-28).
   Abort criteria, each one a reason to go back to phase 2:
   - an invariant needs data from two contexts at the same moment,
   - a policy has no clear owner,
@@ -293,11 +309,11 @@ cut? Only that run shows whether the framework carries. The same test for
 | `gather-knowledge` | 0 | extracted later |
 | `prepare-event-storming`, `digitize-board`, `draw-domain-story`, `discovery-readiness` | 1 | extracted later |
 | `derive-contexts` | 2 | extracted later |
-| `challenge-context-cut` | 2, 5 | exists; mode 2 written after chapter 8 |
+| `challenge-context-cut` | 2, 5 | exists; mode 2 written after chapter 9 |
 | `set-modulith-rules` | 3 | extracted later, tested against ADR 2 to 9 and 11 |
 | `plan-scope` | 4 | chapter 6 |
-| `model-scope` | 5 | written after chapter 7 |
-| `example-mapping` | 5 | written after chapter 9 |
+| `example-mapping` | 5 | written after chapter 7 |
+| `model-scope` | 5 | written after chapter 8 |
 | `decide-technology` | 6 | gate G2 |
 | `plan-implementation`, `implement-slice`, `check-model-code` | 7 | first build chapter |
 | `extract-module` | later | after a stable cut |
@@ -307,7 +323,7 @@ cut? Only that run shows whether the framework carries. The same test for
 
 | Question (plan §6) | Answer |
 |---|---|
-| Order | All contexts in scope modelled (phase 5) before any is built (phase 7); in phase 5 story by story across the contexts (amended 2026-10-28), stories of the riskiest context (`lending`) first. Build order by dependencies (`catalogue` and `membership` first, chapter 4). |
+| Order | All contexts in scope modelled (phase 5) before any is built (phase 7); in phase 5 Example Mapping, then the scope story by story across the contexts, the story that crosses the most boundaries first (amended 2026-10-28). Build order by dependencies (`catalogue` and `membership` first, chapter 4). |
 | Unit of an increment | In phase 7: one slice with the GWT feature that specifies it. *Settled in detail by `plan-implementation` in the first build chapter.* |
 | Flows across contexts | Modelled in phase 5 by `model-scope`, where a flow can carry the story; no separate contract step (amended 2026-10-28). |
 | Reading the model: MCP or export | Studio is the source and is read through MCP; flows are only there, they are not in the ESDM export. The exports are the reviewable record and are refreshed at the end of each step; if they differ, Studio wins and the export is refreshed. |
@@ -322,7 +338,7 @@ cut? Only that run shows whether the framework carries. The same test for
 |---|---|
 | 0 to 3 | Chapters 0 to 5, done. ADR 10 (REST at the edges) followed chapter 4 in a pull request of its own (accepted 2026-10-25, reopened 2026-10-28). |
 | 4 Delivery scope | Chapter 6, gate G6 |
-| 5 Model in detail | Chapter 7 (modelling the scope), chapter 8 (challenging the cut in the model), chapter 9 (Example Mapping) |
+| 5 Model in detail | Chapter 7 (Example Mapping), chapter 8 (modelling the scope), chapter 9 (challenging the cut in the model) |
 | 6 Technology | Chapter 10, gate G2 |
 | 7 Build | After G2; `catalogue` and `membership` first |
 
