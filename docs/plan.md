@@ -1,7 +1,7 @@
 # Plan: Library-Tutorial — von Anforderungen zu laufender Software
 
 *Arbeitsdokument zur Abstimmung (deutsch). Das Tutorial selbst wird englisch.*
-*Stand: 2026-10-28 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`), am 2026-10-28 für Phase 5 geändert (§5, „Phase 5 im Detail“); ADR 10 (REST an den Außenkanten) am 2026-10-28 wieder geöffnet, entschieden wird in Phase 6 (G2); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`); C-27 bis C-32 vom Agenten im Auftrag entschieden, ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); als Nächstes Kapitel 7 (Example Mapping), dann Kapitel 8 (den Scope modellieren)*
+*Stand: 2026-10-28 · Status: Teil A (Kapitel 0–5) abgeschlossen; Gate G1 entschieden (Phasenmodell, `docs/gates/g1-model-to-code.md`), am 2026-10-28 für Phase 5 geändert (§5, „Phase 5 im Detail“); ADR 10 (REST an den Außenkanten) am 2026-10-28 wieder geöffnet, entschieden wird in Phase 6 (G2); unabhängige Prüfung des Schnitts liegt vor (`docs/reviews/pre-g6-context-cut.md`); C-27 bis C-32 vom Agenten im Auftrag entschieden, ADR 11 (Event-Umschlag) angenommen (2026-10-26); Kapitel 6 (Liefer-Scope) angenommen, Gate G6 entschieden (Option 3); Plan für Phase 5 am 2026-10-28 freigegeben (#21); fachliche Delegation erweitert; als Nächstes Kapitel 7 (Example Mapping), dann Kapitel 8 (den Scope modellieren)*
 
 ---
 
@@ -234,7 +234,7 @@ getestet (Abschnitt „Wie ein Skill entsteht“).
 | — | **ADR 10: REST at the edges**: Nachtrag zu Kapitel 4, eigener PR; am 2026-10-25 angenommen, **am 2026-10-28 wieder geöffnet** (Entscheidung in G2). Im selben PR die Korrekturen an ADR 2–8 | 3 | — | ADR | erledigt (#17); wieder offen bis G2 |
 | — | **Unabhängige Prüfung des Schnitts** vor G6: `challenge-context-cut` in frischem Agenten; Bericht nach `docs/reviews/` | 4 | `challenge-context-cut` | Skill | erledigt (#18) |
 | 6 | **Choosing the first increment**: 18 Kandidaten, vier Optionen, Skill `plan-scope` | 4 | `plan-scope` | Repo, DDD Studio lesend | **G6 entschieden** 2026-10-26: Option 3 |
-| — | **Plan für Phase 5** (dieser PR): Phase 5 ohne Verträge und REST, ADR 10 wieder offen, Skills im Rückblick, Detailplan | 5 | — | Plan | Freigabe durch dich |
+| — | **Plan für Phase 5** (#21): Phase 5 ohne Verträge und REST, ADR 10 wieder offen, Skills im Rückblick, Detailplan | 5 | — | Plan | **freigegeben** 2026-10-28 |
 | 7 | **Example Mapping**: je Szenario des Scopes Regeln, Beispiele und Fragen auf einem Sketch Board; Fragen als `C-nn` (u. a. C-11, C-12, C-14, G3-Folgefrage); durchgehende Beispielfiguren für die Flows. Danach Rückblick und, nach deinem Review, Skill `example-mapping` mit Probelauf | 5 | `example-mapping` | Sketch Board | Review |
 | 8 | **Modelling the scope**: Flows über die Kontexte (Rückgrat vom Regal zur Sperre und zurück, Vormerkung, Verlust, Researcher, Varianten), sonst direkt im Static View; GWT aus den Beispielen; Rückwärtsprüfung jedes Flows; Übersicht der Grenzen; Modell sauber (validiert, nichts draft, Export). Danach der **Rückblick** mit der Passung in DDD Studio (abgebildet, nur statisch, verbogen, nicht abbildbar) und, nach deinem Review, der Skill `model-scope` mit Probelauf | 5 | `model-scope` | Flows, Static View, Features | Review; Rücksprung nach 2 möglich (Halt) |
 | 9 | **Challenging the cut in the model**: `challenge-context-cut` Modus 2 in frischem Agenten gegen das Modell aus Kapitel 8 (Abbruchkriterien aus G1, Übersicht der Grenzen); danach Modus 2 im Skill mit Probelauf. **Ende von Phase 5:** du nimmst das Modell für den Scope ab | 5 | `challenge-context-cut` (Modus 2) | Skill, DDD Studio lesend | du entscheidest über die Funde; Rücksprung nach 2 möglich; Abnahme Phase 5 |
@@ -279,8 +279,8 @@ Status draft, GWT-Features für die Regeln, Export nach `model/esdm/`; der
 Schnitt ist gegen dieses Modell geprüft. Kein REST, keine OpenAPI, keine
 Entscheidung zu Zustellung oder Versionierung.
 
-**Reihenfolge (Empfehlung des Agenten, 2026-10-28, vom Maintainer zur
-Beratung erbeten):** Example Mapping (Kapitel 7) → den Scope modellieren
+**Reihenfolge (Empfehlung des Agenten, vom Maintainer am 2026-10-28
+angenommen, mit GWT aus den Beispielen und Flows über die Kontexte):** Example Mapping (Kapitel 7) → den Scope modellieren
 (Kapitel 8) → den Schnitt im Modell prüfen (Kapitel 9).
 
 *Warum Example Mapping zuerst:* Example Mapping ist eine Technik, um Regeln
@@ -316,8 +316,10 @@ Beispiele je Regel, rote für Fragen.
   je Regel das typische Beispiel und die Grenzfälle. Regeln, die nur
   Daten erfassen, bekommen keine Beispiele.
 - **Quellen:** jede Regel mit Brief §, Satz der Story oder `C-nn`.
-- **Fragen** werden `C-nn`: der Agent entscheidet im Auftrag, wo ein
-  sinnvolles Verhalten existiert, sonst fragt er. Erwartet: C-11, C-12,
+- **Fragen** werden `C-nn`: der Agent entscheidet im Auftrag, wenn es
+  einen fachlichen Favoriten gibt oder mehrere sinnvolle Optionen ohne
+  nennenswertes Problem; er fragt nur, wenn alle Optionen schlecht sind
+  (Maintainer, 2026-10-28). Erwartet: C-11, C-12,
   C-14, die G3-Folgefrage, der Zeitpunkt von „überfällig“ und „abgelaufen“.
 - **Durchgehende Beispielfiguren**, die in mehreren Szenarien vorkommen
   (dieselbe Leserin, dasselbe Exemplar), damit die Flows in Kapitel 8
@@ -689,7 +691,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | G1-1 | Vom Modell zum Code: Reihenfolge, Einheit, Szenarien als Tests, Skills (§6) | G1 | **entschieden** 2026-10-25: Phasenmodell; Einheit und Testkonvention im ersten Bau-Kapitel |
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | **entschieden** 2026-10-26: Option 3 (A, B, C, D, E1–E3, G1, J1), kein Go-live neben LibTrack, CityPay später, C-15 draußen |
 | A1 | REST an den Außenkanten (ADR 10) | G2 | am 2026-10-25 angenommen (#17); **wieder offen** seit 2026-10-28 (Maintainer: Technik, kein Vorgriff); ADR 10 `proposed` als Vorlage |
-| P5 | Detailplan Phase 5 (§5) | — | **zur Freigabe** (dieser PR) |
+| P5 | Detailplan Phase 5 (§5) | — | **entschieden** 2026-10-28 (Maintainer, im Gespräch; PR #21) |
 | L1 | Wo liegt `esdm lint`? | — | offen, Frage an den Maintainer; bis dahin `validate_model` und `scripts/check_model.py` |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
@@ -797,9 +799,10 @@ muss. Beschrieben in `docs/decisions.md`; in Kürze:
   hält nach der Antwort fest, **wer wann entschieden hat und was verworfen
   wurde**, und zieht alles nach, was davon abhängt.
 - Stopp-Kriterien: eine fachliche Regel steht nicht in der Quelle **und**
-  der Agent findet kein sinnvolles Verhalten (fachliche Fragen sind seit
-  2026-10-25 an den Agenten delegiert, Einträge „decided by the agent
-  (delegated)“, Maintainer kann im PR widersprechen); ein Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
+  alle Optionen sind schlecht (fachliche Fragen sind seit 2026-10-25 an
+  den Agenten delegiert, seit 2026-10-28 auch, wenn mehrere Optionen
+  sinnvoll sind; Einträge „decided by the agent (delegated)“, Maintainer
+  kann im PR widersprechen); ein Gate; schwer umkehrbar *und* es gibt echte Alternativen; macht eine
   frühere Entscheidung rückgängig (dann offen sagen, nicht selbst ändern).
 - Alles andere entscheidet der Agent selbst, wenn es eine vernünftige
   Lösung gibt, und meldet es im PR („vom Agenten entschieden“). Dazu

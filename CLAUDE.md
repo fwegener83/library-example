@@ -16,9 +16,11 @@ Read `docs/plan.md` §0 (gates) and §12 (chapter log) before doing anything.
   never an approval.
 - **Decisions have levels** (business, architecture, way of working;
   see `docs/decisions.md`). Business questions are delegated (maintainer,
-  2026-10-25): decide them yourself where a sensible behaviour exists,
-  mark them "decided by the agent (delegated)" in the clarification log,
-  and ask only when you find none. Stop and ask at a gate, when a choice is hard to reverse *and* has
+  2026-10-25, widened 2026-10-28): decide them yourself where there is a
+  business favourite, and also where several options are sensible and
+  none has a notable problem; mark them "decided by the agent
+  (delegated)" in the clarification log with the options and the reason.
+  Ask only when every option is bad. Stop and ask at a gate, when a choice is hard to reverse *and* has
   real alternatives, or when it would undo an earlier decision. Record who
   decided, when, and what was rejected.
 - **Otherwise decide yourself** when a sensible solution exists, and list

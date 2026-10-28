@@ -32,7 +32,7 @@ the text below:
    and tested by a fresh agent in a throw-away workspace.
 
 4. **Order and shape of phase 5** (recommended by the agent at the
-   maintainer's request, approved with the plan): Example Mapping first,
+   maintainer's request, accepted by the maintainer on 2026-10-28): Example Mapping first,
    then the scope modelled as flows across the contexts, then the cut
    challenged against the finished model. The retrospective of the
    modelling rates how well each step fitted DDD Studio (in a flow, static
