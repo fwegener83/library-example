@@ -32,6 +32,9 @@ Collected, not fixed. Changes to `ddd-studio` wait for gate G4 (see
 | 25 | `apply_esdm` dry run | A file in which only an invariant's text was changed reported `identifiedBy` as changed as well (DCB `checkout`, probe, 2026-11-14). Cause not examined. | Report only the fields that differ. |
 | 26 | `esdm lint` | Studio refers to the linter's findings ("esdm lint flags"), but no package by that name exists in npm or PyPI (checked again 2026-11-14). Question L1 in `docs/plan.md`. | Say where the linter is, or ship it. |
 | 27 | Workspaces | A workspace cannot be deleted through MCP; the probe workspace of chapter 7 stays. | `delete_workspace`, or an archive. |
+| 28 | `apply_esdm`, invariants | Applying a DCB file regenerated the ids of its invariants although the report named only `identifiedBy` and `description` as changed; a slice rejection that pointed to an invariant had to be set again (2026-11-14). | Keep invariant ids when name and rule are unchanged, or report `invariants` as changed. |
+| 29 | `patch_node`, description | A node's description can only be changed through `apply_esdm` with the whole file. | A `description` field on `patch_node`. |
+| 30 | `create_node`, field order | A payload given as a JSON Schema object came back in alphabetical order, although the tool says the order is kept. The list form keeps it. | Keep the order of `properties`, or say to use the list form. |
 
 ## State after the Studio update of 2026-11-14
 
@@ -45,4 +48,4 @@ a probe workspace (`docs/logs/ch07-decision-shapes.md`).
 | 16 | Open. Flows are not ESDM. Scenarios a flow derives from marked slices are exported with their feature. |
 | 17 | **Partly closed.** A marked slice yields a scenario; the Given of a DCB scenario may hold events of other contexts. A test that runs across several aggregates or contexts still has no place. |
 | 19 | **Closed.** The text now says a flow may cross bounded contexts and each slice names its own. |
-| 20–27 | New, see the table. |
+| 20–30 | New, see the table. 26: `esdm lint` runs later in the pipeline (maintainer, 2026-11-14). |

@@ -1,7 +1,8 @@
 # Chapter 7 — shapes for decisions over several streams
 
-Status: **decided** by the maintainer on 2026-11-14, nothing built yet in
-the tutorial workspace. It replaces the proposal of 2026-11-12 ("variant
+Status: **decided** by the maintainer on 2026-11-14 and **built** the same
+day in the tutorial workspace (flow 1 and the static view it needs; see
+"As built" at the end). It replaces the proposal of 2026-11-12 ("variant
 A", in the git history of this file). That proposal was reviewed twice
 (a code review of the file, a second agent's review of the follow-up)
 and probed in a throw-away workspace; what changed and why is in
@@ -205,9 +206,8 @@ In the throw-away workspace "zz probe DCB fit for Millbrook":
 `validate_model` reports no finding apart from the missing context
 mapping in the probe, which the tutorial has.
 
-**Not probed:** `esdm lint` on the export (no package found, question L1
-in `docs/plan.md`); the reader facts, `fees` and `catalogue` in the new
-shape; flow 1 rebuilt.
+`esdm lint` runs later in the pipeline (L1, maintainer 2026-11-14); it
+was not run on the probe.
 
 ## What it does to the notes on the model
 
@@ -223,10 +223,67 @@ shape; flow 1 rebuilt.
 | Gap 7, time | resolved: automation over a view; the schedule is in the actor's responsibilities |
 | Asymmetry copies and readers | resolved: both arrive by policy into an aggregate of `lending` |
 
-## Next
+## As built (2026-11-14)
 
-1. Rebuild flow 1 in the tutorial workspace in this shape; then flows 2
-   to 4 and the variants.
-2. Mark the deciding slices as scenarios.
-3. Resolve the notes with a comment that points here.
-4. Save versions, export, and run `esdm lint` once L1 is answered.
+Studio versions: `ch07-flow1-before-decision-shapes` (before),
+`ch07-flow1-decision-shapes` (after). `validate_model` reports nothing.
+
+**Names**, fixed while building:
+
+| Context | Element | Kind |
+|---|---|---|
+| lending | `checkout`, `reservation` | DCB |
+| lending | `loan`, `reader` | aggregate (new) |
+| lending | `reserve-copy`, `cancel-reservation`, `expire-reservation` | commands of `reservation` |
+| lending | `note-card-validity`, `note-card-block`, `note-card-unblock`, `note-researcher-status` | commands of `reader` |
+| lending | `card-validity-noted`, `card-block-noted`, `card-unblock-noted`, `researcher-status-noted` | events of `reader` |
+| domain | `take-in-member-registration`, `take-in-card-renewal`, `take-in-card-block`, `take-in-card-unblock`, `take-in-researcher-status` | policies, owner lending |
+| lending | `record-damage` | command of `copy` |
+| lending | `open-loans`, `find-open-loan` | read model, query |
+| fees | `fee-assessor` | system actor |
+| fees | `returns-to-assess`, `find-returns-to-assess` | read model, query |
+| fees | `find-replacement-price` renamed `find-replacement-prices` | query |
+| catalogue | `title-registration`, `isbn-correction` | DCB |
+| catalogue | `correct-isbn`, `isbn-corrected` | command, event |
+| catalogue | `titles`, `find-titles` | read model, query |
+
+Removed: the policy `assess-fine-on-return`; the invariants of `copy`
+(lending) that moved to the boundaries; `isbn-once-in-catalogue` on
+`title`; `title-in-catalogue` on `copy` (catalogue).
+
+**Settled while building:**
+
+- `check-out-copy` carries `member-id` instead of `card-number`; the desk
+  finds it in `reader-standing` (slice 6).
+- `return-copy` carries the `loan-id` from `open-loans` (new slice 18a).
+  A damage found at check-in is a second command, `record-damage`, on the
+  copy; the loan and the copy each keep one writer.
+- The ISBN correction needs the `title-id`, which `add-title` does not
+  have yet, so it is a second boundary `isbn-correction` with its own
+  command `correct-isbn`; its event names the previous ISBN.
+  `correct-title-details` no longer changes the ISBN.
+- The recount carries one price per title of a running loan (`prices`);
+  `accounts-with-running-fines` lists the running loans with their titles,
+  `overdue-loan-recorded` carries the title.
+- The checkout does not read the overdue loans of the reader (C-14 stops
+  reservations, not loans); the reservation does.
+
+**Flow 1**, now 33 slices. New: 1b (the title is picked), 3a and 3b (copy
+4712 registered and taken in, so slices 17 and 23 have a copy lending
+knows), 5b, 16b and 22b (the card facts taken in), 14b and 18c (the price
+read), 18a (the open loan found), 18b (the return on the fee-assessor's
+list). No slice name carries `[?]` any more. Marked as scenarios: 7, 15,
+17, 18, 19, 21 and 23; the feature of `reader-account` adds the two other
+outcomes of the €10 line (`recount-stays-at-or-below-ten-euro`,
+`payment-leaves-amount-above-ten-euro`).
+
+**Notes:** each of the nine notes has a comment that says how it is
+answered, as a proposal. Deciding them is the maintainer's call.
+
+**Still open:**
+
+- Scenarios for `place-hold` and `lift-hold` (card-blocked only for the
+  first hold) with the membership feature.
+- Flows 2 to 4 and the variants; the reservation boundary is built but no
+  flow tells it yet.
+- Exports to `model/esdm/` at the end of the chapter.

@@ -73,3 +73,29 @@ representable* (see plan, chapter 7, step 10).
   workspace answers questions that reading the guidance leaves open.
 - Still open: `esdm lint` (L1); the rebuild of flow 1.
 
+## Step 3b — flow 1 rebuilt in the decided shapes
+
+- 2026-11-14: maintainer: `esdm lint` runs later in the pipeline (L1).
+- 2026-11-14: static view rebuilt, then flow 1. How: version saved first;
+  the elements that change parent (the loan events, the reservation
+  events, `check-out-copy`, `return-copy`, `mark-loan-overdue`,
+  `add-title`) deleted and brought back with `apply_esdm` under their new
+  parent with the same id, so notes and slices kept their references;
+  new elements created with `apply_esdm` in batches; slices patched,
+  ten new slices inserted. Details and names in
+  `docs/logs/ch07-decision-shapes.md`, "As built".
+- What failed: a rejection pointed to an invariant id that `apply_esdm`
+  had regenerated (tool gap 28); `create_node` sorted the fields of a
+  JSON Schema object (tool gap 30); descriptions cannot be patched (tool
+  gap 29). A dry run before each `apply_esdm` doubled the payload for
+  nothing when the files were already checked; one run is enough.
+- Found while building: slices 17 and 23 used copy 4712, which flow 1 had
+  never registered (the code review's finding 7); slices 3a and 3b add it.
+- The nine notes got a comment each, as a proposal; none is resolved.
+  The version label's description says "9 marked as scenarios"; it is 7
+  marked slices plus 2 scenarios of our own.
+- Lessons for the skill: change parents with delete plus `apply_esdm` and
+  the same id; read invariant ids back after every apply; give every
+  boundary slice its `consulted` list by hand, it is what the derived
+  scenario takes as Given.
+

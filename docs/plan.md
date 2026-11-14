@@ -452,8 +452,8 @@ Schnitt“, auch wenn Studio keine Gesamtsicht über alle Flows hat.
    Trifft eins zu: **Halt**, Befund vorbereiten, nicht selbst nach Phase 2.
 7. **Übersicht der Grenzen** aus dem Modell erstellen (siehe oben).
 8. **Modell sauber machen:** `validate_model` ohne Befund, kein Knoten
-   draft; `export_esdm` nach `model/esdm/`; `esdm lint` auf den Export, wenn
-   das Werkzeug verfügbar ist (offen, siehe unten);
+   draft; `export_esdm` nach `model/esdm/`; `esdm lint` läuft später in
+   der Pipeline (L1, entschieden 2026-11-14);
    `scripts/check_model.py`; `save_version` `ch07-model-scope`.
 9. **Kapiteltext** `chapters/07-modelling-the-scope.md`, geschrieben mit
    Flows und Export offen, jeder Satz gegen den Brief geprüft; dann
@@ -502,10 +502,9 @@ Kontexten braucht). Findet der Agent ihn?
 **Ende von Phase 5:** du nimmst das Modell für den Scope ab; danach
 Kapitel 9 (Technik, G2).
 
-**Offen für dich (blockiert nichts vor Kapitel 7, Schritt 8):** Wo liegt
-`esdm lint`? Studio nennt es, ein Paket dafür habe ich weder in npm noch
-in PyPI gefunden. Ohne das Werkzeug heißt „sauber gelintet“:
-`validate_model` ohne Befund, nichts draft, `scripts/check_model.py` grün.
+**`esdm lint`** (L1, Maintainer 2026-11-14): läuft später in der Pipeline,
+nicht in Phase 5. Bis dahin heißt „sauber“: `validate_model` ohne Befund,
+nichts draft, `scripts/check_model.py` grün.
 
 ### Erweiterungen — nach G5
 
@@ -671,7 +670,7 @@ mit gleichnamigen Versionen; öffentlicher Read-only-Link pro Stand.
 | S1 | Liefer-Scope: welche Szenarien im ersten Inkrement | G6 | **entschieden** 2026-10-26: Option 3 (A, B, C, D, E1–E3, G1, J1), kein Go-live neben LibTrack, CityPay später, C-15 draußen |
 | A1 | REST an den Außenkanten (ADR 10) | G2 | am 2026-10-25 angenommen (#17); **wieder offen** seit 2026-10-28 (Maintainer: Technik, kein Vorgriff); ADR 10 `proposed` als Vorlage |
 | P5 | Detailplan Phase 5 (§5) | — | **entschieden** 2026-10-28 (Maintainer, im Gespräch; PR #21); Example Mapping am selben Tag gestrichen |
-| L1 | Wo liegt `esdm lint`? | — | offen, Frage an den Maintainer; bis dahin `validate_model` und `scripts/check_model.py` |
+| L1 | Wo liegt `esdm lint`? | — | **entschieden** 2026-11-14 (Maintainer): läuft später in der Pipeline; bis dahin `validate_model` und `scripts/check_model.py` |
 | T1 | Java-, Spring-Boot-, Modulith-Versionen | G2 | offen |
 | T2 | Event-Store-Ansatz (Vorschlag: von Hand, Decider) | G2 | offen |
 | T3 | Anbindung und Technik der Frontends (Vorschlag REST, ADR 10; Gegenoption Thymeleaf + htmx) | G2 | offen |
