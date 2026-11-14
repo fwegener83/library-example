@@ -101,3 +101,11 @@ representable* (see plan, chapter 7, step 10).
 - 2026-11-14: maintainer: close every note that has a solution. Eight
   resolved as adopted, with the proposal chosen; the note on
   `reader-account` stays open for its second question (chapter 8).
+- 2026-11-14: maintainer: some read models lack an actor, and there are
+  no scenarios. Done: `branch-librarian` added in membership and
+  catalogue for slices 12 and 13; slice 4 removed (nobody read the prices
+  then); 30 of 32 slices marked as scenarios with an answer for every
+  query (42 derived scenarios, plus the 2 own ones). Version
+  `ch07-flow1-scenarios`. Lesson for the skill: mark every slice that
+  is not a repetition as soon as it is built, and give every read-model
+  slice its actor; a read nobody does is not a step of the story.

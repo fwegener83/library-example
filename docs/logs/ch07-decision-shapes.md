@@ -268,13 +268,19 @@ Removed: the policy `assess-fine-on-return`; the invariants of `copy`
 - The checkout does not read the overdue loans of the reader (C-14 stops
   reservations, not loans); the reservation does.
 
-**Flow 1**, now 33 slices. New: 1b (the title is picked), 3a and 3b (copy
+**Flow 1**, now 32 slices (slice 4, a read of `replacement-prices` that
+no actor did, was removed on 2026-11-14; 14b and 18c show the same view
+with the actor who reads it). New: 1b (the title is picked), 3a and 3b (copy
 4712 registered and taken in, so slices 17 and 23 have a copy lending
 knows), 5b, 16b and 22b (the card facts taken in), 14b and 18c (the price
 read), 18a (the open loan found), 18b (the return on the fee-assessor's
-list). No slice name carries `[?]` any more. Marked as scenarios: 7, 15,
-17, 18, 19, 21 and 23; the feature of `reader-account` adds the two other
-outcomes of the €10 line (`recount-stays-at-or-below-ten-euro`,
+list). No slice name carries `[?]` any more. Every read-model slice has an actor
+(new: `branch-librarian` in membership and catalogue, for the staff page
+of the morning list, ADR 8). Every slice except the repetitions 3a and 3b
+is marked as a scenario, and every query has its answer: 18 command slices
+give one scenario each, 12 read-model slices a projection test and a
+query test each, 42 in all. The feature of `reader-account` adds the two
+other outcomes of the €10 line (`recount-stays-at-or-below-ten-euro`,
 `payment-leaves-amount-above-ten-euro`).
 
 **Notes:** each of the nine notes has a comment that says how it is
@@ -284,6 +290,11 @@ for its second question (a list of loans in one account per reader,
 chapter 8).
 
 **Still open:**
+
+- Refusals for the invariants flow 1 does not reach (copy not known,
+  copy not on the shelf, card expired, restricted copy, the reservation
+  rules, a loan returned twice): they come with the variants of the
+  storylines and flows 2 to 4.
 
 - Scenarios for `place-hold` and `lift-hold` (card-blocked only for the
   first hold) with the membership feature.
