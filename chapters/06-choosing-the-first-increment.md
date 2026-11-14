@@ -116,7 +116,7 @@ Option 3 and F, G2, H, I, K.
 
 * **Gate G6 is closed** (2026-10-26). The chapters on the flows and contracts and on the detailed modelling can start.
 * The skill `plan-scope` exists and was used here for the first time. A fresh agent reviewed this chapter and found errors in the first version (among them a wrong statement about how fines are handled today); the skill now asks for a column of needs, a check that each option contains what its members need, and a line on the system being replaced.
-* The accepted candidates are the list of scenarios that the chapters 7 to 10 cover. Each of those chapters says which of them it models. Chapter 7 (flows and contracts) comes first.
+* The accepted candidates are the list of scenarios that chapter 7 models in DDD Studio, across the contexts they touch.
 
 ## Decisions in this chapter
 
@@ -127,7 +127,7 @@ Option 3 and F, G2, H, I, K.
   * **LibTrack:** the first increment does not go live beside LibTrack. Each increment is complete as software; the cut-over is a later decision.
   * **CityPay:** postponing E4 is accepted; until it is built, a payment in `fees` means "received" only, and C-26 stays open. C-02 is not reversed.
   * **C-15** (the waiting line for books that are out): not in the first increment (recorded in the [clarification log](../requirements/clarifications.md)).
-* **Business:** C-15 as above. The parked C-11, C-12 and C-14 are decided when `lending` is modelled (chapter 8).
+* **Business:** C-15 as above. The parked C-11, C-12 and C-14 are decided when `lending` is modelled (chapter 7).
 * **Architecture:** none.
 
 [^adr10]: When this chapter was written, ADR 10 had settled that a front end asks over REST. The maintainer reopened ADR 10 on 2026-10-28; how a front end reaches a module is decided at gate G2. The candidates and options of this chapter do not depend on it.
