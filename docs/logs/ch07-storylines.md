@@ -25,6 +25,8 @@ Each one has its reason here; the retrospective rates how it fitted.
    so the read model `reader-standing` projects them directly. *Rejected:*
    a policy and a *reader* aggregate in `lending` that would only copy
    the fields (an aggregate without a rule of its own).
+   *Revised 2026-11-14 (maintainer): the membership facts reach `lending` by policies into events of a thin aggregate `reader`; `reader-standing` projects those events. See `docs/logs/ch07-decision-shapes.md`.*
+
 3. **Checkout and reservation are decided by the copy, which consults
    the reader's standing.** The rules belong to two things at once: the
    copy (on the shelf, not reserved for someone else) and the reader
@@ -41,6 +43,8 @@ Each one has its reason here; the retrospective rates how it fitted.
    (as in ddd-by-examples/library). It needs compensation events for a
    case the desk cannot produce for a checkout (the copy is in the
    reader's hand) and that is rare for a reservation.
+   *Revised 2026-11-14 (maintainer): a DCB `checkout` and a DCB `reservation` decide; a new aggregate `loan` is opened by the checkout; reservations are free-standing events; `copy` keeps only the physical copy. See `docs/logs/ch07-decision-shapes.md`.*
+
 4. **The morning run is a system actor that reads a to-do list.** C-34:
    one run a day, not a timer per loan. In each context it sees a read
    model of what is due (loans due for overdue, reservations to expire,
@@ -66,6 +70,8 @@ Each one has its reason here; the retrospective rates how it fitted.
    on the catalogue's title events. The reader's account reads it when it
    fixes a charge (C-38). Studio has no reference from an aggregate to a
    read model it consults; the description says it.
+   *Revised 2026-11-14 (maintainer): the price stays in the read model; a system actor reads it and puts it into `assess-late-fine` (automation over a view), replacing the policy of step 19. The cap stays an invariant of the account. See `docs/logs/ch07-decision-shapes.md`.*
+
 8. **Identifiers (ADR 7 left this to the modelling of `catalogue`):**
    a title gets an identifier from `catalogue` (`title-id`), the ISBN is
    an attribute (some local history has none); a copy is identified by
