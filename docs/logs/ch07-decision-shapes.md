@@ -278,7 +278,10 @@ outcomes of the €10 line (`recount-stays-at-or-below-ten-euro`,
 `payment-leaves-amount-above-ten-euro`).
 
 **Notes:** each of the nine notes has a comment that says how it is
-answered, as a proposal. Deciding them is the maintainer's call.
+answered. On the maintainer's request (2026-11-14) eight are resolved as
+adopted; the note on `reader-account` and `replacement-prices` stays open
+for its second question (a list of loans in one account per reader,
+chapter 8).
 
 **Still open:**
 

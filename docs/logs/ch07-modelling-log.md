@@ -98,4 +98,6 @@ representable* (see plan, chapter 7, step 10).
   the same id; read invariant ids back after every apply; give every
   boundary slice its `consulted` list by hand, it is what the derived
   scenario takes as Given.
-
+- 2026-11-14: maintainer: close every note that has a solution. Eight
+  resolved as adopted, with the proposal chosen; the note on
+  `reader-account` stays open for its second question (chapter 8).
